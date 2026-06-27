@@ -154,10 +154,21 @@ main{display:block;min-height:60vh}
 .btn-gold:hover{filter:brightness(1.04)}
 .btn-ghost{background:rgba(255,253,248,.08);color:#F3ECDD;border:1px solid rgba(230,206,142,.34)}
 .btn-ghost:hover{background:rgba(255,253,248,.14)}
-.dhero-art{flex:0 1 460px;max-width:46%;margin:0;align-self:stretch;display:flex;align-items:center;pointer-events:none}
-.dhero-art img{width:100%;height:auto;display:block;mix-blend-mode:screen;opacity:.85;
+.dhero-art{flex:0 1 540px;max-width:51%;margin:0;align-self:stretch;display:flex;align-items:center;pointer-events:none;position:relative}
+.dhero-art img{width:100%;height:auto;display:block;mix-blend-mode:screen;opacity:.9;
   -webkit-mask-image:radial-gradient(104% 106% at 60% 45%,#000 26%,rgba(0,0,0,0) 78%);
           mask-image:radial-gradient(104% 106% at 60% 45%,#000 26%,rgba(0,0,0,0) 78%)}
+@property --sweep{syntax:"<angle>";inherits:false;initial-value:0deg}
+.wheel-sweep{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
+  background:conic-gradient(from var(--sweep) at 50% 50%,
+    rgba(255,243,205,0) 0deg, rgba(255,243,205,0) 42deg,
+    rgba(255,236,178,.5) 74deg, rgba(255,250,228,.92) 90deg, rgba(255,236,178,.5) 106deg,
+    rgba(255,243,205,0) 138deg, rgba(255,243,205,0) 360deg);
+  -webkit-mask-image:radial-gradient(closest-side at 50% 50%,transparent 44%,#000 56%,#000 95%,transparent 100%);
+          mask-image:radial-gradient(closest-side at 50% 50%,transparent 44%,#000 56%,#000 95%,transparent 100%);
+  animation:sweepSpin 7s linear infinite}
+@keyframes sweepSpin{to{--sweep:360deg}}
+@media(prefers-reduced-motion:reduce){.wheel-sweep{animation:none;display:none}}
 .spotlight{margin-top:24px;display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
 .spot-card{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
 .spot-card .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep)}
@@ -634,7 +645,7 @@ main{display:block;min-height:60vh}
 .btr-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 
 /* ===== DISCOVER v2 + reusable twinkle ===== */
-.dhero h1{font-size:clamp(26px,3.8vw,43px);line-height:1.14;max-width:680px}
+.dhero h1{font-size:clamp(32px,5vw,54px);line-height:1.12}
 .dhero h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
 .dhero-sub{max-width:600px;margin:15px 0 0;color:#CFC7B5;font-size:14.5px;line-height:1.55}
 .dhero-cta{margin-top:24px}
@@ -1825,9 +1836,9 @@ function renderDiscover(view){
   hero.appendChild(heroStars());
   const hin=el("div",{class:"dhero-in"});
   const txt=el("div",{class:"dhero-text"});
-  txt.appendChild(el("p",{class:"eyebrow",text:"✦  The Birthday Almanac · A celestial map of influence"}));
-  txt.appendChild(el("h1",{html:"Discover the birthdays, signs &amp; hidden <em>patterns</em> behind history's most influential lives."}));
-  txt.appendChild(el("p",{class:"dhero-sub",text:"Explore famous birthdays across time, uncover zodiac patterns, browse historical categories, and find surprising connections between the people who shaped the world."}));
+  txt.appendChild(el("p",{class:"eyebrow",text:"A celestial map of influence"}));
+  txt.appendChild(el("h1",{html:"The Birthday <em>Almanac</em>"}));
+  txt.appendChild(el("p",{class:"dhero-sub",text:"Explore "+HISTORICAL.length+" influential lives across history — famous birthdays, zodiac patterns, and surprising connections between the people who shaped the world."}));
   const cta=el("div",{class:"dhero-cta"});
   cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>setView("zodiac")},[document.createTextNode("♒  Explore the Zodiac")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's birthdays")]));
@@ -1837,6 +1848,7 @@ function renderDiscover(view){
   const art=el("figure",{class:"dhero-art"});
   art.appendChild(el("img",{src:"assets/hero-zodiac.jpg",alt:"Illustrated celestial map of the twelve zodiac signs",loading:"eager",
     onerror:function(){this.closest('.dhero-art').style.display='none';}}));
+  art.appendChild(el("div",{class:"wheel-sweep","aria-hidden":"true"}));
   hin.appendChild(art);hero.appendChild(hin);
   view.appendChild(hero);
 
