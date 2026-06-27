@@ -53,11 +53,11 @@ python3 -m http.server 8000
 
 ## Deployment
 
-The site is a static page, so GitHub Pages serves it straight from the branch —
-no build, no workflow.
+A GitHub Actions workflow (`.github/workflows/deploy.yml`) publishes the site to
+GitHub Pages on every push to `main`.
 
-To enable it: **Settings → Pages → Build and deployment → Source: *Deploy from a
-branch* → Branch: `main` / `/ (root)` → Save**. Within a minute the site is live at
+One-time setup: **Settings → Pages → Build and deployment → Source: *GitHub
+Actions***. After a push, the workflow runs and the site is live at
 `https://<owner>.github.io/<repo>/`.
 
 ## Project structure
