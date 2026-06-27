@@ -231,7 +231,12 @@ main{display:block;min-height:60vh}
 @keyframes svSpin{from{transform:rotate(-150deg) scale(.7)}to{transform:rotate(8deg) scale(1)}}
 @keyframes svGly{0%{opacity:0}55%{opacity:1}100%{opacity:.85}}
 @keyframes svCore{0%{transform:scale(.2);opacity:0}50%{opacity:1}100%{transform:scale(1.5);opacity:0}}
-@media(prefers-reduced-motion:reduce){.surprise-veil,.sv-ring,.sv-gly,.sv-core{animation:none}}
+.sv-label{position:absolute;left:0;right:0;bottom:30%;text-align:center;font-family:var(--mono);font-size:12px;
+  letter-spacing:2.6px;text-transform:uppercase;color:#AEB9E8;transition:opacity .3s var(--ease)}
+.sv-label b{display:block;margin-top:8px;font-family:var(--serif);font-size:24px;letter-spacing:.4px;text-transform:none;
+  color:#FAF4E6;opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.sv-label.show b{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.surprise-veil,.sv-ring,.sv-gly,.sv-core,.sv-label,.sv-label b{animation:none;transition:none}}
 .spotlight{margin-top:24px;display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
 .spot-card{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
 .spot-card .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep)}
@@ -677,6 +682,27 @@ main{display:block;min-height:60vh}
 /* ===== MOTION: reveal + count-up ===== */
 .rise{opacity:0;animation:riseIn .55s var(--ease) forwards;animation-delay:var(--d,0s)}
 @keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* route transition — soft fade as views swap */
+@media(prefers-reduced-motion:no-preference){
+  .view-enter{animation:viewEnter .44s var(--ease)}
+}
+@keyframes viewEnter{from{opacity:.0}to{opacity:1}}
+/* ===== PREMIUM CARDS — lift, soft glow, mouse-reactive highlight ===== */
+.pcard,.spot-card,.bigchip{transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .28s var(--ease)}
+.pcard:hover,.spot-card.click:hover,.bigchip:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-soft)}
+.collcard:hover,.zcard:hover{box-shadow:var(--shadow-lg);border-color:var(--gold-soft)}
+/* category-coloured illuminated edge on person cards */
+.pcard{position:relative;overflow:hidden}
+.pcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;
+  background:var(--cat,transparent);opacity:.0;transition:opacity .28s var(--ease)}
+.pcard:hover::before{opacity:.9}
+/* mouse-reactive radial highlight for the larger glass cards (desktop) */
+.glow-card{position:relative}
+.glow-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  transition:opacity .3s var(--ease);
+  background:radial-gradient(180px 180px at var(--mx,50%) var(--my,50%),rgba(230,206,142,.18),transparent 60%)}
+.glow-card.lit::after{opacity:1}
+@media(hover:none){.glow-card::after{display:none}}
 .dhero{animation:heroGlow .6s var(--ease) both}
 @keyframes heroGlow{from{opacity:0;transform:scale(.992)}to{opacity:1;transform:none}}
 
@@ -706,6 +732,43 @@ main{display:block;min-height:60vh}
 .bt-result .rel-chips .relchip{background:rgba(255,253,248,.08);border-color:rgba(230,206,142,.26);color:#EDE7D8}
 .bt-result .rel-chips .relchip .yr{color:#AEB9E8}
 .btr-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.bt-year{min-width:120px}
+/* rich reveal result — sign card + fact tiles */
+.btr-grid{display:grid;grid-template-columns:minmax(210px,290px) 1fr;gap:16px;margin-bottom:18px}
+.btr-signcard{position:relative;border-radius:var(--radius-lg);padding:20px 20px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:linear-gradient(180deg,rgba(255,253,248,.07),rgba(255,253,248,.02));border:1px solid rgba(230,206,142,.18);overflow:hidden}
+.btr-signcard::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(120% 80% at 50% 0%,rgba(126,156,224,.18),transparent 60%)}
+.btr-signcard.fire::after{background:radial-gradient(120% 80% at 50% 0%,rgba(224,134,90,.2),transparent 60%)}
+.btr-signcard.earth::after{background:radial-gradient(120% 80% at 50% 0%,rgba(159,176,96,.18),transparent 60%)}
+.btr-signcard.water::after{background:radial-gradient(120% 80% at 50% 0%,rgba(126,156,224,.2),transparent 60%)}
+.btr-sc-badge{position:absolute;top:12px;right:14px;font-size:18px;color:var(--gold-soft);opacity:.65;z-index:1}
+.mini-constel{position:relative;z-index:1}
+.btr-sc-name{position:relative;z-index:1;font-family:var(--serif);font-size:24px;color:#FBF4E6;font-weight:600;margin-top:2px}
+.btr-sc-range{position:relative;z-index:1;font-family:var(--mono);font-size:11px;color:#AEB9E8;letter-spacing:1px;margin-top:3px}
+.btr-sc-el{position:relative;z-index:1;font-size:12px;color:#CFC7B5;margin-top:8px}.btr-sc-el b{color:#F3ECDD}
+.btr-traits{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:13px}
+.btr-trait{font-size:11px;color:#D8D2C4;border:1px solid rgba(230,206,142,.22);border-radius:999px;padding:4px 11px}
+.btr-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start}
+.btr-fact{background:rgba(255,253,248,.045);border:1px solid rgba(230,206,142,.14);border-radius:var(--radius);padding:17px 12px;text-align:center;
+  transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
+.btr-fact:hover{transform:translateY(-3px);border-color:rgba(230,206,142,.36);background:rgba(255,253,248,.08)}
+.bf-ic{font-size:21px;line-height:1}
+.bf-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#9FAAD6;margin-top:9px}
+.bf-val{font-family:var(--serif);font-size:17px;color:#FBF4E6;margin-top:4px;line-height:1.2}
+@media(max-width:760px){.btr-grid{grid-template-columns:1fr}.btr-facts{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.btr-facts{grid-template-columns:repeat(2,1fr)}}
+/* reveal-stagger primitives (used by the birthday reveal & elsewhere) */
+@media(prefers-reduced-motion:no-preference){
+  .reveal-pop{animation:revealPop .5s var(--spring) both;animation-delay:calc(var(--i,0)*.045s + .05s)}
+  .reveal-up{animation:revealUp .55s var(--ease) both;animation-delay:.12s}
+}
+@keyframes revealPop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes revealUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* Reveal-my-stars button → glowing orb pulse */
+.bt-go.orbing{animation:orbPulse .65s var(--ease)}
+@keyframes orbPulse{0%{box-shadow:0 0 0 0 rgba(230,206,142,.5)}60%{box-shadow:0 0 36px 8px rgba(230,206,142,.55)}100%{box-shadow:0 0 0 0 rgba(230,206,142,0)}}
+@media(prefers-reduced-motion:reduce){.bt-go.orbing{animation:none}}
 
 /* ===== DISCOVER v2 + reusable twinkle ===== */
 .dhero h1{font-size:clamp(32px,5vw,54px);line-height:1.12}
@@ -817,12 +880,52 @@ main{display:block;min-height:60vh}
   .bar-row{grid-template-columns:62px 1fr 26px}
 }
 
+/* ===== CINEMATIC LOADING INTRO ===== */
+#intro{display:none}
+html.intro-play{overflow:hidden}
+html.intro-play #intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+  background:radial-gradient(130% 120% at 50% 38%,#16243d 0%,#0c1626 44%,#070d18 76%,#04060e 100%)}
+html.intro-play body{overflow:hidden}
+#intro.done{animation:introOut .6s var(--ease) forwards;pointer-events:none}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
+.intro-stage{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px}
+.intro-orbit{position:relative;width:108px;height:108px;margin-bottom:26px}
+.intro-orbit::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(230,206,142,.28);
+  box-shadow:0 0 50px rgba(230,206,142,.18),inset 0 0 26px rgba(230,206,142,.1);animation:introRing 2.6s var(--ease) infinite}
+.intro-orbit span{position:absolute;top:50%;left:50%;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:var(--gold-soft);
+  box-shadow:0 0 12px 2px rgba(230,206,142,.7);animation:introSpin 2.4s linear infinite}
+.intro-orbit span:nth-child(1){animation-delay:0s}
+.intro-orbit span:nth-child(2){animation-delay:-.8s;opacity:.7}
+.intro-orbit span:nth-child(3){animation-delay:-1.6s;opacity:.45}
+@keyframes introSpin{from{transform:rotate(0) translateX(50px) rotate(0)}to{transform:rotate(360deg) translateX(50px) rotate(-360deg)}}
+@keyframes introRing{0%,100%{transform:scale(.92);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+.intro-mark{font-family:var(--serif);font-weight:600;font-size:clamp(26px,5vw,42px);color:#FAF4E6;letter-spacing:.5px;
+  opacity:0;animation:introFade .9s var(--ease) .15s forwards}
+.intro-mark em{font-style:italic;color:var(--gold-soft)}
+.intro-status{margin-top:14px;font-family:var(--mono);font-size:11.5px;letter-spacing:2.6px;text-transform:uppercase;color:#AEB9E8;
+  min-height:16px;opacity:0;animation:introFade .9s var(--ease) .35s forwards}
+.intro-bar{margin-top:22px;width:188px;max-width:60vw;height:2px;border-radius:2px;background:rgba(230,206,142,.16);overflow:hidden}
+.intro-bar i{display:block;height:100%;width:40%;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
+  animation:introLoad 1.9s var(--ease) infinite}
+@keyframes introFade{to{opacity:1}}
+@keyframes introLoad{0%{transform:translateX(-120%)}100%{transform:translateX(330%)}}
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
 </style>
+<script>/* decide before paint: play the intro only for first-time visitors who allow motion */
+try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){document.documentElement.classList.add("intro-play");}}catch(e){}</script>
 </head>
 <body>
+<div id="intro" aria-hidden="true">
+  <div class="intro-stage">
+    <div class="intro-orbit"><span></span><span></span><span></span></div>
+    <div class="intro-mark">The Birthday <em>Almanac</em></div>
+    <div class="intro-status" id="introStatus">Opening the Almanac</div>
+    <div class="intro-bar"><i></i></div>
+  </div>
+</div>
 <div id="sky" aria-hidden="true"><div class="layer l1"></div><div class="layer l2"></div><div class="shoot"></div></div>
 <a class="skip" href="#main">Skip to main content</a>
 <header class="topbar">
@@ -1964,6 +2067,7 @@ function activeFilterCount(){return activeFilters().length;}
    ============================================================ */
 function personCard(p){
   const card=el("button",{class:"pcard","aria-label":"Open "+p.name,onClick:()=>openPerson(p)});
+  card.style.setProperty("--cat",catColor(p.category));
   const rib=el("div",{class:"ribbon"});rib.style.background=catColor(p.category);card.appendChild(rib);
   const inn=el("div",{class:"pc-in"});
   const tag=el("span",{class:"ctag",text:CATS[p.category].label});tag.style.background=catColor(p.category);
@@ -2194,6 +2298,50 @@ function birthdayTriviaSection(){
   sec.appendChild(grid);
   return sec;
 }
+/* ---- small almanac helpers for the birthday reveal ---- */
+function isLeap(y){return (y%4===0&&y%100!==0)||y%400===0;}
+const _DOY=[0,31,59,90,120,151,181,212,243,273,304,334];
+function dayOfYear(m,d,y){let n=_DOY[m-1]+d;if(y&&isLeap(y)&&m>2)n++;return n;}
+function seasonOf(m,d){const k=m*100+d;
+  if(k>=320&&k<=620)return "Spring";if(k>=621&&k<=922)return "Summer";if(k>=923&&k<=1220)return "Autumn";return "Winter";}
+function seasonIcon(s){return s==="Spring"?"\u{1F33F}":s==="Summer"?"☀️":s==="Autumn"?"\u{1F342}":"❄️";}
+const _CZ=["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
+const _CZE=["\u{1F400}","\u{1F402}","\u{1F405}","\u{1F407}","\u{1F409}","\u{1F40D}","\u{1F40E}","\u{1F410}","\u{1F412}","\u{1F413}","\u{1F415}","\u{1F416}"];
+function chineseZodiac(y){return _CZ[((y-4)%12+12)%12];}
+function chineseZodiacIcon(y){return _CZE[((y-4)%12+12)%12];}
+function hexToRgb(h){h=h.replace('#','');const n=parseInt(h,16);return (n>>16&255)+","+(n>>8&255)+","+(n&255);}
+const ELEMENT_GLOW={Fire:"#E0865A",Earth:"#9FB060",Air:"#7FB5E0",Water:"#7E9CE0"};
+/* draw a sign's asterism into a canvas with a constellation line-draw animation */
+function miniConstellation(sign,size){
+  const cv=el("canvas",{class:"mini-constel","aria-hidden":"true"});
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  cv.width=Math.round(size*dpr);cv.height=Math.round(size*dpr);cv.style.width=size+"px";cv.style.height=size+"px";
+  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);
+  const data=CONSTELLATIONS[sign];if(!data)return cv;
+  const pad=size*0.18,span=(size-2*pad)/2,cx=size/2,cy=size/2;
+  const pts=data.stars.map(s=>[cx+s[0]*span,cy+s[1]*span,s[2]]);
+  const glow=ELEMENT_GLOW[ZMETA[sign].element]||"#E6CE8E",rgb=hexToRgb(glow);
+  const segs=data.lines,reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  function draw(prog){
+    ctx.clearRect(0,0,size,size);
+    const shown=prog*segs.length;
+    ctx.lineWidth=1.3;ctx.lineCap="round";ctx.strokeStyle="rgba("+rgb+",0.55)";ctx.beginPath();
+    for(let i=0;i<segs.length;i++){const a=pts[segs[i][0]],b=pts[segs[i][1]];
+      if(i+1<=Math.floor(shown)){ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);}
+      else if(i<shown){const f=shown-i;ctx.moveTo(a[0],a[1]);ctx.lineTo(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f);}}
+    ctx.stroke();
+    for(let k=0;k<pts.length;k++){const p=pts[k],r=1.5+p[2]*1.5,al=Math.min(1,prog*1.5);
+      const g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3);
+      g.addColorStop(0,"rgba(255,250,236,"+al+")");g.addColorStop(0.4,"rgba("+rgb+","+(al*0.7)+")");g.addColorStop(1,"rgba("+rgb+",0)");
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p[0],p[1],r*3,0,6.2832);ctx.fill();
+      ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(p[0],p[1],r*0.6,0,6.2832);ctx.fill();}
+  }
+  if(reduce){draw(1);return cv;}
+  let start=null;const dur=1100;
+  function step(ts){if(start==null)start=ts;const p=Math.min(1,(ts-start)/dur);const e=1-Math.pow(1-p,3);draw(e);if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+  return cv;
+}
 function buildBirthdayTool(){
   const saved=STORE.get("bday",null);
   const card=el("section",{class:"bday-tool"});
@@ -2208,35 +2356,62 @@ function buildBirthdayTool(){
   function fillDays(m){dSel.innerHTML="";const dim=DIM[m-1];for(let d=1;d<=dim;d++)dSel.appendChild(el("option",{value:String(d),text:String(d)}));}
   fillDays(1);
   mSel.addEventListener("change",()=>fillDays(+mSel.value));
+  const ySel=el("select",{class:"bt-sel bt-year","aria-label":"Birth year (optional)"});
+  ySel.appendChild(el("option",{value:"",text:"Year ·  optional"}));
+  const CUR_Y=new Date().getFullYear();
+  for(let y=CUR_Y;y>=1900;y--)ySel.appendChild(el("option",{value:String(y),text:String(y)}));
   const btn=el("button",{class:"btn btn-gold bt-go",text:"Reveal my stars  ✨"});
-  form.append(mSel,dSel,btn);inner.appendChild(form);
+  form.append(mSel,dSel,ySel,btn);inner.appendChild(form);
   const result=el("div",{class:"bt-result"});inner.appendChild(result);
-  function reveal(m,d){
-    STORE.set("bday",{m,d});
+  function fact(lab,val,icon){const f=el("div",{class:"btr-fact reveal-pop"});
+    f.appendChild(el("div",{class:"bf-ic",text:icon}));
+    f.appendChild(el("div",{class:"bf-lab",text:lab}));
+    f.appendChild(el("div",{class:"bf-val",text:val}));return f;}
+  function reveal(m,d,y){
+    STORE.set("bday",{m,d,y:y||null});
     const z=zodiac(m,d);if(!z){result.innerHTML="";return;}
-    const meta=ZMETA[z.sign];const ppl=signPeople(z.sign);
+    const meta=ZMETA[z.sign];const ppl=signPeople(z.sign);const bm=BIRTH_MONTH[m];
     const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+    const season=seasonOf(m,d);
     result.innerHTML="";
-    const head=el("div",{class:"btr-head "+meta.element.toLowerCase()});
-    head.appendChild(el("div",{class:"btr-sym",text:z.sym}));
-    head.appendChild(el("div",{},[el("div",{class:"btr-name",text:z.sign+" — "+meta.sub}),el("div",{class:"btr-meta",text:meta.element+" · "+meta.modality+" · ruled by "+meta.planet+" · "+meta.range})]));
-    result.appendChild(head);
-    result.appendChild(el("p",{class:"btr-about",text:meta.about}));
-    result.appendChild(el("div",{class:"btr-line",html:"You share <b>"+z.sign+"</b> with <b>"+ppl.length+"</b> influential figures in the almanac."}));
+    const grid=el("div",{class:"btr-grid"});
+    /* LEFT — sign card with animated constellation */
+    const sc=el("div",{class:"btr-signcard "+meta.element.toLowerCase()});
+    sc.appendChild(el("div",{class:"btr-sc-badge",text:z.sym}));
+    sc.appendChild(miniConstellation(z.sign,200));
+    sc.appendChild(el("h3",{class:"btr-sc-name",text:z.sign}));
+    sc.appendChild(el("div",{class:"btr-sc-range",text:meta.range}));
+    sc.appendChild(el("div",{class:"btr-sc-el",html:"<b>"+meta.element+"</b> · "+meta.modality+" · ruled by "+meta.planet}));
+    const traits=el("div",{class:"btr-traits"});meta.traits.split(" · ").forEach(t=>traits.appendChild(el("span",{class:"btr-trait",text:t})));
+    sc.appendChild(traits);
+    grid.appendChild(sc);
+    /* RIGHT — fact tiles */
+    const facts=el("div",{class:"btr-facts"});
+    facts.appendChild(fact("Birthstone",bm.stone,"\u{1F48E}"));
+    facts.appendChild(fact("Birth flower",bm.flower,"\u{1F33C}"));
+    facts.appendChild(fact("Day of year",dayOfYear(m,d,y)+" / "+(y&&isLeap(y)?366:365),"\u{1F4C5}"));
+    facts.appendChild(fact("Season",season,seasonIcon(season)));
+    facts.appendChild(fact("Famous twins",twins.length+(twins.length===1?" found":" found"),"⭐"));
+    if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y),chineseZodiacIcon(y)));
+    else facts.appendChild(fact("Ruling planet",meta.planet,"\u{1FA90}"));
+    grid.appendChild(facts);
+    result.appendChild(grid);
+    result.appendChild(el("p",{class:"btr-about reveal-up",text:meta.about}));
+    result.appendChild(el("div",{class:"btr-line reveal-up",html:"You share <b>"+z.sign+"</b> with <b>"+ppl.length+"</b> influential figures in the almanac."}));
     if(twins.length){
       result.appendChild(el("div",{class:"btr-sub",text:"Your famous birthday twins · "+MONTHS[m-1]+" "+d}));
-      const chips=el("div",{class:"rel-chips"});twins.slice(0,8).forEach(p=>chips.appendChild(relChip(p)));result.appendChild(chips);
+      const chips=el("div",{class:"rel-chips"});twins.slice(0,8).forEach((p,i)=>{const c=relChip(p);c.classList.add("reveal-pop");c.style.setProperty("--i",i);chips.appendChild(c);});result.appendChild(chips);
     }else{
       result.appendChild(el("div",{class:"btr-sub",text:"No exact twin in the almanac yet — meet some famous "+signPlural(z.sign)}));
-      const chips=el("div",{class:"rel-chips"});featuredOf(ppl,8).forEach(p=>chips.appendChild(relChip(p)));result.appendChild(chips);
+      const chips=el("div",{class:"rel-chips"});featuredOf(ppl,8).forEach((p,i)=>{const c=relChip(p);c.classList.add("reveal-pop");c.style.setProperty("--i",i);chips.appendChild(c);});result.appendChild(chips);
     }
-    const acts=el("div",{class:"btr-acts"});
-    acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;state.view="zodiac";window.scrollTo({top:0});render();}},[document.createTextNode("Explore all "+signPlural(z.sign)+" →")]));
+    const acts=el("div",{class:"btr-acts reveal-up"});
+    acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;state.view="zodiac";window.scrollTo({top:0});render();}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
     if(twins.length)acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>openDay(m,d,twins)},[document.createTextNode("Open "+MONTHS[m-1]+" "+d)]));
     result.appendChild(acts);
   }
-  btn.addEventListener("click",()=>reveal(+mSel.value,+dSel.value));
-  if(saved&&saved.m){mSel.value=String(saved.m);fillDays(saved.m);dSel.value=String(saved.d);reveal(saved.m,saved.d);}
+  btn.addEventListener("click",()=>{btn.classList.add("orbing");setTimeout(()=>btn.classList.remove("orbing"),650);reveal(+mSel.value,+dSel.value,+ySel.value||null);});
+  if(saved&&saved.m){mSel.value=String(saved.m);fillDays(saved.m);dSel.value=String(saved.d);if(saved.y)ySel.value=String(saved.y);reveal(saved.m,saved.d,saved.y||null);}
   card.appendChild(inner);return card;
 }
 function centuryOrder(list){
@@ -2590,7 +2765,7 @@ function renderZodiac(view){
 }
 function zodiacCard(sign){
   const m=ZMETA[sign];const ppl=signPeople(sign);const tc=topCatOf(ppl);
-  const card=el("button",{class:"zcard "+m.element.toLowerCase(),"aria-label":"Explore "+sign,onClick:()=>{state.zSign=sign;state.view="zodiac";window.scrollTo({top:0});render();}});
+  const card=el("button",{class:"zcard glow-card "+m.element.toLowerCase(),"aria-label":"Explore "+sign,onClick:()=>{state.zSign=sign;state.view="zodiac";window.scrollTo({top:0});render();}});
   card.appendChild(el("div",{class:"z-sym",text:signSym(sign)}));
   card.appendChild(el("div",{class:"z-name",text:sign}));
   card.appendChild(el("div",{class:"z-sub",text:m.sub+" · "+m.range}));
@@ -2705,7 +2880,7 @@ function renderCollections(view){
 }
 function collectionCard(c){
   const ppl=collectionPeople(c.id);
-  const card=el("button",{class:"collcard","aria-label":"Open "+c.title,onClick:()=>{state.collectionId=c.id;state.view="collections";window.scrollTo({top:0});render();}});
+  const card=el("button",{class:"collcard glow-card","aria-label":"Open "+c.title,onClick:()=>{state.collectionId=c.id;state.view="collections";window.scrollTo({top:0});render();}});
   const top=el("div",{class:"coll-top"});
   top.appendChild(el("div",{class:"coll-ic",text:c.icon}));
   top.appendChild(el("div",{class:"coll-n",text:ppl.length+" people"}));
@@ -2784,9 +2959,11 @@ function renderTimeline(view){
 function renderPatterns(view){
   view.innerHTML="";
   const list=current();
-  const head=el("div",{class:"viewhead"});
-  head.appendChild(el("h1",{text:"Patterns"}));
-  head.appendChild(el("div",{class:"lede",text:"How "+list.length+" lives in view spread across time, sign, field and place. Click any bar to filter."}));
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Birthday gravity"}));
+  head.appendChild(el("h1",{text:"Cosmic Patterns"}));
+  head.appendChild(el("div",{class:"lede",text:"Every day has a gravity. Some dates pull more history toward them. See how "+list.length+" lives in view cluster across time, sign, field and place — tap any bar to follow the pull."}));
   view.appendChild(head);
   if(!list.length){view.appendChild(emptyState());return;}
   /* interactive showpiece */
@@ -3130,8 +3307,11 @@ function surprise(){
     g.style.transform="rotate("+(i*30)+"deg) translateY(-78px)";
     g.style.animationDelay=(i*0.03).toFixed(2)+"s";ring.appendChild(g);});
   veil.appendChild(ring);veil.appendChild(el("div",{class:"sv-core",text:"✦"}));
+  const label=el("div",{class:"sv-label",text:"The stars selected…"});
+  veil.appendChild(label);
   document.body.appendChild(veil);
-  setTimeout(()=>{veil.classList.add("out");openPerson(p);setTimeout(()=>veil.remove(),340);},720);
+  setTimeout(()=>{label.innerHTML="The stars selected<br><b>"+esc(p.name)+"</b>";label.classList.add("show");},760);
+  setTimeout(()=>{veil.classList.add("out");openPerson(p);setTimeout(()=>veil.remove(),360);},1480);
 }
 function openDay(month,day,ppl){
   modalList=ppl.slice();modalIdx=-1;
@@ -3405,6 +3585,7 @@ function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.
 function render(){
   syncNav();renderSubbar();
   const view=document.getElementById("view");
+  if(!REDUCE){view.classList.remove("view-enter");void view.offsetWidth;view.classList.add("view-enter");}
   if(state.view==="discover")renderDiscover(view);
   else if(state.view==="calendar")renderCalendar(view);
   else if(state.view==="zodiac")renderZodiac(view);
@@ -3482,9 +3663,38 @@ document.addEventListener("keydown",e=>{
 /* deep-link routing: honor the hash on load and on back/forward */
 window.addEventListener("hashchange",()=>{if(location.hash===_lastSetHash)return;applyHash();});
 
+/* cinematic loading intro — first visit only, already gated by html.intro-play */
+function runIntro(){
+  const root=document.documentElement;const intro=document.getElementById("intro");
+  if(!root.classList.contains("intro-play")||!intro){if(intro)intro.remove();return;}
+  try{localStorage.setItem("ba_seen_intro","1");}catch(e){}
+  const statusEl=document.getElementById("introStatus");
+  const phrases=["Opening the Almanac","Aligning the stars","Mapping "+PEOPLE.length+" lives","Charting the constellations"];
+  let i=0;const tick=setInterval(()=>{i++;if(i<phrases.length&&statusEl){statusEl.style.opacity="0";
+    setTimeout(()=>{statusEl.textContent=phrases[i];statusEl.style.opacity="1";},180);}},620);
+  const finish=()=>{clearInterval(tick);intro.classList.add("done");root.classList.remove("intro-play");
+    setTimeout(()=>{if(intro)intro.remove();},650);};
+  const timer=setTimeout(finish,2500);
+  intro.addEventListener("click",()=>{clearTimeout(timer);finish();},{once:true}); // tap to skip
+}
+
+/* mouse-reactive glow on large glass cards (desktop, motion-allowed) */
+if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!REDUCE){
+  let raf=0,cur=null,cx=0,cy=0;
+  document.addEventListener("pointermove",e=>{
+    const card=e.target.closest?e.target.closest(".glow-card"):null;
+    if(card!==cur){if(cur)cur.classList.remove("lit");cur=card;if(card)card.classList.add("lit");}
+    if(!card)return;cx=e.clientX;cy=e.clientY;
+    if(!raf)raf=requestAnimationFrame(()=>{raf=0;if(!cur)return;const r=cur.getBoundingClientRect();
+      cur.style.setProperty("--mx",((cx-r.left)/r.width*100).toFixed(1)+"%");
+      cur.style.setProperty("--my",((cy-r.top)/r.height*100).toFixed(1)+"%");});
+  },{passive:true});
+}
+
 /* init */
 buildNav();
 if(location.hash&&location.hash.length>2)applyHash();else render();
+runIntro();
 </script>
 </body>
 </html>
