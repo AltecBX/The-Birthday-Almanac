@@ -288,6 +288,63 @@ main{display:block;min-height:60vh}
 .bday-tool.flash{animation:bdayFlash 1.1s var(--ease);opacity:1}
 @keyframes bdayFlash{0%{box-shadow:0 0 0 0 rgba(230,206,142,0),var(--shadow-lg)}30%{box-shadow:0 0 0 3px rgba(230,206,142,.55),0 0 40px rgba(230,206,142,.35)}100%{box-shadow:0 0 0 0 rgba(230,206,142,0),var(--shadow-lg)}}
 @media(prefers-reduced-motion:reduce){.bday-tool.flash{animation:none}}
+
+/* ============================================================
+   CINEMATIC "POP" LAYER  (kinetic reveals, marquee, meridian,
+   magnetic CTAs, button sheen) — inspired by editorial motion
+   sites; gated on motion-allow + desktop where it could cost.
+   ============================================================ */
+/* 1 — scroll-progress meridian: a thin gold horizon line that fills as you descend */
+#meridian{position:fixed;top:0;left:0;height:2px;width:100%;z-index:120;transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,rgba(230,206,142,0),var(--gold-deep) 30%,#FBEFC9 60%,var(--gold-deep) 85%,rgba(230,206,142,0));
+  box-shadow:0 0 12px rgba(230,206,142,.45);pointer-events:none;will-change:transform}
+html[data-theme="dark"] #meridian{box-shadow:0 0 14px rgba(232,209,153,.55)}
+@media(prefers-reduced-motion:reduce){#meridian{display:none}}
+
+/* 2 — kinetic masked headline reveal on section titles (armed by JS only) */
+.kinhead h2{position:relative}
+.kinhead.kin-armed .kin{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em}
+.kinhead.kin-armed .kin>span{display:inline-block;transform:translateY(112%);
+  transition:transform .72s cubic-bezier(.16,1,.3,1)}
+.kinhead.kin-armed.in .kin>span{transform:none}
+.kinhead.kin-armed h2::after{content:"";position:absolute;left:1px;bottom:-7px;height:2px;width:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--gold-deep),rgba(230,206,142,0));transition:width .85s .18s cubic-bezier(.16,1,.3,1)}
+.kinhead.kin-armed.in h2::after{width:42px}
+
+/* 3 — celestial kinetic marquee (the heavens, ticking past) */
+.zmarquee{position:relative;overflow:hidden;margin:-10px 0 30px;padding:11px 0;
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.zm-track{display:inline-flex;align-items:center;gap:30px;white-space:nowrap;will-change:transform;
+  animation:zmScroll 46s linear infinite}
+.zmarquee:hover .zm-track{animation-play-state:paused}
+.zm-item{display:inline-flex;align-items:center;gap:11px;font-family:var(--serif);font-size:16px;
+  letter-spacing:.4px;color:var(--muted)}
+.zm-item .zm-g{font-size:18px;color:var(--gold-deep)}
+.zm-item .zm-star{color:var(--gold-deep);opacity:.6;font-size:11px}
+@keyframes zmScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.zm-track{animation-duration:34s;gap:22px}.zm-item{font-size:14.5px}}
+@media(prefers-reduced-motion:reduce){.zmarquee{display:none}}
+
+/* 4 — button sheen: a soft highlight sweeps across on hover (cheap, all devices) */
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);
+  transform:skewX(-18deg);transition:none}
+.btn-ghost::after,.btn-line::after{background:linear-gradient(105deg,transparent,rgba(230,206,142,.22),transparent)}
+@media(hover:hover) and (pointer:fine){.btn:hover::after{left:140%;transition:left .6s cubic-bezier(.16,1,.3,1)}}
+@media(prefers-reduced-motion:reduce){.btn::after{display:none}}
+
+/* 5 — magnetic CTAs (desktop only; JS sets --mxp/--myp) */
+.btn-magnetic{transition:transform .2s cubic-bezier(.16,1,.3,1)}
+.btn-magnetic.pull{transform:translate(var(--mxp,0),var(--myp,0))}
+@media(prefers-reduced-motion:reduce){.btn-magnetic.pull{transform:none}}
+
+/* hero parallax drift target (JS sets --par); reduced-motion neutralises it */
+.dhero-overlay{will-change:transform}
+@media(prefers-reduced-motion:reduce){.dhero-overlay{transform:none!important}}
+
 /* ===== CONSTELLATION SKY DOME ===== */
 .skydome{position:relative;margin:8px 0 14px;border-radius:20px;overflow:hidden;
   background:radial-gradient(130% 110% at 50% 8%,#16203a 0%,#0c1426 42%,#070b16 72%,#04060e 100%);
@@ -2497,10 +2554,28 @@ function personCard(p){
 }
 function scroller(people){const s=el("div",{class:"scroller"});people.forEach(p=>s.appendChild(personCard(p)));return s;}
 function secHead(title,sub,moreLabel,onMore){
-  const h=el("div",{class:"sec-head"});
-  h.appendChild(el("div",{},[el("h2",{text:title}),sub?el("span",{class:"sub",text:sub}):null]));
+  const h=el("div",{class:"sec-head kinhead"});
+  const h2=el("h2",{},[el("span",{class:"kin"},[el("span",{text:title})])]);
+  h.appendChild(el("div",{},[h2,sub?el("span",{class:"sub",text:sub}):null]));
   if(moreLabel)h.appendChild(el("button",{class:"more",text:moreLabel,onClick:onMore}));
   return h;
+}
+function buildZodiacMarquee(){
+  const wrap=el("div",{class:"zmarquee","aria-hidden":"true"});
+  const track=el("div",{class:"zm-track"});
+  // two identical passes so the -50% loop is seamless
+  for(let pass=0;pass<2;pass++){
+    ZODIAC_ORDER.forEach(name=>{
+      const z=ZODIAC.find(z=>z.sign===name);
+      track.appendChild(el("span",{class:"zm-star",text:"✦"}));
+      track.appendChild(el("span",{class:"zm-item"},[
+        el("span",{class:"zm-g",text:z?z.sym:""}),
+        el("span",{text:name})
+      ]));
+    });
+  }
+  wrap.appendChild(track);
+  return wrap;
 }
 function bigchip(label,icon,count,color,onClick){
   const b=el("button",{class:"bigchip",onClick});
@@ -2616,7 +2691,7 @@ function renderDiscover(view){
   ov.appendChild(el("h1",{class:"dhero-mark",html:"The Birthday <em>Almanac</em>"}));
   ov.appendChild(el("p",{class:"dhero-sub",text:"Explore "+HISTORICAL.length+" influential lives across history — famous birthdays, zodiac patterns, and the constellations that connect the people who shaped the world."}));
   const cta=el("div",{class:"dhero-cta"});
-  cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's Birthdays")]));
+  cta.appendChild(el("button",{class:"btn btn-gold btn-magnetic",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's Birthdays")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>setView("zodiac")},[document.createTextNode("♒  Explore Zodiac")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",text:"\u{1F3B2}  Surprise Me",onClick:surprise}));
   ov.appendChild(cta);
@@ -2624,6 +2699,9 @@ function renderDiscover(view){
   hero.appendChild(ov);
   view.appendChild(hero);
   startHeroSky(sky,hero);
+
+  /* kinetic celestial marquee — the heavens, ticking past */
+  view.appendChild(buildZodiacMarquee());
 
   /* what's your sign? */
   view.appendChild(buildBirthdayTool());
@@ -4212,6 +4290,8 @@ function applyScrollReveal(scope){
     elm.style.setProperty("--rd",(Math.min(sib,8)*0.05)+"s");
     _ioRV.observe(elm);
   });
+  // kinetic masked headline reveals — armed only when motion is allowed
+  scope.querySelectorAll(".kinhead").forEach(h=>{h.classList.add("kin-armed");_ioRV.observe(h);});
 }
 function countUpAll(view){
   if(REDUCE)return;
@@ -4371,23 +4451,55 @@ function runIntro(){
   intro.addEventListener("click",()=>{clearTimeout(timer);finish();},{once:true}); // tap to skip
 }
 
-/* mouse-reactive glow + subtle 3D tilt on large glass cards (desktop, motion-allowed) */
+/* mouse-reactive glow + subtle 3D tilt + magnetic CTAs (desktop, motion-allowed) */
 if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!REDUCE){
   let raf=0,cur=null,cx=0,cy=0;
+  let mraf=0,mcur=null,mx=0,my=0;
   const clear=c=>{c.classList.remove("lit");c.style.transform="";};
+  const drop=b=>{b.classList.remove("pull");b.style.removeProperty("--mxp");b.style.removeProperty("--myp");};
   document.addEventListener("pointermove",e=>{
-    const card=e.target.closest?e.target.closest(".glow-card"):null;
+    const t=e.target;
+    // glass-card glow + tilt
+    const card=t.closest?t.closest(".glow-card"):null;
     if(card!==cur){if(cur)clear(cur);cur=card;if(card)card.classList.add("lit");}
-    if(!card)return;cx=e.clientX;cy=e.clientY;
-    if(!raf)raf=requestAnimationFrame(()=>{raf=0;if(!cur)return;const r=cur.getBoundingClientRect();
-      const px=(cx-r.left)/r.width,py=(cy-r.top)/r.height;
-      cur.style.setProperty("--mx",(px*100).toFixed(1)+"%");
-      cur.style.setProperty("--my",(py*100).toFixed(1)+"%");
-      const rx=((0.5-py)*5).toFixed(2),ry=((px-0.5)*5).toFixed(2);
-      cur.style.transform="perspective(1000px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-4px)";});
+    if(card){cx=e.clientX;cy=e.clientY;
+      if(!raf)raf=requestAnimationFrame(()=>{raf=0;if(!cur)return;const r=cur.getBoundingClientRect();
+        const px=(cx-r.left)/r.width,py=(cy-r.top)/r.height;
+        cur.style.setProperty("--mx",(px*100).toFixed(1)+"%");
+        cur.style.setProperty("--my",(py*100).toFixed(1)+"%");
+        const rx=((0.5-py)*5).toFixed(2),ry=((px-0.5)*5).toFixed(2);
+        cur.style.transform="perspective(1000px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-4px)";});}
+    // magnetic CTA pull
+    const b=t.closest?t.closest(".btn-magnetic"):null;
+    if(b!==mcur){if(mcur)drop(mcur);mcur=b;if(b)b.classList.add("pull");}
+    if(b){mx=e.clientX;my=e.clientY;
+      if(!mraf)mraf=requestAnimationFrame(()=>{mraf=0;if(!mcur)return;const r=mcur.getBoundingClientRect();
+        const dx=Math.max(-1,Math.min(1,(mx-(r.left+r.width/2))/(r.width/2)));
+        const dy=Math.max(-1,Math.min(1,(my-(r.top+r.height/2))/(r.height/2)));
+        mcur.style.setProperty("--mxp",(dx*7).toFixed(1)+"px");
+        mcur.style.setProperty("--myp",(dy*5).toFixed(1)+"px");});}
   },{passive:true});
-  document.addEventListener("pointerleave",()=>{if(cur){clear(cur);cur=null;}},true);
+  document.addEventListener("pointerleave",()=>{if(cur){clear(cur);cur=null;}if(mcur){drop(mcur);mcur=null;}},true);
 }
+
+/* scroll-progress meridian + subtle hero parallax — one shared passive rAF loop */
+(function(){
+  const bar=el("div",{id:"meridian","aria-hidden":"true"});document.body.appendChild(bar);
+  let sraf=0;
+  function update(){
+    sraf=0;const doc=document.documentElement;
+    const max=(doc.scrollHeight-doc.clientHeight)||1;
+    const y=window.scrollY||doc.scrollTop||0;
+    bar.style.transform="scaleX("+Math.min(1,Math.max(0,y/max)).toFixed(4)+")";
+    if(!REDUCE){const ov=document.querySelector(".dhero-overlay");
+      if(ov){const yy=Math.min(y,640);ov.style.transform="translateY("+(yy*0.16).toFixed(1)+"px)";
+        ov.style.opacity=String(Math.max(0,1-yy/560).toFixed(3));}}
+  }
+  function onScroll(){if(!sraf)sraf=requestAnimationFrame(update);}
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  update();
+})();
 
 /* init */
 buildNav();
