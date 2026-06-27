@@ -307,6 +307,27 @@ main{display:block;min-height:60vh}
 .bv{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
 .summary{margin-top:13px;background:var(--gold-wash);border:1px solid var(--gold-soft);border-radius:12px;padding:10px 13px;font-size:12.5px;color:#5b4a1c;line-height:1.45}
 .summary b{font-weight:700}
+/* ===== INTERACTIVE BIRTHDAY HEAT MAP ===== */
+.heatmap-chart{margin-bottom:18px}
+.hm-board{position:relative;margin-top:6px}
+.hm-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.hm-mlab{flex:none;width:34px;font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right}
+.hm-cells{flex:1;display:grid;grid-template-columns:repeat(31,1fr);gap:3px}
+.hm-cell{aspect-ratio:1;border-radius:3px;background:var(--card-3);min-width:0}
+.hm-cell.has{cursor:pointer;transition:transform .12s var(--spring),box-shadow .15s;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.04)}
+.hm-cell.has:hover,.hm-cell.has:focus-visible{transform:scale(1.45);z-index:3;outline:none;box-shadow:0 4px 12px rgba(168,126,46,.4)}
+.hm-cell.hot{box-shadow:0 0 7px 1px rgba(200,140,40,.5)}
+.hm-cell.hot:hover{box-shadow:0 0 12px 2px rgba(200,140,40,.7)}
+.hm-tip{position:absolute;transform:translate(-50%,-100%);background:#0f1722;color:#F3ECDD;border-radius:11px;padding:9px 13px;
+  pointer-events:none;opacity:0;transition:opacity .12s;z-index:6;max-width:240px;box-shadow:var(--shadow-lg);white-space:normal}
+.hm-tip.on{opacity:1}
+.hm-tip::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-top-color:#0f1722}
+.hmt-d{font-family:var(--mono);font-size:11px;color:var(--gold-soft);letter-spacing:.4px}
+.hmt-n{font-size:12.5px;color:#E7E2D4;margin-top:3px;line-height:1.35}
+.hm-legend{display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-top:14px}
+.hm-legend i{width:13px;height:13px;border-radius:3px}
+.hml-t{font-family:var(--mono);font-size:10px;color:var(--faint)}
+@media(max-width:560px){.hm-mlab{width:26px;font-size:10px}.hm-cells{gap:2px}}
 .crowd-row{display:grid;grid-template-columns:64px 1fr 34px;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;border-radius:8px;padding:3px;transition:background .14s}
 .crowd-row:hover{background:var(--card-2)}
 .crowd-row .cd{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-2)}
@@ -2379,16 +2400,119 @@ function renderPatterns(view){
   head.appendChild(el("div",{class:"lede",text:"How "+list.length+" lives in view spread across time, sign, field and place. Click any bar to filter."}));
   view.appendChild(head);
   if(!list.length){view.appendChild(emptyState());return;}
+  /* interactive showpiece */
+  view.appendChild(chartHeatmap(list));
   const grid=el("div",{class:"chart-grid"});
   grid.appendChild(chartMonth(list));
   grid.appendChild(chartZodiac(list));
+  grid.appendChild(chartElement(list));
   grid.appendChild(chartCategory(list));
   grid.appendChild(chartCentury(list));
+  grid.appendChild(chartDecade(list));
   grid.appendChild(chartEra(list));
+  grid.appendChild(chartModality(list));
   grid.appendChild(chartRegion(list));
+  grid.appendChild(chartCountries(list));
+  grid.appendChild(chartGender(list));
   grid.appendChild(chartStatus(list));
   grid.appendChild(chartCrowded(list));
   view.appendChild(grid);
+}
+/* ---- interactive birthday heat map ---- */
+function heatColor(t){const h=44-13*t,s=(55+26*t),l=91-48*t;return "hsl("+h+" "+s.toFixed(0)+"% "+l.toFixed(0)+"%)";}
+function chartHeatmap(list){
+  const ch=el("div",{class:"chart heatmap-chart"});
+  ch.appendChild(el("h3",{text:"The birthday heat map"}));
+  ch.appendChild(el("div",{class:"cap",text:"The whole year at a glance — each day glows by how many influential people share it. Hover to peek, click to open the day."}));
+  const counts={};let mx=0;
+  list.forEach(p=>{if(p.month&&p.day){const k=p.month+"-"+p.day;counts[k]=(counts[k]||0)+1;if(counts[k]>mx)mx=counts[k];}});
+  const board=el("div",{class:"hm-board"});
+  const tip=el("div",{class:"hm-tip"});
+  let busiest=null,busiestN=0;
+  for(let m=1;m<=12;m++){
+    const row=el("div",{class:"hm-row"});
+    row.appendChild(el("div",{class:"hm-mlab",text:MS[m-1]}));
+    const cells=el("div",{class:"hm-cells"});
+    const dim=DIM[m-1];
+    for(let d=1;d<=dim;d++){
+      const n=counts[m+"-"+d]||0;
+      if(n>busiestN){busiestN=n;busiest=[m,d];}
+      const cell=el(n?"button":"div",{class:"hm-cell"+(n?" has":"")});
+      if(n){
+        const t=n/mx;cell.style.background=heatColor(t);
+        if(t>0.66)cell.classList.add("hot");
+        cell.setAttribute("aria-label",MONTHS[m-1]+" "+d+", "+n+(n===1?" figure":" figures"));
+        const show=()=>{const ppl=list.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+          tip.innerHTML="";tip.appendChild(el("div",{class:"hmt-d",text:MONTHS[m-1]+" "+d+" · "+n+(n===1?" figure":" figures")}));
+          tip.appendChild(el("div",{class:"hmt-n",text:ppl.slice(0,4).map(p=>p.name).join(", ")+(ppl.length>4?"…":"")}));
+          tip.classList.add("on");
+          const br=cell.getBoundingClientRect(),pr=board.getBoundingClientRect();
+          tip.style.left=Math.min(Math.max(br.left-pr.left+br.width/2,70),pr.width-70)+"px";
+          tip.style.top=(br.top-pr.top-12)+"px";};
+        cell.addEventListener("mouseenter",show);
+        cell.addEventListener("focus",show);
+        cell.addEventListener("mouseleave",()=>tip.classList.remove("on"));
+        cell.addEventListener("blur",()=>tip.classList.remove("on"));
+        cell.addEventListener("click",()=>{const ppl=list.filter(p=>p.month===m&&p.day===d);openDay(m,d,ppl);});
+      }
+      cells.appendChild(cell);
+    }
+    row.appendChild(cells);board.appendChild(row);
+  }
+  board.appendChild(tip);
+  ch.appendChild(board);
+  const legend=el("div",{class:"hm-legend"});
+  legend.appendChild(el("span",{class:"hml-t",text:"Fewer"}));
+  for(let i=0;i<6;i++){const s=el("i");s.style.background=i===0?"var(--card-3)":heatColor(i/5);legend.appendChild(s);}
+  legend.appendChild(el("span",{class:"hml-t",text:"More"}));
+  ch.appendChild(legend);
+  if(busiest)ch.appendChild(summary("<b>"+MONTHS[busiest[0]-1]+" "+busiest[1]+"</b> burns brightest — shared by <b>"+busiestN+"</b> influential people."));
+  return ch;
+}
+function chartElement(list){
+  const ch=chartCard("Births by element","Fire, Earth, Air & Water. Click to explore a sign.");
+  const cc={};ELEMENTS.forEach(e=>cc[e.key]=list.filter(p=>p.zElement===e.key).length);
+  const mx=Math.max(1,...Object.values(cc));
+  ELEMENTS.forEach(e=>ch.appendChild(barRow(e.key,cc[e.key],mx,elementColor(e.key),()=>{setView("zodiac");})));
+  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
+  ch.appendChild(summary("<b>"+top[0]+"</b> signs are the most common element in view (<b>"+top[1]+"</b>)."));
+  return ch;
+}
+function chartModality(list){
+  const ch=chartCard("Births by quality","Cardinal initiates, Fixed sustains, Mutable adapts.");
+  const order=["Cardinal","Fixed","Mutable"];const cc={Cardinal:0,Fixed:0,Mutable:0};
+  list.forEach(p=>{if(p.zsign)cc[ZMETA[p.zsign].modality]++;});
+  const mx=Math.max(1,...Object.values(cc));
+  order.forEach(k=>ch.appendChild(barRow(k,cc[k],mx,"var(--c-philosophy)",null)));
+  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
+  ch.appendChild(summary("<b>"+top[0]+"</b> signs lead this view, with <b>"+top[1]+"</b> figures."));
+  return ch;
+}
+function chartDecade(list){
+  const ch=chartCard("Births by decade","From 1700 onward — the modern explosion of record.");
+  const cc={};list.forEach(p=>{if(p.birthYear!=null&&p.era!=="BC"&&p.birthYear>=1700){const dec=Math.floor(p.birthYear/10)*10;cc[dec]=(cc[dec]||0)+1;}});
+  const decs=Object.keys(cc).map(Number).sort((a,b)=>a-b);const mx=Math.max(1,...Object.values(cc));
+  decs.forEach(dec=>ch.appendChild(barRow(dec+"s",cc[dec],mx,"var(--c-economists)",null)));
+  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
+  if(top)ch.appendChild(summary("The <b>"+top[0]+"s</b> are the most represented decade (<b>"+top[1]+"</b>)."));
+  return ch;
+}
+function chartCountries(list){
+  const ch=chartCard("Top countries & civilizations","Click a place to filter the almanac.");
+  const cc={};list.forEach(p=>{if(p.country&&p.country!=="Unknown")cc[p.country]=(cc[p.country]||0)+1;});
+  const ent=Object.entries(cc).sort((a,b)=>b[1]-a[1]).slice(0,12);const mx=Math.max(1,...ent.map(e=>e[1]));
+  ent.forEach(([k,n])=>ch.appendChild(barRow(k,n,mx,"var(--c-jurists)",()=>{goWithFilter(f=>f.country=k,"people");})));
+  if(ent.length)ch.appendChild(summary("<b>"+ent[0][0]+"</b> contributes the most figures in view (<b>"+ent[0][1]+"</b>)."));
+  return ch;
+}
+function chartGender(list){
+  const ch=chartCard("Recorded gender balance","A reflection of who history has recorded — and who it overlooked.");
+  const cc={male:0,female:0};list.forEach(p=>{if(p.sex==="male")cc.male++;else if(p.sex==="female")cc.female++;});
+  const mx=Math.max(1,cc.male,cc.female);const tot=cc.male+cc.female;
+  ch.appendChild(barRow("Men",cc.male,mx,"var(--c-presidents)",()=>{goWithFilter(f=>f.gender="male","people");}));
+  ch.appendChild(barRow("Women",cc.female,mx,"var(--c-music)",()=>{goWithFilter(f=>f.gender="female","people");}));
+  ch.appendChild(summary("Women make up <b>"+Math.round(cc.female/Math.max(1,tot)*100)+"%</b> of figures in view — the historical record skews heavily male."));
+  return ch;
 }
 function chartCard(title,cap){const ch=el("div",{class:"chart"});ch.appendChild(el("h3",{text:title}));if(cap)ch.appendChild(el("div",{class:"cap",text:cap}));return ch;}
 function summary(html){return el("div",{class:"summary",html:html});}
@@ -2912,6 +3036,8 @@ document.getElementById("sheetClose").onclick=closeSheet;
 document.getElementById("sheetScrim").onclick=closeSheet;
 document.getElementById("sheetApply").onclick=closeSheet;
 document.getElementById("sheetReset").onclick=()=>{resetAll();};
+/* click the dimmed backdrop (outside the card) to close the modal */
+document.getElementById("scrim").addEventListener("mousedown",e=>{if(e.target===e.currentTarget)closeModal();});
 document.getElementById("devBtn").onclick=()=>{const dp=document.getElementById("devPanel");dp.classList.toggle("open");if(dp.classList.contains("open"))renderDev();};
 
 /* keyboard: escape, focus trap, calendar arrows, modal arrows */
