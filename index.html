@@ -458,6 +458,8 @@ main{display:block;min-height:60vh}
 .z-range{font-family:var(--mono);font-size:11px;color:var(--faint)}
 .z-meta{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-top:4px}
 .z-el{font-weight:700;color:var(--ink-2)}
+.z-sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.6px;color:var(--gold-deep);margin-top:1px}
+.z-traits{font-size:12px;color:var(--muted);margin-top:5px}
 .z-stat{font-size:12.5px;color:var(--muted);margin-top:6px}.z-stat b{color:var(--ink);font-family:var(--serif);font-size:15px}
 .zsign-hero{display:flex;align-items:center;gap:22px;border-radius:var(--radius-xl);padding:30px 32px;color:#F3ECDD;overflow:hidden;position:relative;
   background:radial-gradient(700px 300px at 88% -30%,rgba(120,140,210,.32),transparent 60%),linear-gradient(160deg,#1b2640,#0e1426)}
@@ -470,6 +472,29 @@ main{display:block;min-height:60vh}
 .zh-text .eyebrow{color:#C7CFEC}
 .zh-text h1{font-size:clamp(34px,7vw,52px);color:#FBF4E6}
 .zh-range{font-family:var(--mono);font-size:13px;color:#C7CFEC;margin:6px 0 16px}
+.zh-sub{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--gold-soft);margin:8px 0 16px}
+/* "what this sign is about" card */
+.zabout{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:22px 24px;box-shadow:var(--shadow-sm);
+  margin-bottom:8px;position:relative;overflow:hidden}
+.zabout::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.zabout.fire::before{background:var(--el-fire)}.zabout.earth::before{background:var(--el-earth)}
+.zabout.air::before{background:var(--el-air)}.zabout.water::before{background:var(--el-water)}
+.za-traits{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.6px;color:var(--muted);margin-bottom:11px}
+.za-sub{color:var(--gold-deep);font-weight:600}.za-dot{opacity:.5}
+.za-text{font-size:15.5px;line-height:1.6;color:var(--ink-2);max-width:680px}
+.za-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--hairline-2)}
+.za-k{font-family:var(--mono);font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint)}
+.za-v{font-size:14px;font-weight:600;color:var(--ink-2);margin-top:3px}
+.btr-about{font-size:14px;line-height:1.6;color:#D8D2C4;margin:0 0 14px;max-width:620px}
+/* animated hero starfield (twinkles spontaneously) */
+.dhero-stars{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.dhero-in{position:relative;z-index:1}
+.dhero-star{position:absolute;border-radius:50%;background:#fff;opacity:.12;will-change:opacity,transform;
+  animation:starPulse var(--dur,5s) ease-in-out var(--delay,0s) infinite}
+.dhero-star.gold{background:var(--gold-soft)}
+.dhero-star.blue{background:#bcd0ff}
+@keyframes starPulse{0%,100%{opacity:.1;transform:scale(.65)}50%{opacity:var(--max,1);transform:scale(1);box-shadow:0 0 7px 1px rgba(255,247,224,.55)}}
+@media(prefers-reduced-motion:reduce){.dhero-star{animation:none;opacity:.3}}
 .backlink{border:0;background:transparent;color:var(--gold-deep);font-weight:600;font-size:13.5px;padding:6px 2px;margin-bottom:12px}
 .backlink:hover{text-decoration:underline}
 
@@ -1245,7 +1270,6 @@ main{display:block;min-height:60vh}
   {id:"tycho-brahe",name:"Tycho Brahe",rank:null,category:"science",subCategory:null,birthYear:1546,era:"AD",month:12,day:24,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Danish astronomer and alchemist, 1546 to 1601",bio:"Danish astronomer and alchemist, 1546 to 1601",countryOrCivilization:"Kingdom of Denmark",sourceUrl:"https://en.wikipedia.org/wiki/Tycho_Brahe",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"guglielmo-marconi",name:"Guglielmo Marconi",rank:null,category:"invention",subCategory:null,birthYear:1874,era:"AD",month:4,day:25,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Italian inventor and radio pioneer",bio:"Italian inventor and radio pioneer (1874 to 1937)",countryOrCivilization:"Kingdom of Italy",sourceUrl:"https://en.wikipedia.org/wiki/Guglielmo_Marconi",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"louis-daguerre",name:"Louis Daguerre",rank:null,category:"invention",subCategory:null,birthYear:1787,era:"AD",month:11,day:18,dateStatus:"exact",zodiac:"Scorpio",zodiacSym:"♏",shortDescription:"French scientist, artist and photographer",bio:"French scientist, artist and photographer (1787 to 1851)",countryOrCivilization:"France",sourceUrl:"https://en.wikipedia.org/wiki/Louis_Daguerre",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
-  {id:"tim-berners-lee",name:"Tim Berners-Lee",rank:null,category:"invention",subCategory:null,birthYear:1955,era:"AD",month:null,day:null,dateStatus:"estimated",zodiac:null,zodiacSym:null,shortDescription:"English computer scientist",bio:"English computer scientist (born 1955)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Tim_Berners-Lee",sourceName:"Wikipedia",confidence:"medium",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"rosalind-franklin",name:"Rosalind Franklin",rank:null,category:"science",subCategory:null,birthYear:1920,era:"AD",month:7,day:25,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"British chemist, biophysicist, and X ray crystallographer",bio:"British chemist, biophysicist, and X ray crystallographer (1920 to 1958)",countryOrCivilization:"United Kingdom of Great Britain and Ireland",sourceUrl:"https://en.wikipedia.org/wiki/Rosalind_Franklin",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
   {id:"francis-crick",name:"Francis Crick",rank:null,category:"science",subCategory:null,birthYear:1916,era:"AD",month:6,day:8,dateStatus:"exact",zodiac:"Gemini",zodiacSym:"♊",shortDescription:"British molecular biologist, biophysicist, neuroscientist; co discoverer of the structure of DNA",bio:"British molecular biologist, biophysicist, neuroscientist; co discoverer of the structure of DNA",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Francis_Crick",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"james-watson",name:"James Watson",rank:null,category:"science",subCategory:null,birthYear:1928,era:"AD",month:4,day:6,dateStatus:"exact",zodiac:"Aries",zodiacSym:"♈",shortDescription:"American molecular biologist, geneticist, zoologist and Nobel Laureate",bio:"American molecular biologist, geneticist, zoologist and Nobel Laureate (1928 to 2025)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/James_Watson",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
@@ -1352,18 +1376,30 @@ const ZODIAC=[
   {sign:"Scorpio",sym:"♏",from:[10,23],to:[11,21]},{sign:"Sagittarius",sym:"♐",from:[11,22],to:[12,21]}
 ];
 const ZMETA={
-  Aries:{element:"Fire",modality:"Cardinal",planet:"Mars",range:"Mar 21 – Apr 19"},
-  Taurus:{element:"Earth",modality:"Fixed",planet:"Venus",range:"Apr 20 – May 20"},
-  Gemini:{element:"Air",modality:"Mutable",planet:"Mercury",range:"May 21 – Jun 20"},
-  Cancer:{element:"Water",modality:"Cardinal",planet:"Moon",range:"Jun 21 – Jul 22"},
-  Leo:{element:"Fire",modality:"Fixed",planet:"Sun",range:"Jul 23 – Aug 22"},
-  Virgo:{element:"Earth",modality:"Mutable",planet:"Mercury",range:"Aug 23 – Sep 22"},
-  Libra:{element:"Air",modality:"Cardinal",planet:"Venus",range:"Sep 23 – Oct 22"},
-  Scorpio:{element:"Water",modality:"Fixed",planet:"Pluto",range:"Oct 23 – Nov 21"},
-  Sagittarius:{element:"Fire",modality:"Mutable",planet:"Jupiter",range:"Nov 22 – Dec 21"},
-  Capricorn:{element:"Earth",modality:"Cardinal",planet:"Saturn",range:"Dec 22 – Jan 19"},
-  Aquarius:{element:"Air",modality:"Fixed",planet:"Uranus",range:"Jan 20 – Feb 18"},
-  Pisces:{element:"Water",modality:"Mutable",planet:"Neptune",range:"Feb 19 – Mar 20"}
+  Aries:{element:"Fire",modality:"Cardinal",planet:"Mars",range:"Mar 21 – Apr 19",sub:"The Ram",traits:"Bold · Driven · Pioneering",
+    about:"The zodiac's initiator. Aries charges first into new territory — competitive, courageous and quick to act, happiest when leading the charge."},
+  Taurus:{element:"Earth",modality:"Fixed",planet:"Venus",range:"Apr 20 – May 20",sub:"The Bull",traits:"Steady · Sensual · Determined",
+    about:"Grounded and patient, Taurus values stability, comfort and craft. Slow to start but immovable once committed — they finish what they begin."},
+  Gemini:{element:"Air",modality:"Mutable",planet:"Mercury",range:"May 21 – Jun 20",sub:"The Twins",traits:"Curious · Witty · Adaptable",
+    about:"The communicator of the zodiac. Gemini is endlessly curious, quick-minded and versatile — collecting ideas, words and connections wherever they go."},
+  Cancer:{element:"Water",modality:"Cardinal",planet:"Moon",range:"Jun 21 – Jul 22",sub:"The Crab",traits:"Nurturing · Intuitive · Loyal",
+    about:"Ruled by the Moon, Cancer leads with feeling and memory. Deeply protective of those they love, they build warmth, home and belonging."},
+  Leo:{element:"Fire",modality:"Fixed",planet:"Sun",range:"Jul 23 – Aug 22",sub:"The Lion",traits:"Confident · Generous · Radiant",
+    about:"The natural performer, ruled by the Sun. Leo leads with warmth, pride and generosity — drawn to the spotlight and to lifting others into it."},
+  Virgo:{element:"Earth",modality:"Mutable",planet:"Mercury",range:"Aug 23 – Sep 22",sub:"The Maiden",traits:"Precise · Practical · Helpful",
+    about:"The craftsman of the zodiac. Virgo finds meaning in detail, service and improvement — analytical, modest and quietly devoted to doing things well."},
+  Libra:{element:"Air",modality:"Cardinal",planet:"Venus",range:"Sep 23 – Oct 22",sub:"The Scales",traits:"Diplomatic · Charming · Fair",
+    about:"Ruled by Venus, Libra seeks balance, beauty and harmony. A natural diplomat, weighing every side, drawn to partnership and elegant resolution."},
+  Scorpio:{element:"Water",modality:"Fixed",planet:"Pluto",range:"Oct 23 – Nov 21",sub:"The Scorpion",traits:"Intense · Perceptive · Magnetic",
+    about:"The zodiac's depth-seeker. Scorpio is drawn to truth, transformation and what lies beneath the surface — fiercely loyal and quietly powerful."},
+  Sagittarius:{element:"Fire",modality:"Mutable",planet:"Jupiter",range:"Nov 22 – Dec 21",sub:"The Archer",traits:"Adventurous · Optimistic · Free",
+    about:"The explorer and philosopher. Sagittarius chases meaning, freedom and the far horizon — optimistic, honest and forever aiming higher."},
+  Capricorn:{element:"Earth",modality:"Cardinal",planet:"Saturn",range:"Dec 22 – Jan 19",sub:"The Sea-Goat",traits:"Disciplined · Ambitious · Patient",
+    about:"The builder of the zodiac, ruled by Saturn. Capricorn climbs steadily toward mastery — disciplined, responsible and made for the long game."},
+  Aquarius:{element:"Air",modality:"Fixed",planet:"Uranus",range:"Jan 20 – Feb 18",sub:"The Water-Bearer",traits:"Inventive · Independent · Visionary",
+    about:"The visionary and humanitarian. Aquarius thinks for the future and for the collective — original, independent and unafraid to break the mould."},
+  Pisces:{element:"Water",modality:"Mutable",planet:"Neptune",range:"Feb 19 – Mar 20",sub:"The Fish",traits:"Imaginative · Empathetic · Dreamy",
+    about:"The dreamer of the zodiac. Pisces is attuned to art, emotion and the unseen — compassionate, intuitive and boundlessly imaginative."}
 };
 const ELEMENTS=[
   {key:"Fire",signs:["Aries","Leo","Sagittarius"],blurb:"Bold, driven, expressive"},
@@ -1725,6 +1761,7 @@ function renderDiscover(view){
   view.innerHTML="";
   /* hero */
   const hero=el("div",{class:"dhero"});
+  hero.appendChild(heroStars());
   const hin=el("div",{class:"dhero-in"});
   const txt=el("div",{class:"dhero-text"});
   txt.appendChild(el("p",{class:"eyebrow",text:"A celestial map of influence"}));
@@ -1853,6 +1890,22 @@ function renderDiscover(view){
     el("span",{text:"Built by Jerry Pena"})
   ]));
 }
+function heroStars(){
+  const layer=el("div",{class:"dhero-stars","aria-hidden":"true"});
+  const N=54,rnd=(a,b)=>a+Math.random()*(b-a);
+  for(let i=0;i<N;i++){
+    const r=Math.random();const cls=r<0.18?"gold":r<0.34?"blue":"";
+    const s=rnd(1,2.8);
+    const st=el("i",{class:"dhero-star"+(cls?" "+cls:"")});
+    st.style.left=rnd(0,100).toFixed(2)+"%";st.style.top=rnd(0,100).toFixed(2)+"%";
+    st.style.width=s.toFixed(1)+"px";st.style.height=s.toFixed(1)+"px";
+    st.style.setProperty("--dur",rnd(2.6,6.5).toFixed(2)+"s");
+    st.style.setProperty("--delay",(-rnd(0,8)).toFixed(2)+"s");
+    st.style.setProperty("--max",rnd(.7,1).toFixed(2));
+    layer.appendChild(st);
+  }
+  return layer;
+}
 function buildBirthdayTool(){
   const saved=STORE.get("bday",null);
   const card=el("section",{class:"bday-tool"});
@@ -1877,8 +1930,9 @@ function buildBirthdayTool(){
     result.innerHTML="";
     const head=el("div",{class:"btr-head "+meta.element.toLowerCase()});
     head.appendChild(el("div",{class:"btr-sym",text:z.sym}));
-    head.appendChild(el("div",{},[el("div",{class:"btr-name",text:z.sign}),el("div",{class:"btr-meta",text:meta.element+" · "+meta.modality+" · ruled by "+meta.planet+" · "+meta.range})]));
+    head.appendChild(el("div",{},[el("div",{class:"btr-name",text:z.sign+" — "+meta.sub}),el("div",{class:"btr-meta",text:meta.element+" · "+meta.modality+" · ruled by "+meta.planet+" · "+meta.range})]));
     result.appendChild(head);
+    result.appendChild(el("p",{class:"btr-about",text:meta.about}));
     result.appendChild(el("div",{class:"btr-line",html:"You share <b>"+z.sign+"</b> with <b>"+ppl.length+"</b> influential figures in the almanac."}));
     if(twins.length){
       result.appendChild(el("div",{class:"btr-sub",text:"Your famous birthday twins · "+MONTHS[m-1]+" "+d}));
@@ -2133,7 +2187,8 @@ function zodiacCard(sign){
   const card=el("button",{class:"zcard "+m.element.toLowerCase(),"aria-label":"Explore "+sign,onClick:()=>{state.zSign=sign;state.view="zodiac";window.scrollTo({top:0});render();}});
   card.appendChild(el("div",{class:"z-sym",text:signSym(sign)}));
   card.appendChild(el("div",{class:"z-name",text:sign}));
-  card.appendChild(el("div",{class:"z-range",text:m.range}));
+  card.appendChild(el("div",{class:"z-sub",text:m.sub+" · "+m.range}));
+  card.appendChild(el("div",{class:"z-traits",text:m.traits}));
   const meta=el("div",{class:"z-meta"});
   meta.appendChild(el("span",{class:"z-el",text:m.element}));
   meta.appendChild(el("span",{text:m.modality}));
@@ -2150,7 +2205,7 @@ function renderZodiacSign(view,sign){
   const ht=el("div",{class:"zh-text"});
   ht.appendChild(el("p",{class:"eyebrow",text:m.element+" · "+m.modality+" · Ruled by "+m.planet}));
   ht.appendChild(el("h1",{text:sign}));
-  ht.appendChild(el("div",{class:"zh-range",text:m.range}));
+  ht.appendChild(el("div",{class:"zh-sub",text:m.sub+"  ·  "+m.range}));
   ht.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{goWithFilter(f=>f.zodiac=sign,"people");}},[document.createTextNode("Explore all "+ppl.length+" "+signPlural(sign)+" →")]));
   hero.appendChild(ht);view.appendChild(hero);
   /* stat tiles */
@@ -2162,6 +2217,17 @@ function renderZodiacSign(view,sign){
   [[ppl.length,"In the almanac"],[tc?CATS[tc].label:"—","Most common field"],[m.planet,"Ruling planet"],[Math.round(exact/Math.max(1,ppl.length)*100)+"%","Exact birth dates"]]
     .forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
   view.appendChild(strip);
+  /* what this sign is about */
+  const about=el("section",{class:"zabout "+m.element.toLowerCase()});
+  about.appendChild(el("div",{class:"za-traits"},[el("span",{class:"za-sub",text:m.sub}),el("span",{class:"za-dot",text:"·"}),el("span",{text:m.traits})]));
+  about.appendChild(el("p",{class:"za-text",text:m.about}));
+  about.appendChild(el("div",{class:"za-meta"},[
+    el("div",{},[el("div",{class:"za-k",text:"Element"}),el("div",{class:"za-v",text:m.element})]),
+    el("div",{},[el("div",{class:"za-k",text:"Quality"}),el("div",{class:"za-v",text:m.modality})]),
+    el("div",{},[el("div",{class:"za-k",text:"Ruling planet"}),el("div",{class:"za-v",text:m.planet})]),
+    el("div",{},[el("div",{class:"za-k",text:"Dates"}),el("div",{class:"za-v",text:m.range})])
+  ]));
+  view.appendChild(about);
   /* most famous */
   const fam=featuredOf(ppl,12);
   if(fam.length){const sec=el("section",{class:"section"});sec.appendChild(secHead("Most famous "+signPlural(sign),null));sec.appendChild(scroller(fam));view.appendChild(sec);}
