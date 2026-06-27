@@ -1109,7 +1109,7 @@ let state={
 
 function basePool(){
   if(state.mode==="personal")return PEOPLE.filter(p=>p.isPersonal);
-  return PEOPLE.filter(p=>!p.isPersonal); // all figures
+  return PEOPLE.slice(); // all figures, including personal entries
 }
 function search(list,q){
   q=(q||"").trim().toLowerCase();if(!q)return list;
@@ -1146,7 +1146,7 @@ function current(){return sortList(applyFilters(search(basePool(),state.search))
    ============================================================ */
 function renderHero(){
   const pool=basePool();
-  document.getElementById("m-all").textContent=PEOPLE.filter(p=>!p.isPersonal).length;
+  document.getElementById("m-all").textContent=PEOPLE.length;
   document.getElementById("m-per").textContent=PEOPLE.filter(p=>p.isPersonal).length;
   const dated=pool.filter(p=>p.month).length;
   const zc=zodiacCounts(pool);const topz=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
@@ -1646,7 +1646,7 @@ function render(){
   renderAside(list);
   const fb=document.getElementById("filterBtn"),fd=document.getElementById("fdot"),n=activeFilterCount();
   fd.style.display=n?"inline-block":"none";fb.classList.toggle("on",state.drawer);
-  document.getElementById("footnote").innerHTML="The Birthday Almanac \u00b7 "+esc(String(PEOPLE.filter(p=>!p.isPersonal).length))+" figures \u00b7 dates marked exact, estimated, or unknown, never invented.";
+  document.getElementById("footnote").innerHTML="The Birthday Almanac \u00b7 "+esc(String(PEOPLE.length))+" figures \u00b7 dates marked exact, estimated, or unknown, never invented.";
 }
 function resetAll(){
   state.search="";document.getElementById("search").value="";
