@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="The Birthday Almanac — explore famous birthdays, find the people born today, look up any birthday zodiac sign, and discover your monthly birthstone and birth flower. Browse 600+ historical figures by birthday, zodiac sign, element, field and era on an interactive birthday calendar.">
 <meta name="keywords" content="famous birthdays, birthday zodiac, birthstone, birth flower, people born today, zodiac signs, birthday calendar, historical figures by birthday, born on this day, astrology">
 <title>The Birthday Almanac — Famous Birthdays, Zodiac Signs & History</title>
@@ -60,8 +60,45 @@
   --c-explorers:#2F7D9E; --c-sports:#C2701C; --c-personal:#2FA39B; --c-tech:#2B7A78; --c-space:#4B4FA6;
   --el-fire:#C0563A; --el-earth:#6E7B3D; --el-air:#3F7FA6; --el-water:#4A6FB0;
 }
+/* ===== DARK MODE — premium celestial, not just inverted ===== */
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#070d18; --paper-2:#0b1322; --card:#13203a; --card-2:#17243e; --card-3:#1e2c47;
+  --ink:#ECE6D6; --ink-2:#C6BFAE; --muted:#959CB1; --faint:#6B7388;
+  --hairline:#26324a; --hairline-2:#1f2a40;
+  --gold:#D7B45E; --gold-deep:#E8D199; --gold-soft:#EAD79A; --gold-wash:rgba(230,206,142,.15);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.45);
+  --shadow:0 2px 8px rgba(0,0,0,.5),0 14px 36px rgba(0,0,0,.45);
+  --shadow-lg:0 4px 14px rgba(0,0,0,.55),0 30px 66px rgba(0,0,0,.6);
+}
+html[data-theme="dark"]{background:#070d18}
+html[data-theme="dark"] body{background:
+  radial-gradient(1200px 760px at 50% -300px,rgba(108,140,205,.13),transparent 62%),
+  radial-gradient(900px 520px at 100% -120px,rgba(230,206,142,.06),transparent 60%),#070d18;
+  color:var(--ink)}
+html[data-theme="dark"] .topbar{background:rgba(10,18,32,.78);border-bottom-color:var(--hairline)}
+html[data-theme="dark"] .bottomnav{background:rgba(10,18,32,.92)!important;border-top-color:var(--hairline)}
+html[data-theme="dark"] .site-foot{background:linear-gradient(180deg,transparent,rgba(255,255,255,.02));border-top-color:var(--hairline)}
+html[data-theme="dark"] #sky .l1,html[data-theme="dark"] #sky .l2{filter:brightness(2) saturate(1.15)}
+html[data-theme="dark"] a{color:var(--gold-soft)}
+html[data-theme="dark"] .primary{background:rgba(255,255,255,.045)}
+html[data-theme="dark"] .nav-pill{background:#284268}
+html[data-theme="dark"] .primary button:hover{color:var(--ink)}
+html[data-theme="dark"] .btn-line{border-color:var(--hairline);color:var(--ink)}
+html[data-theme="dark"] .cmdk-esc{background:var(--card-2);color:var(--muted)}
+html[data-theme="dark"] .bigchip,html[data-theme="dark"] .chip,html[data-theme="dark"] .qchip{background:var(--card)}
+html[data-theme="dark"] .conf.high{background:rgba(46,125,107,.22)}
+/* theme toggle button */
+.themebtn{width:42px;height:42px;flex:none;border:1px solid var(--hairline);background:var(--card);border-radius:50%;
+  display:grid;place-items:center;color:var(--ink-2);font-size:17px;transition:background .18s var(--ease),color .18s,transform .12s,box-shadow .18s}
+.themebtn:hover{background:var(--card-2);color:var(--gold-deep);box-shadow:var(--shadow-sm)}
+.themebtn:active{transform:scale(.94)}
+.themebtn .ic-sun{display:none}.themebtn .ic-moon{display:block}
+html[data-theme="dark"] .themebtn .ic-sun{display:block}html[data-theme="dark"] .themebtn .ic-moon{display:none}
+@media(prefers-reduced-motion:no-preference){.themebtn .ic{animation:themePop .3s var(--spring)}}
+@keyframes themePop{from{transform:rotate(-30deg) scale(.6);opacity:.4}to{transform:none;opacity:1}}
 *{box-sizing:border-box}
-html{background:var(--paper);color-scheme:light only;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{background:var(--paper);color-scheme:light;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;font-family:var(--sans);color:var(--ink);background:
   radial-gradient(1200px 600px at 100% -200px,rgba(194,154,69,.10),transparent 60%),var(--paper);
   line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip;padding-bottom:0}
@@ -1046,7 +1083,8 @@ html.intro-play body{overflow:hidden}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
 </style>
-<script>/* decide before paint: play the intro only for first-time visitors who allow motion */
+<script>/* decide before paint: theme (saved pref or system), and first-visit intro */
+try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
 try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){document.documentElement.classList.add("intro-play");}}catch(e){}</script>
 </head>
 <body>
@@ -1074,6 +1112,9 @@ try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("
         <button class="clr" id="searchClr" aria-label="Clear search">&times;</button>
       </div>
       <button class="iconbtn" id="filterBtn" aria-label="Filters"><span>Filters</span><span class="fdot" id="fdot">0</span></button>
+      <button class="themebtn" id="themeBtn" aria-label="Switch between light and dark mode" title="Light / Dark mode">
+        <span class="ic ic-moon" aria-hidden="true">&#9789;</span><span class="ic ic-sun" aria-hidden="true">&#9728;</span>
+      </button>
     </div>
   </div>
   <div class="subbar"><div class="wrap sub-in" id="subIn"></div></div>
@@ -4264,6 +4305,20 @@ function closeSpotlight(){const ov=document.getElementById("cmdk");if(!ov.classL
     if(e.key==="/"&&tag!=="INPUT"&&tag!=="TEXTAREA"&&tag!=="SELECT"&&!(t&&t.isContentEditable)){e.preventDefault();openSpotlight();}});
 })();
 document.getElementById("brandBtn").onclick=()=>setView("discover");
+/* ===== light / dark theme toggle ===== */
+(function(){const tb=document.getElementById("themeBtn");if(!tb)return;
+  const meta=document.querySelector('meta[name="theme-color"]');
+  function syncMeta(t){if(meta)meta.setAttribute("content",t==="dark"?"#0b1322":"#16273B");}
+  function apply(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("ba_theme",t);}catch(e){}
+    syncMeta(t);tb.setAttribute("aria-pressed",t==="dark"?"true":"false");
+    if(typeof positionNavPill==="function")positionNavPill();}
+  syncMeta(document.documentElement.dataset.theme);
+  tb.setAttribute("aria-pressed",document.documentElement.dataset.theme==="dark"?"true":"false");
+  tb.addEventListener("click",()=>apply(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+  // follow system changes only while the user hasn't chosen manually
+  if(window.matchMedia){try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",e=>{
+    if(!localStorage.getItem("ba_theme"))apply(e.matches?"dark":"light");});}catch(e){}}
+})();
 document.getElementById("filterBtn").onclick=openSheet;
 document.getElementById("sheetClose").onclick=closeSheet;
 document.getElementById("sheetScrim").onclick=closeSheet;
