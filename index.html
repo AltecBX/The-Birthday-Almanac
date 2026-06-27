@@ -1902,8 +1902,13 @@ const TOP25_IDS=new Set(
   PEOPLE.filter(p=>!p.isPersonal&&typeof p.rank==="number")
         .slice().sort((a,b)=>a.rank-b.rank).slice(0,25).map(p=>p.id)
 );
+/* curated "Top N" lists (verified members already in the almanac) */
+const TOP_AUTHORS=["william-shakespeare","leo-tolstoy","jane-austen","charles-dickens","fyodor-dostoevsky","mark-twain","victor-hugo","homer","ernest-hemingway","franz-kafka","james-joyce","virginia-woolf","marcel-proust","gabriel-garc-a-m-rquez","jorge-luis-borges","george-orwell","oscar-wilde","edgar-allan-poe","johann-wolfgang-von-goethe","miguel-de-cervantes","dante-alighieri","geoffrey-chaucer","toni-morrison","agatha-christie","jk-rowling"];
+const TOP_SINGERS=["elvis-presley","frank-sinatra","aretha-franklin","michael-jackson","freddie-mercury","whitney-houston","bob-dylan","david-bowie","stevie-wonder","ray-charles","ella-fitzgerald","nina-simone","bob-marley","john-lennon","paul-mccartney","beyonc","madonna","prince","taylor-swift","johnny-cash"];
 const COLLECTION_DEFS=[
   {id:"top-25-most-influential",title:"The 25 Most Influential",icon:"\u{1F31F}",desc:"The twenty-five people who shaped history more than any others, ranked by lasting influence.",match:p=>TOP25_IDS.has(p.id)},
+  {id:"top-book-authors",title:"Top 25 Book Authors",icon:"\u{1F4DA}",desc:"The novelists and poets whose books shaped literature across the ages.",match:p=>TOP_AUTHORS.includes(p.id)},
+  {id:"top-singers",title:"Top 20 Singers",icon:"\u{1F3A4}",desc:"The voices that defined modern music — from Sinatra and Aretha to Beyoncé.",match:p=>TOP_SINGERS.includes(p.id)},
   {id:"greatest-minds-in-science",title:"Greatest Minds in Science",icon:"\u{1F52C}",desc:"The scientists who reshaped how we understand the universe.",match:p=>p.category==="science"},
   {id:"world-changing-inventors",title:"World-Changing Inventors",icon:"\u{1F4A1}",desc:"Inventors whose ideas rebuilt everyday life.",match:p=>p.category==="invention"||p.category==="engineers"},
   {id:"technology-and-internet",title:"Technology & Internet Pioneers",icon:"\u{1F4BB}",desc:"The architects of computing, the internet and AI.",match:p=>inCat(p,"tech")},
