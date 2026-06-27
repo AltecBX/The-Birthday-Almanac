@@ -53,18 +53,20 @@ python3 -m http.server 8000
 
 ## Deployment
 
-This repo ships a GitHub Actions workflow (`.github/workflows/deploy.yml`) that
-publishes `index.html` to GitHub Pages on every push to the default branch.
+The site is a static page, so GitHub Pages serves it straight from the branch —
+no build, no workflow.
 
-To enable it: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-After the first successful run, the site is live at
+To enable it: **Settings → Pages → Build and deployment → Source: *Deploy from a
+branch* → Branch: `main` / `/ (root)` → Save**. Within a minute the site is live at
 `https://<owner>.github.io/<repo>/`.
 
 ## Project structure
 
 ```
 .
-├── index.html   # the entire application — markup, styles, data, and logic
+├── index.html          # the entire application — markup, styles, data, and logic
+├── assets/
+│   └── hero-zodiac.jpg  # decorative illustration shown in the hero
 └── README.md
 ```
 
