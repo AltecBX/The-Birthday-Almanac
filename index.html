@@ -161,12 +161,12 @@ main{display:block;min-height:60vh}
 @property --sweep{syntax:"<angle>";inherits:false;initial-value:0deg}
 .wheel-sweep{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
   background:conic-gradient(from var(--sweep) at 50% 50%,
-    rgba(255,243,205,0) 0deg, rgba(255,243,205,0) 42deg,
-    rgba(255,236,178,.5) 74deg, rgba(255,250,228,.92) 90deg, rgba(255,236,178,.5) 106deg,
-    rgba(255,243,205,0) 138deg, rgba(255,243,205,0) 360deg);
+    rgba(255,243,205,0) 0deg, rgba(255,243,205,0) 50deg,
+    rgba(255,236,178,.22) 76deg, rgba(255,250,228,.46) 90deg, rgba(255,236,178,.22) 104deg,
+    rgba(255,243,205,0) 130deg, rgba(255,243,205,0) 360deg);
   -webkit-mask-image:radial-gradient(closest-side at 50% 50%,transparent 44%,#000 56%,#000 95%,transparent 100%);
           mask-image:radial-gradient(closest-side at 50% 50%,transparent 44%,#000 56%,#000 95%,transparent 100%);
-  animation:sweepSpin 7s linear infinite}
+  animation:sweepSpin 16s linear infinite}
 @keyframes sweepSpin{to{--sweep:360deg}}
 @media(prefers-reduced-motion:reduce){.wheel-sweep{animation:none;display:none}}
 .spotlight{margin-top:24px;display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
@@ -1560,7 +1560,12 @@ const SECONDARY={
 };
 
 /* curated, shareable collections defined by membership rules */
+const TOP25_IDS=new Set(
+  PEOPLE.filter(p=>!p.isPersonal&&typeof p.rank==="number")
+        .slice().sort((a,b)=>a.rank-b.rank).slice(0,25).map(p=>p.id)
+);
 const COLLECTION_DEFS=[
+  {id:"top-25-most-influential",title:"The 25 Most Influential",icon:"\u{1F31F}",desc:"The twenty-five people who shaped history more than any others, ranked by lasting influence.",match:p=>TOP25_IDS.has(p.id)},
   {id:"greatest-minds-in-science",title:"Greatest Minds in Science",icon:"\u{1F52C}",desc:"The scientists who reshaped how we understand the universe.",match:p=>p.category==="science"},
   {id:"world-changing-inventors",title:"World-Changing Inventors",icon:"\u{1F4A1}",desc:"Inventors whose ideas rebuilt everyday life.",match:p=>p.category==="invention"||p.category==="engineers"},
   {id:"technology-and-internet",title:"Technology & Internet Pioneers",icon:"\u{1F4BB}",desc:"The architects of computing, the internet and AI.",match:p=>inCat(p,"tech")},
@@ -1891,8 +1896,10 @@ function renderDiscover(view){
   const colSec=el("section",{class:"section"});
   colSec.appendChild(secHead("Featured collections","Curated journeys through the almanac","All collections →",()=>setView("collections")));
   const colGrid=el("div",{class:"cardgrid coll-grid"});
-  const off=(TODAY_M*31+TODAY_D)%COLLECTION_DEFS.length;
-  for(let i=0;i<6;i++)colGrid.appendChild(collectionCard(COLLECTION_DEFS[(off+i)%COLLECTION_DEFS.length]));
+  colGrid.appendChild(collectionCard(COLLECTION_DEFS[0])); // pin "25 Most Influential" first
+  const rest=COLLECTION_DEFS.slice(1);
+  const off=(TODAY_M*31+TODAY_D)%rest.length;
+  for(let i=0;i<5;i++)colGrid.appendChild(collectionCard(rest[(off+i)%rest.length]));
   colSec.appendChild(colGrid);view.appendChild(colSec);
 
   /* ---- MOST CROWDED BIRTHDAYS ---- */
