@@ -419,6 +419,11 @@ main{display:block;min-height:60vh}
 .devpanel .row{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);line-height:1.4}
 .devpanel .row.ok{color:#7fd9b9}.devpanel .row.er{color:#ff9a8f}.devpanel .row.wn{color:#ffd27f}
 
+/* ===== QUIET DEDICATION ===== */
+.site-credit{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:40px 0 6px;padding-top:22px;
+  border-top:1px solid var(--hairline);font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--faint)}
+.site-credit .dot{opacity:.6}
+
 /* ===== SEO STATIC FALLBACK ===== */
 #seo-static{max-width:760px;margin:30px auto;color:var(--ink-2)}
 #seo-static h1{font-size:34px;margin-bottom:10px}
@@ -597,7 +602,7 @@ main{display:block;min-height:60vh}
   .sheet-foot{padding:14px 18px calc(14px + env(safe-area-inset-bottom))}
   .chip,.qchip,.bigchip{min-height:40px}
   .navbtn{width:44px;height:44px}
-  .devbtn{bottom:74px}
+  .devbtn,.devpanel{display:none!important}
 }
 
 @media(max-width:480px){
@@ -1433,7 +1438,8 @@ PEOPLE.forEach(p=>{
 PEOPLE.forEach(p=>{p.collections=p.isPersonal?[]:COLLECTION_DEFS.filter(c=>c.match(p)).map(c=>c.id);});
 /* Personal entries (friends & family) are kept entirely separate from the
    historical database — they surface only in People → Personal mode. */
-const HISTORICAL=PEOPLE.filter(p=>!p.isPersonal);
+/* one unified database — every figure is searchable together */
+const HISTORICAL=PEOPLE.slice();
 const PERSONAL=PEOPLE.filter(p=>p.isPersonal);
 const PERSON_BY_ID={};PEOPLE.forEach(p=>PERSON_BY_ID[p.id]=p);
 
@@ -1530,7 +1536,7 @@ function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false};}
 let state={view:"discover",search:"",sort:"date",peopleLimit:80,peopleScope:"historical",zSign:null,collectionId:null,
   calYear:now.getFullYear(),calMonth:now.getMonth(),f:freshFilters()};
-function basePool(){return (state.view==="people"&&state.peopleScope==="personal")?PERSONAL:HISTORICAL;}
+function basePool(){return HISTORICAL;}
 
 function searchFn(list,q){
   q=(q||"").trim().toLowerCase();if(!q)return list;
@@ -1775,6 +1781,13 @@ function renderDiscover(view){
   COLLECTIONS.forEach(col=>{if(col==="Personal")return;const n=HISTORICAL.filter(p=>p.collection===col).length;if(!n)return;
     colGrid.appendChild(bigchip(col,"\u{1F4DA}",n,null,()=>{goWithFilter(f=>f.collections.add(col),"people");}));});
   secCol.appendChild(colGrid);view.appendChild(secCol);
+
+  /* quiet dedication */
+  view.appendChild(el("footer",{class:"site-credit"},[
+    el("span",{text:"Inspired by Eunice Poulos"}),
+    el("span",{class:"dot",text:"·"}),
+    el("span",{text:"Built by Jerry Pena"})
+  ]));
 }
 function centuryOrder(list){
   const m=countBy(list,"centuryLabel");
@@ -1889,27 +1902,14 @@ function stepMonth(d){state.calMonth=(state.calMonth+d+12)%12;render();}
 /* ============================================================
    PEOPLE
    ============================================================ */
-function peopleScopeBar(){
-  const seg=el("div",{class:"scopeseg",role:"tablist","aria-label":"People scope"});
-  [["historical","Historical",HISTORICAL.length],["personal","Personal",PERSONAL.length]].forEach(([k,lab,n])=>{
-    const on=state.peopleScope===k;
-    seg.appendChild(el("button",{role:"tab","aria-selected":on?"true":"false",onClick:()=>{if(state.peopleScope!==k){state.peopleScope=k;state.peopleLimit=80;render();}}},
-      [document.createTextNode(lab),el("span",{class:"sc",text:String(n)})]));
-  });
-  return seg;
-}
 function renderPeople(view){
   view.innerHTML="";
-  const personal=state.peopleScope==="personal";
   const list=current();
   const head=el("div",{class:"viewhead"});
-  head.appendChild(el("h1",{text:state.search?("Results for “"+state.search+"”"):(personal?"Personal":"People")}));
-  head.appendChild(el("div",{class:"lede",text:personal
-    ?"Friends & family — kept separate from the historical almanac. "+list.length+" "+(list.length===1?"entry":"entries")+"."
-    :(list.length+" "+(list.length===1?"person":"people")+" in view · sorted by "+(SORTS.find(s=>s[0]===state.sort)||["",""])[1].toLowerCase())}));
+  head.appendChild(el("h1",{text:state.search?("Results for “"+state.search+"”"):"People"}));
+  head.appendChild(el("div",{class:"lede",text:list.length+" "+(list.length===1?"person":"people")+" in view · sorted by "+(SORTS.find(s=>s[0]===state.sort)||["",""])[1].toLowerCase()}));
   view.appendChild(head);
-  view.appendChild(peopleScopeBar());
-  if(!list.length){view.appendChild(personal?emptyState("No personal entries match your search."):emptyState());return;}
+  if(!list.length){view.appendChild(emptyState());return;}
   const frag=document.createDocumentFragment();
   const shown=Math.min(state.peopleLimit,list.length);
   const groupByMonth=(state.sort==="date");
@@ -2384,18 +2384,18 @@ function buildPersonModal(p){
   if(p.sourceUrl)body.appendChild(el("div",{class:"msrc"},[el("a",{href:p.sourceUrl,target:"_blank",rel:"noopener",text:"Source: "+(p.sourceName||"reference")+" ↗"})]));
 
   /* related — kept within the same world (historical stays historical, personal stays personal) */
-  const relPool=p.isPersonal?PERSONAL:HISTORICAL;
+  const relPool=HISTORICAL;
   const rel=el("div",{class:"related"});
   const twins=relPool.filter(x=>x.id!==p.id&&p.month&&x.month===p.month&&x.day&&x.day===p.day);
   if(twins.length){rel.appendChild(el("h4",{text:"Birthday twins · "+MONTHS[p.month-1]+" "+p.day}));
     const c=el("div",{class:"rel-chips"});twins.slice(0,8).forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}
   const sameCat=featuredOf(relPool.filter(x=>x.id!==p.id&&x.category===p.category),6);
-  if(sameCat.length){rel.appendChild(el("h4",{text:p.isPersonal?"More personal entries":("More in "+CATS[p.category].label)}));
+  if(sameCat.length){rel.appendChild(el("h4",{text:"More in "+CATS[p.category].label}));
     const c=el("div",{class:"rel-chips"});sameCat.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}
-  if(p.zsign&&!p.isPersonal){const sameZ=featuredOf(relPool.filter(x=>x.id!==p.id&&x.zsign===p.zsign),6);
+  if(p.zsign){const sameZ=featuredOf(relPool.filter(x=>x.id!==p.id&&x.zsign===p.zsign),6);
     if(sameZ.length){rel.appendChild(el("h4",{text:"Fellow "+p.zsign+"s"}));
       const c=el("div",{class:"rel-chips"});sameZ.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
-  if(!p.isPersonal&&p.centuryLabel&&p.centuryLabel.includes("century")){
+  if(p.centuryLabel&&p.centuryLabel.includes("century")){
     const sameC=featuredOf(relPool.filter(x=>x.id!==p.id&&x.centuryLabel===p.centuryLabel),6);
     if(sameC.length){rel.appendChild(el("h4",{text:"Also born in the "+p.centuryLabel}));
       const c=el("div",{class:"rel-chips"});sameC.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
@@ -2645,8 +2645,6 @@ function openMore(){
   MORE_VIEWS.forEach(k=>{const v=VIEW_BY_KEY[k];
     grid.appendChild(el("button",{class:"more-item",onClick:()=>{closeMore();setView(k);}},
       [el("span",{class:"mi-ic",text:v.icon}),el("span",{text:v.label})]));});
-  grid.appendChild(el("button",{class:"more-item",onClick:()=>{closeMore();state.peopleScope="personal";setView("people");}},
-    [el("span",{class:"mi-ic",text:"✨"}),el("span",{text:"Personal"})]));
   panel.appendChild(grid);
   s.append(sc,panel);
   requestAnimationFrame(()=>s.classList.add("open"));
