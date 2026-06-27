@@ -633,6 +633,43 @@ main{display:block;min-height:60vh}
 .bt-result .rel-chips .relchip .yr{color:#AEB9E8}
 .btr-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 
+/* ===== DISCOVER v2 + reusable twinkle ===== */
+.dhero h1{font-size:clamp(26px,3.8vw,43px);line-height:1.14;max-width:680px}
+.dhero h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+.dhero-sub{max-width:600px;margin:15px 0 0;color:#CFC7B5;font-size:14.5px;line-height:1.55}
+.dhero-cta{margin-top:24px}
+.star-layer{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.zsign-hero>*:not(.star-layer){position:relative;z-index:1}
+.viewhead.cosmic>*:not(.star-layer){position:relative;z-index:1}
+.bt-inner{position:relative;z-index:1}
+.el-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.elf-chip{border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font-weight:600;font-size:13px;padding:8px 16px;border-radius:999px;min-height:40px;transition:.15s}
+.elf-chip:hover{background:var(--card-2)}
+.elf-chip[aria-pressed="true"]{background:var(--navy);color:#F6EFDF;border-color:var(--navy)}
+.elf-chip.fire[aria-pressed="true"]{background:var(--el-fire);border-color:var(--el-fire)}
+.elf-chip.earth[aria-pressed="true"]{background:var(--el-earth);border-color:var(--el-earth)}
+.elf-chip.air[aria-pressed="true"]{background:var(--el-air);border-color:var(--el-air)}
+.elf-chip.water[aria-pressed="true"]{background:var(--el-water);border-color:var(--el-water)}
+.z-people{font-size:12px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+.z-go{margin-top:10px;color:var(--gold-deep);font-weight:700;font-size:12.5px}
+.feat-person{width:100%;text-align:left;display:flex;align-items:center;gap:18px;border-radius:var(--radius-lg);padding:22px 26px;
+  background:var(--card);border:1px solid var(--hairline);box-shadow:var(--shadow-sm);transition:transform .14s,box-shadow .2s,border-color .2s}
+.feat-person:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--gold-soft)}
+.fp-left{flex:1;min-width:0}
+.fp-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.fp-z{font-size:13px;color:var(--gold-deep);font-weight:600}
+.fp-name{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--ink)}
+.fp-meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:3px}
+.fp-desc{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.5;max-width:640px}
+.fp-go{flex:none;color:var(--gold-deep);font-weight:700;font-size:13.5px}
+.spotlight.one{grid-template-columns:1fr}
+.hm-filter{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 14px}
+.hm-chip{border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:999px;min-height:36px;transition:.15s}
+.hm-chip:hover{background:var(--card-2)}
+.hm-chip[aria-pressed="true"]{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+.hm-sumwrap{margin-top:13px}
+@media(max-width:600px){.feat-person{flex-direction:column;align-items:flex-start;gap:12px}.fp-go{align-self:flex-end}}
+
 /* ===== RESPONSIVE ===== */
 /* keep the brand from being clipped before the mobile breakpoint */
 @media(max-width:1160px){.primary button{padding:8px 12px;font-size:13px}.search{width:200px}}
@@ -734,9 +771,11 @@ main{display:block;min-height:60vh}
 </header>
 <main id="main"><div class="wrap"><div id="view" aria-live="polite">
   <section id="seo-static">
-    <h1>The Birthday Almanac</h1>
-    <p>The Birthday Almanac is an interactive museum of influential lives. Explore history's
-    greatest figures by <a href="#/calendar">birthday and calendar</a>, by
+    <h1>The Birthday Almanac — birthdays, zodiac signs &amp; the patterns behind history's most influential lives</h1>
+    <p>The Birthday Almanac is an interactive museum of influential lives. Explore famous
+    birthdays across time, uncover zodiac patterns, browse historical categories and find
+    surprising connections between the people who shaped the world — by
+    <a href="#/calendar">birthday and calendar</a>, by
     <a href="#/zodiac">zodiac sign and element</a>, by <a href="#/category/science">field</a>,
     by era and century, and through <a href="#/collections">curated collections</a> —
     from <a href="#/collection/greatest-minds-in-science">the greatest minds in science</a>
@@ -1514,6 +1553,7 @@ const COLLECTION_DEFS=[
   {id:"greatest-minds-in-science",title:"Greatest Minds in Science",icon:"\u{1F52C}",desc:"The scientists who reshaped how we understand the universe.",match:p=>p.category==="science"},
   {id:"world-changing-inventors",title:"World-Changing Inventors",icon:"\u{1F4A1}",desc:"Inventors whose ideas rebuilt everyday life.",match:p=>p.category==="invention"||p.category==="engineers"},
   {id:"technology-and-internet",title:"Technology & Internet Pioneers",icon:"\u{1F4BB}",desc:"The architects of computing, the internet and AI.",match:p=>inCat(p,"tech")},
+  {id:"ai-pioneers",title:"AI Pioneers",icon:"\u{1F916}",desc:"The minds behind machine intelligence — from Turing to the deep-learning era.",match:p=>["alan-turing","john-von-neumann","claude-shannon","geoffrey-hinton","yann-lecun","yoshua-bengio","demis-hassabis","sam-altman"].includes(p.id)},
   {id:"explorers-of-the-cosmos",title:"Explorers of the Cosmos",icon:"\u{1F680}",desc:"Astronomers, aviators and astronauts who reached for the stars.",match:p=>inCat(p,"space")},
   {id:"most-powerful-leaders",title:"Most Powerful Leaders",icon:"\u{1F451}",desc:"Rulers and statesmen who steered nations and empires.",match:p=>["leaders","politics"].includes(p.category)},
   {id:"presidents-and-prime-ministers",title:"Presidents & Prime Ministers",icon:"\u{1F3DB}\u{FE0F}",desc:"Heads of state across the modern world.",match:p=>p.category==="presidents"||(p.category==="leaders"&&p.eraGroup!=="Ancient"&&p.eraGroup!=="Medieval")},
@@ -1643,7 +1683,7 @@ const VIEWS=[
   {key:"people",label:"People",icon:"\u{1F465}"},
   {key:"categories",label:"Categories",icon:"\u{1F3DB}\u{FE0F}"},
   {key:"timeline",label:"Timeline",icon:"⏳"},
-  {key:"patterns",label:"Patterns",icon:"\u{1F4CA}"}
+  {key:"patterns",label:"Cosmic Patterns",icon:"\u{1F4CA}"}
 ];
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
@@ -1780,87 +1820,89 @@ function emptyState(msg){
 function goWithFilter(setup,view){state.f=freshFilters();state.peopleScope="historical";state.search="";document.getElementById("search").value="";document.getElementById("searchWrap").classList.remove("has");setup(state.f);setView(view||"people");}
 function renderDiscover(view){
   view.innerHTML="";
-  /* hero */
+  /* ---- HERO ---- */
   const hero=el("div",{class:"dhero"});
   hero.appendChild(heroStars());
   const hin=el("div",{class:"dhero-in"});
   const txt=el("div",{class:"dhero-text"});
-  txt.appendChild(el("p",{class:"eyebrow",text:"A celestial map of influence"}));
-  txt.appendChild(el("h1",{html:"The Birthday <em>Almanac</em>"}));
-  txt.appendChild(el("p",{class:"lede",text:"Explore "+HISTORICAL.length+" influential lives across history — by birthday, month, zodiac, field, era, and place. Wander in and follow the threads."}));
+  txt.appendChild(el("p",{class:"eyebrow",text:"✦  The Birthday Almanac · A celestial map of influence"}));
+  txt.appendChild(el("h1",{html:"Discover the birthdays, signs &amp; hidden <em>patterns</em> behind history's most influential lives."}));
+  txt.appendChild(el("p",{class:"dhero-sub",text:"Explore famous birthdays across time, uncover zodiac patterns, browse historical categories, and find surprising connections between the people who shaped the world."}));
   const cta=el("div",{class:"dhero-cta"});
-  cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.peopleScope="historical";setView("people");}},[document.createTextNode("Start exploring →")]));
+  cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>setView("zodiac")},[document.createTextNode("♒  Explore the Zodiac")]));
+  cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's birthdays")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",text:"\u{1F3B2}  Surprise me",onClick:surprise}));
   txt.appendChild(cta);
   hin.appendChild(txt);
   const art=el("figure",{class:"dhero-art"});
-  art.appendChild(el("img",{src:"assets/hero-zodiac.jpg",alt:"Illustrated celestial map of the twelve zodiac signs",loading:"lazy",
+  art.appendChild(el("img",{src:"assets/hero-zodiac.jpg",alt:"Illustrated celestial map of the twelve zodiac signs",loading:"eager",
     onerror:function(){this.closest('.dhero-art').style.display='none';}}));
   hin.appendChild(art);hero.appendChild(hin);
   view.appendChild(hero);
 
-  /* interactive: what's your sign? */
+  /* what's your sign? */
   view.appendChild(buildBirthdayTool());
 
-  /* spotlight: pattern of the day + on this day */
-  const spot=el("div",{class:"spotlight"});
-  spot.appendChild(patternOfDayCard());
-  spot.appendChild(onThisDayCard());
-  view.appendChild(spot);
-
   /* stat strip */
-  const strip=el("div",{class:"statstrip",style:"margin-top:24px"});
+  const strip=el("div",{class:"statstrip"});
   const dated=HISTORICAL.filter(p=>p.birthYear!=null);
   const earliest=dated.slice().sort((a,b)=>yearSortKey(a)-yearSortKey(b))[0];
-  const stats=[
-    [HISTORICAL.length,"Influential lives"],
-    [Object.keys(countBy(HISTORICAL,"category")).length,"Fields of impact"],
-    [new Set(HISTORICAL.map(p=>p.country).filter(c=>c&&c!=="Unknown")).size,"Places & civilizations"],
-    [earliest?fmtYear(earliest):"—","Earliest birth year"]
-  ];
-  stats.forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
-  view.appendChild(el("div",{class:"section",style:"margin-top:26px"},[strip]));
+  [[HISTORICAL.length,"Influential lives"],[Object.keys(countBy(HISTORICAL,"category")).filter(k=>k!=="personal").length,"Fields of impact"],
+   [new Set(HISTORICAL.map(p=>p.country).filter(c=>c&&c!=="Unknown")).size,"Places & civilizations"],[earliest?fmtYear(earliest):"—","Earliest birth year"]]
+    .forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
+  view.appendChild(el("div",{class:"section",style:"margin-top:6px"},[strip]));
 
-  /* featured collection of the day */
-  const fc=COLLECTION_DEFS[(TODAY_M*31+TODAY_D)%COLLECTION_DEFS.length];
-  const fcp=collectionPeople(fc.id);
-  const fsec=el("section",{class:"section"});
-  const fcard=el("button",{class:"feat-coll",onClick:()=>{state.collectionId=fc.id;state.view="collections";window.scrollTo({top:0});render();}});
-  const fl=el("div",{class:"fc-left"});
-  fl.appendChild(el("div",{class:"fc-lab",text:"Featured collection of the day"}));
-  fl.appendChild(el("div",{class:"fc-title"},[el("span",{class:"fc-ic",text:fc.icon}),document.createTextNode(fc.title)]));
-  fl.appendChild(el("div",{class:"fc-desc",text:fc.desc}));
-  fl.appendChild(el("div",{class:"fc-meta",text:fcp.length+" people · "+featuredOf(fcp,3).map(p=>p.name).join(", ")}));
-  fcard.appendChild(fl);
-  fcard.appendChild(el("div",{class:"fc-go",text:"Open →"}));
-  fsec.appendChild(fcard);view.appendChild(fsec);
+  /* ---- TODAY IN HISTORY ---- */
+  const tsec=el("section",{class:"section"});
+  tsec.appendChild(secHead("Today in history",MONTHS[TODAY_M-1]+" "+TODAY_D));
+  const spot=el("div",{class:"spotlight"});
+  spot.appendChild(onThisDayCard());
+  spot.appendChild(todaySignCard());
+  tsec.appendChild(spot);view.appendChild(tsec);
 
-  /* recently viewed */
-  const recent=getRecent().map(id=>PERSON_BY_ID[id]).filter(p=>p&&!p.isPersonal);
-  if(recent.length){const sec=el("section",{class:"section"});
-    sec.appendChild(secHead("Pick up where you left off","Recently viewed"));
-    sec.appendChild(scroller(recent.slice(0,14)));view.appendChild(sec);}
-  /* saved favorites */
-  const favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(p=>p&&!p.isPersonal);
-  if(favs.length){const sec=el("section",{class:"section"});
-    sec.appendChild(secHead("Your saved people","Tap the star on any profile to save"));
-    sec.appendChild(scroller(favs.slice(0,14)));view.appendChild(sec);}
+  /* ---- FAMOUS BIRTHDAYS TODAY ---- */
+  const todayPpl=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D).sort((a,b)=>rankScore(b)-rankScore(a));
+  if(todayPpl.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Famous birthdays today",todayPpl.length+" born on "+MONTHS[TODAY_M-1]+" "+TODAY_D,"Open day →",()=>openDay(TODAY_M,TODAY_D,todayPpl)));
+    sec.appendChild(scroller(todayPpl.slice(0,14)));view.appendChild(sec);}
 
-  /* born this week */
+  /* ---- BIRTHDAYS THIS WEEK ---- */
   const weekers=HISTORICAL.filter(inThisWeek).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b)||rankScore(b)-rankScore(a));
-  if(weekers.length){
-    const sec=el("section",{class:"section"});
+  if(weekers.length){const sec=el("section",{class:"section"});
     sec.appendChild(secHead("Birthdays this week","The next seven days","See all →",()=>{goWithFilter(f=>f.thisWeek=true,"people");}));
-    sec.appendChild(scroller(weekers.slice(0,14)));view.appendChild(sec);
-  }
-  /* born this month */
-  const monthers=featuredOf(HISTORICAL.filter(p=>p.month===TODAY_M),16);
-  if(monthers.length){
-    const sec=el("section",{class:"section"});
-    sec.appendChild(secHead("Born in "+MONTHS[TODAY_M-1],HISTORICAL.filter(p=>p.month===TODAY_M).length+" figures share this month","Open month →",()=>{state.calMonth=TODAY_M-1;setView("calendar");}));
-    sec.appendChild(scroller(monthers));view.appendChild(sec);
-  }
-  /* explore by category */
+    sec.appendChild(scroller(weekers.slice(0,14)));view.appendChild(sec);}
+
+  /* ---- EXPLORE BY ZODIAC (main attraction) ---- */
+  view.appendChild(discoverZodiacSection());
+
+  /* ---- FEATURED COLLECTIONS ---- */
+  const colSec=el("section",{class:"section"});
+  colSec.appendChild(secHead("Featured collections","Curated journeys through the almanac","All collections →",()=>setView("collections")));
+  const colGrid=el("div",{class:"cardgrid coll-grid"});
+  const off=(TODAY_M*31+TODAY_D)%COLLECTION_DEFS.length;
+  for(let i=0;i<6;i++)colGrid.appendChild(collectionCard(COLLECTION_DEFS[(off+i)%COLLECTION_DEFS.length]));
+  colSec.appendChild(colGrid);view.appendChild(colSec);
+
+  /* ---- MOST CROWDED BIRTHDAYS ---- */
+  const cr=crowded(HISTORICAL).slice(0,6);
+  if(cr.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Most crowded birthdays","Dates shared by the most figures","See the heat map →",()=>setView("patterns")));
+    const grid=el("div",{class:"cardgrid"});
+    cr.forEach(c=>{const card=el("button",{class:"spot-card click",onClick:()=>openDay(c.m,c.d,c.people)});
+      card.appendChild(el("div",{class:"lab",text:MONTHS[c.m-1]+" "+c.d}));
+      card.appendChild(el("div",{class:"big",text:c.people.slice(0,3).map(p=>p.name).join(", ")+(c.people.length>3?" +"+(c.people.length-3):"")}));
+      card.appendChild(el("div",{class:"meta",text:c.people.length+" figures share this day"}));grid.appendChild(card);});
+    sec.appendChild(grid);view.appendChild(sec);}
+
+  /* ---- SURPRISING PATTERN OF THE DAY ---- */
+  const psec=el("section",{class:"section"});
+  psec.appendChild(secHead("Surprising pattern of the day",null));
+  const pwrap=el("div",{class:"spotlight one"});pwrap.appendChild(patternOfDayCard());view.appendChild(psec);psec.appendChild(pwrap);
+
+  /* ---- FEATURED / RANDOM PERSON OF THE DAY ---- */
+  view.appendChild(featuredPersonSection());
+
+  /* ---- EXPLORE BY CATEGORY ---- */
   const secC=el("section",{class:"section"});
   secC.appendChild(secHead("Explore by field","Every field, as its own room","All categories →",()=>setView("categories")));
   const cg=el("div",{class:"chip-grid"});
@@ -1871,65 +1913,84 @@ function renderDiscover(view){
   const secY=el("section",{class:"section"});
   secY.appendChild(secHead("Explore by century",null));
   const yg=el("div",{class:"chip-grid"});
-  const cents=centuryOrder(HISTORICAL);
-  cents.forEach(([lab,n])=>yg.appendChild(bigchip(lab,null,n,"var(--navy-3)",()=>{goWithFilter(f=>f.centuries.add(lab),"people");})));
+  centuryOrder(HISTORICAL).forEach(([lab,n])=>yg.appendChild(bigchip(lab,null,n,"var(--navy-3)",()=>{goWithFilter(f=>f.centuries.add(lab),"people");})));
   secY.appendChild(yg);view.appendChild(secY);
-  /* explore by zodiac */
-  const secZ=el("section",{class:"section"});
-  secZ.appendChild(secHead("Explore by zodiac sign",null));
-  const zg=el("div",{class:"chip-grid"});
-  const zc=zodiacCounts(HISTORICAL);
-  ZODIAC.forEach(z=>zg.appendChild(bigchip(z.sym+" "+z.sign,null,zc[z.sign],null,()=>{goWithFilter(f=>f.zodiac=z.sign,"people");})));
-  secZ.appendChild(zg);view.appendChild(secZ);
-  /* crowded */
-  const cr=crowded(HISTORICAL).slice(0,6);
-  if(cr.length){
-    const sec=el("section",{class:"section"});
-    sec.appendChild(secHead("Most crowded birthdays","Dates shared by the most figures","See patterns →",()=>setView("patterns")));
-    const grid=el("div",{class:"cardgrid"});
-    cr.forEach(c=>{
-      const card=el("button",{class:"spot-card click",style:"background:var(--card);border-color:var(--hairline);color:var(--ink)",onClick:()=>openDay(c.m,c.d,c.people)});
-      card.appendChild(el("div",{class:"lab",style:"color:var(--gold-deep)",text:MONTHS[c.m-1]+" "+c.d}));
-      card.appendChild(el("div",{class:"big",style:"color:var(--ink)",text:c.people.slice(0,3).map(p=>p.name).join(", ")+(c.people.length>3?" +"+(c.people.length-3):"")}));
-      card.appendChild(el("div",{class:"meta",style:"color:var(--muted)",text:c.people.length+" figures share this day"}));
-      grid.appendChild(card);
-    });
-    sec.appendChild(grid);view.appendChild(sec);
-  }
-  /* collections */
-  const secCol=el("section",{class:"section"});
-  secCol.appendChild(secHead("Featured collections",null));
-  const colGrid=el("div",{class:"chip-grid"});
-  COLLECTIONS.forEach(col=>{if(col==="Personal")return;const n=HISTORICAL.filter(p=>p.collection===col).length;if(!n)return;
-    colGrid.appendChild(bigchip(col,"\u{1F4DA}",n,null,()=>{goWithFilter(f=>f.collections.add(col),"people");}));});
-  secCol.appendChild(colGrid);view.appendChild(secCol);
+
+  /* ---- CONTINUE EXPLORING (recently viewed / saved) ---- */
+  const recent=getRecent().map(id=>PERSON_BY_ID[id]).filter(Boolean);
+  if(recent.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Continue exploring","Recently viewed"));
+    sec.appendChild(scroller(recent.slice(0,14)));view.appendChild(sec);}
+  const favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(Boolean);
+  if(favs.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Your saved people","Tap the star on any profile to save"));
+    sec.appendChild(scroller(favs.slice(0,14)));view.appendChild(sec);}
 
   /* quiet dedication */
   view.appendChild(el("footer",{class:"site-credit"},[
-    el("span",{text:"Inspired by Eunice Poulos"}),
-    el("span",{class:"dot",text:"·"}),
-    el("span",{text:"Built by Jerry Pena"})
+    el("span",{text:"Inspired by Eunice Poulos"}),el("span",{class:"dot",text:"·"}),el("span",{text:"Built by Jerry Pena"})
   ]));
 }
-function heroStars(){
-  const layer=el("div",{class:"dhero-stars","aria-hidden":"true"});
-  const N=54,rnd=(a,b)=>a+Math.random()*(b-a);
-  for(let i=0;i<N;i++){
-    const r=Math.random();const cls=r<0.18?"gold":r<0.34?"blue":"";
-    const s=rnd(1,2.8);
-    const st=el("i",{class:"dhero-star"+(cls?" "+cls:"")});
+function todaySignCard(){
+  const z=zodiac(TODAY_M,TODAY_D);
+  const card=el("div",{class:"spot-card click"});
+  if(z){const m=ZMETA[z.sign];
+    card.appendChild(el("div",{class:"lab",text:"The sky today · "+z.element}));
+    card.appendChild(el("div",{class:"big",html:z.sym+"  <b>"+z.sign+"</b> — "+m.sub}));
+    card.appendChild(el("div",{class:"meta",text:m.traits+" · tap to explore "+signPlural(z.sign)}));
+    card.addEventListener("click",()=>{state.zSign=z.sign;state.view="zodiac";window.scrollTo({top:0});render();});
+  }
+  return card;
+}
+function featuredPersonSection(){
+  const pool=HISTORICAL.filter(p=>p.importanceTier==="Legendary"||p.importanceTier==="Major").sort((a,b)=>a.id<b.id?-1:1);
+  const p=pool[(TODAY_M*31+TODAY_D*7)%pool.length];
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Featured person of the day",null,"Surprise me →",surprise));
+  const card=el("button",{class:"feat-person",onClick:()=>openPerson(p)});
+  const tag=el("span",{class:"ctag"});tag.textContent=CATS[p.category].label;tag.style.background=catColor(p.category);
+  const left=el("div",{class:"fp-left"});
+  left.appendChild(el("div",{class:"fp-top"},[tag,p.zsym?el("span",{class:"fp-z",text:p.zsym+" "+p.zsign}):null]));
+  left.appendChild(el("div",{class:"fp-name",text:p.name}));
+  left.appendChild(el("div",{class:"fp-meta",text:fmtDate(p)+(p.country&&p.country!=="Unknown"?" · "+p.country:"")}));
+  left.appendChild(el("div",{class:"fp-desc",text:p.shortDescription||p.bio||""}));
+  card.appendChild(left);
+  card.appendChild(el("div",{class:"fp-go",text:"Read their story →"}));
+  sec.appendChild(card);return sec;
+}
+function discoverZodiacSection(){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Explore by zodiac sign","Twelve signs · four elements","Zodiac Explorer →",()=>setView("zodiac")));
+  const chips=el("div",{class:"el-filter"});
+  const grid=el("div",{class:"zgrid"});
+  function paint(elKey){
+    grid.innerHTML="";
+    ZODIAC.filter(z=>!elKey||ZMETA[z.sign].element===elKey).forEach(z=>grid.appendChild(zodiacCard(z.sign)));
+  }
+  const opts=[["","All signs"],["Fire","Fire"],["Earth","Earth"],["Air","Air"],["Water","Water"]];
+  opts.forEach(([k,lab],i)=>{
+    const b=el("button",{class:"elf-chip"+(k?" "+k.toLowerCase():""),"aria-pressed":i===0?"true":"false",text:lab,
+      onClick:()=>{chips.querySelectorAll(".elf-chip").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");paint(k);}});
+    chips.appendChild(b);
+  });
+  sec.appendChild(chips);sec.appendChild(grid);paint("");
+  return sec;
+}
+function starLayer(cls,n){
+  const layer=el("div",{class:cls,"aria-hidden":"true"});const rnd=(a,b)=>a+Math.random()*(b-a);
+  for(let i=0;i<n;i++){const r=Math.random();const c=r<0.18?"gold":r<0.34?"blue":"";const s=rnd(1,2.8);
+    const st=el("i",{class:"dhero-star"+(c?" "+c:"")});
     st.style.left=rnd(0,100).toFixed(2)+"%";st.style.top=rnd(0,100).toFixed(2)+"%";
     st.style.width=s.toFixed(1)+"px";st.style.height=s.toFixed(1)+"px";
-    st.style.setProperty("--dur",rnd(2.6,6.5).toFixed(2)+"s");
-    st.style.setProperty("--delay",(-rnd(0,8)).toFixed(2)+"s");
-    st.style.setProperty("--max",rnd(.7,1).toFixed(2));
-    layer.appendChild(st);
-  }
+    st.style.setProperty("--dur",rnd(2.6,6.5).toFixed(2)+"s");st.style.setProperty("--delay",(-rnd(0,8)).toFixed(2)+"s");st.style.setProperty("--max",rnd(.7,1).toFixed(2));
+    layer.appendChild(st);}
   return layer;
 }
+function heroStars(){return starLayer("dhero-stars",54);}
 function buildBirthdayTool(){
   const saved=STORE.get("bday",null);
   const card=el("section",{class:"bday-tool"});
+  card.appendChild(starLayer("star-layer",28));
   const inner=el("div",{class:"bt-inner"});
   inner.appendChild(el("div",{class:"bt-eye",text:"What do the stars say about you?"}));
   inner.appendChild(el("h2",{class:"bt-h",text:"Find your sign and your famous birthday twins"}));
@@ -2175,6 +2236,7 @@ function renderZodiac(view){
   view.innerHTML="";
   if(state.zSign){return renderZodiacSign(view,state.zSign);}
   const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",34));
   head.appendChild(el("p",{class:"eyebrow",text:"Written in the stars"}));
   head.appendChild(el("h1",{text:"Zodiac Explorer"}));
   head.appendChild(el("div",{class:"lede",text:"Every influential life in the almanac, arranged by sun sign and element. Find who shares your sign, which signs rule each field, and how the cosmos divides history."}));
@@ -2214,7 +2276,10 @@ function zodiacCard(sign){
   meta.appendChild(el("span",{class:"z-el",text:m.element}));
   meta.appendChild(el("span",{text:m.modality}));
   card.appendChild(meta);
-  card.appendChild(el("div",{class:"z-stat"},[el("b",{text:String(ppl.length)}),document.createTextNode(" figures"+(tc?" · top: "+CATS[tc].label:""))]));
+  const feat=featuredOf(ppl,3).map(p=>p.name);
+  if(feat.length)card.appendChild(el("div",{class:"z-people",html:feat.map(n=>esc(n)).join(" · ")}));
+  card.appendChild(el("div",{class:"z-stat"},[el("b",{text:String(ppl.length)}),document.createTextNode(" people"+(tc?" · top: "+CATS[tc].label:""))]));
+  card.appendChild(el("div",{class:"z-go",text:"Explore "+signPlural(sign)+" →"}));
   return card;
 }
 function renderZodiacSign(view,sign){
@@ -2222,6 +2287,7 @@ function renderZodiacSign(view,sign){
   const back=el("button",{class:"backlink",onClick:()=>{state.zSign=null;render();}},[document.createTextNode("← All signs")]);
   view.appendChild(back);
   const hero=el("div",{class:"zsign-hero "+m.element.toLowerCase()});
+  hero.appendChild(starLayer("star-layer",30));
   hero.appendChild(el("div",{class:"zh-sym",text:signSym(sign)}));
   const ht=el("div",{class:"zh-text"});
   ht.appendChild(el("p",{class:"eyebrow",text:m.element+" · "+m.modality+" · Ruled by "+m.planet}));
@@ -2423,50 +2489,60 @@ function heatColor(t){const h=44-13*t,s=(55+26*t),l=91-48*t;return "hsl("+h+" "+
 function chartHeatmap(list){
   const ch=el("div",{class:"chart heatmap-chart"});
   ch.appendChild(el("h3",{text:"The birthday heat map"}));
-  ch.appendChild(el("div",{class:"cap",text:"The whole year at a glance — each day glows by how many influential people share it. Hover to peek, click to open the day."}));
-  const counts={};let mx=0;
-  list.forEach(p=>{if(p.month&&p.day){const k=p.month+"-"+p.day;counts[k]=(counts[k]||0)+1;if(counts[k]>mx)mx=counts[k];}});
+  ch.appendChild(el("div",{class:"cap",text:"The whole year at a glance — each day glows by how many influential people share it. Filter to watch the sky re-light; hover to peek, click to open a day."}));
+  const filters=[
+    {label:"Everyone",pred:null},
+    {label:"\u{1F52C} Science",pred:p=>inCat(p,"science")},
+    {label:"\u{1F4BB} Tech",pred:p=>inCat(p,"tech")},
+    {label:"\u{1F3BC} Music",pred:p=>p.category==="music"},
+    {label:"\u{1F3AC} Film",pred:p=>["films","directors"].includes(p.category)},
+    {label:"\u{1F3C5} Athletes",pred:p=>p.category==="sports"},
+    {label:"\u{1F451} Leaders",pred:p=>["leaders","politics","presidents"].includes(p.category)},
+    {label:"\u{1F3A8} Artists",pred:p=>["art","literature"].includes(p.category)},
+    {label:"\u{1F680} Space",pred:p=>inCat(p,"space")}
+  ];
+  const chips=el("div",{class:"hm-filter"});
   const board=el("div",{class:"hm-board"});
-  const tip=el("div",{class:"hm-tip"});
-  let busiest=null,busiestN=0;
-  for(let m=1;m<=12;m++){
-    const row=el("div",{class:"hm-row"});
-    row.appendChild(el("div",{class:"hm-mlab",text:MS[m-1]}));
-    const cells=el("div",{class:"hm-cells"});
-    const dim=DIM[m-1];
-    for(let d=1;d<=dim;d++){
-      const n=counts[m+"-"+d]||0;
-      if(n>busiestN){busiestN=n;busiest=[m,d];}
-      const cell=el(n?"button":"div",{class:"hm-cell"+(n?" has":"")});
-      if(n){
-        const t=n/mx;cell.style.background=heatColor(t);
-        if(t>0.66)cell.classList.add("hot");
-        cell.setAttribute("aria-label",MONTHS[m-1]+" "+d+", "+n+(n===1?" figure":" figures"));
-        const show=()=>{const ppl=list.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
-          tip.innerHTML="";tip.appendChild(el("div",{class:"hmt-d",text:MONTHS[m-1]+" "+d+" · "+n+(n===1?" figure":" figures")}));
-          tip.appendChild(el("div",{class:"hmt-n",text:ppl.slice(0,4).map(p=>p.name).join(", ")+(ppl.length>4?"…":"")}));
-          tip.classList.add("on");
-          const br=cell.getBoundingClientRect(),pr=board.getBoundingClientRect();
-          tip.style.left=Math.min(Math.max(br.left-pr.left+br.width/2,70),pr.width-70)+"px";
-          tip.style.top=(br.top-pr.top-12)+"px";};
-        cell.addEventListener("mouseenter",show);
-        cell.addEventListener("focus",show);
-        cell.addEventListener("mouseleave",()=>tip.classList.remove("on"));
-        cell.addEventListener("blur",()=>tip.classList.remove("on"));
-        cell.addEventListener("click",()=>{const ppl=list.filter(p=>p.month===m&&p.day===d);openDay(m,d,ppl);});
+  const sumWrap=el("div",{class:"hm-sumwrap"});
+  function paint(pred){
+    const sub=pred?list.filter(pred):list;
+    const counts={};let mx=0;
+    sub.forEach(p=>{if(p.month&&p.day){const k=p.month+"-"+p.day;counts[k]=(counts[k]||0)+1;if(counts[k]>mx)mx=counts[k];}});
+    board.innerHTML="";const tip=el("div",{class:"hm-tip"});
+    let busiest=null,busiestN=0;
+    for(let m=1;m<=12;m++){
+      const row=el("div",{class:"hm-row"});row.appendChild(el("div",{class:"hm-mlab",text:MS[m-1]}));
+      const cells=el("div",{class:"hm-cells"});const dim=DIM[m-1];
+      for(let d=1;d<=dim;d++){
+        const n=counts[m+"-"+d]||0;if(n>busiestN){busiestN=n;busiest=[m,d];}
+        const cell=el(n?"button":"div",{class:"hm-cell"+(n?" has":"")});
+        if(n){const t=mx?n/mx:0;cell.style.background=heatColor(t);if(t>0.66)cell.classList.add("hot");
+          cell.setAttribute("aria-label",MONTHS[m-1]+" "+d+", "+n+(n===1?" figure":" figures"));
+          const show=()=>{const ppl=sub.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+            tip.innerHTML="";tip.appendChild(el("div",{class:"hmt-d",text:MONTHS[m-1]+" "+d+" \u00b7 "+n+(n===1?" figure":" figures")}));
+            tip.appendChild(el("div",{class:"hmt-n",text:ppl.slice(0,4).map(p=>p.name).join(", ")+(ppl.length>4?"\u2026":"")}));
+            tip.classList.add("on");const br=cell.getBoundingClientRect(),pr=board.getBoundingClientRect();
+            tip.style.left=Math.min(Math.max(br.left-pr.left+br.width/2,70),pr.width-70)+"px";tip.style.top=(br.top-pr.top-12)+"px";};
+          cell.addEventListener("mouseenter",show);cell.addEventListener("focus",show);
+          cell.addEventListener("mouseleave",()=>tip.classList.remove("on"));cell.addEventListener("blur",()=>tip.classList.remove("on"));
+          cell.addEventListener("click",()=>{const ppl=sub.filter(p=>p.month===m&&p.day===d);openDay(m,d,ppl);});}
+        cells.appendChild(cell);
       }
-      cells.appendChild(cell);
+      row.appendChild(cells);board.appendChild(row);
     }
-    row.appendChild(cells);board.appendChild(row);
+    board.appendChild(tip);
+    sumWrap.innerHTML="";
+    if(busiest)sumWrap.appendChild(summary("<b>"+MONTHS[busiest[0]-1]+" "+busiest[1]+"</b> burns brightest \u2014 shared by <b>"+busiestN+"</b>"+(pred?" of these":" influential people")+"."));
+    else sumWrap.appendChild(el("div",{class:"cap",text:"No shared days for this filter."}));
   }
-  board.appendChild(tip);
-  ch.appendChild(board);
-  const legend=el("div",{class:"hm-legend"});
-  legend.appendChild(el("span",{class:"hml-t",text:"Fewer"}));
-  for(let i=0;i<6;i++){const s=el("i");s.style.background=i===0?"var(--card-3)":heatColor(i/5);legend.appendChild(s);}
-  legend.appendChild(el("span",{class:"hml-t",text:"More"}));
-  ch.appendChild(legend);
-  if(busiest)ch.appendChild(summary("<b>"+MONTHS[busiest[0]-1]+" "+busiest[1]+"</b> burns brightest — shared by <b>"+busiestN+"</b> influential people."));
+  filters.forEach((f,i)=>{const b=el("button",{class:"hm-chip","aria-pressed":i===0?"true":"false",text:f.label,
+    onClick:()=>{chips.querySelectorAll(".hm-chip").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");paint(f.pred);}});chips.appendChild(b);});
+  ch.appendChild(chips);ch.appendChild(board);
+  const legend=el("div",{class:"hm-legend"});legend.appendChild(el("span",{class:"hml-t",text:"Fewer"}));
+  for(let i=0;i<6;i++){const sw=el("i");sw.style.background=i===0?"var(--card-3)":heatColor(i/5);legend.appendChild(sw);}
+  legend.appendChild(el("span",{class:"hml-t",text:"More"}));ch.appendChild(legend);
+  ch.appendChild(sumWrap);
+  paint(null);
   return ch;
 }
 function chartElement(list){
@@ -2696,6 +2772,10 @@ function buildPersonModal(p){
     const sameC=featuredOf(relPool.filter(x=>x.id!==p.id&&x.centuryLabel===p.centuryLabel),6);
     if(sameC.length){rel.appendChild(el("h4",{text:"Also born in the "+p.centuryLabel}));
       const c=el("div",{class:"rel-chips"});sameC.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
+  if(p.country&&p.country!=="Unknown"){
+    const sameCountry=featuredOf(relPool.filter(x=>x.id!==p.id&&x.country===p.country),6);
+    if(sameCountry.length){rel.appendChild(el("h4",{text:"From "+p.country}));
+      const c=el("div",{class:"rel-chips"});sameCountry.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
   body.appendChild(rel);
   m.appendChild(body);
 
