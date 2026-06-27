@@ -301,6 +301,18 @@ main{display:block;min-height:60vh}
 html[data-theme="dark"] #meridian{box-shadow:0 0 14px rgba(232,209,153,.55)}
 @media(prefers-reduced-motion:reduce){#meridian{display:none}}
 
+/* 0 — ambient glowing starfield in the side gutters (wide screens only) */
+#starscape{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.gstar{position:fixed;border-radius:50%;background:#FFF7E4;
+  box-shadow:0 0 7px 1px rgba(255,243,210,.65),0 0 2px rgba(255,255,255,.9);
+  opacity:var(--tw,.6);animation:gstarTwinkle 4s ease-in-out infinite}
+.gstar.g{background:#FBE6AE;box-shadow:0 0 8px 1px rgba(230,200,128,.6),0 0 2px rgba(255,236,190,.9)}
+html[data-theme="dark"] .gstar{box-shadow:0 0 9px 2px rgba(255,244,210,.55),0 0 3px rgba(255,255,255,.95)}
+html:not([data-theme="dark"]) .gstar{background:#D9B860;box-shadow:0 0 7px 1px rgba(196,154,69,.4);opacity:calc(var(--tw,.6)*.7)}
+@keyframes gstarTwinkle{0%,100%{opacity:calc(var(--tw,.6)*.32);transform:scale(.7)}50%{opacity:var(--tw,.6);transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.gstar{animation:none}}
+@media(max-width:1180px){#starscape{display:none}}
+
 /* 2 — kinetic masked headline reveal on section titles (armed by JS only) */
 .kinhead h2{position:relative}
 .kinhead.kin-armed .kin{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em}
@@ -566,6 +578,9 @@ html[data-theme="dark"] #meridian{box-shadow:0 0 14px rgba(232,209,153,.55)}
 .bv{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
 .summary{margin-top:13px;background:var(--gold-wash);border:1px solid var(--gold-soft);border-radius:12px;padding:10px 13px;font-size:12.5px;color:#5b4a1c;line-height:1.45}
 .summary b{font-weight:700}
+/* readable callouts in dark mode — warm light gold on a soft gold wash */
+html[data-theme="dark"] .summary{color:#EBDBAE;background:rgba(230,206,142,.10);border-color:rgba(230,206,142,.34)}
+html[data-theme="dark"] .summary b{color:#FBEFCB}
 /* ===== INTERACTIVE BIRTHDAY HEAT MAP ===== */
 .heatmap-chart{margin-bottom:18px}
 .hm-board{position:relative;margin-top:6px}
@@ -4499,6 +4514,33 @@ if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!R
   window.addEventListener("scroll",onScroll,{passive:true});
   window.addEventListener("resize",onScroll,{passive:true});
   update();
+})();
+
+/* ambient glowing starfield — scattered through the empty side gutters */
+(function(){
+  const layer=el("div",{id:"starscape","aria-hidden":"true"});document.body.appendChild(layer);
+  const N=48,stars=[];
+  for(let i=0;i<N;i++){
+    const s=el("i",{class:"gstar"+(Math.random()<0.42?" g":"")});
+    const sz=(Math.random()*2.4+1.1);
+    s.style.width=s.style.height=sz.toFixed(1)+"px";
+    s.style.top=(Math.random()*96+2).toFixed(2)+"%";
+    s.style.setProperty("--tw",(Math.random()*0.45+0.45).toFixed(2));
+    if(!REDUCE){s.style.animationDuration=(Math.random()*3.6+2.6).toFixed(2)+"s";s.style.animationDelay=(-Math.random()*6).toFixed(2)+"s";}
+    stars.push({el:s,side:i%2,r:Math.random()});layer.appendChild(s);
+  }
+  function place(){
+    const gw=Math.max(0,(window.innerWidth-1280)/2);
+    if(gw<46){layer.style.display="none";return;}
+    layer.style.display="";
+    stars.forEach(st=>{
+      const x=6+st.r*Math.max(2,gw-20);
+      if(st.side===0){st.el.style.left=x.toFixed(1)+"px";st.el.style.right="auto";}
+      else{st.el.style.right=x.toFixed(1)+"px";st.el.style.left="auto";}
+    });
+  }
+  place();
+  let praf=0;window.addEventListener("resize",()=>{if(!praf)praf=requestAnimationFrame(()=>{praf=0;place();});},{passive:true});
 })();
 
 /* init */
