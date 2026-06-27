@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="description" content="The Birthday Almanac is an interactive museum of influential lives — explore history's greatest figures by birthday, zodiac sign, element, field, era, country and curated collections. Discover famous birthdays today, who shares your sign, and surprising patterns across the centuries.">
-<meta name="keywords" content="famous birthdays, zodiac signs, astrology, influential people, history, born on this day, zodiac explorer, famous people by birthday">
+<meta name="description" content="The Birthday Almanac — explore famous birthdays, find the people born today, look up any birthday zodiac sign, and discover your monthly birthstone and birth flower. Browse 600+ historical figures by birthday, zodiac sign, element, field and era on an interactive birthday calendar.">
+<meta name="keywords" content="famous birthdays, birthday zodiac, birthstone, birth flower, people born today, zodiac signs, birthday calendar, historical figures by birthday, born on this day, astrology">
 <title>The Birthday Almanac — Famous Birthdays, Zodiac Signs & History</title>
 <link rel="canonical" href="https://altecbx.github.io/The-Birthday-Almanac/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Birthday Almanac">
 <meta property="og:title" content="The Birthday Almanac — Famous Birthdays, Zodiac Signs & History">
-<meta property="og:description" content="An interactive museum of influential lives. Explore history's greatest figures by birthday, zodiac sign, element, field and era. Find famous birthdays today and who shares your sign.">
+<meta property="og:description" content="Explore famous birthdays, the people born today, every birthday zodiac sign, and your monthly birthstone and birth flower. 600+ historical figures on an interactive birthday calendar.">
 <meta property="og:url" content="https://altecbx.github.io/The-Birthday-Almanac/">
 <meta property="og:image" content="https://altecbx.github.io/The-Birthday-Almanac/assets/hero-zodiac.jpg">
 <meta property="og:image:alt" content="An illustrated celestial map of the twelve zodiac signs around the title The Birthday Almanac">
@@ -186,6 +186,52 @@ main{display:block;min-height:60vh}
   font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;pointer-events:none}
 .skydome-cap{position:absolute;right:15px;top:13px;z-index:3;color:rgba(232,224,206,.5);
   font-family:var(--mono);font-size:10px;letter-spacing:1.8px;text-transform:uppercase;pointer-events:none}
+/* ===== BIRTHDAY TRIVIA (premium dark glass section) ===== */
+.trivia{position:relative;margin:34px 0 10px;padding:44px clamp(18px,4vw,48px);border-radius:var(--radius-xl);overflow:hidden;
+  background:radial-gradient(150% 130% at 50% -12%,#1c2c46 0%,#13223a 42%,#0b1525 76%,#070d18 100%);
+  border:1px solid rgba(230,206,142,.16);box-shadow:inset 0 0 100px rgba(0,0,0,.5),0 26px 64px rgba(6,10,20,.5)}
+.trivia-head{position:relative;z-index:1;text-align:center;margin-bottom:32px}
+.trivia-head .eyebrow{color:var(--gold-soft)}
+.trivia-head h2{font-family:var(--serif);color:#FAF4E6;font-size:clamp(28px,4.2vw,46px);font-weight:600;margin-top:10px;letter-spacing:.4px;line-height:1.08}
+.trivia-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1080px;margin:0 auto}
+.trivia-card{background:rgba(255,253,245,.045);border:1px solid rgba(230,206,142,.15);border-radius:var(--radius);
+  padding:21px 23px;backdrop-filter:blur(9px) saturate(120%);-webkit-backdrop-filter:blur(9px) saturate(120%);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease)}
+.trivia-card:hover{transform:translateY(-5px);border-color:rgba(230,206,142,.42);background:rgba(255,253,245,.075);box-shadow:0 20px 44px rgba(0,0,0,.42)}
+.trivia-card .tk{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-soft);font-weight:500}
+.trivia-card .tk::before{content:"\2726";color:var(--gold);font-size:12px}
+.trivia-card p{margin:13px 0 0;color:#CBC3B2;font-size:13.8px;line-height:1.62}
+@media(max-width:880px){.trivia-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.trivia-grid{grid-template-columns:1fr}.trivia{padding:32px 18px}}
+/* birthstone / birth flower row in the person modal */
+.mbf{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.mbf .chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;
+  background:var(--card-2);border:1px solid var(--hairline);font-size:12.5px;color:var(--ink-2)}
+.mbf .chip b{color:var(--gold-deep);font-weight:600}
+.mbf .chip .gi{font-size:13px}
+/* slow drifting star fields */
+@keyframes starDrift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-2.2%,1.6%,0)}}
+@media(prefers-reduced-motion:no-preference){.dhero-stars,.star-layer{animation:starDrift 82s ease-in-out infinite alternate}}
+/* gentle premium hover lift for cards */
+.collcard,.zcard{transition:transform .32s var(--ease),box-shadow .32s var(--ease),border-color .32s var(--ease)}
+.collcard:hover,.zcard:hover{transform:translateY(-4px)}
+/* Surprise Me — cosmic constellation reveal */
+.surprise-veil{position:fixed;inset:0;z-index:140;display:grid;place-items:center;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(12,20,36,.55),rgba(6,10,20,.88));
+  opacity:0;animation:svIn .42s ease forwards}
+@keyframes svIn{to{opacity:1}}
+.surprise-veil.out{animation:svOut .34s ease forwards}
+@keyframes svOut{to{opacity:0}}
+.sv-ring{position:relative;width:184px;height:184px;border-radius:50%;animation:svSpin .82s cubic-bezier(.5,.05,.2,1)}
+.sv-ring::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid rgba(230,206,142,.3);box-shadow:0 0 40px rgba(230,206,142,.25),inset 0 0 30px rgba(230,206,142,.12)}
+.sv-gly{position:absolute;left:50%;top:50%;margin:-12px 0 0 -12px;width:24px;height:24px;display:grid;place-items:center;
+  color:var(--gold-soft);font-size:17px;text-shadow:0 0 10px rgba(230,206,142,.6);opacity:0;animation:svGly .82s ease forwards}
+.sv-core{position:absolute;color:#FFF7E0;font-size:26px;text-shadow:0 0 18px rgba(255,240,200,.9);animation:svCore .82s ease}
+@keyframes svSpin{from{transform:rotate(-150deg) scale(.7)}to{transform:rotate(8deg) scale(1)}}
+@keyframes svGly{0%{opacity:0}55%{opacity:1}100%{opacity:.85}}
+@keyframes svCore{0%{transform:scale(.2);opacity:0}50%{opacity:1}100%{transform:scale(1.5);opacity:0}}
+@media(prefers-reduced-motion:reduce){.surprise-veil,.sv-ring,.sv-gly,.sv-core{animation:none}}
 .spotlight{margin-top:24px;display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
 .spot-card{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
 .spot-card .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep)}
@@ -799,30 +845,59 @@ main{display:block;min-height:60vh}
 </header>
 <main id="main"><div class="wrap"><div id="view" aria-live="polite">
   <section id="seo-static">
-    <h1>The Birthday Almanac — birthdays, zodiac signs &amp; the patterns behind history's most influential lives</h1>
-    <p>The Birthday Almanac is an interactive museum of influential lives. Explore famous
-    birthdays across time, uncover zodiac patterns, browse historical categories and find
-    surprising connections between the people who shaped the world — by
-    <a href="#/calendar">birthday and calendar</a>, by
+    <h1>The Birthday Almanac — famous birthdays, zodiac signs, birthstones &amp; birth flowers</h1>
+    <p>The Birthday Almanac is an interactive museum of <strong>famous birthdays</strong> and the
+    patterns behind history's most influential lives. Discover <strong>people born today</strong>,
+    look up any <strong>birthday zodiac</strong> sign, find your monthly <strong>birthstone</strong>
+    and <strong>birth flower</strong>, and explore <strong>historical figures by birthday</strong> —
+    by <a href="#/calendar">birthday calendar</a>, by
     <a href="#/zodiac">zodiac sign and element</a>, by <a href="#/category/science">field</a>,
     by era and century, and through <a href="#/collections">curated collections</a> —
     from <a href="#/collection/greatest-minds-in-science">the greatest minds in science</a>
     to <a href="#/collection/music-icons">music icons</a> and
     <a href="#/collection/legendary-athletes">legendary athletes</a>.</p>
-    <h2>Explore by zodiac sign</h2>
+
+    <h2>Famous birthdays &amp; people born today</h2>
+    <p>Browse a complete <a href="#/calendar">birthday calendar</a> of more than six hundred
+    influential figures — scientists, artists, leaders, musicians, athletes, writers and explorers
+    — and see exactly who shares each date. Open <a href="#/discover">Discover</a> to find the
+    <strong>famous birthdays today</strong>, the people born this week, and surprising birthday
+    connections across the centuries. Every profile lists the person's birth date, zodiac sign,
+    birth year, era, country and the curated collections they belong to.</p>
+
+    <h2>Birthday zodiac signs</h2>
+    <p>Look up the <strong>birthday zodiac</strong> for any date and learn what each of the twelve
+    <a href="#/zodiac">zodiac signs</a> means — its element, ruling planet, dates and traits — then
+    see which influential people were born under it and map the twelve constellations across the
+    night sky.</p>
     <ul>
-      <li><a href="#/zodiac/aries">Aries</a></li><li><a href="#/zodiac/taurus">Taurus</a></li>
-      <li><a href="#/zodiac/gemini">Gemini</a></li><li><a href="#/zodiac/cancer">Cancer</a></li>
-      <li><a href="#/zodiac/leo">Leo</a></li><li><a href="#/zodiac/virgo">Virgo</a></li>
-      <li><a href="#/zodiac/libra">Libra</a></li><li><a href="#/zodiac/scorpio">Scorpio</a></li>
-      <li><a href="#/zodiac/sagittarius">Sagittarius</a></li><li><a href="#/zodiac/capricorn">Capricorn</a></li>
-      <li><a href="#/zodiac/aquarius">Aquarius</a></li><li><a href="#/zodiac/pisces">Pisces</a></li>
+      <li><a href="#/zodiac/aries">Aries</a> (Mar 21 – Apr 19) · Fire</li><li><a href="#/zodiac/taurus">Taurus</a> (Apr 20 – May 20) · Earth</li>
+      <li><a href="#/zodiac/gemini">Gemini</a> (May 21 – Jun 20) · Air</li><li><a href="#/zodiac/cancer">Cancer</a> (Jun 21 – Jul 22) · Water</li>
+      <li><a href="#/zodiac/leo">Leo</a> (Jul 23 – Aug 22) · Fire</li><li><a href="#/zodiac/virgo">Virgo</a> (Aug 23 – Sep 22) · Earth</li>
+      <li><a href="#/zodiac/libra">Libra</a> (Sep 23 – Oct 22) · Air</li><li><a href="#/zodiac/scorpio">Scorpio</a> (Oct 23 – Nov 21) · Water</li>
+      <li><a href="#/zodiac/sagittarius">Sagittarius</a> (Nov 22 – Dec 21) · Fire</li><li><a href="#/zodiac/capricorn">Capricorn</a> (Dec 22 – Jan 19) · Earth</li>
+      <li><a href="#/zodiac/aquarius">Aquarius</a> (Jan 20 – Feb 18) · Air</li><li><a href="#/zodiac/pisces">Pisces</a> (Feb 19 – Mar 20) · Water</li>
     </ul>
-    <h2>Browse the almanac</h2>
+
+    <h2>Birthstones &amp; birth flowers by month</h2>
+    <p>Each month of the year carries its own traditional <strong>birthstone</strong> and
+    <strong>birth flower</strong>. Find yours below, then open any profile in the almanac to see the
+    birthstone and birth flower for that person's birth month.</p>
     <ul>
-      <li><a href="#/discover">Discover</a> — today in history, famous birthdays today, and more</li>
-      <li><a href="#/calendar">Calendar</a> — every birthday across the year</li>
-      <li><a href="#/people">People</a> — the full directory of influential figures</li>
+      <li><strong>January</strong> — Garnet · Carnation</li><li><strong>February</strong> — Amethyst · Violet</li>
+      <li><strong>March</strong> — Aquamarine · Daffodil</li><li><strong>April</strong> — Diamond · Daisy</li>
+      <li><strong>May</strong> — Emerald · Lily of the Valley</li><li><strong>June</strong> — Pearl · Rose</li>
+      <li><strong>July</strong> — Ruby · Larkspur</li><li><strong>August</strong> — Peridot · Gladiolus</li>
+      <li><strong>September</strong> — Sapphire · Aster</li><li><strong>October</strong> — Opal · Marigold</li>
+      <li><strong>November</strong> — Topaz · Chrysanthemum</li><li><strong>December</strong> — Turquoise · Narcissus</li>
+    </ul>
+
+    <h2>Historical figures by birthday</h2>
+    <ul>
+      <li><a href="#/discover">Discover</a> — people born today, famous birthdays this week, and birthday trivia</li>
+      <li><a href="#/calendar">Birthday calendar</a> — every birthday across all twelve months</li>
+      <li><a href="#/people">People</a> — the full directory of historical figures by birthday</li>
+      <li><a href="#/zodiac">Zodiac signs</a> — the twelve signs, their meanings and their constellations</li>
       <li><a href="#/categories">Categories</a> — science, art, music, leaders, athletes and more</li>
       <li><a href="#/patterns">Patterns</a> — interactive charts of births by month, sign, field and era</li>
     </ul>
@@ -844,6 +919,33 @@ main{display:block;min-height:60vh}
 <button class="devbtn" id="devBtn">Validation &amp; tests</button>
 <div class="devpanel" id="devPanel"></div>
 <script id="data">const PEOPLE=[
+  {id:"jane-goodall",name:"Jane Goodall",rank:null,category:"science",subCategory:null,birthYear:1934,era:"AD",month:4,day:3,dateStatus:"exact",zodiac:"Aries",zodiacSym:"♈",shortDescription:"Transformed our understanding of chimpanzees and primate behaviour.",bio:"English primatologist and conservationist (1934 to 2025)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Jane_Goodall",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"agatha-christie",name:"Agatha Christie",rank:null,category:"literature",subCategory:null,birthYear:1890,era:"AD",month:9,day:15,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"The best-selling novelist of all time and queen of detective fiction.",bio:"English writer (1890 to 1976)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Agatha_Christie",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"bruce-lee",name:"Bruce Lee",rank:null,category:"films",subCategory:null,birthYear:1940,era:"AD",month:11,day:27,dateStatus:"exact",zodiac:"Sagittarius",zodiacSym:"♐",shortDescription:"Martial artist and actor who brought kung fu cinema to the world.",bio:"American-born Hong Kong actor and martial artist (1940 to 1973)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Bruce_Lee",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"stan-lee",name:"Stan Lee",rank:null,category:"literature",subCategory:null,birthYear:1922,era:"AD",month:12,day:28,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Co-created Marvel's pantheon of modern superheroes.",bio:"American comic book writer and publisher (1922 to 2018)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Stan_Lee",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"salvador-dali",name:"Salvador Dalí",rank:null,category:"art",subCategory:null,birthYear:1904,era:"AD",month:5,day:11,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Surrealism's most flamboyant and inventive painter.",bio:"Spanish surrealist artist (1904 to 1989)",countryOrCivilization:"Spain",sourceUrl:"https://en.wikipedia.org/wiki/Salvador_Dal%C3%AD",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"coco-chanel",name:"Coco Chanel",rank:null,category:"business",subCategory:null,birthYear:1883,era:"AD",month:8,day:19,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Revolutionised women's fashion and built an enduring luxury house.",bio:"French fashion designer (1883 to 1971)",countryOrCivilization:"France",sourceUrl:"https://en.wikipedia.org/wiki/Coco_Chanel",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"anne-frank",name:"Anne Frank",rank:null,category:"literature",subCategory:null,birthYear:1929,era:"AD",month:6,day:12,dateStatus:"exact",zodiac:"Gemini",zodiacSym:"♊",shortDescription:"Her wartime diary became one of the most-read books in the world.",bio:"German-Dutch diarist of the Holocaust (1929 to 1945)",countryOrCivilization:"Germany",sourceUrl:"https://en.wikipedia.org/wiki/Anne_Frank",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"malala-yousafzai",name:"Malala Yousafzai",rank:null,category:"civilrights",subCategory:null,birthYear:1997,era:"AD",month:7,day:12,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"Youngest-ever Nobel laureate and champion of girls' education.",bio:"Pakistani education activist (born 1997)",countryOrCivilization:"Pakistan",sourceUrl:"https://en.wikipedia.org/wiki/Malala_Yousafzai",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"greta-thunberg",name:"Greta Thunberg",rank:null,category:"civilrights",subCategory:null,birthYear:2003,era:"AD",month:1,day:3,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Sparked a global youth movement for climate action.",bio:"Swedish environmental activist (born 2003)",countryOrCivilization:"Sweden",sourceUrl:"https://en.wikipedia.org/wiki/Greta_Thunberg",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"steve-irwin",name:"Steve Irwin",rank:null,category:"science",subCategory:null,birthYear:1962,era:"AD",month:2,day:22,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"The Crocodile Hunter who made wildlife conservation thrilling.",bio:"Australian zookeeper and conservationist (1962 to 2006)",countryOrCivilization:"Australia",sourceUrl:"https://en.wikipedia.org/wiki/Steve_Irwin",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"anthony-bourdain",name:"Anthony Bourdain",rank:null,category:"literature",subCategory:null,birthYear:1956,era:"AD",month:6,day:25,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"Chef and writer who turned food into a window on the world.",bio:"American chef, author and television host (1956 to 2018)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Anthony_Bourdain",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"david-attenborough",name:"David Attenborough",rank:null,category:"science",subCategory:null,birthYear:1926,era:"AD",month:5,day:8,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"The voice of natural history for generations of viewers.",bio:"English broadcaster and naturalist (born 1926)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/David_Attenborough",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"roald-dahl",name:"Roald Dahl",rank:null,category:"literature",subCategory:null,birthYear:1916,era:"AD",month:9,day:13,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"Beloved author of darkly funny children's classics.",bio:"British novelist and short-story writer (1916 to 1990)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Roald_Dahl",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"dr-seuss",name:"Dr. Seuss",rank:null,category:"literature",subCategory:null,birthYear:1904,era:"AD",month:3,day:2,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Reinvented the children's picture book with playful rhyme.",bio:"American author and illustrator Theodor Seuss Geisel (1904 to 1991)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Dr._Seuss",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"stephen-king",name:"Stephen King",rank:null,category:"literature",subCategory:null,birthYear:1947,era:"AD",month:9,day:21,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"The master of modern horror and one of the best-selling authors alive.",bio:"American author of horror and suspense (born 1947)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Stephen_King",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"jk-rowling",name:"J. K. Rowling",rank:null,category:"literature",subCategory:null,birthYear:1965,era:"AD",month:7,day:31,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Created the Harry Potter series, a publishing phenomenon.",bio:"British author (born 1965)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/J._K._Rowling",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"julia-child",name:"Julia Child",rank:null,category:"literature",subCategory:null,birthYear:1912,era:"AD",month:8,day:15,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Brought French cooking to American kitchens.",bio:"American chef and author (1912 to 2004)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Julia_Child",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"kurt-cobain",name:"Kurt Cobain",rank:null,category:"music",subCategory:null,birthYear:1967,era:"AD",month:2,day:20,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Voice of a generation as the frontman of Nirvana.",bio:"American singer and songwriter (1967 to 1994)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Kurt_Cobain",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"robin-williams",name:"Robin Williams",rank:null,category:"films",subCategory:null,birthYear:1951,era:"AD",month:7,day:21,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"Comic genius and Oscar-winning actor of boundless energy.",bio:"American actor and comedian (1951 to 2014)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Robin_Williams",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"keith-haring",name:"Keith Haring",rank:null,category:"art",subCategory:null,birthYear:1958,era:"AD",month:5,day:4,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Turned street art into a bold, universal visual language.",bio:"American pop artist and activist (1958 to 1990)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Keith_Haring",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"octavia-butler",name:"Octavia Butler",rank:null,category:"literature",subCategory:null,birthYear:1947,era:"AD",month:6,day:22,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"A visionary who reshaped science fiction.",bio:"American science-fiction author (1947 to 2006)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Octavia_E._Butler",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"sylvia-plath",name:"Sylvia Plath",rank:null,category:"literature",subCategory:null,birthYear:1932,era:"AD",month:10,day:27,dateStatus:"exact",zodiac:"Scorpio",zodiacSym:"♏",shortDescription:"A defining voice of confessional poetry.",bio:"American poet and novelist (1932 to 1963)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Sylvia_Plath",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"george-rr-martin",name:"George R. R. Martin",rank:null,category:"literature",subCategory:null,birthYear:1948,era:"AD",month:9,day:20,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"Author of the epic A Song of Ice and Fire saga.",bio:"American novelist and screenwriter (born 1948)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/George_R._R._Martin",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"tim-burton",name:"Tim Burton",rank:null,category:"directors",subCategory:null,birthYear:1958,era:"AD",month:8,day:25,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"Director of gothic, whimsical modern fairy tales.",bio:"American filmmaker and animator (born 1958)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Tim_Burton",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"ansel-adams",name:"Ansel Adams",rank:null,category:"art",subCategory:null,birthYear:1902,era:"AD",month:2,day:20,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"His luminous landscapes elevated photography to fine art.",bio:"American landscape photographer (1902 to 1984)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Ansel_Adams",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"douglas-adams",name:"Douglas Adams",rank:null,category:"literature",subCategory:null,birthYear:1952,era:"AD",month:3,day:11,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Author of The Hitchhiker's Guide to the Galaxy.",bio:"English author and humourist (1952 to 2001)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Douglas_Adams",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
+  {id:"terry-pratchett",name:"Terry Pratchett",rank:null,category:"literature",subCategory:null,birthYear:1948,era:"AD",month:4,day:28,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Creator of the satirical Discworld fantasy series.",bio:"English author of comic fantasy (1948 to 2015)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Terry_Pratchett",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"albert-einstein",name:"Albert Einstein",rank:10,category:"science",subCategory:null,birthYear:1879,era:"AD",month:3,day:14,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Formulated the theories of special and general relativity.",bio:"German born theoretical physicist (1879 to 1955)",countryOrCivilization:"Cisleithania",sourceUrl:"https://en.wikipedia.org/wiki/Albert_Einstein",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:true,isPersonal:false},
   {id:"isaac-newton",name:"Isaac Newton",rank:2,category:"science",subCategory:null,birthYear:1643,era:"AD",month:1,day:4,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Set out the laws of motion and universal gravitation.",bio:"English mathematician and physicist (1642 to 1727)",countryOrCivilization:"Kingdom of England",sourceUrl:"https://en.wikipedia.org/wiki/Isaac_Newton",sourceName:"Wikipedia",confidence:"high",calendarNote:"Born 25 Dec 1642 Old Style; shown as 4 Jan 1643 New Style.",sex:"male",isTop100:true,isPersonal:false},
   {id:"galileo-galilei",name:"Galileo Galilei",rank:12,category:"science",subCategory:null,birthYear:1564,era:"AD",month:2,day:15,dateStatus:"exact",zodiac:"Aquarius",zodiacSym:"♒",shortDescription:"Pioneered telescopic astronomy and the experimental method.",bio:"Italian polymath (1564 to 1642)",countryOrCivilization:"Duchy of Florence",sourceUrl:"https://en.wikipedia.org/wiki/Galileo_Galilei",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:true,isPersonal:false},
@@ -1513,6 +1615,38 @@ const CONSTELLATIONS={
   Pisces:{stars:[[-0.9,-0.5,0.9],[-0.5,-0.3,1.0],[-0.1,-0.05,1.0],[0.2,0.2,1.1],[0.56,0.0,1.0],[0.86,-0.3,0.9],[0.0,0.5,0.9],[-0.4,0.46,0.9]],lines:[[0,1],[1,2],[2,3],[3,4],[4,5],[3,6],[6,7]]}
 };
 const ZODIAC_ORDER=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+/* Named bright stars by constellation (index into CONSTELLATIONS[sign].stars). */
+const STAR_NAMES={
+  Aries:{0:"Hamal",1:"Sheratan"},Taurus:{0:"Aldebaran",4:"Elnath"},
+  Gemini:{0:"Castor",4:"Pollux"},Cancer:{1:"Asellus"},
+  Leo:{3:"Regulus",5:"Denebola"},Virgo:{3:"Spica"},Libra:{0:"Zubenelgenubi",1:"Zubeneschamali"},
+  Scorpio:{3:"Antares",8:"Shaula"},Sagittarius:{4:"Kaus Borealis",2:"Nunki"},
+  Capricorn:{0:"Algedi",2:"Deneb Algedi"},Aquarius:{2:"Sadalsuud"},Pisces:{3:"Alrescha"}
+};
+/* Birthstone & birth flower by month (1-12). */
+const BIRTH_MONTH={
+  1:{stone:"Garnet",flower:"Carnation"},2:{stone:"Amethyst",flower:"Violet"},
+  3:{stone:"Aquamarine",flower:"Daffodil"},4:{stone:"Diamond",flower:"Daisy"},
+  5:{stone:"Emerald",flower:"Lily of the Valley"},6:{stone:"Pearl",flower:"Rose"},
+  7:{stone:"Ruby",flower:"Larkspur"},8:{stone:"Peridot",flower:"Gladiolus"},
+  9:{stone:"Sapphire",flower:"Aster"},10:{stone:"Opal",flower:"Marigold"},
+  11:{stone:"Topaz",flower:"Chrysanthemum"},12:{stone:"Turquoise",flower:"Narcissus"}
+};
+/* Birthday & cosmos trivia for the "Did you know?" section. */
+const TRIVIA=[
+  {t:"Most common birthday",b:"September 9th is statistically the most common birthday in the United States — late summer babies, conceived around the December holidays."},
+  {t:"Leap-day babies",b:"The odds of being born on February 29th are about 1 in 1,461. Only around 5 million people worldwide share this rare birthday."},
+  {t:"The birthday effect",b:"Studies suggest people are slightly more likely to die on or near their own birthday — a curious pattern researchers call the 'birthday effect'."},
+  {t:"The first birthday cakes",b:"The ancient Greeks are credited with the round birthday cake, baked to honour Artemis, goddess of the moon — its glow mirrored by candlelight."},
+  {t:"Candles & wishes",b:"Putting candles on cakes also traces to ancient Greece, where it was believed the rising smoke carried your wishes up to the gods."},
+  {t:"The Happy Birthday song",b:"'Happy Birthday to You' grew from a tune written in 1893 by sisters Mildred and Patty Hill. It only entered the public domain in 2016."},
+  {t:"World's oldest person",b:"Jeanne Calment of France lived 122 years and 164 days — the longest confirmed human lifespan ever recorded."},
+  {t:"The birthday paradox",b:"In a room of just 23 people there's already a 50% chance two share a birthday. At 70 people it climbs past 99.9%."},
+  {t:"A circle of animals",b:"The word 'zodiac' comes from the Greek for 'circle of animals' — the band of constellations the Sun appears to travel through each year."},
+  {t:"The 13th sign",b:"The Sun actually passes through a thirteenth constellation, Ophiuchus, between Scorpius and Sagittarius — but tradition keeps the zodiac at twelve."},
+  {t:"Your birthstone",b:"Every month carries its own gemstone, a custom formalised in 1912 — from January's garnet to December's turquoise."},
+  {t:"Your birth flower",b:"Months have signature blooms too, a tradition rooted in Roman and Victorian custom — June's rose, October's marigold, and ten more."}
+];
 function signSym(s){const z=ZODIAC.find(z=>z.sign===s);return z?z.sym:"";}
 function signPlural(s){return /s$/i.test(s)?s:s+"s";}
 function zodiac(m,d){
@@ -1979,6 +2113,9 @@ function renderDiscover(view){
     sec.appendChild(secHead("Your saved people","Tap the star on any profile to save"));
     sec.appendChild(scroller(favs.slice(0,14)));view.appendChild(sec);}
 
+  /* ---- BIRTHDAY TRIVIA ---- */
+  view.appendChild(el("div",{class:"section"},[birthdayTriviaSection()]));
+
   /* quiet dedication */
   view.appendChild(el("footer",{class:"site-credit"},[
     el("span",{text:"Inspired by Eunice Poulos"}),el("span",{class:"dot",text:"·"}),el("span",{text:"Built by Jerry Pena"})
@@ -2040,6 +2177,23 @@ function starLayer(cls,n){
   return layer;
 }
 function heroStars(){return starLayer("dhero-stars",54);}
+function birthdayTriviaSection(){
+  const sec=el("section",{class:"trivia"});
+  sec.appendChild(starLayer("star-layer",40));
+  const head=el("div",{class:"trivia-head"});
+  head.appendChild(el("p",{class:"eyebrow",text:"Did you know?"}));
+  head.appendChild(el("h2",{text:"Birthday Trivia"}));
+  sec.appendChild(head);
+  const grid=el("div",{class:"trivia-grid"});
+  TRIVIA.forEach(f=>{
+    const card=el("article",{class:"trivia-card"});
+    card.appendChild(el("div",{class:"tk",text:f.t}));
+    card.appendChild(el("p",{text:f.b}));
+    grid.appendChild(card);
+  });
+  sec.appendChild(grid);
+  return sec;
+}
 function buildBirthdayTool(){
   const saved=STORE.get("bday",null);
   const card=el("section",{class:"bday-tool"});
@@ -2358,6 +2512,13 @@ function constellationDome(){
         g.addColorStop(1,"rgba(255,225,150,0)");
         ctx.fillStyle=g;ctx.beginPath();ctx.arc(p[0],p[1],rad*3.4,0,6.2832);ctx.fill();
         ctx.fillStyle="rgba(255,253,245,"+al+")";ctx.beginPath();ctx.arc(p[0],p[1],rad*0.62,0,6.2832);ctx.fill();
+      }
+      // bright-star names (hovered constellation only, wide screens)
+      if(on&&W>=560&&STAR_NAMES[c.sign]){
+        ctx.font='500 '+(c.scale*0.2+7).toFixed(0)+'px IBM Plex Mono, monospace';
+        ctx.fillStyle="rgba(230,206,142,0.92)";ctx.textAlign="left";
+        for(const idx in STAR_NAMES[c.sign]){const p=pts[idx];if(!p)continue;
+          ctx.fillText(STAR_NAMES[c.sign][idx],p[0]+c.scale*0.18,p[1]-c.scale*0.16);}
       }
       // label
       const narrow=W<560;const ly=c.ey+c.scale*1.18;
@@ -2884,6 +3045,10 @@ function buildPersonModal(p){
   dt.appendChild(el("span",{text:fmtDate(p)}));
   if(p.zsym){dt.appendChild(el("span",{class:"zbig",text:p.zsym}));dt.appendChild(el("span",{text:p.zsign+(p.zElement?" · "+p.zElement:"")}));}
   top.appendChild(dt);
+  if(p.month&&BIRTH_MONTH[p.month]){const bm=BIRTH_MONTH[p.month];const bf=el("div",{class:"mbf"});
+    bf.appendChild(el("span",{class:"chip"},[el("span",{class:"gi",text:"\u{1F48E}"}),document.createTextNode("Birthstone · "),el("b",{text:bm.stone})]));
+    bf.appendChild(el("span",{class:"chip"},[el("span",{class:"gi",text:"\u{1F33C}"}),document.createTextNode("Birth flower · "),el("b",{text:bm.flower})]));
+    top.appendChild(bf);}
   /* favorite + share */
   const tools=el("div",{class:"mtools"});
   const fav=el("button",{class:"mtool"+(isFav(p.id)?" on":""),"aria-pressed":isFav(p.id)?"true":"false",onClick:function(){const on=toggleFav(p.id);this.classList.toggle("on",on);this.setAttribute("aria-pressed",on?"true":"false");this.firstChild.textContent=on?"★ Saved":"☆ Save";}},[document.createTextNode(isFav(p.id)?"★ Saved":"☆ Save")]);
@@ -2954,7 +3119,20 @@ function navPerson(d){if(!modalList.length)return;modalIdx=(modalIdx+d+modalList
   modalPerson=p;pushRecent(p.id);
   const modal=document.getElementById("modal");modal.innerHTML="";modal.appendChild(buildPersonModal(p));const f=modal.querySelector("button");if(f)f.focus();
   setHash("#/person/"+p.id);document.title=p.name+" · The Birthday Almanac";}
-function surprise(){const pool=PEOPLE.filter(p=>p.importanceTier!=="Personal");const p=pool[Math.floor((TODAY_D*977+performance.now())%pool.length)];openPerson(p);}
+function surprise(){
+  const pool=PEOPLE.filter(p=>!p.isPersonal&&p.importanceTier!=="Personal");
+  const p=pool[Math.floor(Math.random()*pool.length)];
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(reduce){openPerson(p);return;}
+  const veil=el("div",{class:"surprise-veil","aria-hidden":"true"});
+  const ring=el("div",{class:"sv-ring"});
+  ZODIAC_ORDER.forEach((s,i)=>{const g=el("span",{class:"sv-gly",text:signSym(s)});
+    g.style.transform="rotate("+(i*30)+"deg) translateY(-78px)";
+    g.style.animationDelay=(i*0.03).toFixed(2)+"s";ring.appendChild(g);});
+  veil.appendChild(ring);veil.appendChild(el("div",{class:"sv-core",text:"✦"}));
+  document.body.appendChild(veil);
+  setTimeout(()=>{veil.classList.add("out");openPerson(p);setTimeout(()=>veil.remove(),340);},720);
+}
 function openDay(month,day,ppl){
   modalList=ppl.slice();modalIdx=-1;
   setHash("#/day/"+String(month).padStart(2,"0")+"-"+String(day).padStart(2,"0"));
