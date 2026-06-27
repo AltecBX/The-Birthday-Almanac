@@ -20,6 +20,13 @@
 <meta name="twitter:description" content="An interactive museum of influential lives. Explore by birthday, zodiac sign, element, field and era. Find famous birthdays today.">
 <meta name="twitter:image" content="https://altecbx.github.io/The-Birthday-Almanac/assets/hero-zodiac.jpg">
 <meta name="theme-color" content="#16273B">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Birthday Almanac">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebSite","name":"The Birthday Almanac","alternateName":"Birthday Almanac","url":"https://altecbx.github.io/The-Birthday-Almanac/","description":"An interactive museum of influential lives — explore history's figures by birthday, zodiac sign, element, field, era and curated collections.","inLanguage":"en"},
@@ -391,6 +398,10 @@ main{display:block;min-height:60vh}
 .weekhead{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
 .weekhead div{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);text-align:center}
 .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+@media(prefers-reduced-motion:no-preference){
+  .calgrid .cell.casc{opacity:0;animation:calCasc .42s var(--ease) var(--cd,0s) forwards}
+}
+@keyframes calCasc{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
 .cell{position:relative;min-height:96px;border:1px solid var(--hairline);border-radius:14px;background:var(--card);padding:9px 10px;
   text-align:left;overflow:hidden;display:flex;flex-direction:column;gap:5px;transition:transform .12s,box-shadow .16s,border-color .16s}
 .cell.empty{background:transparent;border:1px solid transparent}
@@ -452,7 +463,7 @@ main{display:block;min-height:60vh}
 .bar-row.click:hover .bf{filter:brightness(1.08)}
 .bl{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt{height:13px;background:var(--card-3);border-radius:999px;overflow:hidden}
-.bf{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .5s var(--ease)}
+.bf{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .7s var(--ease)}
 .bv{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
 .summary{margin-top:13px;background:var(--gold-wash);border:1px solid var(--gold-soft);border-radius:12px;padding:10px 13px;font-size:12.5px;color:#5b4a1c;line-height:1.45}
 .summary b{font-weight:700}
@@ -773,6 +784,12 @@ main{display:block;min-height:60vh}
 /* ===== MOTION: reveal + count-up ===== */
 .rise{opacity:0;animation:riseIn .55s var(--ease) forwards;animation-delay:var(--d,0s)}
 @keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* scroll reveal — cards fade up with a resolving blur as they enter view */
+@media(prefers-reduced-motion:no-preference){
+  .io-rv{opacity:0;transform:translateY(18px);filter:blur(5px);
+    transition:opacity .42s var(--ease),transform .42s var(--ease),filter .42s var(--ease);transition-delay:var(--rd,0s)}
+  .io-rv.in{opacity:1;transform:none;filter:none}
+}
 /* route transition — soft fade as views swap */
 @media(prefers-reduced-motion:no-preference){
   .view-enter{animation:viewEnter .44s var(--ease)}
@@ -874,6 +891,16 @@ main{display:block;min-height:60vh}
 .bt-go.orbing{animation:orbPulse .65s var(--ease)}
 @keyframes orbPulse{0%{box-shadow:0 0 0 0 rgba(230,206,142,.5)}60%{box-shadow:0 0 36px 8px rgba(230,206,142,.55)}100%{box-shadow:0 0 0 0 rgba(230,206,142,0)}}
 @media(prefers-reduced-motion:reduce){.bt-go.orbing{animation:none}}
+/* birthday reveal "gathering": stars pull inward + sign glyph blooms */
+.bt-form{position:relative}
+.bt-revealfx{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:5}
+.brf-star{position:absolute;left:0;top:0;width:5px;height:5px;margin:-2.5px;border-radius:50%;background:var(--gold-soft);
+  box-shadow:0 0 8px 2px rgba(230,206,142,.7);opacity:0;animation:brfPull .52s var(--ease) var(--dl,0s) forwards}
+@keyframes brfPull{0%{opacity:0;transform:rotate(var(--a)) translateX(96px) scale(.6)}30%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(2px) scale(1)}}
+.brf-glyph{position:absolute;left:0;top:0;color:var(--gold-soft);font-size:42px;text-shadow:0 0 18px rgba(230,206,142,.9);
+  opacity:0;transform:translate(-50%,-50%) scale(.2);animation:brfGlyph .72s var(--ease) .2s forwards}
+@keyframes brfGlyph{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.55)}}
+@media(prefers-reduced-motion:reduce){.bt-revealfx{display:none}}
 
 /* ===== DISCOVER v2 + reusable twinkle ===== */
 .dhero h1{font-size:clamp(32px,5vw,54px);line-height:1.12}
@@ -2543,8 +2570,7 @@ function renderDiscover(view){
   ov.appendChild(el("h1",{class:"dhero-mark",html:"The Birthday <em>Almanac</em>"}));
   ov.appendChild(el("p",{class:"dhero-sub",text:"Explore "+HISTORICAL.length+" influential lives across history — famous birthdays, zodiac patterns, and the constellations that connect the people who shaped the world."}));
   const cta=el("div",{class:"dhero-cta"});
-  cta.appendChild(el("button",{class:"btn btn-gold bt-primary",onClick:scrollToFindSign},[document.createTextNode("✨  Reveal My Birthday Universe")]));
-  cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's Birthdays")]));
+  cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's Birthdays")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>setView("zodiac")},[document.createTextNode("♒  Explore Zodiac")]));
   cta.appendChild(el("button",{class:"btn btn-ghost",text:"\u{1F3B2}  Surprise Me",onClick:surprise}));
   ov.appendChild(cta);
@@ -2843,7 +2869,7 @@ function buildBirthdayTool(){
   ySel.appendChild(el("option",{value:"",text:"Year ·  optional"}));
   const CUR_Y=new Date().getFullYear();
   for(let y=CUR_Y;y>=1900;y--)ySel.appendChild(el("option",{value:String(y),text:String(y)}));
-  const btn=el("button",{class:"btn btn-gold bt-go",text:"Reveal my stars  ✨"});
+  const btn=el("button",{class:"btn btn-gold bt-go",text:"✨  Reveal My Birthday Universe"});
   form.append(mSel,dSel,ySel,btn);inner.appendChild(form);
   const result=el("div",{class:"bt-result"});inner.appendChild(result);
   function fact(lab,val,icon,onClick){const f=el(onClick?"button":"div",{class:"btr-fact reveal-pop"+(onClick?" click":""),onClick:onClick||null,"aria-label":onClick?(lab+": "+val+" — more"):null});
@@ -2895,7 +2921,19 @@ function buildBirthdayTool(){
     if(twins.length)acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>openDay(m,d,twins)},[document.createTextNode("Open "+MONTHS[m-1]+" "+d)]));
     result.appendChild(acts);
   }
-  btn.addEventListener("click",()=>{btn.classList.add("orbing");setTimeout(()=>btn.classList.remove("orbing"),650);reveal(+mSel.value,+dSel.value,+ySel.value||null);});
+  btn.addEventListener("click",()=>{
+    const m=+mSel.value,d=+dSel.value,y=+ySel.value||null;const z=zodiac(m,d);
+    const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+    if(reduce||!z){reveal(m,d,y);return;}
+    btn.classList.add("orbing");setTimeout(()=>btn.classList.remove("orbing"),650);
+    // brief cosmic "gathering": stars pull inward + the sign glyph blooms, then the result expands
+    const fx=el("div",{class:"bt-revealfx","aria-hidden":"true"});
+    for(let i=0;i<10;i++){const s=el("i",{class:"brf-star"});s.style.setProperty("--a",(i*36)+"deg");s.style.setProperty("--dl",(i*0.012)+"s");fx.appendChild(s);}
+    fx.appendChild(el("div",{class:"brf-glyph",text:z.sym}));
+    btn.parentNode.appendChild(fx);
+    setTimeout(()=>{reveal(m,d,y);},430);
+    setTimeout(()=>{fx.remove();},900);
+  });
   if(saved&&saved.m){mSel.value=String(saved.m);fillDays(saved.m);dSel.value=String(saved.d);if(saved.y)ySel.value=String(saved.y);reveal(saved.m,saved.d,saved.y||null);}
   card.appendChild(inner);return card;
 }
@@ -2984,8 +3022,9 @@ function renderCalendar(view){
   for(let d=1;d<=dim;d++){
     const ppl=byDay[d]||[];
     const isToday=(m===TODAY_M-1&&y===now.getFullYear()&&d===TODAY_D);
-    const cell=el(ppl.length?"button":"div",{class:"cell"+(ppl.length?" has":"")+(isToday?" today":""),
+    const cell=el(ppl.length?"button":"div",{class:"cell casc"+(ppl.length?" has":"")+(isToday?" today":""),
       "aria-label":ppl.length?(MONTHS[m]+" "+d+", "+ppl.length+" figures, open day"):MONTHS[m]+" "+d});
+    cell.style.setProperty("--cd",(Math.min(d,31)*0.012).toFixed(3)+"s");
     if(ppl.length){const dens=el("div",{class:"density"});dens.style.background=catColor(ppl[0].category);dens.style.opacity=(0.04+0.12*(ppl.length/mx)).toFixed(3);cell.appendChild(dens);}
     const dn=el("div",{class:"dnum"});dn.appendChild(el("span",{text:String(d)}));
     if(ppl.length>2)dn.appendChild(el("span",{class:"cnt-badge",text:String(ppl.length)}));
@@ -3584,7 +3623,11 @@ function summary(html){return el("div",{class:"summary",html:html});}
 function barRow(label,n,mx,color,onClick){
   const row=el("div",{class:"bar-row"+(onClick?" click":"")});if(onClick){row.addEventListener("click",onClick);row.setAttribute("role","button");row.tabIndex=0;row.addEventListener("keydown",e=>kbd(e,onClick));}
   row.appendChild(el("div",{class:"bl",text:label}));
-  const bt=el("div",{class:"bt"});const bf=el("div",{class:"bf"});bf.style.width=Math.round((n/mx)*100)+"%";if(color)bf.style.background=color;bt.appendChild(bf);
+  const bt=el("div",{class:"bt"});const bf=el("div",{class:"bf"});const target=Math.round((n/mx)*100);
+  if(color)bf.style.background=color;
+  if(REDUCE){bf.style.width=target+"%";}
+  else{bf.style.width="0%";requestAnimationFrame(()=>requestAnimationFrame(()=>{bf.style.width=target+"%";}));}
+  bt.appendChild(bf);
   row.append(bt,el("div",{class:"bv",text:String(n)}));return row;
 }
 function chartMonth(list){
@@ -4106,6 +4149,22 @@ function afterRender(view){
   if(REDUCE)return;
   let i=0;for(const k of view.children){if(k.classList.contains("backlink"))continue;k.classList.add("rise");k.style.setProperty("--d",(Math.min(i,9)*0.05)+"s");i++;}
   countUpAll(view);
+  applyScrollReveal(view);
+}
+/* IntersectionObserver scroll reveals — cards fade/rise/de-blur as they enter */
+const _ioRV=('IntersectionObserver' in window)?new IntersectionObserver((ents)=>{
+  ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");_ioRV.unobserve(e.target);}});
+},{rootMargin:"0px 0px -6% 0px",threshold:0.05}):null;
+function applyScrollReveal(scope){
+  if(!_ioRV||REDUCE)return;
+  _ioRV.disconnect();
+  const sel=".cardgrid>*,.scroller>*,.chip-grid>*,.zgrid>*,.coll-grid>*,.trivia-grid>*,.statstrip>.stat,.spotlight>*,.chart-grid>*,.el-group";
+  scope.querySelectorAll(sel).forEach(elm=>{
+    elm.classList.add("io-rv");
+    const sib=Math.max(0,[].indexOf.call(elm.parentNode.children,elm));
+    elm.style.setProperty("--rd",(Math.min(sib,8)*0.05)+"s");
+    _ioRV.observe(elm);
+  });
 }
 function countUpAll(view){
   if(REDUCE)return;
