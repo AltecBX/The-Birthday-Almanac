@@ -10,8 +10,17 @@ dependencies, no tracking. Open it in a browser and it runs.
 ## Sections
 
 - **Discover** — the landing experience: today in history, birthdays this week and
-  month, the most crowded birthdays, a daily "pattern of the day," and quick ways to
+  month, the most crowded birthdays, a daily "pattern of the day," a featured
+  collection of the day, your recently viewed and saved people, and quick ways to
   start exploring by field, century, zodiac, and collection.
+- **Zodiac Explorer** — every figure by sun sign and element (Fire / Earth / Air /
+  Water), with per-sign detail pages (date range, modality, ruling planet, most
+  famous people, field and century breakdowns, kindred signs) and "cosmic patterns"
+  charts (which sign has the most leaders, scientists, artists, athletes; which
+  element dominates; which signs are most precisely dated).
+- **Collections** — 18 curated, shareable journeys (Greatest Minds in Science,
+  Movie Legends, Technology & Internet Pioneers, Women Who Changed History, The
+  Ancient World, and more), each with stats and a one-tap "open in People."
 - **Calendar** — a month grid with a today / next-birthday banner, density tints,
   count badges, category color dots, jump-to-month, and keyboard month navigation.
   Click any day for a clean day-detail panel.

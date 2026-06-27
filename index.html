@@ -4,8 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<meta name="description" content="The Birthday Almanac — explore influential people across history by birthday, month, zodiac sign, category, era, country and field.">
-<title>The Birthday Almanac</title>
+<meta name="description" content="The Birthday Almanac is an interactive museum of influential lives — explore history's greatest figures by birthday, zodiac sign, element, field, era, country and curated collections. Discover famous birthdays today, who shares your sign, and surprising patterns across the centuries.">
+<meta name="keywords" content="famous birthdays, zodiac signs, astrology, influential people, history, born on this day, zodiac explorer, famous people by birthday">
+<title>The Birthday Almanac — Famous Birthdays, Zodiac Signs & History</title>
+<link rel="canonical" href="https://altecbx.github.io/The-Birthday-Almanac/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Birthday Almanac">
+<meta property="og:title" content="The Birthday Almanac — Famous Birthdays, Zodiac Signs & History">
+<meta property="og:description" content="An interactive museum of influential lives. Explore history's greatest figures by birthday, zodiac sign, element, field and era. Find famous birthdays today and who shares your sign.">
+<meta property="og:url" content="https://altecbx.github.io/The-Birthday-Almanac/">
+<meta property="og:image" content="https://altecbx.github.io/The-Birthday-Almanac/assets/hero-zodiac.jpg">
+<meta property="og:image:alt" content="An illustrated celestial map of the twelve zodiac signs around the title The Birthday Almanac">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Birthday Almanac — Famous Birthdays, Zodiac Signs & History">
+<meta name="twitter:description" content="An interactive museum of influential lives. Explore by birthday, zodiac sign, element, field and era. Find famous birthdays today.">
+<meta name="twitter:image" content="https://altecbx.github.io/The-Birthday-Almanac/assets/hero-zodiac.jpg">
+<meta name="theme-color" content="#16273B">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","name":"The Birthday Almanac","alternateName":"Birthday Almanac","url":"https://altecbx.github.io/The-Birthday-Almanac/","description":"An interactive museum of influential lives — explore history's figures by birthday, zodiac sign, element, field, era and curated collections.","inLanguage":"en"},
+{"@type":"Dataset","name":"The Birthday Almanac — Influential People Dataset","description":"A curated dataset of influential historical figures with birth dates, zodiac signs, fields, eras, regions and source links.","url":"https://altecbx.github.io/The-Birthday-Almanac/","keywords":["famous birthdays","zodiac","history","influential people"],"creator":{"@type":"Organization","name":"The Birthday Almanac"}}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,7 +50,8 @@
   --c-military:#6B7A52; --c-jurists:#7A3B2E; --c-religion:#7A5BA6; --c-philosophy:#3F8A8A;
   --c-economists:#2E7D6B; --c-art:#C08A2E; --c-culture:#5566A6; --c-music:#C2407A;
   --c-films:#8E4585; --c-directors:#5E3D7A; --c-business:#8A6D3B; --c-civilrights:#A14D6E;
-  --c-explorers:#2F7D9E; --c-sports:#C2701C; --c-personal:#2FA39B;
+  --c-explorers:#2F7D9E; --c-sports:#C2701C; --c-personal:#2FA39B; --c-tech:#2B7A78;
+  --el-fire:#C0563A; --el-earth:#6E7B3D; --el-air:#3F7FA6; --el-water:#4A6FB0;
 }
 *{box-sizing:border-box}
 html{background:var(--paper);color-scheme:light only;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -202,7 +223,7 @@ main{display:block;min-height:60vh}
 /* ===== CALENDAR ===== */
 .cal-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
 .cal-title{display:flex;align-items:baseline;gap:12px}
-.cal-title h2{font-size:28px}
+.cal-title h1{font-size:28px;font-weight:600}
 .cal-title .yr{font-family:var(--mono);font-size:13px;color:var(--muted)}
 .cal-ctrls{display:flex;align-items:center;gap:8px}
 .navbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font-size:18px;display:grid;place-items:center;transition:.15s}
@@ -398,6 +419,114 @@ main{display:block;min-height:60vh}
 .devpanel .row{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);line-height:1.4}
 .devpanel .row.ok{color:#7fd9b9}.devpanel .row.er{color:#ff9a8f}.devpanel .row.wn{color:#ffd27f}
 
+/* ===== SEO STATIC FALLBACK ===== */
+#seo-static{max-width:760px;margin:30px auto;color:var(--ink-2)}
+#seo-static h1{font-size:34px;margin-bottom:10px}
+#seo-static h2{font-size:18px;margin:20px 0 8px}
+#seo-static ul{columns:2;gap:24px;padding-left:18px;color:var(--muted)}
+#seo-static a{font-weight:600}
+
+/* ===== ZODIAC EXPLORER ===== */
+.viewhead.cosmic{position:relative;border-radius:var(--radius-xl);padding:34px 32px;margin-bottom:30px;color:#F3ECDD;overflow:hidden;
+  background:radial-gradient(900px 400px at 85% -20%,rgba(120,140,210,.3),transparent 60%),linear-gradient(160deg,#1b2640,#11182b 55%,#0c1120)}
+.viewhead.cosmic::after{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(1.4px 1.4px at 20% 30%,#fff,transparent),radial-gradient(1.2px 1.2px at 70% 60%,#fff,transparent),radial-gradient(1px 1px at 40% 80%,#cdd6ff,transparent),radial-gradient(1.6px 1.6px at 85% 25%,#fff,transparent),radial-gradient(1px 1px at 55% 15%,#fff,transparent);background-size:cover}
+.viewhead.cosmic h1{font-size:clamp(30px,5vw,46px);color:#FBF4E6;position:relative;z-index:1}
+.viewhead.cosmic .eyebrow{color:#AEB9E8;position:relative;z-index:1}
+.viewhead.cosmic .lede{color:#CBD2EC;position:relative;z-index:1}
+.el-group{margin-bottom:26px}
+.el-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.el-badge{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;padding:5px 12px;border-radius:999px}
+.el-group.fire .el-badge{background:var(--el-fire)}.el-group.earth .el-badge{background:var(--el-earth)}
+.el-group.air .el-badge{background:var(--el-air)}.el-group.water .el-badge{background:var(--el-water)}
+.el-blurb{font-size:13px;color:var(--muted)}
+.el-count{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.zgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.zcard{text-align:left;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:18px 18px 16px;
+  box-shadow:var(--shadow-sm);transition:transform .15s var(--ease),box-shadow .2s,border-color .2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+.zcard::before{content:"";position:absolute;inset:0 0 auto 0;height:4px}
+.zcard.fire::before{background:var(--el-fire)}.zcard.earth::before{background:var(--el-earth)}
+.zcard.air::before{background:var(--el-air)}.zcard.water::before{background:var(--el-water)}
+.zcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--gold-soft)}
+.z-sym{font-size:30px;color:var(--gold-deep);line-height:1;margin-top:4px}
+.z-name{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--ink)}
+.z-range{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.z-meta{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-top:4px}
+.z-el{font-weight:700;color:var(--ink-2)}
+.z-stat{font-size:12.5px;color:var(--muted);margin-top:6px}.z-stat b{color:var(--ink);font-family:var(--serif);font-size:15px}
+.zsign-hero{display:flex;align-items:center;gap:22px;border-radius:var(--radius-xl);padding:30px 32px;color:#F3ECDD;overflow:hidden;position:relative;
+  background:radial-gradient(700px 300px at 88% -30%,rgba(120,140,210,.32),transparent 60%),linear-gradient(160deg,#1b2640,#0e1426)}
+.zsign-hero.fire{background:radial-gradient(700px 300px at 88% -30%,rgba(192,86,58,.4),transparent 60%),linear-gradient(160deg,#2a1b1b,#140d0d)}
+.zsign-hero.earth{background:radial-gradient(700px 300px at 88% -30%,rgba(110,123,61,.4),transparent 60%),linear-gradient(160deg,#23260f,#12130a)}
+.zsign-hero.air{background:radial-gradient(700px 300px at 88% -30%,rgba(63,127,166,.4),transparent 60%),linear-gradient(160deg,#16242c,#0c1318)}
+.zsign-hero.water{background:radial-gradient(700px 300px at 88% -30%,rgba(74,111,176,.4),transparent 60%),linear-gradient(160deg,#141d33,#0b1020)}
+.zh-sym{font-size:84px;color:var(--gold-soft);line-height:1;flex:none}
+.zh-text{flex:1;min-width:0}
+.zh-text .eyebrow{color:#C7CFEC}
+.zh-text h1{font-size:clamp(34px,7vw,52px);color:#FBF4E6}
+.zh-range{font-family:var(--mono);font-size:13px;color:#C7CFEC;margin:6px 0 16px}
+.backlink{border:0;background:transparent;color:var(--gold-deep);font-weight:600;font-size:13.5px;padding:6px 2px;margin-bottom:12px}
+.backlink:hover{text-decoration:underline}
+
+/* ===== COLLECTIONS ===== */
+.coll-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.collcard{text-align:left;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:20px;
+  box-shadow:var(--shadow-sm);transition:transform .15s var(--ease),box-shadow .2s,border-color .2s;display:flex;flex-direction:column;gap:9px}
+.collcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--gold-soft)}
+.coll-top{display:flex;align-items:center;justify-content:space-between}
+.coll-ic{font-size:30px;line-height:1}
+.coll-n{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.coll-title{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);line-height:1.2}
+.coll-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.coll-feat{font-size:12.5px;color:var(--muted)}.coll-feat b{color:var(--ink-2);font-weight:600}
+.coll-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.coll-tag{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);background:var(--card-2);border:1px solid var(--hairline);border-radius:999px;padding:3px 9px}
+.cc-go{margin-top:auto;color:var(--gold-deep);font-weight:700;font-size:13px}
+.coll-hero{background:linear-gradient(160deg,#fffaf0,#f6ecd8);border:1px solid var(--gold-soft);border-radius:var(--radius-xl);padding:28px 30px;margin-bottom:24px}
+.coll-hero .ch-ic{font-size:40px;line-height:1}
+.coll-hero h1{font-size:clamp(28px,5vw,42px);margin:10px 0 8px;color:var(--ink)}
+.coll-hero .lede{color:var(--muted);max-width:640px}
+.feat-coll{width:100%;text-align:left;display:flex;align-items:center;gap:18px;border-radius:var(--radius-lg);padding:22px 26px;color:#F3ECDD;
+  border:1px solid #0c1825;box-shadow:var(--shadow);transition:transform .14s,box-shadow .2s;
+  background:radial-gradient(600px 240px at 90% -30%,rgba(194,154,69,.28),transparent 60%),linear-gradient(160deg,var(--navy-3),var(--navy-2))}
+.feat-coll:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.fc-left{flex:1;min-width:0}
+.fc-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold-soft)}
+.fc-title{font-family:var(--serif);font-size:24px;color:#FBF4E6;margin:7px 0 5px;display:flex;align-items:center;gap:10px}
+.fc-ic{font-size:24px}
+.fc-desc{font-size:13.5px;color:#D8CFBC}
+.fc-meta{font-size:12px;color:#B7AE9B;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-go{flex:none;font-weight:700;color:var(--gold-soft)}
+
+/* ===== MODAL TOOLS + COLLECTION BADGES ===== */
+.mtools{display:flex;gap:8px;margin-top:14px}
+.mtool{border:1px solid rgba(230,206,142,.34);background:rgba(255,253,248,.08);color:#F3ECDD;font-weight:600;font-size:12.5px;
+  padding:7px 13px;border-radius:999px;transition:.14s}
+.mtool:hover{background:rgba(255,253,248,.16)}
+.mtool.on{background:linear-gradient(180deg,var(--gold-soft),var(--gold));color:#2a1f06;border-color:var(--gold)}
+.mcolls{margin:0 0 16px}
+.mcolls .k{font-family:var(--mono);font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.mcoll-row{display:flex;flex-wrap:wrap;gap:7px}
+.mcoll-badge{border:1px solid var(--hairline);background:var(--card-2);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;
+  color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;transition:.13s}
+.mcoll-badge:hover{background:var(--card);border-color:var(--gold-soft)}
+
+/* ===== MORE SHEET (mobile) ===== */
+.more-sheet{position:fixed;inset:0;z-index:110;display:none}
+.more-sheet.open{display:block}
+.more-scrim{position:absolute;inset:0;background:rgba(16,30,48,.45);opacity:0;transition:opacity .25s}
+.more-sheet.open .more-scrim{opacity:1}
+.more-panel{position:absolute;left:0;right:0;bottom:0;background:var(--paper-2);border-radius:22px 22px 0 0;padding:10px 18px calc(20px + env(safe-area-inset-bottom));
+  box-shadow:var(--shadow-lg);transform:translateY(100%);transition:transform .3s var(--ease)}
+.more-sheet.open .more-panel{transform:none}
+.more-grip{width:42px;height:5px;border-radius:999px;background:var(--hairline);margin:4px auto 12px}
+.more-panel h3{font-size:18px;margin-bottom:14px}
+.more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.more-item{display:flex;flex-direction:column;align-items:center;gap:7px;background:var(--card);border:1px solid var(--hairline);border-radius:16px;
+  padding:16px 8px;font-size:12.5px;font-weight:600;color:var(--ink-2);min-height:80px;justify-content:center}
+.more-item:hover{border-color:var(--gold-soft)}
+.more-item .mi-ic{font-size:24px}
+
 /* ===== PEOPLE SCOPE TOGGLE ===== */
 .scopeseg{display:inline-flex;background:var(--card-2);border:1px solid var(--hairline);padding:4px;border-radius:999px;gap:3px;margin-bottom:20px}
 .scopeseg button{border:0;background:transparent;color:var(--ink-2);font-size:13.5px;font-weight:600;padding:9px 18px;border-radius:999px;
@@ -506,7 +635,40 @@ main{display:block;min-height:60vh}
   </div>
   <div class="subbar"><div class="wrap sub-in" id="subIn"></div></div>
 </header>
-<main id="main"><div class="wrap"><div id="view" aria-live="polite"></div></div></main>
+<main id="main"><div class="wrap"><div id="view" aria-live="polite">
+  <section id="seo-static">
+    <h1>The Birthday Almanac</h1>
+    <p>The Birthday Almanac is an interactive museum of influential lives. Explore history's
+    greatest figures by <a href="#/calendar">birthday and calendar</a>, by
+    <a href="#/zodiac">zodiac sign and element</a>, by <a href="#/category/science">field</a>,
+    by era and century, and through <a href="#/collections">curated collections</a> —
+    from <a href="#/collection/greatest-minds-in-science">the greatest minds in science</a>
+    to <a href="#/collection/music-icons">music icons</a> and
+    <a href="#/collection/legendary-athletes">legendary athletes</a>.</p>
+    <h2>Explore by zodiac sign</h2>
+    <ul>
+      <li><a href="#/zodiac/aries">Aries</a></li><li><a href="#/zodiac/taurus">Taurus</a></li>
+      <li><a href="#/zodiac/gemini">Gemini</a></li><li><a href="#/zodiac/cancer">Cancer</a></li>
+      <li><a href="#/zodiac/leo">Leo</a></li><li><a href="#/zodiac/virgo">Virgo</a></li>
+      <li><a href="#/zodiac/libra">Libra</a></li><li><a href="#/zodiac/scorpio">Scorpio</a></li>
+      <li><a href="#/zodiac/sagittarius">Sagittarius</a></li><li><a href="#/zodiac/capricorn">Capricorn</a></li>
+      <li><a href="#/zodiac/aquarius">Aquarius</a></li><li><a href="#/zodiac/pisces">Pisces</a></li>
+    </ul>
+    <h2>Browse the almanac</h2>
+    <ul>
+      <li><a href="#/discover">Discover</a> — today in history, famous birthdays today, and more</li>
+      <li><a href="#/calendar">Calendar</a> — every birthday across the year</li>
+      <li><a href="#/people">People</a> — the full directory of influential figures</li>
+      <li><a href="#/categories">Categories</a> — science, art, music, leaders, athletes and more</li>
+      <li><a href="#/patterns">Patterns</a> — interactive charts of births by month, sign, field and era</li>
+    </ul>
+  </section>
+</div></div></main>
+<noscript><div style="max-width:680px;margin:40px auto;padding:0 22px;font-family:system-ui,sans-serif;color:#1E2A38">
+  <h2>The Birthday Almanac</h2>
+  <p>This interactive almanac of famous birthdays and zodiac signs needs JavaScript to run.
+  Please enable JavaScript to explore influential lives by birthday, zodiac sign, field, era and collection.</p>
+</div></noscript>
 <nav class="bottomnav" id="bottomNav" aria-label="Sections"></nav>
 <div class="sheet-scrim" id="sheetScrim"></div>
 <aside class="sheet" id="sheet" aria-label="Filters and refine" aria-hidden="true">
@@ -1067,7 +1229,25 @@ main{display:block;min-height:60vh}
   {id:"pyotr-ilyich-tchaikovsky",name:"Pyotr Ilyich Tchaikovsky",rank:null,category:"music",subCategory:null,birthYear:1840,era:"AD",month:5,day:7,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Russian composer",bio:"Russian composer (1840 to 1893)",countryOrCivilization:"Russian Empire",sourceUrl:"https://en.wikipedia.org/wiki/Pyotr_Ilyich_Tchaikovsky",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"igor-stravinsky",name:"Igor Stravinsky",rank:null,category:"music",subCategory:null,birthYear:1882,era:"AD",month:6,day:18,dateStatus:"exact",zodiac:"Gemini",zodiacSym:"♊",shortDescription:"Russian, French, and American composer",bio:"Russian, French, and American composer (1882 to 1971)",countryOrCivilization:"Russian Empire",sourceUrl:"https://en.wikipedia.org/wiki/Igor_Stravinsky",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false},
   {id:"frederic-chopin",name:"Frédéric Chopin",rank:null,category:"music",subCategory:null,birthYear:1810,era:"AD",month:2,day:22,dateStatus:"estimated",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Polish composer and pianist",bio:"Polish composer and pianist (1810 to 1849)",countryOrCivilization:"Congress Poland",sourceUrl:"https://en.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin",sourceName:"Wikipedia",confidence:"medium",calendarNote:"Baptismal records list 22 February 1810, though Chopin and his family cited 1 March 1810.",sex:"male",isTop100:false,isPersonal:false},
-  {id:"mary-wollstonecraft",name:"Mary Wollstonecraft",rank:null,category:"civilrights",subCategory:null,birthYear:1759,era:"AD",month:4,day:27,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"English writer and intellectual",bio:"English writer and intellectual (1759 to 1797)",countryOrCivilization:"Kingdom of Great Britain",sourceUrl:"https://en.wikipedia.org/wiki/Mary_Wollstonecraft",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false}
+  {id:"mary-wollstonecraft",name:"Mary Wollstonecraft",rank:null,category:"civilrights",subCategory:null,birthYear:1759,era:"AD",month:4,day:27,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"English writer and intellectual",bio:"English writer and intellectual (1759 to 1797)",countryOrCivilization:"Kingdom of Great Britain",sourceUrl:"https://en.wikipedia.org/wiki/Mary_Wollstonecraft",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"female",isTop100:false,isPersonal:false},
+  {id:"claude-shannon",name:"Claude Shannon",rank:null,category:"tech",subCategory:null,birthYear:1916,era:"AD",month:4,day:30,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Father of information theory.",bio:"American mathematician and engineer who founded information theory (1916 to 2001)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Claude_Shannon",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"dennis-ritchie",name:"Dennis Ritchie",rank:null,category:"tech",subCategory:null,birthYear:1941,era:"AD",month:9,day:9,dateStatus:"exact",zodiac:"Virgo",zodiacSym:"♍",shortDescription:"Created the C language and co-created Unix.",bio:"American computer scientist who created the C programming language and co-created Unix (1941 to 2011)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Dennis_Ritchie",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"tim-berners-lee",name:"Tim Berners-Lee",rank:null,category:"tech",subCategory:null,birthYear:1955,era:"AD",month:6,day:8,dateStatus:"exact",zodiac:"Gemini",zodiacSym:"♊",shortDescription:"Invented the World Wide Web.",bio:"English computer scientist who invented the World Wide Web (born 1955)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Tim_Berners-Lee",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"steve-wozniak",name:"Steve Wozniak",rank:null,category:"tech",subCategory:null,birthYear:1950,era:"AD",month:8,day:11,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Co-founded Apple and designed its first computers.",bio:"American engineer who co-founded Apple and designed the Apple I and II computers (born 1950)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Steve_Wozniak",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"gordon-moore",name:"Gordon Moore",rank:null,category:"tech",subCategory:null,birthYear:1929,era:"AD",month:1,day:3,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Co-founded Intel; formulated Moore's law.",bio:"American engineer who co-founded Intel and formulated Moore's law (1929 to 2023)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Gordon_Moore",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"robert-noyce",name:"Robert Noyce",rank:null,category:"tech",subCategory:null,birthYear:1927,era:"AD",month:12,day:12,dateStatus:"exact",zodiac:"Sagittarius",zodiacSym:"♐",shortDescription:"Co-invented the integrated circuit; co-founded Intel.",bio:"American physicist who co-invented the integrated circuit and co-founded Intel (1927 to 1990)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Robert_Noyce",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"linus-torvalds",name:"Linus Torvalds",rank:null,category:"tech",subCategory:null,birthYear:1969,era:"AD",month:12,day:28,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Created the Linux kernel and Git.",bio:"Finnish-American software engineer who created the Linux kernel and the Git version-control system (born 1969)",countryOrCivilization:"Finland",sourceUrl:"https://en.wikipedia.org/wiki/Linus_Torvalds",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"larry-page",name:"Larry Page",rank:null,category:"tech",subCategory:null,birthYear:1973,era:"AD",month:3,day:26,dateStatus:"exact",zodiac:"Aries",zodiacSym:"♈",shortDescription:"Co-founded Google.",bio:"American computer scientist who co-founded Google (born 1973)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Larry_Page",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"sergey-brin",name:"Sergey Brin",rank:null,category:"tech",subCategory:null,birthYear:1973,era:"AD",month:8,day:21,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Co-founded Google.",bio:"Soviet-born American computer scientist who co-founded Google (born 1973)",countryOrCivilization:"Soviet Union",sourceUrl:"https://en.wikipedia.org/wiki/Sergey_Brin",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"jeff-bezos",name:"Jeff Bezos",rank:null,category:"tech",subCategory:null,birthYear:1964,era:"AD",month:1,day:12,dateStatus:"exact",zodiac:"Capricorn",zodiacSym:"♑",shortDescription:"Founded Amazon.",bio:"American entrepreneur who founded Amazon and the aerospace company Blue Origin (born 1964)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Jeff_Bezos",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"mark-zuckerberg",name:"Mark Zuckerberg",rank:null,category:"tech",subCategory:null,birthYear:1984,era:"AD",month:5,day:14,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Co-founded Facebook.",bio:"American technologist who co-founded Facebook, now Meta (born 1984)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Mark_Zuckerberg",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"elon-musk",name:"Elon Musk",rank:null,category:"tech",subCategory:null,birthYear:1971,era:"AD",month:6,day:28,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"Founder of Tesla, SpaceX and other ventures.",bio:"Entrepreneur behind Tesla, SpaceX and other technology ventures (born 1971)",countryOrCivilization:"South Africa",sourceUrl:"https://en.wikipedia.org/wiki/Elon_Musk",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"jensen-huang",name:"Jensen Huang",rank:null,category:"tech",subCategory:null,birthYear:1963,era:"AD",month:2,day:17,dateStatus:"exact",zodiac:"Aquarius",zodiacSym:"♒",shortDescription:"Co-founded and leads Nvidia.",bio:"Taiwanese-American engineer who co-founded and leads the chipmaker Nvidia (born 1963)",countryOrCivilization:"Taiwan",sourceUrl:"https://en.wikipedia.org/wiki/Jensen_Huang",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"geoffrey-hinton",name:"Geoffrey Hinton",rank:null,category:"tech",subCategory:null,birthYear:1947,era:"AD",month:12,day:6,dateStatus:"exact",zodiac:"Sagittarius",zodiacSym:"♐",shortDescription:"A pioneer of deep learning.",bio:"British-Canadian cognitive scientist and a pioneer of deep learning neural networks (born 1947)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Geoffrey_Hinton",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"yann-lecun",name:"Yann LeCun",rank:null,category:"tech",subCategory:null,birthYear:1960,era:"AD",month:7,day:8,dateStatus:"exact",zodiac:"Cancer",zodiacSym:"♋",shortDescription:"Pioneer of convolutional neural networks.",bio:"French computer scientist and a pioneer of convolutional neural networks (born 1960)",countryOrCivilization:"France",sourceUrl:"https://en.wikipedia.org/wiki/Yann_LeCun",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"yoshua-bengio",name:"Yoshua Bengio",rank:null,category:"tech",subCategory:null,birthYear:1964,era:"AD",month:3,day:5,dateStatus:"exact",zodiac:"Pisces",zodiacSym:"♓",shortDescription:"Pioneer of deep learning.",bio:"French-Canadian computer scientist and a pioneer of deep learning (born 1964)",countryOrCivilization:"France",sourceUrl:"https://en.wikipedia.org/wiki/Yoshua_Bengio",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"demis-hassabis",name:"Demis Hassabis",rank:null,category:"tech",subCategory:null,birthYear:1976,era:"AD",month:7,day:27,dateStatus:"exact",zodiac:"Leo",zodiacSym:"♌",shortDescription:"Co-founded DeepMind.",bio:"British artificial-intelligence researcher who co-founded DeepMind (born 1976)",countryOrCivilization:"United Kingdom",sourceUrl:"https://en.wikipedia.org/wiki/Demis_Hassabis",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"},
+  {id:"sam-altman",name:"Sam Altman",rank:null,category:"tech",subCategory:null,birthYear:1985,era:"AD",month:4,day:22,dateStatus:"exact",zodiac:"Taurus",zodiacSym:"♉",shortDescription:"Leads OpenAI.",bio:"American entrepreneur who leads the artificial-intelligence company OpenAI (born 1985)",countryOrCivilization:"United States",sourceUrl:"https://en.wikipedia.org/wiki/Sam_Altman",sourceName:"Wikipedia",confidence:"high",calendarNote:null,sex:"male",isTop100:false,isPersonal:false,addedFrom:"tech-expansion"}
 ];</script>
 <script>
 /* ============================================================
@@ -1090,12 +1270,13 @@ const CATS={
   films:{label:"Film Stars",icon:"\u{1F3AC}",fam:"arts"}, directors:{label:"Directors",icon:"\u{1F3A5}",fam:"arts"},
   business:{label:"Business",icon:"\u{1F4BC}",fam:"life"}, civilrights:{label:"Civil Rights",icon:"\u{270A}",fam:"life"},
   explorers:{label:"Explorers",icon:"\u{1F9ED}",fam:"life"}, sports:{label:"Athletes",icon:"\u{1F3C5}",fam:"life"},
+  tech:{label:"Technology & Internet",icon:"\u{1F4BB}",fam:"know"},
   personal:{label:"Personal",icon:"\u{2728}",fam:"life"}
 };
 const CATVAR={literature:"culture"};
 function catColor(k){return "var(--c-"+(CATVAR[k]||k)+")";}
 const FAMILIES=[
-  {key:"know",label:"Knowledge & Discovery",cats:["science","math","medicine","invention","engineers"]},
+  {key:"know",label:"Knowledge & Discovery",cats:["science","tech","math","medicine","invention","engineers"]},
   {key:"power",label:"Power & Law",cats:["presidents","politics","leaders","military","jurists"]},
   {key:"thought",label:"Thought & Money",cats:["religion","philosophy","economists"]},
   {key:"arts",label:"Arts & Letters",cats:["art","literature","music","films","directors"]},
@@ -1111,6 +1292,28 @@ const ZODIAC=[
   {sign:"Virgo",sym:"♍",from:[8,23],to:[9,22]},{sign:"Libra",sym:"♎",from:[9,23],to:[10,22]},
   {sign:"Scorpio",sym:"♏",from:[10,23],to:[11,21]},{sign:"Sagittarius",sym:"♐",from:[11,22],to:[12,21]}
 ];
+const ZMETA={
+  Aries:{element:"Fire",modality:"Cardinal",planet:"Mars",range:"Mar 21 – Apr 19"},
+  Taurus:{element:"Earth",modality:"Fixed",planet:"Venus",range:"Apr 20 – May 20"},
+  Gemini:{element:"Air",modality:"Mutable",planet:"Mercury",range:"May 21 – Jun 20"},
+  Cancer:{element:"Water",modality:"Cardinal",planet:"Moon",range:"Jun 21 – Jul 22"},
+  Leo:{element:"Fire",modality:"Fixed",planet:"Sun",range:"Jul 23 – Aug 22"},
+  Virgo:{element:"Earth",modality:"Mutable",planet:"Mercury",range:"Aug 23 – Sep 22"},
+  Libra:{element:"Air",modality:"Cardinal",planet:"Venus",range:"Sep 23 – Oct 22"},
+  Scorpio:{element:"Water",modality:"Fixed",planet:"Pluto",range:"Oct 23 – Nov 21"},
+  Sagittarius:{element:"Fire",modality:"Mutable",planet:"Jupiter",range:"Nov 22 – Dec 21"},
+  Capricorn:{element:"Earth",modality:"Cardinal",planet:"Saturn",range:"Dec 22 – Jan 19"},
+  Aquarius:{element:"Air",modality:"Fixed",planet:"Uranus",range:"Jan 20 – Feb 18"},
+  Pisces:{element:"Water",modality:"Mutable",planet:"Neptune",range:"Feb 19 – Mar 20"}
+};
+const ELEMENTS=[
+  {key:"Fire",signs:["Aries","Leo","Sagittarius"],blurb:"Bold, driven, expressive"},
+  {key:"Earth",signs:["Taurus","Virgo","Capricorn"],blurb:"Grounded, practical, enduring"},
+  {key:"Air",signs:["Gemini","Libra","Aquarius"],blurb:"Curious, social, inventive"},
+  {key:"Water",signs:["Cancer","Scorpio","Pisces"],blurb:"Intuitive, deep, emotional"}
+];
+function elementColor(e){return "var(--el-"+e.toLowerCase()+")";}
+function signSym(s){const z=ZODIAC.find(z=>z.sign===s);return z?z.sym:"";}
 function zodiac(m,d){
   if(!m||!d)return null;
   for(const z of ZODIAC){const[fm,fd]=z.from,[tm,td]=z.to;
@@ -1139,7 +1342,7 @@ function centuryLabelOf(p){
 const REGION_RULES=[
   [/(england|britain|british|united kingdom|scotland|wales|ireland|irish|france|french|normandy|norman|germ|prussia|austria|cislei|holy roman|italy|italian|florence|venice|rome|roman|papal|spain|spanish|portug|netherl|dutch|belgi|swed|norw|denmark|danish|finland|poland|polish|russia|soviet|ussr|ukrain|greece|greek|athen|sparta|maced|hungar|czech|bohemia|slovak|serbia|croat|swiss|switz|europe|byzan|geno|moravia|württemberg|saxony|bavaria|lithuan|roman empire)/i,"Europe"],
   [/(united states|u\.s\.|america|american|confeder|canada|canadian|mexico|mexican|brazil|argentin|chile|peru|colomb|venezuel|cuba|jamaica|caribbean|inca|aztec|maya)/i,"Americas"],
-  [/(china|chinese|qing|ming|han dynasty|japan|japanese|tokugawa|korea|korean|india|indian|mughal|maurya|gupta|mongol|tibet|vietnam|thai|siam|indones|malay|philippin|persia|persian|sasan|achaemenid|central asia|timurid)/i,"Asia"],
+  [/(china|chinese|qing|ming|han dynasty|japan|japanese|tokugawa|korea|korean|taiwan|india|indian|mughal|maurya|gupta|mongol|tibet|vietnam|thai|siam|indones|malay|philippin|persia|persian|sasan|achaemenid|central asia|timurid)/i,"Asia"],
   [/(egypt|egyptian|pharaoh|ptolemaic|nubia|kush|mali|ghana|songhai|ethiop|abyssin|carthage|numidia|africa|african|zulu|congo|nigeria|moroc|tunis|libya|sudan)/i,"Africa"],
   [/(arab|saudi|iraq|babylon|sumer|assyr|mesopotam|levant|judea|israel|hebrew|phoenicia|syria|ottoman|turk|anatolia|iran|jordan|lebanon|palestine|yemen|umayyad|abbasid|caliph)/i,"Middle East"],
   [/(australia|australian|new zealand|maori|polynesia|pacific|oceania|hawaii)/i,"Oceania"]
@@ -1173,12 +1376,50 @@ function collectionOf(p){
 const TIERS=["Legendary","Major","Notable","Personal"];
 const COLLECTIONS=["Core Historical","Expanded Historical","Modern Culture","Sports","Personal"];
 
+/* cross-category memberships: a figure keeps a primary category but can appear
+   in others (e.g. Alan Turing is Science, and also Technology & Internet) */
+const SECONDARY={
+  "ada-lovelace":["tech"],"grace-hopper":["tech"],"alan-turing":["tech"],"john-von-neumann":["tech"],
+  "steve-jobs":["tech"],"bill-gates":["tech"],
+  "claude-shannon":["math"],"geoffrey-hinton":["science"],"yann-lecun":["science"],"yoshua-bengio":["science"],
+  "demis-hassabis":["science"],"jeff-bezos":["business"],"elon-musk":["business"],"mark-zuckerberg":["business"],
+  "larry-page":["business"],"sergey-brin":["business"],"sam-altman":["business"],"jensen-huang":["business"],
+  "gordon-moore":["business"],"robert-noyce":["business"]
+};
+
+/* curated, shareable collections defined by membership rules */
+const COLLECTION_DEFS=[
+  {id:"greatest-minds-in-science",title:"Greatest Minds in Science",icon:"\u{1F52C}",desc:"The scientists who reshaped how we understand the universe.",match:p=>p.category==="science"},
+  {id:"world-changing-inventors",title:"World-Changing Inventors",icon:"\u{1F4A1}",desc:"Inventors whose ideas rebuilt everyday life.",match:p=>p.category==="invention"||p.category==="engineers"},
+  {id:"technology-and-internet",title:"Technology & Internet Pioneers",icon:"\u{1F4BB}",desc:"The architects of computing, the internet and AI.",match:p=>inCat(p,"tech")},
+  {id:"most-powerful-leaders",title:"Most Powerful Leaders",icon:"\u{1F451}",desc:"Rulers and statesmen who steered nations and empires.",match:p=>["leaders","politics"].includes(p.category)},
+  {id:"presidents-and-prime-ministers",title:"Presidents & Prime Ministers",icon:"\u{1F3DB}\u{FE0F}",desc:"Heads of state across the modern world.",match:p=>p.category==="presidents"||(p.category==="leaders"&&p.eraGroup!=="Ancient"&&p.eraGroup!=="Medieval")},
+  {id:"military-commanders",title:"Military Commanders",icon:"\u{2694}\u{FE0F}",desc:"Generals and strategists who shaped history on the battlefield.",match:p=>p.category==="military"},
+  {id:"philosophers-and-thinkers",title:"Philosophers & Thinkers",icon:"\u{1F4DC}",desc:"Minds who questioned how we should live and reason.",match:p=>["philosophy","economists"].includes(p.category)},
+  {id:"religion-and-spiritual-leaders",title:"Religion & Spiritual Leaders",icon:"\u{1F54A}\u{FE0F}",desc:"Founders and figures of the world's faiths.",match:p=>p.category==="religion"},
+  {id:"artists-who-changed-culture",title:"Artists Who Changed Culture",icon:"\u{1F3A8}",desc:"Painters, sculptors and writers who redefined art.",match:p=>["art","literature"].includes(p.category)},
+  {id:"music-icons",title:"Music Icons",icon:"\u{1F3BC}",desc:"Composers and performers who scored our lives.",match:p=>p.category==="music"},
+  {id:"movie-legends",title:"Movie Legends",icon:"\u{1F3AC}",desc:"Stars and directors of the silver screen.",match:p=>["films","directors"].includes(p.category)},
+  {id:"legendary-athletes",title:"Legendary Athletes",icon:"\u{1F3C5}",desc:"Champions who pushed the limits of human performance.",match:p=>p.category==="sports"},
+  {id:"civil-rights-trailblazers",title:"Civil Rights Trailblazers",icon:"\u{270A}",desc:"Activists who fought to expand human dignity.",match:p=>p.category==="civilrights"},
+  {id:"explorers-and-adventurers",title:"Explorers & Adventurers",icon:"\u{1F9ED}",desc:"Voyagers who mapped the unknown.",match:p=>p.category==="explorers"},
+  {id:"business-titans",title:"Business Titans",icon:"\u{1F4BC}",desc:"Founders and tycoons who built empires of industry.",match:p=>inCat(p,"business")},
+  {id:"women-who-changed-history",title:"Women Who Changed History",icon:"\u{2728}",desc:"Influential women across every field and era.",match:p=>p.sex==="female"},
+  {id:"ancient-world",title:"The Ancient World",icon:"\u{1F3FA}",desc:"Figures from antiquity who laid civilization's foundations.",match:p=>p.eraGroup==="Ancient"},
+  {id:"renaissance-figures",title:"Renaissance Figures",icon:"\u{1F3DB}\u{FE0F}",desc:"Polymaths and pioneers of the early modern age.",match:p=>p.birthYear!=null&&p.era!=="BC"&&p.birthYear>=1400&&p.birthYear<1650}
+];
+function inCat(p,cat){return p.category===cat||(p.secondaryCategories&&p.secondaryCategories.includes(cat));}
+const COLLECTION_BY_ID={};COLLECTION_DEFS.forEach(c=>COLLECTION_BY_ID[c.id]=c);
+
 /* ---------- enrich ---------- */
 const now=new Date();
 const TODAY_M=now.getMonth()+1, TODAY_D=now.getDate();
 PEOPLE.forEach(p=>{
   const z=zodiac(p.month,p.day);
   p.zsign=z?z.sign:null; p.zsym=z?z.sym:null;
+  p.zElement=p.zsign?ZMETA[p.zsign].element:null;
+  p.primaryCategory=p.category;
+  p.secondaryCategories=SECONDARY[p.id]||[];
   p.country=normalizeCountry(p.countryOrCivilization);
   p.region=regionOf(p.country==="Unknown"?p.countryOrCivilization:p.country);
   p.eraGroup=eraGroupOf(p);
@@ -1188,10 +1429,22 @@ PEOPLE.forEach(p=>{
   p.collection=collectionOf(p);
   p.addedFrom=p.addedFrom||"almanac-core";
 });
+// curated collection membership (after base enrichment so rules can read derived fields)
+PEOPLE.forEach(p=>{p.collections=p.isPersonal?[]:COLLECTION_DEFS.filter(c=>c.match(p)).map(c=>c.id);});
 /* Personal entries (friends & family) are kept entirely separate from the
    historical database — they surface only in People → Personal mode. */
 const HISTORICAL=PEOPLE.filter(p=>!p.isPersonal);
 const PERSONAL=PEOPLE.filter(p=>p.isPersonal);
+const PERSON_BY_ID={};PEOPLE.forEach(p=>PERSON_BY_ID[p.id]=p);
+
+/* ---------- local retention (favorites + recently viewed) ---------- */
+const STORE={get(k,d){try{const v=JSON.parse(localStorage.getItem("tba_"+k));return v==null?d:v;}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem("tba_"+k,JSON.stringify(v));}catch(e){}}};
+function getFavs(){return STORE.get("favs",[]);}
+function isFav(id){return getFavs().indexOf(id)>=0;}
+function toggleFav(id){let f=getFavs();f=f.indexOf(id)>=0?f.filter(x=>x!==id):[id,...f].slice(0,300);STORE.set("favs",f);return f.indexOf(id)>=0;}
+function getRecent(){return STORE.get("recent",[]);}
+function pushRecent(id){let r=getRecent().filter(x=>x!==id);r.unshift(id);STORE.set("recent",r.slice(0,24));}
 
 /* ============================================================
    utils
@@ -1242,8 +1495,9 @@ function crowded(list){
     .map(([k,v])=>{const[m,d]=k.split("-").map(Number);return {m,d,people:v.slice().sort((a,b)=>yearSortKey(a)-yearSortKey(b))};})
     .sort((a,b)=>b.people.length-a.people.length||a.m-b.m||a.d-b.d);
 }
+function peopleInCat(cat){return HISTORICAL.filter(p=>inCat(p,cat));}
 function catStats(cat){
-  const ppl=PEOPLE.filter(p=>p.category===cat);
+  const ppl=peopleInCat(cat);
   const mc=monthCounts(ppl);const peakM=mc.indexOf(Math.max(...mc));
   const zc=zodiacCounts(ppl);const ze=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
   const dated=ppl.filter(p=>p.birthYear!=null);
@@ -1260,32 +1514,43 @@ function featuredOf(list,n){return list.slice().sort((a,b)=>rankScore(b)-rankSco
 const VIEWS=[
   {key:"discover",label:"Discover",icon:"✨"},
   {key:"calendar",label:"Calendar",icon:"\u{1F4C5}"},
+  {key:"zodiac",label:"Zodiac",icon:"♒"},
+  {key:"collections",label:"Collections",icon:"\u{1F4DA}"},
   {key:"people",label:"People",icon:"\u{1F465}"},
   {key:"categories",label:"Categories",icon:"\u{1F3DB}\u{FE0F}"},
   {key:"timeline",label:"Timeline",icon:"⏳"},
   {key:"patterns",label:"Patterns",icon:"\u{1F4CA}"}
 ];
+const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
+const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
+const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
+const MORE_VIEWS=["collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
-function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),
+function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false};}
-let state={view:"discover",search:"",sort:"date",peopleLimit:80,peopleScope:"historical",
+let state={view:"discover",search:"",sort:"date",peopleLimit:80,peopleScope:"historical",zSign:null,collectionId:null,
   calYear:now.getFullYear(),calMonth:now.getMonth(),f:freshFilters()};
 function basePool(){return (state.view==="people"&&state.peopleScope==="personal")?PERSONAL:HISTORICAL;}
 
 function searchFn(list,q){
   q=(q||"").trim().toLowerCase();if(!q)return list;
-  return list.filter(p=>[p.name,CATS[p.category]&&CATS[p.category].label,p.subCategory,p.shortDescription,p.bio,
-    p.country,p.region,p.zsign,p.centuryLabel,p.eraGroup,p.sourceName].some(v=>v&&String(v).toLowerCase().includes(q)));
+  return list.filter(p=>{
+    const catLabels=[p.category,...(p.secondaryCategories||[])].map(c=>CATS[c]&&CATS[c].label);
+    const colTitles=(p.collections||[]).map(id=>COLLECTION_BY_ID[id]&&COLLECTION_BY_ID[id].title);
+    return [p.name,...catLabels,...colTitles,p.subCategory,p.shortDescription,p.bio,
+      p.country,p.region,p.zsign,p.zElement,p.centuryLabel,p.eraGroup,p.sourceName].some(v=>v&&String(v).toLowerCase().includes(q));
+  });
 }
 function applyFilters(list){
   const f=state.f;
   return list.filter(p=>{
-    if(f.cats.size&&!f.cats.has(p.category))return false;
+    if(f.cats.size&&![...f.cats].some(c=>inCat(p,c)))return false;
     if(f.eras.size&&!f.eras.has(p.eraGroup))return false;
     if(f.centuries.size&&!f.centuries.has(p.centuryLabel))return false;
     if(f.regions.size&&!f.regions.has(p.region))return false;
     if(f.tiers.size&&!f.tiers.has(p.importanceTier))return false;
     if(f.collections.size&&!f.collections.has(p.collection))return false;
+    if(f.curated.size&&!(p.collections||[]).some(id=>f.curated.has(id)))return false;
     if(f.country&&p.country!==f.country)return false;
     if(f.zodiac&&p.zsign!==f.zodiac)return false;
     if(f.gender&&p.sex!==f.gender)return false;
@@ -1319,7 +1584,7 @@ const SORTS=[["date","Birth date"],["year","Birth year"],["name","Name"],["categ
 let _memo={sig:null,res:null};
 function poolKey(){return (state.view==="people"&&state.peopleScope==="personal")?"personal":"historical";}
 function sig(){const f=state.f;return JSON.stringify([poolKey(),state.search,state.sort,[...f.cats],[...f.eras],[...f.centuries],[...f.regions],
-  [...f.tiers],[...f.collections],f.country,f.zodiac,f.gender,f.status,f.thisMonth,f.thisWeek,f.highConf]);}
+  [...f.tiers],[...f.collections],[...f.curated],f.country,f.zodiac,f.gender,f.status,f.thisMonth,f.thisWeek,f.highConf]);}
 function current(){const s=sig();if(s===_memo.sig)return _memo.res;const r=sortList(applyFilters(searchFn(basePool(),state.search)));_memo={sig:s,res:r};return r;}
 function filteredNoSort(){return applyFilters(searchFn(basePool(),state.search));}
 
@@ -1331,6 +1596,7 @@ function activeFilters(){
   f.regions.forEach(r=>out.push({label:r,clear:()=>f.regions.delete(r)}));
   f.tiers.forEach(t=>out.push({label:t,clear:()=>f.tiers.delete(t)}));
   f.collections.forEach(c=>out.push({label:c,clear:()=>f.collections.delete(c)}));
+  f.curated.forEach(id=>out.push({label:(COLLECTION_BY_ID[id]||{}).title||id,clear:()=>f.curated.delete(id)}));
   if(f.country)out.push({label:f.country,clear:()=>f.country=""});
   if(f.zodiac)out.push({label:f.zodiac,clear:()=>f.zodiac=""});
   if(f.gender)out.push({label:f.gender==="male"?"Male":"Female",clear:()=>f.gender=""});
@@ -1427,6 +1693,31 @@ function renderDiscover(view){
   stats.forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
   view.appendChild(el("div",{class:"section",style:"margin-top:26px"},[strip]));
 
+  /* featured collection of the day */
+  const fc=COLLECTION_DEFS[(TODAY_M*31+TODAY_D)%COLLECTION_DEFS.length];
+  const fcp=collectionPeople(fc.id);
+  const fsec=el("section",{class:"section"});
+  const fcard=el("button",{class:"feat-coll",onClick:()=>{state.collectionId=fc.id;state.view="collections";window.scrollTo({top:0});render();}});
+  const fl=el("div",{class:"fc-left"});
+  fl.appendChild(el("div",{class:"fc-lab",text:"Featured collection of the day"}));
+  fl.appendChild(el("div",{class:"fc-title"},[el("span",{class:"fc-ic",text:fc.icon}),document.createTextNode(fc.title)]));
+  fl.appendChild(el("div",{class:"fc-desc",text:fc.desc}));
+  fl.appendChild(el("div",{class:"fc-meta",text:fcp.length+" people · "+featuredOf(fcp,3).map(p=>p.name).join(", ")}));
+  fcard.appendChild(fl);
+  fcard.appendChild(el("div",{class:"fc-go",text:"Open →"}));
+  fsec.appendChild(fcard);view.appendChild(fsec);
+
+  /* recently viewed */
+  const recent=getRecent().map(id=>PERSON_BY_ID[id]).filter(p=>p&&!p.isPersonal);
+  if(recent.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Pick up where you left off","Recently viewed"));
+    sec.appendChild(scroller(recent.slice(0,14)));view.appendChild(sec);}
+  /* saved favorites */
+  const favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(p=>p&&!p.isPersonal);
+  if(favs.length){const sec=el("section",{class:"section"});
+    sec.appendChild(secHead("Your saved people","Tap the star on any profile to save"));
+    sec.appendChild(scroller(favs.slice(0,14)));view.appendChild(sec);}
+
   /* born this week */
   const weekers=HISTORICAL.filter(inThisWeek).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b)||rankScore(b)-rankScore(a));
   if(weekers.length){
@@ -1445,7 +1736,7 @@ function renderDiscover(view){
   const secC=el("section",{class:"section"});
   secC.appendChild(secHead("Explore by field","Every field, as its own room","All categories →",()=>setView("categories")));
   const cg=el("div",{class:"chip-grid"});
-  Object.keys(CATS).forEach(k=>{if(k==="personal")return;const n=HISTORICAL.filter(p=>p.category===k).length;if(!n)return;
+  Object.keys(CATS).forEach(k=>{if(k==="personal")return;const n=peopleInCat(k).length;if(!n)return;
     cg.appendChild(bigchip(CATS[k].label,CATS[k].icon,n,null,()=>{goWithFilter(f=>f.cats.add(k),"people");}));});
   secC.appendChild(cg);view.appendChild(secC);
   /* explore by century */
@@ -1530,7 +1821,7 @@ function renderCalendar(view){
   Object.values(byDay).forEach(a=>a.sort((x,y)=>rankScore(y)-rankScore(x)||x.name.localeCompare(y.name)));
 
   const top=el("div",{class:"cal-top"});
-  top.appendChild(el("div",{class:"cal-title"},[el("h2",{text:MONTHS[m]}),el("span",{class:"yr",text:onMonth.length+" of "+list.length+" in view"})]));
+  top.appendChild(el("div",{class:"cal-title"},[el("h1",{text:MONTHS[m]}),el("span",{class:"yr",text:onMonth.length+" of "+list.length+" in view"})]));
   const ctr=el("div",{class:"cal-ctrls"});
   const jump=el("select",{class:"monthjump","aria-label":"Jump to month",onChange:e=>{state.calMonth=+e.target.value;render();}});
   MONTHS.forEach((mn,i)=>{const o=el("option",{value:String(i),text:mn});if(i===m)o.selected=true;jump.appendChild(o);});
@@ -1661,7 +1952,7 @@ function renderCategories(view){
   head.appendChild(el("div",{class:"lede",text:"Every field of history as its own room. Step into any one to explore the lives within."}));
   view.appendChild(head);
   FAMILIES.forEach(fam=>{
-    const present=fam.cats.filter(k=>k!=="personal"&&HISTORICAL.some(p=>p.category===k));if(!present.length)return;
+    const present=fam.cats.filter(k=>k!=="personal"&&peopleInCat(k).length>0);if(!present.length)return;
     const wrap=el("div",{class:"catfam"});
     wrap.appendChild(el("div",{class:"catfam-h",text:fam.label}));
     const grid=el("div",{class:"cardgrid"});
@@ -1691,6 +1982,185 @@ function categoryCard(k){
   if(feat.length)body.appendChild(el("div",{class:"cc-feat",html:"Featuring "+feat.map(n=>"<b>"+esc(n)+"</b>").join(", ")}));
   body.appendChild(el("div",{class:"cc-go"},[document.createTextNode("Explore "+CATS[k].label+"  →")]));
   card.appendChild(body);return card;
+}
+
+/* ============================================================
+   ZODIAC EXPLORER
+   ============================================================ */
+function signPeople(sign){return HISTORICAL.filter(p=>p.zsign===sign);}
+function topCatOf(list){const c=countBy(list,"category");const e=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];return e?e[0]:null;}
+function renderZodiac(view){
+  view.innerHTML="";
+  if(state.zSign){return renderZodiacSign(view,state.zSign);}
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(el("p",{class:"eyebrow",text:"Written in the stars"}));
+  head.appendChild(el("h1",{text:"Zodiac Explorer"}));
+  head.appendChild(el("div",{class:"lede",text:"Every influential life in the almanac, arranged by sun sign and element. Find who shares your sign, which signs rule each field, and how the cosmos divides history."}));
+  view.appendChild(head);
+  ELEMENTS.forEach(grp=>{
+    const wrap=el("div",{class:"el-group "+grp.key.toLowerCase()});
+    const h=el("div",{class:"el-head"});
+    h.appendChild(el("span",{class:"el-badge",text:grp.key}));
+    h.appendChild(el("span",{class:"el-blurb",text:grp.blurb}));
+    const total=grp.signs.reduce((n,s)=>n+signPeople(s).length,0);
+    h.appendChild(el("span",{class:"el-count",text:total+" figures"}));
+    wrap.appendChild(h);
+    const grid=el("div",{class:"zgrid"});
+    grp.signs.forEach(s=>grid.appendChild(zodiacCard(s)));
+    wrap.appendChild(grid);view.appendChild(wrap);
+  });
+  /* cosmic patterns */
+  const sec=el("section",{class:"section",style:"margin-top:10px"});
+  sec.appendChild(secHead("Cosmic patterns","Fun questions the stars can answer"));
+  const cg=el("div",{class:"chart-grid"});
+  cg.appendChild(signLeaderChart("Which sign has the most leaders?",p=>["leaders","politics","presidents"].includes(p.category)));
+  cg.appendChild(signLeaderChart("Which sign has the most scientists?",p=>inCat(p,"science")));
+  cg.appendChild(signLeaderChart("Which sign has the most artists?",p=>["art","literature","music","films","directors"].includes(p.category)));
+  cg.appendChild(signLeaderChart("Which sign has the most athletes?",p=>p.category==="sports"));
+  cg.appendChild(elementChart());
+  cg.appendChild(signExactChart());
+  sec.appendChild(cg);view.appendChild(sec);
+}
+function zodiacCard(sign){
+  const m=ZMETA[sign];const ppl=signPeople(sign);const tc=topCatOf(ppl);
+  const card=el("button",{class:"zcard "+m.element.toLowerCase(),"aria-label":"Explore "+sign,onClick:()=>{state.zSign=sign;state.view="zodiac";window.scrollTo({top:0});render();}});
+  card.appendChild(el("div",{class:"z-sym",text:signSym(sign)}));
+  card.appendChild(el("div",{class:"z-name",text:sign}));
+  card.appendChild(el("div",{class:"z-range",text:m.range}));
+  const meta=el("div",{class:"z-meta"});
+  meta.appendChild(el("span",{class:"z-el",text:m.element}));
+  meta.appendChild(el("span",{text:m.modality}));
+  card.appendChild(meta);
+  card.appendChild(el("div",{class:"z-stat"},[el("b",{text:String(ppl.length)}),document.createTextNode(" figures"+(tc?" · top: "+CATS[tc].label:""))]));
+  return card;
+}
+function renderZodiacSign(view,sign){
+  const m=ZMETA[sign];const ppl=signPeople(sign);
+  const back=el("button",{class:"backlink",onClick:()=>{state.zSign=null;render();}},[document.createTextNode("← All signs")]);
+  view.appendChild(back);
+  const hero=el("div",{class:"zsign-hero "+m.element.toLowerCase()});
+  hero.appendChild(el("div",{class:"zh-sym",text:signSym(sign)}));
+  const ht=el("div",{class:"zh-text"});
+  ht.appendChild(el("p",{class:"eyebrow",text:m.element+" · "+m.modality+" · Ruled by "+m.planet}));
+  ht.appendChild(el("h1",{text:sign}));
+  ht.appendChild(el("div",{class:"zh-range",text:m.range}));
+  ht.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{goWithFilter(f=>f.zodiac=sign,"people");}},[document.createTextNode("Explore all "+ppl.length+" "+sign+"s →")]));
+  hero.appendChild(ht);view.appendChild(hero);
+  /* stat tiles */
+  const tc=topCatOf(ppl);const dated=ppl.filter(p=>p.birthYear!=null);
+  const oldest=dated.slice().sort((a,b)=>yearSortKey(a)-yearSortKey(b))[0];
+  const newest=dated.slice().sort((a,b)=>yearSortKey(b)-yearSortKey(a))[0];
+  const exact=ppl.filter(p=>p.dateStatus==="exact").length;
+  const strip=el("div",{class:"statstrip",style:"margin:22px 0"});
+  [[ppl.length,"In the almanac"],[tc?CATS[tc].label:"—","Most common field"],[m.planet,"Ruling planet"],[Math.round(exact/Math.max(1,ppl.length)*100)+"%","Exact birth dates"]]
+    .forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
+  view.appendChild(strip);
+  /* most famous */
+  const fam=featuredOf(ppl,12);
+  if(fam.length){const sec=el("section",{class:"section"});sec.appendChild(secHead("Most famous "+sign+"s",null));sec.appendChild(scroller(fam));view.appendChild(sec);}
+  /* category breakdown */
+  const cb=el("div",{class:"chart-grid"});
+  const catC=chartFromCounts("Fields under "+sign,countBy(ppl,"category"),k=>CATS[k]?CATS[k].label:k,k=>catColor(k),(k)=>{goWithFilter(f=>{f.zodiac=sign;f.cats.add(k);},"people");});
+  cb.appendChild(catC);
+  const centC=chartFromCounts("Centuries under "+sign,countByCentury(ppl),k=>k,()=> "var(--navy-3)",null);
+  cb.appendChild(centC);
+  view.appendChild(cb);
+  /* related signs by element */
+  const rel=ELEMENTS.find(e=>e.key===m.element).signs.filter(s=>s!==sign);
+  const rs=el("section",{class:"section"});
+  rs.appendChild(secHead("Kindred "+m.element+" signs",null));
+  const rg=el("div",{class:"zgrid"});rel.forEach(s=>rg.appendChild(zodiacCard(s)));rs.appendChild(rg);view.appendChild(rs);
+}
+function countByCentury(list){const m=countBy(list,"centuryLabel");delete m.Unknown;
+  const o={};Object.entries(m).sort((a,b)=>{const v=s=>s==="Ancient (BCE)"?-1:parseInt(s);return v(a[0])-v(b[0]);}).forEach(([k,v])=>o[k]=v);return o;}
+function chartFromCounts(title,counts,labelFn,colorFn,clickCat){
+  const ch=chartCard(title,clickCat?"Click a bar to explore.":null);
+  const ent=Object.entries(counts).sort((a,b)=>b[1]-a[1]);const mx=Math.max(1,...ent.map(e=>e[1]));
+  ent.slice(0,12).forEach(([k,n])=>ch.appendChild(barRow(labelFn(k),n,mx,colorFn(k),clickCat?()=>clickCat(k):null)));
+  return ch;
+}
+function signLeaderChart(title,pred){
+  const counts={};ZODIAC.forEach(z=>{counts[z.sign]=HISTORICAL.filter(p=>p.zsign===z.sign&&pred(p)).length;});
+  const ch=chartCard(title,"By sun sign across the almanac.");
+  const ent=Object.entries(counts).sort((a,b)=>b[1]-a[1]);const mx=Math.max(1,...ent.map(e=>e[1]));
+  ent.slice(0,6).forEach(([s,n])=>ch.appendChild(barRow(signSym(s)+" "+s,n,mx,elementColor(ZMETA[s].element),()=>{state.zSign=s;state.view="zodiac";window.scrollTo({top:0});render();})));
+  if(ent[0]&&ent[0][1])ch.appendChild(summary("<b>"+ent[0][0]+"</b> leads with <b>"+ent[0][1]+"</b>."));
+  return ch;
+}
+function elementChart(){
+  const counts={};ELEMENTS.forEach(e=>counts[e.key]=HISTORICAL.filter(p=>p.zElement===e.key).length);
+  const ch=chartCard("Which element dominates?","Figures grouped by their sign's element.");
+  const ent=Object.entries(counts).sort((a,b)=>b[1]-a[1]);const mx=Math.max(1,...ent.map(e=>e[1]));
+  ent.forEach(([e,n])=>ch.appendChild(barRow(e,n,mx,elementColor(e),null)));
+  ch.appendChild(summary("<b>"+ent[0][0]+"</b> is the most common element, with <b>"+ent[0][1]+"</b> figures."));
+  return ch;
+}
+function signExactChart(){
+  const counts={};ZODIAC.forEach(z=>{const t=signPeople(z.sign);counts[z.sign]=t.length?Math.round(t.filter(p=>p.dateStatus==="exact").length/t.length*100):0;});
+  const ch=chartCard("Most precisely dated signs","Share of figures with an exact birth date.");
+  const ent=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  ent.slice(0,6).forEach(([s,n])=>ch.appendChild(barRow(signSym(s)+" "+s,n,100,elementColor(ZMETA[s].element),()=>{state.zSign=s;state.view="zodiac";window.scrollTo({top:0});render();})));
+  ch.appendChild(summary("<b>"+ent[0][0]+"</b> has the highest share of exact dates (<b>"+ent[0][1]+"%</b>)."));
+  return ch;
+}
+
+/* ============================================================
+   COLLECTIONS
+   ============================================================ */
+function collectionPeople(id){return HISTORICAL.filter(p=>(p.collections||[]).includes(id));}
+function renderCollections(view){
+  view.innerHTML="";
+  if(state.collectionId){return renderCollectionDetail(view,state.collectionId);}
+  const head=el("div",{class:"viewhead"});
+  head.appendChild(el("p",{class:"eyebrow",text:"Curated journeys"}));
+  head.appendChild(el("h1",{text:"Collections"}));
+  head.appendChild(el("div",{class:"lede",text:"Hand-shaped tours through the almanac — from the greatest minds in science to movie legends and the ancient world. Pick one and fall down the rabbit hole."}));
+  view.appendChild(head);
+  const grid=el("div",{class:"cardgrid coll-grid"});
+  COLLECTION_DEFS.forEach(c=>grid.appendChild(collectionCard(c)));
+  view.appendChild(grid);
+}
+function collectionCard(c){
+  const ppl=collectionPeople(c.id);
+  const card=el("button",{class:"collcard","aria-label":"Open "+c.title,onClick:()=>{state.collectionId=c.id;state.view="collections";window.scrollTo({top:0});render();}});
+  const top=el("div",{class:"coll-top"});
+  top.appendChild(el("div",{class:"coll-ic",text:c.icon}));
+  top.appendChild(el("div",{class:"coll-n",text:ppl.length+" people"}));
+  card.appendChild(top);
+  card.appendChild(el("div",{class:"coll-title",text:c.title}));
+  card.appendChild(el("div",{class:"coll-desc",text:c.desc}));
+  const feat=featuredOf(ppl,3).map(p=>p.name);
+  if(feat.length)card.appendChild(el("div",{class:"coll-feat",html:"Featuring "+feat.map(n=>"<b>"+esc(n)+"</b>").join(", ")}));
+  const zc=zodiacCounts(ppl);const tz=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
+  const mc=monthCounts(ppl);const pm=Math.max(...mc)?MONTHS[mc.indexOf(Math.max(...mc))]:"—";
+  const tags=el("div",{class:"coll-tags"});
+  if(tz&&tz[1])tags.appendChild(el("span",{class:"coll-tag",text:signSym(tz[0])+" "+tz[0]}));
+  tags.appendChild(el("span",{class:"coll-tag",text:"Peak: "+pm}));
+  card.appendChild(tags);
+  card.appendChild(el("div",{class:"cc-go",text:"Open collection →"}));
+  return card;
+}
+function renderCollectionDetail(view,id){
+  const c=COLLECTION_BY_ID[id];const ppl=collectionPeople(id);
+  view.appendChild(el("button",{class:"backlink",onClick:()=>{state.collectionId=null;render();}},[document.createTextNode("← All collections")]));
+  const hero=el("div",{class:"coll-hero"});
+  hero.appendChild(el("div",{class:"ch-ic",text:c.icon}));
+  hero.appendChild(el("h1",{text:c.title}));
+  hero.appendChild(el("div",{class:"lede",text:c.desc}));
+  const dated=ppl.filter(p=>p.birthYear!=null);
+  const oldest=dated.slice().sort((a,b)=>yearSortKey(a)-yearSortKey(b))[0];
+  const newest=dated.slice().sort((a,b)=>yearSortKey(b)-yearSortKey(a))[0];
+  const zc=zodiacCounts(ppl);const tz=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
+  const mc=monthCounts(ppl);
+  const strip=el("div",{class:"statstrip",style:"margin:20px 0"});
+  [[ppl.length,"People"],[tz&&tz[1]?tz[0]:"—","Top sign"],[oldest?fmtYear(oldest):"—","Oldest"],[newest?fmtYear(newest):"—","Newest"]]
+    .forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
+  hero.appendChild(strip);
+  hero.appendChild(el("button",{class:"btn btn-solid",onClick:()=>{goWithFilter(f=>f.curated.add(id),"people");}},[document.createTextNode("Open in People (filter & sort) →")]));
+  view.appendChild(hero);
+  const grid=el("div",{class:"cardgrid"});
+  featuredOf(ppl,60).forEach(p=>grid.appendChild(personCard(p)));
+  view.appendChild(grid);
 }
 
 /* ============================================================
@@ -1847,7 +2317,7 @@ function openModal(build){
   scrim.classList.add("open");document.body.style.overflow="hidden";
   const f=modal.querySelector("button, a[href], [tabindex]");if(f)f.focus();else scrim.focus();
 }
-function closeModal(){const scrim=document.getElementById("scrim");scrim.classList.remove("open");document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+function closeModal(){const scrim=document.getElementById("scrim");if(!scrim.classList.contains("open"))return;scrim.classList.remove("open");document.body.style.overflow="";modalPerson=null;if(lastFocus&&lastFocus.focus)lastFocus.focus();setHash(currentRoute());updateTitle();}
 function mi(k,v){return el("div",{class:"mi"},[el("div",{class:"k",text:k}),el("div",{class:"v",text:v})]);}
 function relChip(p){
   const b=el("button",{class:"relchip",onClick:()=>openPerson(p)});
@@ -1856,10 +2326,13 @@ function relChip(p){
   if(fmtYear(p))b.appendChild(el("span",{class:"yr",text:fmtYear(p)}));
   return b;
 }
+let modalPerson=null;
 function openPerson(p){
   const ctx=current();const idx=ctx.findIndex(x=>x.id===p.id);
   if(idx>=0){modalList=ctx;modalIdx=idx;}else{modalList=[p];modalIdx=0;}
+  modalPerson=p;pushRecent(p.id);
   openModal(()=>buildPersonModal(p));
+  setHash("#/person/"+p.id);document.title=p.name+" · The Birthday Almanac";
 }
 function buildPersonModal(p){
   const m=el("div");
@@ -1869,12 +2342,20 @@ function buildPersonModal(p){
   const tag=el("span",{class:"tag",text:CATS[p.category].label});tag.style.background=catColor(p.category);eye.appendChild(tag);
   if(p.importanceTier&&p.importanceTier!=="Personal")eye.appendChild(el("span",{class:"tier",text:p.importanceTier}));
   if(p.isPersonal)eye.appendChild(el("span",{class:"tier",text:"Personal"}));
+  (p.secondaryCategories||[]).forEach(sc=>{const t=el("span",{class:"tag",text:CATS[sc].label});t.style.background=catColor(sc);t.style.opacity=".85";eye.appendChild(t);});
   top.appendChild(eye);
   top.appendChild(el("h2",{id:"modalTitle",text:p.name}));
   const dt=el("div",{class:"mdate"});
   dt.appendChild(el("span",{text:fmtDate(p)}));
-  if(p.zsym){dt.appendChild(el("span",{class:"zbig",text:p.zsym}));dt.appendChild(el("span",{text:p.zsign}));}
-  top.appendChild(dt);m.appendChild(top);
+  if(p.zsym){dt.appendChild(el("span",{class:"zbig",text:p.zsym}));dt.appendChild(el("span",{text:p.zsign+(p.zElement?" · "+p.zElement:"")}));}
+  top.appendChild(dt);
+  /* favorite + share */
+  const tools=el("div",{class:"mtools"});
+  const fav=el("button",{class:"mtool"+(isFav(p.id)?" on":""),"aria-pressed":isFav(p.id)?"true":"false",onClick:function(){const on=toggleFav(p.id);this.classList.toggle("on",on);this.setAttribute("aria-pressed",on?"true":"false");this.firstChild.textContent=on?"★ Saved":"☆ Save";}},[document.createTextNode(isFav(p.id)?"★ Saved":"☆ Save")]);
+  tools.appendChild(fav);
+  tools.appendChild(el("button",{class:"mtool",onClick:function(){const btn=this;const url=location.origin+location.pathname+"#/person/"+p.id;const done=()=>{btn.firstChild.textContent="✓ Copied";};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done,done);}else{done();}}},[document.createTextNode("⧉ Copy link")]));
+  top.appendChild(tools);
+  m.appendChild(top);
 
   const body=el("div",{class:"mbody"});
   if(p.bio)body.appendChild(el("div",{class:"mbio",text:p.bio}));
@@ -1885,11 +2366,20 @@ function buildPersonModal(p){
     meta.appendChild(mi("Region",p.region));
   }
   meta.appendChild(mi("Era",p.eraGroup+(p.centuryLabel&&p.centuryLabel.includes("century")?" · "+p.centuryLabel:"")));
+  if(p.zElement)meta.appendChild(mi("Element",p.zElement+" · "+p.zsign));
   meta.appendChild(mi("Birth year",fmtYear(p)||"Unknown"));
   const cf=p.confidence||(p.dateStatus==="exact"?"high":p.dateStatus==="estimated"?"medium":"low");
   const ci=el("div",{class:"mi"});ci.appendChild(el("div",{class:"k",text:"Date confidence"}));ci.appendChild(el("span",{class:"conf "+cf,text:cf+" · "+p.dateStatus}));meta.appendChild(ci);
   meta.appendChild(mi("Collection",p.collection));
   body.appendChild(meta);
+  if((p.collections||[]).length){
+    const cb=el("div",{class:"mcolls"});
+    cb.appendChild(el("div",{class:"k",text:"Appears in"}));
+    const row=el("div",{class:"mcoll-row"});
+    p.collections.forEach(id=>{const c=COLLECTION_BY_ID[id];if(!c)return;
+      row.appendChild(el("button",{class:"mcoll-badge",onClick:()=>{closeModal();state.collectionId=id;state.view="collections";window.scrollTo({top:0});render();}},[el("span",{text:c.icon}),document.createTextNode(c.title)]));});
+    cb.appendChild(row);body.appendChild(cb);
+  }
   if(p.calendarNote)body.appendChild(el("div",{class:"mnote",text:p.calendarNote}));
   if(p.sourceUrl)body.appendChild(el("div",{class:"msrc"},[el("a",{href:p.sourceUrl,target:"_blank",rel:"noopener",text:"Source: "+(p.sourceName||"reference")+" ↗"})]));
 
@@ -1905,6 +2395,10 @@ function buildPersonModal(p){
   if(p.zsign&&!p.isPersonal){const sameZ=featuredOf(relPool.filter(x=>x.id!==p.id&&x.zsign===p.zsign),6);
     if(sameZ.length){rel.appendChild(el("h4",{text:"Fellow "+p.zsign+"s"}));
       const c=el("div",{class:"rel-chips"});sameZ.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
+  if(!p.isPersonal&&p.centuryLabel&&p.centuryLabel.includes("century")){
+    const sameC=featuredOf(relPool.filter(x=>x.id!==p.id&&x.centuryLabel===p.centuryLabel),6);
+    if(sameC.length){rel.appendChild(el("h4",{text:"Also born in the "+p.centuryLabel}));
+      const c=el("div",{class:"rel-chips"});sameC.forEach(x=>c.appendChild(relChip(x)));rel.appendChild(c);}}
   body.appendChild(rel);
   m.appendChild(body);
 
@@ -1918,10 +2412,13 @@ function buildPersonModal(p){
   return m;
 }
 function navPerson(d){if(!modalList.length)return;modalIdx=(modalIdx+d+modalList.length)%modalList.length;const p=modalList[modalIdx];
-  const modal=document.getElementById("modal");modal.innerHTML="";modal.appendChild(buildPersonModal(p));const f=modal.querySelector("button");if(f)f.focus();}
+  modalPerson=p;pushRecent(p.id);
+  const modal=document.getElementById("modal");modal.innerHTML="";modal.appendChild(buildPersonModal(p));const f=modal.querySelector("button");if(f)f.focus();
+  setHash("#/person/"+p.id);document.title=p.name+" · The Birthday Almanac";}
 function surprise(){const pool=PEOPLE.filter(p=>p.importanceTier!=="Personal");const p=pool[Math.floor((TODAY_D*977+performance.now())%pool.length)];openPerson(p);}
 function openDay(month,day,ppl){
   modalList=ppl.slice();modalIdx=-1;
+  setHash("#/day/"+String(month).padStart(2,"0")+"-"+String(day).padStart(2,"0"));
   openModal(()=>{
     const m=el("div");
     const top=el("div",{class:"mtop"});
@@ -1978,7 +2475,7 @@ function renderSubbar(){
 function renderSheet(){
   const sin=document.getElementById("sheetIn");sin.innerHTML="";
   const f=state.f;const pool=PEOPLE;
-  const count=k=>pool.filter(p=>p.category===k).length;
+  const count=k=>pool.filter(p=>inCat(p,k)).length;
   /* category by family */
   const catG=el("div",{class:"fgroup"},[el("h4",{text:"Field"})]);
   FAMILIES.forEach(fam=>{
@@ -2043,28 +2540,45 @@ function closeSheet(){document.getElementById("sheet").classList.remove("open");
    VALIDATION (grouped) + tests
    ============================================================ */
 function validate(list){
-  const groups={"Identity":[],"Dates":[],"Zodiac":[],"Completeness":[],"Vocabulary":[]};
+  const groups={"Identity":[],"Date validity":[],"Zodiac accuracy":[],"Completeness":[],"Source quality":[],"Category consistency":[],"Collections":[],"SEO":[],"Accessibility":[]};
   const ids={},names={};
   list.forEach(p=>{
     const id=p.name||p.id||"(unnamed)";
     if(!p.name)groups.Identity.push(["er","Missing name on "+(p.id||"?")]);
     if(p.id){if(ids[p.id])groups.Identity.push(["er","Duplicate id: "+p.id]);ids[p.id]=1;}
     if(p.name){if(names[p.name])groups.Identity.push(["er","Duplicate name: "+p.name]);names[p.name]=1;}
-    if(!p.category||!CATS[p.category])groups.Completeness.push(["er","Missing/invalid category: "+id]);
-    if(p.month!=null&&(p.month<1||p.month>12))groups.Dates.push(["er","Invalid month ("+p.month+"): "+id]);
-    if(p.day!=null&&(p.day<1||p.day>31))groups.Dates.push(["er","Invalid day ("+p.day+"): "+id]);
-    if(p.month&&p.day&&p.day>DIM[p.month-1])groups.Dates.push(["er","Day "+p.day+" out of range for "+MONTHS[p.month-1]+": "+id]);
-    if(!["exact","estimated","unknown"].includes(p.dateStatus))groups.Dates.push(["er","Invalid dateStatus: "+id]);
-    if(!["high","medium","low",null,undefined].includes(p.confidence))groups.Dates.push(["wn","Unusual confidence ("+p.confidence+"): "+id]);
+    if(!p.category||!CATS[p.category])groups["Category consistency"].push(["er","Missing/invalid category: "+id]);
+    (p.secondaryCategories||[]).forEach(sc=>{if(!CATS[sc])groups["Category consistency"].push(["er","Unknown secondary category '"+sc+"': "+id]);
+      if(sc===p.category)groups["Category consistency"].push(["wn","Secondary equals primary category: "+id]);});
+    if(p.month!=null&&(p.month<1||p.month>12))groups["Date validity"].push(["er","Invalid month ("+p.month+"): "+id]);
+    if(p.day!=null&&(p.day<1||p.day>31))groups["Date validity"].push(["er","Invalid day ("+p.day+"): "+id]);
+    if(p.month&&p.day&&p.day>DIM[p.month-1])groups["Date validity"].push(["er","Day "+p.day+" out of range for "+MONTHS[p.month-1]+": "+id]);
+    if(!["exact","estimated","unknown"].includes(p.dateStatus))groups["Date validity"].push(["er","Invalid dateStatus: "+id]);
+    if(!["high","medium","low",null,undefined].includes(p.confidence))groups["Date validity"].push(["wn","Unusual confidence ("+p.confidence+"): "+id]);
     if(p.dateStatus!=="unknown"&&p.month&&p.day){const z=zodiac(p.month,p.day);
-      if(p.zodiac&&z&&z.sign!==p.zodiac)groups.Zodiac.push(["wn","Zodiac mismatch ("+p.zodiac+" vs "+z.sign+"): "+id]);}
+      if(p.zodiac&&z&&z.sign!==p.zodiac)groups["Zodiac accuracy"].push(["wn","Zodiac mismatch ("+p.zodiac+" vs "+z.sign+"): "+id]);}
     if(!p.bio&&!p.isPersonal&&p.dateStatus==="exact")groups.Completeness.push(["wn","Missing bio: "+id]);
     if(!p.shortDescription)groups.Completeness.push(["wn","Missing short description: "+id]);
-    if(!p.isPersonal&&!p.sourceUrl&&p.dateStatus!=="unknown")groups.Completeness.push(["wn","Missing source: "+id]);
     if(!p.isPersonal&&(!p.countryOrCivilization))groups.Completeness.push(["wn","Missing country/civilization: "+id]);
-    if(!COLLECTIONS.includes(p.collection))groups.Vocabulary.push(["er","Invalid collection: "+id]);
-    if(!TIERS.includes(p.importanceTier))groups.Vocabulary.push(["er","Invalid importanceTier: "+id]);
+    if(!p.isPersonal&&!p.sourceUrl&&p.dateStatus!=="unknown")groups["Source quality"].push(["wn","Missing source: "+id]);
+    if(p.sourceUrl&&!/^https?:\/\//.test(p.sourceUrl))groups["Source quality"].push(["er","Source URL not absolute: "+id]);
+    if(!COLLECTIONS.includes(p.collection))groups.Collections.push(["er","Invalid collection bucket: "+id]);
+    if(!TIERS.includes(p.importanceTier))groups.Collections.push(["er","Invalid importanceTier: "+id]);
+    (p.collections||[]).forEach(cid=>{if(!COLLECTION_BY_ID[cid])groups.Collections.push(["er","Unknown collection id '"+cid+"': "+id]);});
   });
+  /* page-level SEO + accessibility checks */
+  const seo=document.querySelector('meta[name="description"]');
+  if(!seo||(seo.content||"").length<80)groups.SEO.push(["wn","Meta description missing or too short"]);
+  if(!document.querySelector('meta[property="og:title"]'))groups.SEO.push(["wn","Missing Open Graph title"]);
+  if(!document.querySelector('script[type="application/ld+json"]'))groups.SEO.push(["wn","Missing JSON-LD structured data"]);
+  if(!document.querySelector('link[rel="canonical"]'))groups.SEO.push(["wn","Missing canonical link"]);
+  if(document.title.length<10)groups.SEO.push(["wn","Document title too short"]);
+  const imgs=[...document.querySelectorAll('img')].filter(i=>!i.alt);
+  if(imgs.length)groups.Accessibility.push(["wn",imgs.length+" image(s) missing alt text"]);
+  const btns=[...document.querySelectorAll('button')].filter(b=>!b.textContent.trim()&&!b.getAttribute('aria-label'));
+  if(btns.length)groups.Accessibility.push(["wn",btns.length+" button(s) without label"]);
+  if(!document.querySelector('h1'))groups.Accessibility.push(["er","No H1 on the page"]);
+  if(!document.querySelector('main'))groups.Accessibility.push(["wn","No <main> landmark"]);
   return groups;
 }
 function runTests(){
@@ -2101,33 +2615,94 @@ function renderDev(){
 /* ============================================================
    ROUTER + wiring
    ============================================================ */
-const BOTTOM_NAV=new Set(["discover","calendar","people","categories","patterns"]);
 function buildNav(){
   const pn=document.getElementById("primaryNav"),bn=document.getElementById("bottomNav");
   pn.innerHTML="";bn.innerHTML="";
-  VIEWS.forEach(v=>{
-    pn.appendChild(el("button",{"data-view":v.key,"aria-current":state.view===v.key?"true":"false",onClick:()=>setView(v.key)},
-      [document.createTextNode(v.label)]));
-    if(BOTTOM_NAV.has(v.key))
-      bn.appendChild(el("button",{"data-view":v.key,"aria-current":state.view===v.key?"true":"false","aria-label":v.label,onClick:()=>setView(v.key)},
-        [el("span",{class:"bic",text:v.icon}),el("span",{text:v.label})]));
-  });
+  PRIMARY_NAV.forEach(k=>{const v=VIEW_BY_KEY[k];
+    pn.appendChild(el("button",{"data-view":v.key,onClick:()=>setView(v.key)},[document.createTextNode(v.label)]));});
+  BOTTOM_PRIMARY.forEach(k=>{const v=VIEW_BY_KEY[k];
+    bn.appendChild(el("button",{"data-view":v.key,"aria-label":v.label,onClick:()=>setView(v.key)},
+      [el("span",{class:"bic",text:v.icon}),el("span",{text:v.label})]));});
+  bn.appendChild(el("button",{"data-view":"__more","aria-label":"More sections",onClick:openMore},
+    [el("span",{class:"bic",text:"☰"}),el("span",{text:"More"})]));
 }
 function syncNav(){
-  document.querySelectorAll('#primaryNav button,#bottomNav button').forEach(b=>b.setAttribute("aria-current",b.dataset.view===state.view?"true":"false"));
+  const moreActive=MORE_VIEWS.includes(state.view)&&!BOTTOM_PRIMARY.includes(state.view);
+  document.querySelectorAll('#primaryNav button,#bottomNav button').forEach(b=>{
+    const k=b.dataset.view;
+    b.setAttribute("aria-current",(k===state.view||(k==="__more"&&moreActive))?"true":"false");});
 }
-function setView(v){state.view=v;state.peopleLimit=80;closeSheet();window.scrollTo({top:0,behavior:"auto"});render();}
+/* ----- More sheet (mobile) ----- */
+function openMore(){
+  let s=document.getElementById("moreSheet");
+  if(!s){s=el("div",{id:"moreSheet",class:"more-sheet"});document.body.appendChild(s);}
+  s.innerHTML="";
+  const sc=el("div",{class:"more-scrim",onClick:closeMore});
+  const panel=el("div",{class:"more-panel"});
+  panel.appendChild(el("div",{class:"more-grip"}));
+  panel.appendChild(el("h3",{text:"Explore more"}));
+  const grid=el("div",{class:"more-grid"});
+  MORE_VIEWS.forEach(k=>{const v=VIEW_BY_KEY[k];
+    grid.appendChild(el("button",{class:"more-item",onClick:()=>{closeMore();setView(k);}},
+      [el("span",{class:"mi-ic",text:v.icon}),el("span",{text:v.label})]));});
+  grid.appendChild(el("button",{class:"more-item",onClick:()=>{closeMore();state.peopleScope="personal";setView("people");}},
+    [el("span",{class:"mi-ic",text:"✨"}),el("span",{text:"Personal"})]));
+  panel.appendChild(grid);
+  s.append(sc,panel);
+  requestAnimationFrame(()=>s.classList.add("open"));
+}
+function closeMore(){const s=document.getElementById("moreSheet");if(s)s.classList.remove("open");}
+
+/* ----- hash routing / deep links ----- */
+function findSign(p){if(!p)return null;const z=ZODIAC.find(z=>z.sign.toLowerCase()===p.toLowerCase());return z?z.sign:null;}
+function currentRoute(){
+  const v=state.view;
+  if(v==="zodiac"&&state.zSign)return "#/zodiac/"+state.zSign.toLowerCase();
+  if(v==="collections"&&state.collectionId)return "#/collection/"+state.collectionId;
+  return "#/"+v;
+}
+let _lastSetHash=null;
+function setHash(h){_lastSetHash=h;if(location.hash!==h)location.hash=h;}
+function applyHash(){
+  const raw=(location.hash||"").replace(/^#\/?/,"");
+  const [seg,rawParam]=raw.split("/");const param=rawParam?decodeURIComponent(rawParam):null;
+  closeModal();state.zSign=null;state.collectionId=null;
+  if(seg==="person"&&param){const p=PEOPLE.find(x=>x.id===param);if(p){state.view=p.isPersonal?"people":(DATA_VIEWS.has(state.view)?state.view:"discover");render();openPerson(p);return;}}
+  if(seg==="day"&&param){const [mm,dd]=param.split("-").map(Number);if(mm&&dd){state.view="calendar";state.calMonth=mm-1;render();const ppl=HISTORICAL.filter(p=>p.month===mm&&p.day===dd);if(ppl.length){openDay(mm,dd,ppl);}return;}}
+  if(seg==="zodiac"){state.view="zodiac";state.zSign=findSign(param);}
+  else if(seg==="collection"&&param&&COLLECTION_BY_ID[param]){state.view="collections";state.collectionId=param;}
+  else if(seg==="collections"){state.view="collections";}
+  else if(seg==="category"&&param&&CATS[param]){state.f=freshFilters();state.peopleScope="historical";state.f.cats.add(param);state.view="people";}
+  else if(seg==="month"&&param){const mi=MONTHS.findIndex(m=>m.toLowerCase()===param.toLowerCase());if(mi>=0)state.calMonth=mi;state.view="calendar";}
+  else if(VIEW_BY_KEY[seg])state.view=seg;
+  else state.view="discover";
+  render();
+}
+function updateTitle(){
+  const base="The Birthday Almanac";let t=base;
+  const v=state.view;
+  if(v==="zodiac"&&state.zSign)t=state.zSign+" — Zodiac · "+base;
+  else if(v==="collections"&&state.collectionId)t=(COLLECTION_BY_ID[state.collectionId]||{}).title+" · "+base;
+  else if(v!=="discover")t=(VIEW_BY_KEY[v]||{}).label+" · "+base;
+  document.title=t;
+}
+function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
 function render(){
   syncNav();renderSubbar();
   const view=document.getElementById("view");
   if(state.view==="discover")renderDiscover(view);
   else if(state.view==="calendar")renderCalendar(view);
+  else if(state.view==="zodiac")renderZodiac(view);
+  else if(state.view==="collections")renderCollections(view);
   else if(state.view==="people")renderPeople(view);
   else if(state.view==="categories")renderCategories(view);
   else if(state.view==="timeline")renderTimeline(view);
   else if(state.view==="patterns")renderPatterns(view);
   const fb=document.getElementById("filterBtn"),fd=document.getElementById("fdot"),n=activeFilterCount();
   fd.textContent=String(n);fb.classList.toggle("has",n>0);fb.classList.toggle("on",n>0);
+  // search/filter controls only make sense on the people-style data views
+  document.getElementById("filterBtn").style.display=DATA_VIEWS.has(state.view)?"":"none";
+  setHash(currentRoute());updateTitle();
 }
 function resetAll(){
   state.search="";const si=document.getElementById("search");si.value="";document.getElementById("searchWrap").classList.remove("has");
@@ -2170,8 +2745,12 @@ document.addEventListener("keydown",e=>{
   if(state.view==="calendar"){if(e.key==="ArrowLeft")stepMonth(-1);if(e.key==="ArrowRight")stepMonth(1);}
 });
 
+/* deep-link routing: honor the hash on load and on back/forward */
+window.addEventListener("hashchange",()=>{if(location.hash===_lastSetHash)return;applyHash();});
+
 /* init */
-buildNav();render();
+buildNav();
+if(location.hash&&location.hash.length>2)applyHash();else render();
 </script>
 </body>
 </html>
