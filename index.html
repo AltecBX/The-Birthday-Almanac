@@ -88,6 +88,17 @@ a{color:var(--gold-deep);text-underline-offset:2px}
 .tb-tools{display:flex;align-items:center;gap:9px;flex:none}
 .search{position:relative;width:230px;transition:width .25s var(--ease)}
 .search:focus-within{width:280px}
+/* search spotlight overlay on focus */
+#searchScrim{position:fixed;inset:0;z-index:60;background:rgba(9,14,26,.46);opacity:0;visibility:hidden;
+  -webkit-backdrop-filter:blur(3px) saturate(105%);backdrop-filter:blur(3px) saturate(105%);
+  transition:opacity .26s var(--ease),visibility .26s var(--ease)}
+body.search-spot #searchScrim{opacity:1;visibility:visible}
+body.search-spot .topbar{z-index:70}
+body.search-spot .tb-tools{z-index:75}
+body.search-spot .search{width:min(440px,42vw);z-index:75}
+body.search-spot .search input{border-color:var(--gold);box-shadow:0 0 0 4px rgba(230,206,142,.28),0 22px 54px rgba(9,14,26,.45);background:var(--card)}
+body.search-spot .primary,body.search-spot .brand{opacity:.4;transition:opacity .26s var(--ease);pointer-events:none}
+@media(max-width:820px){body.search-spot .search{width:min(440px,72vw)}}
 .search input{width:100%;font-size:14px;font-family:var(--sans);color:var(--ink);background:var(--card);
   border:1px solid var(--hairline);border-radius:999px;padding:9px 32px 9px 34px;transition:border-color .18s,box-shadow .18s}
 .search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-wash)}
@@ -552,7 +563,8 @@ main{display:block;min-height:60vh}
 .site-foot{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
   margin-top:10px;padding:30px 22px calc(40px + env(safe-area-inset-bottom));border-top:1px solid var(--hairline);
   background:linear-gradient(180deg,transparent,rgba(28,42,56,.025))}
-.site-foot .sf-mark{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink-2);letter-spacing:.3px}
+.site-foot .sf-ded{font-family:var(--mono);font-size:11px;letter-spacing:.8px;color:var(--gold-deep);opacity:.85}
+.site-foot .sf-mark{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink-2);letter-spacing:.3px;margin-top:2px}
 .site-foot .sf-mark em{font-style:italic;color:var(--gold-deep)}
 .site-foot .sf-copy{font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--faint)}
 @media(max-width:820px){.site-foot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
@@ -601,6 +613,10 @@ main{display:block;min-height:60vh}
 .zsign-hero.air{background:radial-gradient(700px 300px at 88% -30%,rgba(63,127,166,.4),transparent 60%),linear-gradient(160deg,#16242c,#0c1318)}
 .zsign-hero.water{background:radial-gradient(700px 300px at 88% -30%,rgba(74,111,176,.4),transparent 60%),linear-gradient(160deg,#141d33,#0b1020)}
 .zh-sym{font-size:84px;color:var(--gold-soft);line-height:1;flex:none}
+.zh-vis{position:relative;flex:none;display:grid;place-items:center}
+.zh-sym-badge{position:absolute;bottom:-2px;right:-2px;font-size:22px;color:var(--gold-soft);
+  text-shadow:0 0 12px rgba(230,206,142,.6);opacity:.85}
+@media(max-width:680px){.zh-vis .mini-constel{width:120px!important;height:120px!important}}
 .zh-text{flex:1;min-width:0}
 .zh-text .eyebrow{color:#C7CFEC}
 .zh-text h1{font-size:clamp(34px,7vw,52px);color:#FBF4E6}
@@ -789,6 +805,17 @@ main{display:block;min-height:60vh}
 .bf-ic{font-size:21px;line-height:1}
 .bf-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#9FAAD6;margin-top:9px}
 .bf-val{font-family:var(--serif);font-size:17px;color:#FBF4E6;margin-top:4px;line-height:1.2}
+.btr-fact.click{cursor:pointer;color:inherit;font:inherit;display:flex;flex-direction:column;align-items:center}
+.btr-fact .bf-more{font-family:var(--mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-soft);margin-top:9px;opacity:0;transform:translateY(3px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.btr-fact.click:hover .bf-more,.btr-fact.click:focus-visible .bf-more{opacity:.95;transform:none}
+/* fact info modal */
+.factmodal{position:relative;text-align:center;padding:30px 30px 28px;max-width:440px}
+.factmodal .mclose{position:absolute;top:14px;right:14px}
+.fm-ic{font-size:38px;line-height:1}
+.fm-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);margin-top:14px}
+.fm-title{font-family:var(--serif);font-size:27px;color:var(--ink);margin-top:6px}
+.fm-body{color:var(--ink-2);font-size:14.5px;line-height:1.62;margin:14px 0 0}
+.fm-acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
 @media(max-width:760px){.btr-grid{grid-template-columns:1fr}.btr-facts{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.btr-facts{grid-template-columns:repeat(2,1fr)}}
 /* reveal-stagger primitives (used by the birthday reveal & elsewhere) */
@@ -979,6 +1006,7 @@ try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("
   </div>
   <div class="subbar"><div class="wrap sub-in" id="subIn"></div></div>
 </header>
+<div id="searchScrim" aria-hidden="true"></div>
 <main id="main"><div class="wrap"><div id="view" aria-live="polite">
   <section id="seo-static">
     <h1>The Birthday Almanac — famous birthdays, zodiac signs, birthstones &amp; birth flowers</h1>
@@ -1040,6 +1068,7 @@ try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("
   </section>
 </div></div>
 <footer class="site-foot">
+  <span class="sf-ded">Inspired by Eunice Poulos&nbsp; · &nbsp;Built by Jerry Pena</span>
   <span class="sf-mark">The Birthday <em>Almanac</em></span>
   <span class="sf-copy">© 2026 The Birthday Almanac · All rights reserved</span>
 </footer>
@@ -2336,11 +2365,6 @@ function renderDiscover(view){
 
   /* ---- BIRTHDAY TRIVIA ---- */
   view.appendChild(el("div",{class:"section"},[birthdayTriviaSection()]));
-
-  /* quiet dedication */
-  view.appendChild(el("footer",{class:"site-credit"},[
-    el("span",{text:"Inspired by Eunice Poulos"}),el("span",{class:"dot",text:"·"}),el("span",{text:"Built by Jerry Pena"})
-  ]));
 }
 function todaySignCard(){
   const z=zodiac(TODAY_M,TODAY_D);
@@ -2428,6 +2452,65 @@ function chineseZodiac(y){return _CZ[((y-4)%12+12)%12];}
 function chineseZodiacIcon(y){return _CZE[((y-4)%12+12)%12];}
 function hexToRgb(h){h=h.replace('#','');const n=parseInt(h,16);return (n>>16&255)+","+(n>>8&255)+","+(n&255);}
 const ELEMENT_GLOW={Fire:"#E0865A",Earth:"#9FB060",Air:"#7FB5E0",Water:"#7E9CE0"};
+/* lore for the six birthday facts — opened from the reveal tiles */
+const STONE_INFO={
+  Garnet:"January's garnet symbolises protection, loyalty and enduring friendship; ancient travellers carried it as a talisman for safe passage.",
+  Amethyst:"February's amethyst was prized for clarity of mind and sobriety — its name comes from the Greek for 'not intoxicated'.",
+  Aquamarine:"March's aquamarine, the colour of calm seas, was the sailor's stone — believed to guarantee a safe and prosperous voyage.",
+  Diamond:"April's diamond, the hardest natural material, has long stood for invincible strength, clarity and everlasting love.",
+  Emerald:"May's emerald, a vivid green beryl, was associated with rebirth, foresight and the promise of good fortune.",
+  Pearl:"June's pearl — the only gem made by a living creature — has symbolised purity, wisdom and serenity for millennia.",
+  Ruby:"July's ruby, 'king of gems', was thought to hold the fire of life itself, bringing passion, vitality and protection.",
+  Peridot:"August's peridot glows olive-green even by lamplight, earning it the name 'gem of the evening' and links to light and renewal.",
+  Sapphire:"September's sapphire, a deep celestial blue, has symbolised wisdom, royalty and divine favour since antiquity.",
+  Opal:"October's opal flashes every colour at once — a stone of inspiration, imagination and creativity.",
+  Topaz:"November's topaz, warm and golden, was believed to bring strength, healing and protection to its wearer.",
+  Turquoise:"December's turquoise, sky-blue and ancient, was carried as a good-luck stone and guardian against harm across many cultures."
+};
+const FLOWER_INFO={
+  Carnation:"The carnation, January's bloom, speaks of deep love, fascination and devotion.",
+  Violet:"February's violet symbolises modesty, faithfulness and quiet, loyal affection.",
+  Daffodil:"March's daffodil heralds spring and new beginnings — a flower of hope and renewal.",
+  Daisy:"April's daisy stands for innocence, purity and loyal love.",
+  "Lily of the Valley":"May's lily of the valley signals returning happiness, sweetness and humility.",
+  Rose:"June's rose, the classic emblem of love, carries meaning by colour — from passion to friendship.",
+  Larkspur:"July's larkspur represents an open heart, positivity and strong bonds of love.",
+  Gladiolus:"August's gladiolus, named for the sword, stands for strength of character and sincerity.",
+  Aster:"September's aster symbolises wisdom, faith and valour — once burned to ward off ill fortune.",
+  Marigold:"October's marigold glows with warmth, creativity and fierce, undying affection.",
+  Chrysanthemum:"November's chrysanthemum signifies loyalty, joy and long life.",
+  Narcissus:"December's narcissus (paperwhite) wishes good fortune and sweet respect for the year ahead."
+};
+const PLANET_INFO={
+  Sun:"The Sun rules identity, vitality and the will to shine — it governs Leo.",
+  Moon:"The Moon rules emotion, memory and instinct — it governs Cancer.",
+  Mercury:"Mercury rules thought, language and exchange — it governs Gemini and Virgo.",
+  Venus:"Venus rules love, beauty and harmony — it governs Taurus and Libra.",
+  Mars:"Mars rules drive, courage and desire — it governs Aries.",
+  Jupiter:"Jupiter rules growth, luck and the search for meaning — it governs Sagittarius.",
+  Saturn:"Saturn rules discipline, time and mastery — it governs Capricorn.",
+  Pluto:"Pluto rules transformation, depth and rebirth — it governs Scorpio."
+};
+const SEASON_INFO={
+  Spring:"Born in spring — the season of renewal and fresh starts, between the equinox and the summer solstice.",
+  Summer:"Born in summer — the season of light and abundance, the Sun at its highest and longest.",
+  Autumn:"Born in autumn — the season of harvest and balance, as the days draw inward toward winter.",
+  Winter:"Born in winter — the season of stillness and reflection, the quiet turning point of the year."
+};
+function openInfoModal(o){
+  openModal(()=>{
+    const m=el("div",{class:"factmodal"});
+    m.appendChild(el("button",{class:"mclose","aria-label":"Close",html:"&times;",onClick:closeModal}));
+    m.appendChild(el("div",{class:"fm-ic",text:o.icon}));
+    if(o.kicker)m.appendChild(el("div",{class:"fm-kicker",text:o.kicker}));
+    m.appendChild(el("h2",{id:"modalTitle",class:"fm-title",text:o.title}));
+    m.appendChild(el("p",{class:"fm-body",text:o.body}));
+    if(o.actions&&o.actions.length){const row=el("div",{class:"fm-acts"});
+      o.actions.forEach(a=>row.appendChild(el("button",{class:"btn "+(a.primary?"btn-gold":"btn-line"),onClick:a.onClick},[document.createTextNode(a.label)])));
+      m.appendChild(row);}
+    return m;
+  });
+}
 /* draw a sign's asterism into a canvas with a constellation line-draw animation */
 function miniConstellation(sign,size){
   const cv=el("canvas",{class:"mini-constel","aria-hidden":"true"});
@@ -2439,23 +2522,28 @@ function miniConstellation(sign,size){
   const pts=data.stars.map(s=>[cx+s[0]*span,cy+s[1]*span,s[2]]);
   const glow=ELEMENT_GLOW[ZMETA[sign].element]||"#E6CE8E",rgb=hexToRgb(glow);
   const segs=data.lines,reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  function draw(prog){
+  function draw(prog,t){
     ctx.clearRect(0,0,size,size);
     const shown=prog*segs.length;
-    ctx.lineWidth=1.3;ctx.lineCap="round";ctx.strokeStyle="rgba("+rgb+",0.55)";ctx.beginPath();
+    // a soft shimmer travels along the lines once formed
+    const shimmer=prog>=1?(0.5+0.18*Math.sin(t*0.0016)):0.42;
+    ctx.lineWidth=1.3;ctx.lineCap="round";ctx.strokeStyle="rgba("+rgb+","+shimmer.toFixed(3)+")";ctx.beginPath();
     for(let i=0;i<segs.length;i++){const a=pts[segs[i][0]],b=pts[segs[i][1]];
       if(i+1<=Math.floor(shown)){ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);}
       else if(i<shown){const f=shown-i;ctx.moveTo(a[0],a[1]);ctx.lineTo(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f);}}
     ctx.stroke();
-    for(let k=0;k<pts.length;k++){const p=pts[k],r=1.5+p[2]*1.5,al=Math.min(1,prog*1.5);
-      const g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3);
+    for(let k=0;k<pts.length;k++){const p=pts[k],r=1.5+p[2]*1.5;
+      const tw=prog>=1?(0.78+0.22*Math.sin(t*0.0022+k*1.7)):1;
+      const al=Math.min(1,prog*1.5)*tw;
+      const g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3*(prog>=1?(0.92+0.12*Math.sin(t*0.0022+k*1.7)):1));
       g.addColorStop(0,"rgba(255,250,236,"+al+")");g.addColorStop(0.4,"rgba("+rgb+","+(al*0.7)+")");g.addColorStop(1,"rgba("+rgb+",0)");
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(p[0],p[1],r*3,0,6.2832);ctx.fill();
       ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(p[0],p[1],r*0.6,0,6.2832);ctx.fill();}
   }
-  if(reduce){draw(1);return cv;}
+  if(reduce){draw(1,0);return cv;}
   let start=null;const dur=1100;
-  function step(ts){if(start==null)start=ts;const p=Math.min(1,(ts-start)/dur);const e=1-Math.pow(1-p,3);draw(e);if(p<1)requestAnimationFrame(step);}
+  function step(ts){if(!document.body.contains(cv))return;        // stop when detached
+    if(start==null)start=ts;const p=Math.min(1,(ts-start)/dur);const e=1-Math.pow(1-p,3);draw(e,ts);requestAnimationFrame(step);}
   requestAnimationFrame(step);
   return cv;
 }
@@ -2480,10 +2568,11 @@ function buildBirthdayTool(){
   const btn=el("button",{class:"btn btn-gold bt-go",text:"Reveal my stars  ✨"});
   form.append(mSel,dSel,ySel,btn);inner.appendChild(form);
   const result=el("div",{class:"bt-result"});inner.appendChild(result);
-  function fact(lab,val,icon){const f=el("div",{class:"btr-fact reveal-pop"});
+  function fact(lab,val,icon,onClick){const f=el(onClick?"button":"div",{class:"btr-fact reveal-pop"+(onClick?" click":""),onClick:onClick||null,"aria-label":onClick?(lab+": "+val+" — more"):null});
     f.appendChild(el("div",{class:"bf-ic",text:icon}));
     f.appendChild(el("div",{class:"bf-lab",text:lab}));
-    f.appendChild(el("div",{class:"bf-val",text:val}));return f;}
+    f.appendChild(el("div",{class:"bf-val",text:val}));
+    if(onClick)f.appendChild(el("div",{class:"bf-more",text:"More →"}));return f;}
   function reveal(m,d,y){
     STORE.set("bday",{m,d,y:y||null});
     const z=zodiac(m,d);if(!z){result.innerHTML="";return;}
@@ -2502,15 +2591,16 @@ function buildBirthdayTool(){
     const traits=el("div",{class:"btr-traits"});meta.traits.split(" · ").forEach(t=>traits.appendChild(el("span",{class:"btr-trait",text:t})));
     sc.appendChild(traits);
     grid.appendChild(sc);
-    /* RIGHT — fact tiles */
+    /* RIGHT — fact tiles (each opens more information) */
     const facts=el("div",{class:"btr-facts"});
-    facts.appendChild(fact("Birthstone",bm.stone,"\u{1F48E}"));
-    facts.appendChild(fact("Birth flower",bm.flower,"\u{1F33C}"));
-    facts.appendChild(fact("Day of year",dayOfYear(m,d,y)+" / "+(y&&isLeap(y)?366:365),"\u{1F4C5}"));
-    facts.appendChild(fact("Season",season,seasonIcon(season)));
-    facts.appendChild(fact("Famous twins",twins.length+(twins.length===1?" found":" found"),"⭐"));
-    if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y),chineseZodiacIcon(y)));
-    else facts.appendChild(fact("Ruling planet",meta.planet,"\u{1FA90}"));
+    const doy=dayOfYear(m,d,y),total=(y&&isLeap(y)?366:365);
+    facts.appendChild(fact("Birthstone",bm.stone,"\u{1F48E}",()=>openInfoModal({icon:"\u{1F48E}",kicker:MONTHS[m-1]+" birthstone",title:bm.stone,body:STONE_INFO[bm.stone]||"The traditional birthstone for "+MONTHS[m-1]+"."})));
+    facts.appendChild(fact("Birth flower",bm.flower,"\u{1F33C}",()=>openInfoModal({icon:"\u{1F33C}",kicker:MONTHS[m-1]+" birth flower",title:bm.flower,body:FLOWER_INFO[bm.flower]||"The traditional birth flower for "+MONTHS[m-1]+"."})));
+    facts.appendChild(fact("Day of year",doy+" / "+total,"\u{1F4C5}",()=>openInfoModal({icon:"\u{1F4C5}",kicker:"Day of the year",title:"Day "+doy+" of "+total,body:MONTHS[m-1]+" "+d+" is the "+ordinal(doy)+" day of the year"+(y?" "+y:"")+". "+twins.length+" influential "+(twins.length===1?"person was":"people were")+" born on this day in the almanac.",actions:[{label:"See who's born on "+MONTHS[m-1]+" "+d+" →",primary:true,onClick:()=>{closeModal();const tw=HISTORICAL.filter(p=>p.month===m&&p.day===d);openDay(m,d,tw);}}]})));
+    facts.appendChild(fact("Season",season,seasonIcon(season),()=>openInfoModal({icon:seasonIcon(season),kicker:"Your season",title:season,body:SEASON_INFO[season]||"",actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
+    facts.appendChild(fact("Famous twins",twins.length+" found","⭐",()=>{if(twins.length)openDay(m,d,twins);else openInfoModal({icon:"⭐",kicker:"Birthday twins",title:"No exact twin yet",body:"No one in the almanac currently shares "+MONTHS[m-1]+" "+d+" — but you can still meet famous "+signPlural(z.sign)+".",actions:[{label:"Meet famous "+signPlural(z.sign)+" →",primary:true,onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]});}));
+    if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y),chineseZodiacIcon(y),()=>openInfoModal({icon:chineseZodiacIcon(y),kicker:"Chinese zodiac · "+y,title:"Year of the "+chineseZodiac(y),body:"In the Chinese zodiac, "+y+" is a Year of the "+chineseZodiac(y)+". The twelve animals cycle every twelve years; this is an approximation by Gregorian year (the lunar new year falls in late January or February)."})));
+    else facts.appendChild(fact("Ruling planet",meta.planet,"\u{1FA90}",()=>openInfoModal({icon:"\u{1FA90}",kicker:z.sign+"'s ruler",title:meta.planet,body:PLANET_INFO[meta.planet]||(meta.planet+" rules "+z.sign+"."),actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
     grid.appendChild(facts);
     result.appendChild(grid);
     result.appendChild(el("p",{class:"btr-about reveal-up",text:meta.about}));
@@ -2903,7 +2993,10 @@ function renderZodiacSign(view,sign){
   view.appendChild(back);
   const hero=el("div",{class:"zsign-hero "+m.element.toLowerCase()});
   hero.appendChild(starLayer("star-layer",30));
-  hero.appendChild(el("div",{class:"zh-sym",text:signSym(sign)}));
+  const vis=el("div",{class:"zh-vis"});
+  vis.appendChild(miniConstellation(sign,168));
+  vis.appendChild(el("div",{class:"zh-sym-badge",text:signSym(sign)}));
+  hero.appendChild(vis);
   const ht=el("div",{class:"zh-text"});
   ht.appendChild(el("p",{class:"eyebrow",text:m.element+" · "+m.modality+" · Ruled by "+m.planet}));
   ht.appendChild(el("h1",{text:sign}));
@@ -3748,6 +3841,15 @@ document.getElementById("search").addEventListener("input",e=>{
     if(v&&!DATA_VIEWS.has(state.view)){state.view="people";state.peopleScope="historical";}render();},180);
 });
 document.getElementById("searchClr").onclick=()=>{const si=document.getElementById("search");si.value="";document.getElementById("searchWrap").classList.remove("has");state.search="";render();si.focus();};
+/* search spotlight: dim the page and elevate search while focused */
+(function(){const si=document.getElementById("search"),scrim=document.getElementById("searchScrim");
+  const open=()=>document.body.classList.add("search-spot");
+  const close=()=>{document.body.classList.remove("search-spot");};
+  si.addEventListener("focus",open);
+  si.addEventListener("blur",()=>setTimeout(()=>{if(document.activeElement!==si)close();},120));
+  si.addEventListener("keydown",e=>{if(e.key==="Escape"){close();si.blur();}});
+  scrim.addEventListener("mousedown",()=>{close();si.blur();});
+})();
 document.getElementById("brandBtn").onclick=()=>setView("discover");
 document.getElementById("filterBtn").onclick=openSheet;
 document.getElementById("sheetClose").onclick=closeSheet;
