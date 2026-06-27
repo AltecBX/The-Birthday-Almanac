@@ -236,7 +236,7 @@ main{display:block;min-height:60vh}
   .dhero-overlay .dhero-cta{flex-direction:column;align-items:stretch;gap:9px;width:100%;max-width:300px;margin-left:auto;margin-right:auto}
   .dhero-overlay .dhero-cta .btn{flex:none;width:100%;justify-content:center}}
 /* gold flash when the hero CTA jumps to the birthday tool */
-.bday-tool.flash{animation:bdayFlash 1.1s var(--ease)}
+.bday-tool.flash{animation:bdayFlash 1.1s var(--ease);opacity:1}
 @keyframes bdayFlash{0%{box-shadow:0 0 0 0 rgba(230,206,142,0),var(--shadow-lg)}30%{box-shadow:0 0 0 3px rgba(230,206,142,.55),0 0 40px rgba(230,206,142,.35)}100%{box-shadow:0 0 0 0 rgba(230,206,142,0),var(--shadow-lg)}}
 @media(prefers-reduced-motion:reduce){.bday-tool.flash{animation:none}}
 /* ===== CONSTELLATION SKY DOME ===== */
@@ -2169,18 +2169,18 @@ const TOP_NOBEL=["albert-einstein","marie-curie","max-planck","niels-bohr","wern
 const TOP_BILLIONAIRES=["elon-musk","jeff-bezos","mark-zuckerberg","bill-gates","larry-page","sergey-brin","jensen-huang","steve-jobs","ralph-lauren","giorgio-armani","henry-ford","john-d-rockefeller","andrew-carnegie","j-p-morgan","warren-buffett","bernard-arnault","larry-ellison","steve-ballmer","michael-bloomberg","carlos-slim","mukesh-ambani","gautam-adani","jack-ma","amancio-ortega","charles-koch","michael-dell","phil-knight","richard-branson","oprah-winfrey","george-soros","rupert-murdoch","david-geffen","ray-dalio","sam-walton","ingvar-kamprad","masayoshi-son","li-ka-shing","aliko-dangote","sheldon-adelson","cornelius-vanderbilt","howard-hughes","j-paul-getty","aristotle-onassis","ted-turner","mark-cuban","peter-thiel","jack-dorsey","reed-hastings","roman-abramovich","francois-pinault"];
 const COLLECTION_DEFS=[
   {id:"top-25-most-influential",title:"The 25 Most Influential",icon:"\u{1F31F}",desc:"The twenty-five people who shaped history more than any others, ranked by lasting influence.",match:p=>TOP25_IDS.has(p.id)},
-  {id:"top-book-authors",title:"Top 25 Book Authors",icon:"\u{1F4DA}",desc:"The novelists and poets whose books shaped literature across the ages.",match:p=>TOP_AUTHORS.includes(p.id)},
-  {id:"top-singers",title:"Top 20 Singers",icon:"\u{1F3A4}",desc:"The voices that defined modern music — from Sinatra and Aretha to Beyoncé.",match:p=>TOP_SINGERS.includes(p.id)},
-  {id:"top-soccer",title:"Top 25 Soccer Players",icon:"⚽",desc:"Football's greatest — from Pelé and Maradona to Messi and Ronaldo.",match:p=>TOP_SOCCER.includes(p.id)},
-  {id:"top-basketball",title:"Top 25 Basketball Players",icon:"\u{1F3C0}",desc:"The legends of the hardwood, from Russell and Jordan to LeBron and Curry.",match:p=>TOP_BASKETBALL.includes(p.id)},
-  {id:"top-boxers",title:"Top 25 Boxers",icon:"\u{1F94A}",desc:"The fighters who defined the ring, from Ali and Robinson to Mayweather.",match:p=>TOP_BOXERS.includes(p.id)},
-  {id:"top-tennis",title:"Top 20 Tennis Players",icon:"\u{1F3BE}",desc:"Champions of the court — Federer, Serena, Nadal, Graf and more.",match:p=>TOP_TENNIS.includes(p.id)},
-  {id:"top-baseball",title:"Top 25 Baseball Players",icon:"⚾",desc:"Diamond legends from Ruth and Robinson to Mays, Aaron and Jeter.",match:p=>TOP_BASEBALL.includes(p.id)},
-  {id:"top-football",title:"Top 25 Football Players",icon:"\u{1F3C8}",desc:"Gridiron greats — Brady, Rice, Jim Brown, Montana, Mahomes and more.",match:p=>TOP_FOOTBALL.includes(p.id)},
-  {id:"top-olympians",title:"Top 20 Olympic Athletes",icon:"\u{1F3C5}",desc:"Olympic legends — Owens, Phelps, Bolt, Biles, Comăneci and more.",match:p=>TOP_OLYMPIANS.includes(p.id)},
-  {id:"top-fashion",title:"Top 20 Fashion Designers",icon:"\u{1F457}",desc:"The designers who shaped style — Chanel, Dior, Saint Laurent, Lagerfeld.",match:p=>TOP_FASHION.includes(p.id)},
-  {id:"top-billionaires",title:"Top 50 Billionaires",icon:"\u{1F4B0}",desc:"The titans of wealth — from Rockefeller and Carnegie to Musk, Bezos and Arnault.",match:p=>TOP_BILLIONAIRES.includes(p.id)},
-  {id:"top-nobel",title:"Top 25 Nobel Prize Winners",icon:"\u{1F396}\u{FE0F}",desc:"Laureates who advanced science, literature and peace — Einstein, Curie, Mandela, Morrison and more.",match:p=>TOP_NOBEL.includes(p.id)},
+  {id:"top-book-authors",title:"Top Book Authors",icon:"\u{1F4DA}",desc:"The novelists and poets whose books shaped literature across the ages.",match:p=>TOP_AUTHORS.includes(p.id)},
+  {id:"top-singers",title:"Top Singers",icon:"\u{1F3A4}",desc:"The voices that defined modern music — from Sinatra and Aretha to Beyoncé.",match:p=>TOP_SINGERS.includes(p.id)},
+  {id:"top-soccer",title:"Top Soccer Players",icon:"⚽",desc:"Football's greatest — from Pelé and Maradona to Messi and Ronaldo.",match:p=>TOP_SOCCER.includes(p.id)},
+  {id:"top-basketball",title:"Top Basketball Players",icon:"\u{1F3C0}",desc:"The legends of the hardwood, from Russell and Jordan to LeBron and Curry.",match:p=>TOP_BASKETBALL.includes(p.id)},
+  {id:"top-boxers",title:"Top Boxers",icon:"\u{1F94A}",desc:"The fighters who defined the ring, from Ali and Robinson to Mayweather.",match:p=>TOP_BOXERS.includes(p.id)},
+  {id:"top-tennis",title:"Top Tennis Players",icon:"\u{1F3BE}",desc:"Champions of the court — Federer, Serena, Nadal, Graf and more.",match:p=>TOP_TENNIS.includes(p.id)},
+  {id:"top-baseball",title:"Top Baseball Players",icon:"⚾",desc:"Diamond legends from Ruth and Robinson to Mays, Aaron and Jeter.",match:p=>TOP_BASEBALL.includes(p.id)},
+  {id:"top-football",title:"Top Football Players",icon:"\u{1F3C8}",desc:"Gridiron greats — Brady, Rice, Jim Brown, Montana, Mahomes and more.",match:p=>TOP_FOOTBALL.includes(p.id)},
+  {id:"top-olympians",title:"Top Olympic Athletes",icon:"\u{1F3C5}",desc:"Olympic legends — Owens, Phelps, Bolt, Biles, Comăneci and more.",match:p=>TOP_OLYMPIANS.includes(p.id)},
+  {id:"top-fashion",title:"Top Fashion Designers",icon:"\u{1F457}",desc:"The designers who shaped style — Chanel, Dior, Saint Laurent, Lagerfeld.",match:p=>TOP_FASHION.includes(p.id)},
+  {id:"top-billionaires",title:"Top Billionaires",icon:"\u{1F4B0}",desc:"The titans of wealth — from Rockefeller and Carnegie to Musk, Bezos and Arnault.",match:p=>TOP_BILLIONAIRES.includes(p.id)},
+  {id:"top-nobel",title:"Top Nobel Prize Winners",icon:"\u{1F396}\u{FE0F}",desc:"Laureates who advanced science, literature and peace — Einstein, Curie, Mandela, Morrison and more.",match:p=>TOP_NOBEL.includes(p.id)},
   {id:"greatest-minds-in-science",title:"Greatest Minds in Science",icon:"\u{1F52C}",desc:"The scientists who reshaped how we understand the universe.",match:p=>p.category==="science"},
   {id:"world-changing-inventors",title:"World-Changing Inventors",icon:"\u{1F4A1}",desc:"Inventors whose ideas rebuilt everyday life.",match:p=>p.category==="invention"||p.category==="engineers"},
   {id:"technology-and-internet",title:"Technology & Internet Pioneers",icon:"\u{1F4BB}",desc:"The architects of computing, the internet and AI.",match:p=>inCat(p,"tech")},
