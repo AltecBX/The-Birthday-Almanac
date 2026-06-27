@@ -174,7 +174,10 @@ body.search-spot .primary,body.search-spot .brand{opacity:.4;transition:opacity 
 .cmdk-item.sel{background:var(--gold-wash);border-color:rgba(230,206,142,.5)}
 .cmdk-item.sel .ci-go{opacity:1}
 .cmdk-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:14px}
-@media(max-width:560px){.cmdk-panel{margin:0;max-width:none;height:100%;border-radius:0;border:0}.cmdk-results{max-height:none;height:calc(100% - 64px)}}
+@media(max-width:560px){.cmdk-panel{margin:0;max-width:none;height:100%;border-radius:0;border:0}
+  .cmdk-inbar{padding-top:calc(15px + env(safe-area-inset-top))}
+  .cmdk-results{max-height:none;height:auto;flex:1;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+  .cmdk-panel{display:flex;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.cmdk-backdrop,.cmdk-panel{animation:none;opacity:1;transform:none}}
 .search input{width:100%;font-size:14px;font-family:var(--sans);color:var(--ink);background:var(--card);
   border:1px solid var(--hairline);border-radius:999px;padding:9px 32px 9px 34px;transition:border-color .18s,box-shadow .18s}
@@ -238,6 +241,8 @@ main{display:block;min-height:60vh}
 .dhero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .btn{border:0;border-radius:999px;font-weight:600;font-size:14px;padding:11px 20px;display:inline-flex;align-items:center;gap:8px;transition:transform .12s var(--ease),box-shadow .18s,filter .18s}
 .btn:active{transform:translateY(1px)}
+/* touch-target floor: ensure ≥44px tap area on touch devices without altering desktop sizing */
+@media(pointer:coarse){.btn{min-height:44px}.themebtn,.iconbtn{min-width:44px;min-height:44px}}
 .btn-gold{background:linear-gradient(180deg,var(--gold-soft),var(--gold));color:#2a1f06;box-shadow:0 8px 20px rgba(194,154,69,.32)}
 .btn-gold:hover{filter:brightness(1.04)}
 .btn-ghost{background:rgba(255,253,248,.08);color:#F3ECDD;border:1px solid rgba(230,206,142,.34)}
@@ -259,7 +264,7 @@ main{display:block;min-height:60vh}
 @media(prefers-reduced-motion:reduce){.wheel-sweep{animation:none;display:none}}
 /* ===== CINEMATIC CONSTELLATION HERO ===== */
 .dhero-cosmic{position:relative;border-radius:var(--radius-xl);overflow:hidden;margin-bottom:34px;
-  min-height:clamp(440px,60vh,600px);display:grid;place-items:center;isolation:isolate;
+  min-height:clamp(440px,60vh,600px);min-height:clamp(440px,60dvh,600px);display:grid;place-items:center;isolation:isolate;
   background:radial-gradient(130% 120% at 50% 6%,#18294300 0%,#0d1828 0%,#0a1322 52%,#06101e 80%,#040a14 100%);
   border:1px solid #0c1825;box-shadow:var(--shadow-lg)}
 .hero-sky{position:absolute;inset:0;width:100%;height:100%;z-index:0;cursor:grab;touch-action:pan-y}
@@ -276,7 +281,7 @@ main{display:block;min-height:60vh}
 .dhero-overlay .dhero-cta{justify-content:center;margin-top:26px;pointer-events:auto}
 .dhero-hint{margin-top:20px;font-family:var(--mono);font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(232,224,206,.5)}
 @media(prefers-reduced-motion:reduce){.dhero-hint{display:none}}
-@media(max-width:600px){.dhero-cosmic{min-height:clamp(420px,74vh,560px)}.dhero-overlay{padding:40px 20px}
+@media(max-width:600px){.dhero-cosmic{min-height:clamp(420px,74vh,560px);min-height:clamp(420px,74dvh,560px)}.dhero-overlay{padding:40px 20px}
   .dhero-overlay .dhero-cta{flex-direction:column;align-items:stretch;gap:9px;width:100%;max-width:300px;margin-left:auto;margin-right:auto}
   .dhero-overlay .dhero-cta .btn{flex:none;width:100%;justify-content:center}}
 /* gold flash when the hero CTA jumps to the birthday tool */
@@ -1030,7 +1035,7 @@ main{display:block;min-height:60vh}
   .mtop{padding:22px 20px 18px}.mbody{padding:20px 20px 22px}.mnav{padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
   .mnav{position:sticky;bottom:0}
   /* filters as full bottom sheet */
-  .sheet{top:auto;bottom:0;left:0;right:0;width:100%;max-width:none;height:90vh;border-left:0;border-top:1px solid var(--hairline);
+  .sheet{top:auto;bottom:0;left:0;right:0;width:100%;max-width:none;height:90vh;height:90dvh;border-left:0;border-top:1px solid var(--hairline);
     border-radius:22px 22px 0 0;transform:translateY(100%)}
   .sheet.open{transform:none}
   .sheet-foot{padding:14px 18px calc(14px + env(safe-area-inset-bottom))}
@@ -4003,8 +4008,8 @@ function buildSelect(label,opts,val,cb){
   s.addEventListener("change",()=>cb(s.value));wrap.appendChild(s);return wrap;
 }
 function toggleSet(set,v){set.has(v)?set.delete(v):set.add(v);}
-function openSheet(){renderSheet();document.getElementById("sheet").classList.add("open");document.getElementById("sheet").setAttribute("aria-hidden","false");document.getElementById("sheetScrim").classList.add("open");}
-function closeSheet(){document.getElementById("sheet").classList.remove("open");document.getElementById("sheet").setAttribute("aria-hidden","true");document.getElementById("sheetScrim").classList.remove("open");}
+function openSheet(){renderSheet();document.getElementById("sheet").classList.add("open");document.getElementById("sheet").setAttribute("aria-hidden","false");document.getElementById("sheetScrim").classList.add("open");document.body.style.overflow="hidden";}
+function closeSheet(){document.getElementById("sheet").classList.remove("open");document.getElementById("sheet").setAttribute("aria-hidden","true");document.getElementById("sheetScrim").classList.remove("open");document.body.style.overflow="";}
 
 /* ============================================================
    VALIDATION (grouped) + tests
@@ -4128,8 +4133,9 @@ function openMore(){
   panel.appendChild(grid);
   s.append(sc,panel);
   requestAnimationFrame(()=>s.classList.add("open"));
+  document.body.style.overflow="hidden";
 }
-function closeMore(){const s=document.getElementById("moreSheet");if(s)s.classList.remove("open");}
+function closeMore(){const s=document.getElementById("moreSheet");if(s)s.classList.remove("open");document.body.style.overflow="";}
 
 /* ----- hash routing / deep links ----- */
 function findSign(p){if(!p)return null;const z=ZODIAC.find(z=>z.sign.toLowerCase()===p.toLowerCase());return z?z.sign:null;}
