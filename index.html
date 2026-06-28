@@ -313,6 +313,16 @@ html:not([data-theme="dark"]) .gstar{background:#D9B860;box-shadow:0 0 7px 1px r
 @media(prefers-reduced-motion:reduce){.gstar{animation:none}}
 @media(max-width:1180px){#starscape{display:none}}
 
+/* 0b — shooting stars: occasional meteors streak edge-to-edge across the sky */
+#meteors{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;contain:layout paint}
+.meteor{position:absolute;height:2px;border-radius:2px;opacity:0;will-change:transform,opacity;
+  background:linear-gradient(90deg,rgba(255,247,224,0),rgba(255,247,224,.16) 55%,#FFF7E4 100%)}
+.meteor::after{content:"";position:absolute;right:-1px;top:50%;width:3px;height:3px;border-radius:50%;transform:translateY(-50%);
+  background:#FFFDF6;box-shadow:0 0 8px 2px rgba(255,244,210,.9),0 0 3px rgba(255,255,255,1)}
+html:not([data-theme="dark"]) .meteor{background:linear-gradient(90deg,rgba(196,154,69,0),rgba(196,154,69,.2) 55%,#C99A45 100%)}
+html:not([data-theme="dark"]) .meteor::after{background:#C99A45;box-shadow:0 0 7px 2px rgba(196,154,69,.45)}
+@media(prefers-reduced-motion:reduce){#meteors{display:none}}
+
 /* 2 — kinetic masked headline reveal on section titles (armed by JS only) */
 .kinhead h2{position:relative}
 .kinhead.kin-armed .kin{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em}
@@ -2222,8 +2232,22 @@ const TRIVIA=[
   {t:"A circle of animals",b:"The word 'zodiac' comes from the Greek for 'circle of animals' — the band of constellations the Sun appears to travel through each year."},
   {t:"The 13th sign",b:"The Sun actually passes through a thirteenth constellation, Ophiuchus, between Scorpius and Sagittarius — but tradition keeps the zodiac at twelve."},
   {t:"Your birthstone",b:"Every month carries its own gemstone, a custom formalised in 1912 — from January's garnet to December's turquoise."},
-  {t:"Your birth flower",b:"Months have signature blooms too, a tradition rooted in Roman and Victorian custom — June's rose, October's marigold, and ten more."}
+  {t:"Your birth flower",b:"Months have signature blooms too, a tradition rooted in Roman and Victorian custom — June's rose, October's marigold, and ten more."},
+  {t:"Made of starstuff",b:"The calcium in your bones and the iron in your blood were forged inside ancient stars that exploded long before the Sun was born."},
+  {t:"Signs aren't equal",b:"The Sun lingers about 44 days in front of Virgo but barely 7 in Scorpius — the zodiac's twelve signs are far from equal slices of sky."},
+  {t:"21 million twins",b:"With eight billion people on Earth and 365 days to go around, roughly 21 million people share your exact birthday somewhere in the world."},
+  {t:"A wandering zodiac",b:"Earth wobbles like a spinning top, so the constellation behind the Sun on your birthday has drifted nearly a whole sign in 2,000 years."},
+  {t:"A year isn't 365 days",b:"Earth takes 365.2422 days to circle the Sun — which is why we add a leap day, then skip three of them every four centuries."},
+  {t:"The Dog Days",b:"Summer's 'dog days' are named for Sirius, the Dog Star, which once rose beside the Sun in late July — the brightest star in our night sky."},
+  {t:"A changing North Star",b:"Polaris won't reign forever. Earth's slow wobble means that in roughly 12,000 years, the star Vega will take its place as our North Star."},
+  {t:"Your golden birthday",b:"Turning the same age as your day of birth — like 25 on the 25th — is called your 'golden' or 'champagne' birthday."},
+  {t:"Light from the past",b:"Many stars you wish upon tonight left their light centuries or millennia ago — you may be gazing at suns that no longer exist."},
+  {t:"Rome's guardian spirit",b:"Ancient Romans believed everyone was watched over by a personal guardian spirit — a 'genius' — honoured with offerings each birthday."},
+  {t:"La mordida",b:"In Mexico, the birthday guest of honour takes the first bite of cake hands-free — often nudged face-first into it by the crowd."},
+  {t:"The rarest dates",b:"December 25th and January 1st are among the least common birthdays — far fewer babies arrive on the big holidays."},
+  {t:"A late-summer peak",b:"More babies are born in late summer than any other season, which is why mid-September birthdays are the most common of all."}
 ];
+function pickRandom(arr,n){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a.slice(0,n);}
 function signSym(s){const z=ZODIAC.find(z=>z.sign===s);return z?z.sym:"";}
 function signPlural(s){return /s$/i.test(s)?s:s+"s";}
 function zodiac(m,d){
@@ -2887,7 +2911,8 @@ function birthdayTriviaSection(){
   head.appendChild(el("h2",{text:"Birthday Trivia"}));
   sec.appendChild(head);
   const grid=el("div",{class:"trivia-grid"});
-  TRIVIA.forEach(f=>{
+  // show a fresh random six each visit so the section never feels stale
+  pickRandom(TRIVIA,6).forEach(f=>{
     const card=el("article",{class:"trivia-card"});
     card.appendChild(el("div",{class:"tk",text:f.t}));
     card.appendChild(el("p",{text:f.b}));
@@ -4555,6 +4580,38 @@ if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!R
   }
   place();
   let praf=0;window.addEventListener("resize",()=>{if(!praf)praf=requestAnimationFrame(()=>{praf=0;place();});},{passive:true});
+})();
+
+/* shooting stars — meteors occasionally streak edge-to-edge across the night sky */
+(function(){
+  if(REDUCE||typeof Element==="undefined"||!Element.prototype.animate)return;
+  const layer=el("div",{id:"meteors","aria-hidden":"true"});document.body.appendChild(layer);
+  function spawn(){
+    const vw=window.innerWidth,vh=window.innerHeight;
+    const ang=16+Math.random()*26;                  // degrees below horizontal
+    const rad=ang*Math.PI/180,dist=Math.hypot(vw,vh)*1.05;
+    const dx=Math.cos(rad)*dist,dy=Math.sin(rad)*dist;
+    const m=el("i",{class:"meteor"});
+    m.style.width=(120+Math.random()*120).toFixed(0)+"px";
+    m.style.left=(Math.random()*vw*0.85-vw*0.12).toFixed(0)+"px";
+    m.style.top=(-30+Math.random()*vh*0.45).toFixed(0)+"px";
+    layer.appendChild(m);
+    const dur=850+Math.random()*750;
+    const a=m.animate([
+      {transform:"translate3d(0,0,0) rotate("+ang+"deg)",opacity:0},
+      {opacity:.9,offset:.14},{opacity:.9,offset:.7},
+      {transform:"translate3d("+dx.toFixed(0)+"px,"+dy.toFixed(0)+"px,0) rotate("+ang+"deg)",opacity:0}
+    ],{duration:dur,easing:"cubic-bezier(.45,0,.65,1)"});
+    a.onfinish=a.oncancel=()=>m.remove();
+  }
+  function tick(){
+    const delay=2400+Math.random()*4600;
+    setTimeout(()=>{
+      if(!document.hidden){spawn();if(Math.random()<0.16)setTimeout(spawn,220+Math.random()*260);}
+      tick();
+    },delay);
+  }
+  setTimeout(tick,1600);   // hold off until after the intro/first paint
 })();
 
 /* init */
