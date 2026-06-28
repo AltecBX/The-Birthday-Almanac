@@ -1213,6 +1213,56 @@ html[data-theme="dark"] #toast{background:var(--card-3);border:1px solid var(--h
 .cal-cell.has:active,.hm-cell.has:active,.chip:active,.hm-chip:active,.elf-chip:active,.qchip:active{
   transform:scale(.94);transition-duration:.09s}
 .btn:active{transform:translateY(1px) scale(.99)}
+
+/* ===== DAILY BRIEFING ===== */
+.brief-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px}
+.today-fact{background:var(--card);border:1px solid var(--hairline);border-left:3px solid var(--gold);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}
+.today-fact .tf-k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep)}
+.today-fact p{margin:8px 0 0;color:var(--ink-2);font-size:14.5px;line-height:1.6}
+
+/* ===== COMPARE BIRTHDAYS ===== */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.cmp-grid{grid-template-columns:1fr}}
+.cmp-card{position:relative;border:1px solid var(--hairline);border-radius:var(--radius);padding:22px 20px;text-align:center;background:radial-gradient(120% 130% at 50% 0%,var(--card-2),var(--card));box-shadow:var(--shadow-sm)}
+.cmp-card.fire{border-top:3px solid var(--el-fire)}.cmp-card.earth{border-top:3px solid var(--el-earth)}
+.cmp-card.air{border-top:3px solid var(--el-air)}.cmp-card.water{border-top:3px solid var(--el-water)}
+.cc-av{width:54px;height:54px;margin:0 auto;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--card-3);border:1px solid var(--hairline)}
+.cc-nm{font-family:var(--serif);font-size:21px;margin-top:12px;color:var(--ink)}
+.cc-meta{font-size:13px;color:var(--muted);margin-top:4px}
+.cc-sub{font-size:12.5px;color:var(--faint);margin-top:6px}
+.cc-tools{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.cmp-picker{border:1px dashed var(--hairline-2);border-radius:var(--radius);padding:16px;background:var(--card-2)}
+.cp-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+.cp-input{width:100%;box-sizing:border-box;padding:10px 13px;border:1px solid var(--hairline);border-radius:10px;background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:14px}
+.cp-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-wash)}
+.cp-res{margin-top:8px;display:flex;flex-direction:column;gap:2px;max-height:260px;overflow-y:auto;overscroll-behavior:contain}
+.cp-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border:0;background:transparent;border-radius:9px;text-align:left;cursor:pointer;color:var(--ink);transition:background .14s}
+.cp-row:hover{background:var(--gold-wash)}
+.cp-sym{color:var(--gold-deep);width:18px;text-align:center;flex:none}
+.cp-nm{flex:1;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-yr{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.cp-empty{padding:14px;color:var(--muted);font-size:13.5px;text-align:center}
+.cmp-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px}
+.cmpf{border:1px solid var(--hairline);border-radius:var(--radius-sm);padding:14px;background:var(--card);box-shadow:var(--shadow-sm)}
+.cmpf.hit{border-color:var(--gold-soft);background:var(--gold-wash)}
+.cf-ic{font-size:18px}
+.cf-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.cf-val{font-family:var(--serif);font-size:16px;color:var(--ink);margin-top:3px}
+.cmp-hint{color:var(--muted);text-align:center;font-size:14.5px;padding:10px}
+
+/* ===== RABBIT HOLE ===== */
+.rh-card{position:relative;overflow:hidden;border:1px solid var(--hairline);border-radius:var(--radius-xl);padding:34px clamp(20px,4vw,44px);text-align:center;
+  background:radial-gradient(130% 150% at 50% 0%,var(--card-2),var(--card));box-shadow:var(--shadow);max-width:660px;margin:0 auto}
+.rh-card.fire{border-top:3px solid var(--el-fire)}.rh-card.earth{border-top:3px solid var(--el-earth)}
+.rh-card.air{border-top:3px solid var(--el-air)}.rh-card.water{border-top:3px solid var(--el-water)}
+.rh-card>*{position:relative;z-index:1}
+.rh-link{font-size:13px;color:var(--gold-deep);margin-bottom:14px}
+.rh-av{width:74px;height:74px;margin:0 auto;border-radius:50%;display:grid;place-items:center;font-size:36px;background:var(--card-3);border:1px solid var(--hairline);box-shadow:var(--shadow-sm)}
+.rh-nm{font-family:var(--serif);font-size:clamp(26px,4vw,38px);margin-top:16px;color:var(--ink)}
+.rh-meta{font-size:13.5px;color:var(--muted);margin-top:8px}
+.rh-ds{max-width:520px;margin:14px auto 0;color:var(--ink-2);font-size:15px;line-height:1.6}
+.rh-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.btn-sm{padding:7px 14px;font-size:12.5px}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -2543,12 +2593,15 @@ const VIEWS=[
   {key:"categories",label:"Categories",icon:"\u{1F3DB}\u{FE0F}"},
   {key:"timeline",label:"Timeline",icon:"⏳"},
   {key:"patterns",label:"Cosmic Patterns",icon:"\u{1F4CA}"},
-  {key:"portal",label:"My Sky",icon:"✦"}
+  {key:"portal",label:"My Sky",icon:"✦"},
+  {key:"today",label:"Today",icon:"\u{1F305}"},
+  {key:"rabbithole",label:"Rabbit Hole",icon:"\u{1F300}"},
+  {key:"compare",label:"Compare",icon:"\u{2696}\u{FE0F}"}
 ];
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
 const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
-const MORE_VIEWS=["portal","collections","categories","timeline","patterns"];
+const MORE_VIEWS=["today","portal","rabbithole","compare","collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
 function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false};}
@@ -2910,7 +2963,7 @@ function todaySignCard(){
   const z=zodiac(TODAY_M,TODAY_D);
   const card=el("div",{class:"spot-card click"});
   if(z){const m=ZMETA[z.sign];
-    card.appendChild(el("div",{class:"lab",text:"The sky today · "+z.element}));
+    card.appendChild(el("div",{class:"lab",text:"The sky today · "+m.element}));
     card.appendChild(el("div",{class:"big",html:z.sym+"  <b>"+z.sign+"</b> — "+m.sub}));
     card.appendChild(el("div",{class:"meta",text:m.traits+" · tap to explore "+signPlural(z.sign)}));
     card.addEventListener("click",()=>{state.zSign=z.sign;state.view="zodiac";window.scrollTo({top:0});render();});
@@ -3284,6 +3337,185 @@ function renderPortal(view){
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>sharePortal(z,m,d,y,twins)},[document.createTextNode("\u{1F4E4}  Share my portal")]));
   acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{setView("discover");setTimeout(scrollToFindSign,80);}},[document.createTextNode("Edit my birthday")]));
   view.appendChild(acts);
+}
+
+/* ============================================================
+   DAILY BRIEFING — a dedicated, stable "today" view
+   ============================================================ */
+function triviaOfDay(){const i=(dayOfYear(TODAY_M,TODAY_D)||1)%TRIVIA.length;return TRIVIA[i];}
+function renderToday(view){
+  view.innerHTML="";
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Your daily briefing"}));
+  head.appendChild(el("h1",{text:MONTHS[TODAY_M-1]+" "+TODAY_D}));
+  head.appendChild(el("div",{class:"lede",text:"What the almanac holds for today — who shares this date, the sign the Sun is in, a pattern worth chasing, and a fact for the day."}));
+  view.appendChild(head);
+
+  const sec=el("section",{class:"section"});
+  const grid=el("div",{class:"brief-grid"});
+  grid.appendChild(onThisDayCard());
+  grid.appendChild(todaySignCard());
+  grid.appendChild(patternOfDayCard());
+  sec.appendChild(grid);view.appendChild(sec);
+
+  const f=triviaOfDay();
+  const fcard=el("div",{class:"today-fact"});
+  fcard.appendChild(el("div",{class:"tf-k",text:"Fact of the day · "+f.t}));
+  fcard.appendChild(el("p",{text:f.b}));
+  view.appendChild(el("section",{class:"section"},[fcard]));
+
+  const todayPpl=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D).sort((a,b)=>rankScore(b)-rankScore(a));
+  if(todayPpl.length){const s=el("section",{class:"section"});
+    s.appendChild(secHead("Famous birthdays today",todayPpl.length+" born on "+MONTHS[TODAY_M-1]+" "+TODAY_D,"Open day →",()=>openDay(TODAY_M,TODAY_D,todayPpl)));
+    s.appendChild(scroller(todayPpl.slice(0,14)));view.appendChild(s);}
+
+  const weekers=HISTORICAL.filter(inThisWeek).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b)||rankScore(b)-rankScore(a));
+  if(weekers.length){const s=el("section",{class:"section"});
+    s.appendChild(secHead("Coming up this week","The next seven days","See all →",()=>goWithFilter(f=>f.thisWeek=true,"people")));
+    s.appendChild(scroller(weekers.slice(0,14)));view.appendChild(s);}
+
+  const seed=todayPpl[0]||weekers[0];
+  if(seed){const cta=el("div",{class:"section portal-acts"});
+    cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>enterRabbitHole(seed)},[document.createTextNode("\u{1F300}  Fall down a rabbit hole from "+seed.name.split(" ")[0]+" →")]));
+    view.appendChild(cta);}
+}
+
+/* ============================================================
+   COMPARE BIRTHDAYS — two lives, side by side
+   ============================================================ */
+function renderCompare(view){
+  view.innerHTML="";
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",26));
+  head.appendChild(el("p",{class:"eyebrow",text:"Compare Birthdays"}));
+  head.appendChild(el("h1",{text:"Two lives, side by side"}));
+  head.appendChild(el("div",{class:"lede",text:"Pick any two people to see what their birthdays share — sign, element, the days between them, the years that separate them, and the threads that connect them."}));
+  view.appendChild(head);
+  const a=state.cmpA?PERSON_BY_ID[state.cmpA]:null,b=state.cmpB?PERSON_BY_ID[state.cmpB]:null;
+  const grid=el("section",{class:"section cmp-grid"});
+  grid.appendChild(cmpSlot("A",a,p=>{state.cmpA=p?p.id:null;render();}));
+  grid.appendChild(cmpSlot("B",b,p=>{state.cmpB=p?p.id:null;render();}));
+  view.appendChild(grid);
+  if(a&&b)view.appendChild(cmpResult(a,b));
+  else view.appendChild(el("div",{class:"section cmp-hint",text:"Choose two people above to reveal what their stars have in common."}));
+}
+function cmpSlot(label,p,onPick){
+  const slot=el("div",{class:"cmp-slot"});
+  if(p){
+    const card=el("div",{class:"cmp-card "+(p.zElement?p.zElement.toLowerCase():"")});
+    card.appendChild(el("div",{class:"cc-av",text:p.zsym||p.name[0]}));
+    card.appendChild(el("div",{class:"cc-nm",text:p.name}));
+    card.appendChild(el("div",{class:"cc-meta",text:shortDate(p)+(fmtYear(p)?" · "+fmtYear(p):"")}));
+    card.appendChild(el("div",{class:"cc-sub",text:(p.zsign?p.zsign+" · "+p.zElement+" · ":"")+CATS[p.category].label}));
+    const tools=el("div",{class:"cc-tools"});
+    tools.appendChild(el("button",{class:"btn btn-ghost btn-sm",text:"Open",onClick:()=>openPerson(p)}));
+    tools.appendChild(el("button",{class:"btn btn-line btn-sm",text:"Change",onClick:()=>onPick(null)}));
+    card.appendChild(tools);slot.appendChild(card);
+  }else slot.appendChild(cmpPicker(label,onPick));
+  return slot;
+}
+function cmpPicker(label,onPick){
+  const box=el("div",{class:"cmp-picker"});
+  box.appendChild(el("div",{class:"cp-lab",text:"Person "+label}));
+  const inp=el("input",{class:"cp-input",type:"search",placeholder:"Search a name…","aria-label":"Search person "+label});
+  const res=el("div",{class:"cp-res"});
+  function update(){const q=inp.value.trim().toLowerCase();res.innerHTML="";
+    let list=q?HISTORICAL.filter(p=>p.name.toLowerCase().includes(q)).sort((a,b)=>rankScore(b)-rankScore(a)).slice(0,8):featuredOf(HISTORICAL,6);
+    if(!list.length){res.appendChild(el("div",{class:"cp-empty",text:"No one matches."}));return;}
+    list.forEach(p=>res.appendChild(el("button",{class:"cp-row",onClick:()=>onPick(p)},[
+      el("span",{class:"cp-sym",text:p.zsym||"✦"}),el("span",{class:"cp-nm",text:p.name}),el("span",{class:"cp-yr",text:fmtYear(p)||""})])));}
+  inp.addEventListener("input",update);update();
+  box.append(inp,res);return box;
+}
+function cmpResult(a,b){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("What they share",a.name+" & "+b.name));
+  const da=dayOfYear(a.month,a.day),db=dayOfYear(b.month,b.day);
+  let diff=Math.abs(da-db);diff=Math.min(diff,365-diff);
+  const items=[];
+  items.push(["\u{1F4C5}","Days apart in the year",diff===0?"Same day!":diff+" day"+(diff===1?"":"s"),diff===0]);
+  if(a.birthYear&&b.birthYear)items.push(["⏳","Years apart",Math.abs(a.birthYear-b.birthYear)+" years",false]);
+  items.push(["♒","Same sign",a.zsign===b.zsign?("Both "+a.zsign):(a.zsign+" vs "+b.zsign),a.zsign===b.zsign]);
+  items.push(["\u{1F525}","Same element",a.zElement===b.zElement?("Both "+a.zElement):(a.zElement+" vs "+b.zElement),a.zElement===b.zElement]);
+  items.push(["\u{1F3DB}\u{FE0F}","Same field",a.category===b.category?("Both "+CATS[a.category].label):(CATS[a.category].label+" vs "+CATS[b.category].label),a.category===b.category]);
+  if(a.country&&b.country&&a.country!=="Unknown"&&b.country!=="Unknown")items.push(["\u{1F30D}","Same place",a.country===b.country?("Both "+a.country):(a.country+" vs "+b.country),a.country===b.country]);
+  items.push(["\u{1F551}","Same era",a.centuryLabel===b.centuryLabel?("Both "+a.centuryLabel):(a.centuryLabel+" vs "+b.centuryLabel),a.centuryLabel===b.centuryLabel&&a.centuryLabel!=="Unknown"]);
+  const fg=el("div",{class:"cmp-facts"});
+  items.forEach(it=>fg.appendChild(el("div",{class:"cmpf"+(it[3]?" hit":"")},[el("div",{class:"cf-ic",text:it[0]}),el("div",{class:"cf-lab",text:it[1]}),el("div",{class:"cf-val",text:it[2]})])));
+  sec.appendChild(fg);
+  const shared=[];
+  if(a.zsign===b.zsign)shared.push("both "+signPlural(a.zsign));
+  else if(a.zElement===b.zElement)shared.push("both "+a.zElement+" signs");
+  if(a.category===b.category)shared.push("both shaped "+CATS[a.category].label.toLowerCase());
+  if(a.country===b.country&&a.country&&a.country!=="Unknown")shared.push("both from "+a.country);
+  if(diff===0)shared.push("born on the very same day of the year");
+  if(shared.length)sec.appendChild(el("p",{class:"btr-about",text:a.name+" and "+b.name+" are "+shared.join(", ")+"."}));
+  const acts=el("div",{class:"portal-acts",style:"margin-top:8px"});
+  acts.appendChild(el("button",{class:"btn btn-ghost btn-sm",text:"Swap",onClick:()=>{const t=state.cmpA;state.cmpA=state.cmpB;state.cmpB=t;render();}}));
+  acts.appendChild(el("button",{class:"btn btn-ghost btn-sm",text:"Clear both",onClick:()=>{state.cmpA=null;state.cmpB=null;render();}}));
+  sec.appendChild(acts);
+  return sec;
+}
+
+/* ============================================================
+   RABBIT HOLE MODE — endless serendipitous discovery
+   ============================================================ */
+function rhDims(p){return [
+  {rel:"shares the exact birthday of",test:q=>q.month===p.month&&q.day===p.day},
+  {rel:"is also a "+p.zsign,test:q=>q.zsign&&q.zsign===p.zsign},
+  {rel:"is another "+p.zElement+" sign like",test:q=>q.zElement&&q.zElement===p.zElement},
+  {rel:"also shaped "+(CATS[p.category]?CATS[p.category].label.toLowerCase():"the same field")+" like",test:q=>q.category===p.category},
+  {rel:"also came from "+p.country+", like",test:q=>p.country&&p.country!=="Unknown"&&q.country===p.country},
+  {rel:"was also born in the "+p.centuryLabel+", like",test:q=>q.centuryLabel===p.centuryLabel&&p.centuryLabel!=="Unknown"}
+];}
+function rhNext(){
+  const cur=PERSON_BY_ID[state.rhCurrent],visited=new Set(state.rhTrail);
+  for(const dim of pickRandom(rhDims(cur),99)){
+    const cand=HISTORICAL.filter(q=>q.id!==cur.id&&!visited.has(q.id)&&dim.test(q)).sort((x,y)=>rankScore(y)-rankScore(x));
+    if(cand.length){const idx=Math.floor(Math.pow(Math.random(),1.7)*Math.min(cand.length,36));return {person:cand[idx]||cand[0],rel:dim.rel};}
+  }
+  const rest=HISTORICAL.filter(q=>!visited.has(q.id));
+  return {person:rest[Math.floor(Math.random()*rest.length)]||cur,rel:"opens a fresh thread after"};
+}
+function enterRabbitHole(seed){
+  const pool=featuredOf(HISTORICAL,30),s=seed||pool[Math.floor(Math.random()*pool.length)]||HISTORICAL[0];
+  state.rhTrail=[s.id];state.rhCurrent=s.id;state.rhReason=null;setView("rabbithole");
+}
+function rhGoNext(){const nx=rhNext();state.rhReason={rel:nx.rel,from:PERSON_BY_ID[state.rhCurrent].name};state.rhTrail.push(nx.person.id);state.rhCurrent=nx.person.id;render();}
+function renderRabbitHole(view){
+  view.innerHTML="";
+  if(!state.rhCurrent||!PERSON_BY_ID[state.rhCurrent]){const pool=featuredOf(HISTORICAL,30),s=pool[Math.floor(Math.random()*pool.length)]||HISTORICAL[0];state.rhTrail=[s.id];state.rhCurrent=s.id;state.rhReason=null;}
+  const p=PERSON_BY_ID[state.rhCurrent];
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Rabbit Hole · "+state.rhTrail.length+" "+(state.rhTrail.length===1?"life":"lives")+" deep"}));
+  head.appendChild(el("h1",{text:"Follow the threads"}));
+  head.appendChild(el("div",{class:"lede",text:"One life leads to the next — by shared signs, birthdays, fields, places and eras. Keep going as long as the stars hold you."}));
+  view.appendChild(head);
+  const stage=el("section",{class:"section"});
+  const card=el("div",{class:"rh-card "+(p.zElement?p.zElement.toLowerCase():"")});
+  card.appendChild(starLayer("star-layer",16));
+  if(state.rhReason)card.appendChild(el("div",{class:"rh-link",html:"↳ "+state.rhReason.rel+" <b>"+state.rhReason.from+"</b>"}));
+  card.appendChild(el("div",{class:"rh-av",text:p.zsym||p.name[0]}));
+  card.appendChild(el("h2",{class:"rh-nm",text:p.name}));
+  card.appendChild(el("div",{class:"rh-meta",text:shortDate(p)+(fmtYear(p)?" · "+fmtYear(p):"")+" · "+CATS[p.category].label+(p.country&&p.country!=="Unknown"?" · "+p.country:"")}));
+  card.appendChild(el("p",{class:"rh-ds",text:p.shortDescription||p.bio||""}));
+  const acts=el("div",{class:"rh-acts"});
+  acts.appendChild(el("button",{class:"btn btn-gold",onClick:rhGoNext},[document.createTextNode("Keep going →")]));
+  acts.appendChild(el("button",{class:"btn btn-line",text:"Open full profile",onClick:()=>openPerson(p)}));
+  card.appendChild(acts);stage.appendChild(card);view.appendChild(stage);
+  if(state.rhTrail.length>1){
+    const tr=el("section",{class:"section"});
+    tr.appendChild(secHead("Your trail",state.rhTrail.length+" lives, woven together"));
+    const chips=el("div",{class:"rel-chips"});
+    state.rhTrail.slice(0,-1).slice(-14).reverse().forEach(id=>{const q=PERSON_BY_ID[id];if(q)chips.appendChild(relChip(q));});
+    tr.appendChild(chips);
+    const foot=el("div",{class:"portal-acts",style:"margin-top:14px"});
+    foot.appendChild(el("button",{class:"btn btn-ghost btn-sm",text:"Start over",onClick:()=>enterRabbitHole()}));
+    foot.appendChild(el("button",{class:"btn btn-ghost btn-sm",text:"Exit to Discover",onClick:()=>setView("discover")}));
+    tr.appendChild(foot);view.appendChild(tr);
+  }
 }
 function patternOfDayCard(){
   const facts=buildPatterns(HISTORICAL);
@@ -4108,6 +4340,8 @@ function buildPersonModal(p){
   tools.appendChild(el("button",{class:"mtool",onClick:function(){const url=location.origin+location.pathname+"#/person/"+p.id;
     const txt=p.name+((p.month&&p.day)?(" — born "+MONTHS[p.month-1]+" "+p.day):"")+(p.zsign?(" · "+p.zsign+" "+(p.zsym||"")):"")+". Discover them in The Birthday Almanac.";
     doShare(txt,url);}},[document.createTextNode("\u{1F4E4} Share")]));
+  tools.appendChild(el("button",{class:"mtool",onClick:()=>{state.cmpA=p.id;state.cmpB=null;closeModal();setView("compare");}},[document.createTextNode("\u{2696}\u{FE0F} Compare")]));
+  tools.appendChild(el("button",{class:"mtool",onClick:()=>{closeModal();enterRabbitHole(p);}},[document.createTextNode("\u{1F300} Rabbit hole")]));
   top.appendChild(tools);
   m.appendChild(top);
 
@@ -4483,6 +4717,9 @@ function render(){
   else if(state.view==="timeline")renderTimeline(view);
   else if(state.view==="patterns")renderPatterns(view);
   else if(state.view==="portal")renderPortal(view);
+  else if(state.view==="today")renderToday(view);
+  else if(state.view==="compare")renderCompare(view);
+  else if(state.view==="rabbithole")renderRabbitHole(view);
   const fb=document.getElementById("filterBtn"),fd=document.getElementById("fdot"),n=activeFilterCount();
   fd.textContent=String(n);fb.classList.toggle("has",n>0);fb.classList.toggle("on",n>0);
   // search/filter controls only make sense on the people-style data views
