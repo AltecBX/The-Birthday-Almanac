@@ -45,9 +45,10 @@
   --gold:#C29A45; --gold-deep:#A87E2E; --gold-soft:#E6CE8E; --gold-wash:#F2E7C9;
   --ok:#2E7D6B; --warn:#B5654A; --bad:#C0392B;
   --radius:16px; --radius-sm:11px; --radius-lg:22px; --radius-xl:28px;
-  --shadow-sm:0 1px 2px rgba(28,42,56,.06),0 1px 1px rgba(28,42,56,.04);
-  --shadow:0 1px 2px rgba(28,42,56,.05),0 10px 30px rgba(28,42,56,.08);
-  --shadow-lg:0 2px 6px rgba(28,42,56,.06),0 24px 60px rgba(28,42,56,.16);
+  --shadow-sm:0 1px 2px rgba(28,42,56,.05),0 1px 1px rgba(28,42,56,.03);
+  --shadow-md:0 2px 6px rgba(28,42,56,.05),0 8px 20px rgba(28,42,56,.07);
+  --shadow:0 1px 2px rgba(28,42,56,.04),0 6px 16px rgba(28,42,56,.06),0 16px 36px rgba(28,42,56,.07);
+  --shadow-lg:0 2px 8px rgba(28,42,56,.05),0 12px 28px rgba(28,42,56,.09),0 30px 66px rgba(28,42,56,.13);
   --serif:'Fraunces',Georgia,'Times New Roman',serif;
   --sans:'Inter',system-ui,-apple-system,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
@@ -67,16 +68,17 @@ html[data-theme="dark"]{
   --ink:#ECE6D6; --ink-2:#C6BFAE; --muted:#959CB1; --faint:#6B7388;
   --hairline:#26324a; --hairline-2:#1f2a40;
   --gold:#D7B45E; --gold-deep:#E8D199; --gold-soft:#EAD79A; --gold-wash:rgba(230,206,142,.15);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.45);
-  --shadow:0 2px 8px rgba(0,0,0,.5),0 14px 36px rgba(0,0,0,.45);
-  --shadow-lg:0 4px 14px rgba(0,0,0,.55),0 30px 66px rgba(0,0,0,.6);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 3px 10px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.4);
+  --shadow:0 2px 8px rgba(0,0,0,.42),0 10px 26px rgba(0,0,0,.4),0 22px 48px rgba(0,0,0,.4);
+  --shadow-lg:0 4px 14px rgba(0,0,0,.48),0 16px 36px rgba(0,0,0,.5),0 36px 72px rgba(0,0,0,.55);
 }
 html[data-theme="dark"]{background:#070d18}
 html[data-theme="dark"] body{background:
   radial-gradient(1200px 760px at 50% -300px,rgba(108,140,205,.13),transparent 62%),
   radial-gradient(900px 520px at 100% -120px,rgba(230,206,142,.06),transparent 60%),#070d18;
   color:var(--ink)}
-html[data-theme="dark"] .topbar{background:rgba(10,18,32,.78);border-bottom-color:var(--hairline)}
+html[data-theme="dark"] .topbar{background:rgba(8,14,26,.72);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom-color:var(--hairline)}
 html[data-theme="dark"] .bottomnav{background:rgba(10,18,32,.92)!important;border-top-color:var(--hairline)}
 html[data-theme="dark"] .site-foot{background:linear-gradient(180deg,transparent,rgba(255,255,255,.02));border-top-color:var(--hairline)}
 html[data-theme="dark"] #sky .l1,html[data-theme="dark"] #sky .l2{filter:brightness(2) saturate(1.15)}
@@ -110,7 +112,7 @@ a{color:var(--gold-deep);text-underline-offset:2px}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px}
 .skip:focus{left:14px}
-:focus-visible{outline:2.5px solid var(--gold-deep);outline-offset:2px;border-radius:8px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:8px;box-shadow:0 0 0 4px var(--gold-wash)}
 ::selection{background:var(--gold-wash)}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--gold-deep)}
 
@@ -125,7 +127,8 @@ a{color:var(--gold-deep);text-underline-offset:2px}
 .brand .bt{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);white-space:nowrap;line-height:1.2;overflow:visible;display:inline-block}
 .brand .bt em{font-style:italic;color:var(--gold-deep)}
 .primary{position:relative;display:flex;gap:2px;margin:0 auto;background:var(--card-2);border:1px solid var(--hairline);padding:4px;border-radius:999px}
-.nav-pill{position:absolute;left:0;top:4px;bottom:4px;width:0;background:var(--navy);border-radius:999px;box-shadow:var(--shadow-sm);
+.nav-pill{position:absolute;left:0;top:4px;bottom:4px;width:0;background:var(--navy);border-radius:999px;
+  box-shadow:0 3px 12px rgba(22,39,59,.26),inset 0 1px 1px rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.06);
   z-index:0;opacity:0;transform:translateX(0);transition:transform .34s var(--spring),width .34s var(--spring),opacity .2s var(--ease)}
 .primary button{position:relative;z-index:1;border:0;background:transparent;color:var(--ink-2);font-size:13.5px;font-weight:600;padding:8px 15px;border-radius:999px;
   display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:color .2s var(--ease)}
@@ -181,7 +184,7 @@ body.search-spot .primary,body.search-spot .brand{opacity:.4;transition:opacity 
 @media(prefers-reduced-motion:reduce){.cmdk-backdrop,.cmdk-panel{animation:none;opacity:1;transform:none}}
 .search input{width:100%;font-size:14px;font-family:var(--sans);color:var(--ink);background:var(--card);
   border:1px solid var(--hairline);border-radius:999px;padding:9px 32px 9px 34px;transition:border-color .18s,box-shadow .18s}
-.search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-wash)}
+.search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 14px rgba(230,206,142,.22)}
 .search input::placeholder{color:var(--faint)}
 .search .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:13px;pointer-events:none}
 .search .clr{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--faint);font-size:16px;display:none;padding:2px 5px;border-radius:50%}
@@ -218,7 +221,7 @@ body.search-spot .primary,body.search-spot .brand{opacity:.4;transition:opacity 
 main{display:block;min-height:60vh}
 #view{padding:26px 0 90px}
 .section{margin:0 0 38px}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:15px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px}
 .sec-head h2{font-size:23px;letter-spacing:.3px}
 .sec-head .sub{display:block;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted);margin-top:3px}
 .sec-head .more{border:0;background:transparent;color:var(--gold-deep);font-weight:600;font-size:13px;white-space:nowrap}
@@ -314,13 +317,13 @@ html:not([data-theme="dark"]) .gstar{background:#D9B860;box-shadow:0 0 7px 1px r
 @media(max-width:1180px){#starscape{display:none}}
 
 /* 0b — shooting stars: occasional meteors streak edge-to-edge across the sky */
-#meteors{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;contain:layout paint}
-.meteor{position:absolute;height:2px;border-radius:2px;opacity:0;will-change:transform,opacity;
-  background:linear-gradient(90deg,rgba(255,247,224,0),rgba(255,247,224,.16) 55%,#FFF7E4 100%)}
-.meteor::after{content:"";position:absolute;right:-1px;top:50%;width:3px;height:3px;border-radius:50%;transform:translateY(-50%);
-  background:#FFFDF6;box-shadow:0 0 8px 2px rgba(255,244,210,.9),0 0 3px rgba(255,255,255,1)}
-html:not([data-theme="dark"]) .meteor{background:linear-gradient(90deg,rgba(196,154,69,0),rgba(196,154,69,.2) 55%,#C99A45 100%)}
-html:not([data-theme="dark"]) .meteor::after{background:#C99A45;box-shadow:0 0 7px 2px rgba(196,154,69,.45)}
+#meteors{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:layout paint}
+.meteor{position:absolute;height:1.5px;border-radius:2px;opacity:0;will-change:transform,opacity;
+  background:linear-gradient(90deg,rgba(255,247,224,0),rgba(255,247,224,.1) 55%,rgba(255,247,224,.85) 100%)}
+.meteor::after{content:"";position:absolute;right:-1px;top:50%;width:2.5px;height:2.5px;border-radius:50%;transform:translateY(-50%);
+  background:#FFFDF6;box-shadow:0 0 6px 1px rgba(255,244,210,.7),0 0 2px rgba(255,255,255,.85)}
+html:not([data-theme="dark"]) .meteor{background:linear-gradient(90deg,rgba(196,154,69,0),rgba(196,154,69,.14) 55%,rgba(196,154,69,.7) 100%)}
+html:not([data-theme="dark"]) .meteor::after{background:#C99A45;box-shadow:0 0 5px 1px rgba(196,154,69,.35)}
 @media(prefers-reduced-motion:reduce){#meteors{display:none}}
 
 /* 2 — kinetic masked headline reveal on section titles (armed by JS only) */
@@ -1065,8 +1068,8 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
 
 /* ===== RESPONSIVE ===== */
 /* keep the brand from being clipped before the mobile breakpoint */
-@media(max-width:1160px){.primary button{padding:8px 12px;font-size:13px}.search{width:200px}}
-@media(max-width:1040px){.brand .bt{display:none}.tb-in{gap:12px}}
+@media(max-width:1360px){.primary button{padding:8px 12px;font-size:13px}.search{width:194px}}
+@media(max-width:1090px){.brand .bt{display:none}.tb-in{gap:12px}}
 
 @media(max-width:980px){
   .dhero-in{flex-direction:column;align-items:flex-start;gap:8px;padding:24px 22px}
@@ -1166,9 +1169,50 @@ html.intro-play body{overflow:hidden}
 @keyframes introFade{to{opacity:1}}
 @keyframes introLoad{0%{transform:translateX(-120%)}100%{transform:translateX(330%)}}
 
+/* ===== MY BIRTHDAY PORTAL ===== */
+.portal-cd{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:30px clamp(20px,4vw,46px);border-radius:var(--radius-xl);border:1px solid var(--hairline);
+  background:radial-gradient(130% 150% at 0% 0%,var(--card-2),var(--card));box-shadow:var(--shadow)}
+.portal-cd.fire{border-color:rgba(192,86,58,.42)}.portal-cd.earth{border-color:rgba(110,123,61,.42)}
+.portal-cd.air{border-color:rgba(63,127,166,.42)}.portal-cd.water{border-color:rgba(74,111,176,.42)}
+.portal-cd .star-layer{opacity:.5}
+.pcd-main{position:relative;z-index:1}
+.pcd-num{font-family:var(--serif);font-weight:600;font-size:clamp(56px,9vw,94px);line-height:.95;color:var(--gold-deep);letter-spacing:-1.5px}
+.pcd-lab{font-family:var(--sans);font-size:14.5px;color:var(--muted);margin-top:8px;max-width:320px}
+.portal-cd canvas{position:relative;z-index:1}
+.portal-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px}
+.ptile{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 16px 18px;box-shadow:var(--shadow-sm);
+  transition:transform .26s var(--ease),box-shadow .26s var(--ease),border-color .26s var(--ease)}
+.ptile:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--gold-soft)}
+.ptile:active{transform:translateY(-1px) scale(.985);transition-duration:.09s}
+.pt-ic{font-size:23px;line-height:1}
+.pt-lab{font-family:var(--mono);font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:var(--faint);margin-top:10px}
+.pt-val{font-family:var(--serif);font-size:18px;color:var(--ink);margin-top:3px}
+.portal-acts{display:flex;flex-wrap:wrap;gap:10px}
+#portalBtn span{font-size:17px;color:var(--gold-deep);line-height:1}
+@media(max-width:560px){.portal-cd{justify-content:center;text-align:center}.pcd-lab{margin-left:auto;margin-right:auto}}
+
+/* ===== TOAST (saved feedback, share confirmation) ===== */
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(14px);
+  background:var(--navy);color:#FBF7EE;padding:11px 19px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:160;
+  box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .3s var(--ease),transform .3s var(--spring);max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+html[data-theme="dark"] #toast{background:var(--card-3);border:1px solid var(--hairline);color:var(--ink)}
+@media(max-width:760px){#toast{bottom:calc(82px + env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){#toast{transition:opacity .2s}}
+.mtool.pop{animation:savedPop .5s var(--spring)}
+@keyframes savedPop{0%{transform:scale(1)}35%{transform:scale(1.13)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.mtool.pop{animation:none}}
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
+/* ===== premium tactile press states (appended last so they win over hover rules) ===== */
+.pcard:active,.collcard:active,.zcard:active,.catcard:active,.spot-card.click:active,.trivia-card:active,.bigchip:active{
+  transform:translateY(-1px) scale(.984);transition-duration:.09s}
+.cal-cell.has:active,.hm-cell.has:active,.chip:active,.hm-chip:active,.elf-chip:active,.qchip:active{
+  transform:scale(.94);transition-duration:.09s}
+.btn:active{transform:translateY(1px) scale(.99)}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -1199,6 +1243,7 @@ try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("
         <button class="clr" id="searchClr" aria-label="Clear search">&times;</button>
       </div>
       <button class="iconbtn" id="filterBtn" aria-label="Filters"><span>Filters</span><span class="fdot" id="fdot">0</span></button>
+      <button class="themebtn" id="portalBtn" aria-label="My Birthday Portal" title="My Birthday Portal"><span id="portalGlyph" aria-hidden="true">&#10022;</span></button>
       <button class="themebtn" id="themeBtn" aria-label="Switch between light and dark mode" title="Light / Dark mode">
         <span class="ic ic-moon" aria-hidden="true">&#9789;</span><span class="ic ic-sun" aria-hidden="true">&#9728;</span>
       </button>
@@ -2497,12 +2542,13 @@ const VIEWS=[
   {key:"people",label:"People",icon:"\u{1F465}"},
   {key:"categories",label:"Categories",icon:"\u{1F3DB}\u{FE0F}"},
   {key:"timeline",label:"Timeline",icon:"⏳"},
-  {key:"patterns",label:"Cosmic Patterns",icon:"\u{1F4CA}"}
+  {key:"patterns",label:"Cosmic Patterns",icon:"\u{1F4CA}"},
+  {key:"portal",label:"My Sky",icon:"✦"}
 ];
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
 const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
-const MORE_VIEWS=["collections","categories","timeline","patterns"];
+const MORE_VIEWS=["portal","collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
 function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false};}
@@ -2663,7 +2709,7 @@ function startHeroSky(canvas,host){
   const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   const fine=window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches;
   const dpr=Math.min(window.devicePixelRatio||1,2);
-  let W=0,H=0,bg=[],nodes=[],t0=null;
+  let W=0,H=0,bg=[],nodes=[],t0=null,hmeteors=[];
   let spin=Math.PI/2,vel=0,dragging=false,lastX=0;
   let mx=0.5,my=0.42,tmx=0.5,tmy=0.42;     // mouse glow (normalised)
   function build(){
@@ -2722,6 +2768,19 @@ function startHeroSky(canvas,host){
       const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,rr*0.6);
       sg.addColorStop(0,"rgba(255,244,206,"+(0.10*ease)+")");sg.addColorStop(1,"rgba(255,244,206,0)");
       ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);}
+    // occasional shooting stars — subtle, gliding behind the wordmark
+    if(!reduce){
+      if(Math.random()<0.0065&&hmeteors.length<2){const sp=W*0.013+Math.random()*W*0.007,a=0.46+Math.random()*0.3;
+        hmeteors.push({x:Math.random()*W*0.85,y:Math.random()*H*0.34,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:55+Math.random()*75,life:1});}
+      for(let i=hmeteors.length-1;i>=0;i--){const mt=hmeteors[i];mt.x+=mt.vx;mt.y+=mt.vy;mt.life-=0.011;
+        if(mt.life<=0||mt.x>W+90||mt.y>H+90){hmeteors.splice(i,1);continue;}
+        const sp=Math.hypot(mt.vx,mt.vy),tx=mt.x-mt.vx/sp*mt.len,ty=mt.y-mt.vy/sp*mt.len;
+        const al=Math.min(1,mt.life*1.5)*0.5*ease;
+        const mg=ctx.createLinearGradient(mt.x,mt.y,tx,ty);
+        mg.addColorStop(0,"rgba(255,248,226,"+al+")");mg.addColorStop(1,"rgba(255,248,226,0)");
+        ctx.strokeStyle=mg;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(mt.x,mt.y);ctx.lineTo(tx,ty);ctx.stroke();
+        ctx.fillStyle="rgba(255,252,242,"+al+")";ctx.beginPath();ctx.arc(mt.x,mt.y,1.4,0,6.2832);ctx.fill();}
+    }
     _heroRAF=requestAnimationFrame(frame);
   }
   function pos(e){const r=canvas.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};}
@@ -3057,6 +3116,7 @@ function buildBirthdayTool(){
     if(onClick)f.appendChild(el("div",{class:"bf-more",text:"More →"}));return f;}
   function reveal(m,d,y){
     STORE.set("bday",{m,d,y:y||null});
+    if(window._syncPortalGlyph)window._syncPortalGlyph();
     const z=zodiac(m,d);if(!z){result.innerHTML="";return;}
     const meta=ZMETA[z.sign];const ppl=signPeople(z.sign);const bm=BIRTH_MONTH[m];
     const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
@@ -3119,6 +3179,111 @@ function centuryOrder(list){
   const m=countBy(list,"centuryLabel");
   return Object.entries(m).filter(([k])=>k!=="Unknown").sort((a,b)=>{
     const v=s=>s==="Ancient (BCE)"?-1:parseInt(s);return v(a[0])-v(b[0]);});
+}
+
+/* ============================================================
+   MY BIRTHDAY PORTAL — a saved, personalized celestial home
+   ============================================================ */
+function nextBirthdayDays(m,d){
+  const now=new Date(),Y=now.getFullYear();
+  const today=new Date(Y,now.getMonth(),now.getDate());
+  let next=new Date(Y,m-1,d);
+  if(next<today)next=new Date(Y+1,m-1,d);
+  return Math.round((next-today)/86400000);
+}
+function currentAge(m,d,y){
+  if(!y)return null;const now=new Date();let a=now.getFullYear()-y;
+  const passed=(now.getMonth()+1>m)||(now.getMonth()+1===m&&now.getDate()>=d);
+  if(!passed)a--;return a<0?null:a;
+}
+/* lightweight share (Web Share API on mobile, rich clipboard text on desktop) */
+function shareLine(z,m,d,y,twins){
+  const tw=(twins&&twins.length)?(" I share my birthday with "+twins.slice(0,2).map(p=>p.name).join(" & ")+".") : "";
+  return "I'm a "+z.sign+" "+z.sym+", born "+MONTHS[m-1]+" "+d+(y?(", "+y):"")+"."+tw+" Discover your sign in The Birthday Almanac.";
+}
+function doShare(text,url){
+  const full=text+"\n"+url;
+  if(navigator.share){navigator.share({title:"The Birthday Almanac",text:text,url:url}).then(()=>{},()=>{});return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(full).then(()=>toast("Copied — paste it anywhere ✦"),()=>toast("Copied ✦"));}
+  else toast("Share: "+full);
+}
+function sharePortal(z,m,d,y,twins){doShare(shareLine(z,m,d,y,twins),location.origin+location.pathname+"#/portal");}
+/* generic toast (also used for saved-person feedback) */
+let _toastT=0;
+function toast(msg){
+  let t=document.getElementById("toast");
+  if(!t){t=el("div",{id:"toast","aria-live":"polite"});document.body.appendChild(t);}
+  t.textContent=msg;void t.offsetWidth;t.classList.add("show");
+  clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove("show"),2300);
+}
+function renderPortal(view){
+  view.innerHTML="";
+  const saved=STORE.get("bday",null);
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"My Birthday Portal"}));
+  if(!saved||!saved.m){
+    head.appendChild(el("h1",{text:"Create your cosmic profile"}));
+    head.appendChild(el("div",{class:"lede",text:"Set your birthday once and your portal remembers it — your sign, your famous birthday twins, the people born on your day in history, and a live countdown to your next birthday, every time you return."}));
+    view.appendChild(head);
+    view.appendChild(buildBirthdayTool());
+    return;
+  }
+  const m=saved.m,d=saved.d,y=saved.y||null,z=zodiac(m,d);
+  if(!z){view.appendChild(head);view.appendChild(buildBirthdayTool());return;}
+  const meta=ZMETA[z.sign],ppl=signPeople(z.sign),bm=BIRTH_MONTH[m];
+  const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+  const days=nextBirthdayDays(m,d),age=currentAge(m,d,y);
+  head.appendChild(el("h1",{html:"Your "+z.sign+" portal &nbsp;"+z.sym}));
+  head.appendChild(el("div",{class:"lede",text:MONTHS[m-1]+" "+d+(y?(", "+y):"")+" · "+meta.element+" · "+meta.modality+" · ruled by "+meta.planet+". "+meta.about}));
+  view.appendChild(head);
+
+  /* countdown hero */
+  const hero=el("div",{class:"portal-cd "+meta.element.toLowerCase()});
+  hero.appendChild(starLayer("star-layer",20));
+  const main=el("div",{class:"pcd-main"});
+  main.appendChild(el("div",{class:"pcd-num bv-count",text:String(days)}));
+  main.appendChild(el("div",{class:"pcd-lab",text:days===0?"\u{1F382}  Happy birthday!":("day"+(days===1?"":"s")+" until your next birthday")}));
+  hero.appendChild(main);
+  hero.appendChild(miniConstellation(z.sign,176));
+  view.appendChild(el("div",{class:"section"},[hero]));
+
+  /* stat strip */
+  const strip=el("div",{class:"statstrip"}),rows=[];
+  if(age!=null){rows.push([String(age),"Years young"],[String(age+1),"Turning next"]);}
+  rows.push([String(dayOfYear(m,d,y)),"Day of the year"],[String(twins.length),"Famous twins"],[String(ppl.length),"Share your sign"]);
+  rows.forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:s[0]}),el("div",{class:"l",text:s[1]})])));
+  view.appendChild(el("div",{class:"section",style:"margin-top:6px"},[strip]));
+
+  /* detail tiles */
+  const dt=el("section",{class:"section"});
+  dt.appendChild(secHead("Written for "+MONTHS[m-1]+" "+d,"What the almanac notes about your birthday"));
+  const dg=el("div",{class:"portal-tiles"});
+  const tile=(ic,lab,val)=>el("div",{class:"ptile"},[el("div",{class:"pt-ic",text:ic}),el("div",{class:"pt-lab",text:lab}),el("div",{class:"pt-val",text:val})]);
+  dg.appendChild(tile("\u{1F48E}","Birthstone",bm.stone));
+  dg.appendChild(tile("\u{1F33C}","Birth flower",bm.flower));
+  dg.appendChild(tile(seasonIcon(seasonOf(m,d)),"Season",seasonOf(m,d)));
+  dg.appendChild(tile("\u{1FA90}","Ruling planet",meta.planet));
+  if(y)dg.appendChild(tile(chineseZodiacIcon(y),"Chinese zodiac",chineseZodiac(y)));
+  dt.appendChild(dg);view.appendChild(dt);
+
+  /* born on your day */
+  const ts=el("section",{class:"section"});
+  if(twins.length){
+    ts.appendChild(secHead("Born on your day · "+MONTHS[m-1]+" "+d,twins.length+" influential "+(twins.length===1?"life shares":"lives share")+" your birthday","Open "+MONTHS[m-1]+" "+d+" →",()=>openDay(m,d,twins)));
+    const chips=el("div",{class:"rel-chips"});twins.slice(0,12).forEach(p=>chips.appendChild(relChip(p)));ts.appendChild(chips);
+  }else{
+    ts.appendChild(secHead("Meet famous "+signPlural(z.sign),"No exact birthday twin in the almanac yet — here are kindred "+signPlural(z.sign)));
+    const chips=el("div",{class:"rel-chips"});featuredOf(ppl,12).forEach(p=>chips.appendChild(relChip(p)));ts.appendChild(chips);
+  }
+  view.appendChild(ts);
+
+  /* actions */
+  const acts=el("div",{class:"section portal-acts"});
+  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;setView("zodiac");}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>sharePortal(z,m,d,y,twins)},[document.createTextNode("\u{1F4E4}  Share my portal")]));
+  acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{setView("discover");setTimeout(scrollToFindSign,80);}},[document.createTextNode("Edit my birthday")]));
+  view.appendChild(acts);
 }
 function patternOfDayCard(){
   const facts=buildPatterns(HISTORICAL);
@@ -3938,9 +4103,11 @@ function buildPersonModal(p){
     top.appendChild(bf);}
   /* favorite + share */
   const tools=el("div",{class:"mtools"});
-  const fav=el("button",{class:"mtool"+(isFav(p.id)?" on":""),"aria-pressed":isFav(p.id)?"true":"false",onClick:function(){const on=toggleFav(p.id);this.classList.toggle("on",on);this.setAttribute("aria-pressed",on?"true":"false");this.firstChild.textContent=on?"★ Saved":"☆ Save";}},[document.createTextNode(isFav(p.id)?"★ Saved":"☆ Save")]);
+  const fav=el("button",{class:"mtool"+(isFav(p.id)?" on":""),"aria-pressed":isFav(p.id)?"true":"false",onClick:function(){const on=toggleFav(p.id);this.classList.toggle("on",on);this.setAttribute("aria-pressed",on?"true":"false");this.firstChild.textContent=on?"★ Saved":"☆ Save";this.classList.remove("pop");void this.offsetWidth;this.classList.add("pop");if(typeof toast==="function")toast(on?("★  Saved "+p.name+" to your collection"):("Removed "+p.name+" from saved"));}},[document.createTextNode(isFav(p.id)?"★ Saved":"☆ Save")]);
   tools.appendChild(fav);
-  tools.appendChild(el("button",{class:"mtool",onClick:function(){const btn=this;const url=location.origin+location.pathname+"#/person/"+p.id;const done=()=>{btn.firstChild.textContent="✓ Copied";};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done,done);}else{done();}}},[document.createTextNode("⧉ Copy link")]));
+  tools.appendChild(el("button",{class:"mtool",onClick:function(){const url=location.origin+location.pathname+"#/person/"+p.id;
+    const txt=p.name+((p.month&&p.day)?(" — born "+MONTHS[p.month-1]+" "+p.day):"")+(p.zsign?(" · "+p.zsign+" "+(p.zsym||"")):"")+". Discover them in The Birthday Almanac.";
+    doShare(txt,url);}},[document.createTextNode("\u{1F4E4} Share")]));
   top.appendChild(tools);
   m.appendChild(top);
 
@@ -4315,6 +4482,7 @@ function render(){
   else if(state.view==="categories")renderCategories(view);
   else if(state.view==="timeline")renderTimeline(view);
   else if(state.view==="patterns")renderPatterns(view);
+  else if(state.view==="portal")renderPortal(view);
   const fb=document.getElementById("filterBtn"),fd=document.getElementById("fdot"),n=activeFilterCount();
   fd.textContent=String(n);fb.classList.toggle("has",n>0);fb.classList.toggle("on",n>0);
   // search/filter controls only make sense on the people-style data views
@@ -4459,6 +4627,13 @@ document.getElementById("brandBtn").onclick=()=>setView("discover");
   if(window.matchMedia){try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",e=>{
     if(!localStorage.getItem("ba_theme"))apply(e.matches?"dark":"light");});}catch(e){}}
 })();
+/* My Birthday Portal entry point — glyph reflects the saved sign */
+(function(){const pb=document.getElementById("portalBtn");if(!pb)return;
+  function sync(){try{const s=STORE.get("bday",null);const g=document.getElementById("portalGlyph");
+    if(s&&s.m){const z=zodiac(s.m,s.d);if(z&&g){g.textContent=z.sym;pb.setAttribute("title","My Birthday Portal · "+z.sign);}}}catch(e){}}
+  pb.addEventListener("click",()=>setView("portal"));
+  window._syncPortalGlyph=sync;sync();
+})();
 document.getElementById("filterBtn").onclick=openSheet;
 document.getElementById("sheetClose").onclick=closeSheet;
 document.getElementById("sheetScrim").onclick=closeSheet;
@@ -4596,16 +4771,16 @@ if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!R
     m.style.left=(Math.random()*vw*0.85-vw*0.12).toFixed(0)+"px";
     m.style.top=(-30+Math.random()*vh*0.45).toFixed(0)+"px";
     layer.appendChild(m);
-    const dur=850+Math.random()*750;
+    const dur=1000+Math.random()*900;
     const a=m.animate([
       {transform:"translate3d(0,0,0) rotate("+ang+"deg)",opacity:0},
-      {opacity:.9,offset:.14},{opacity:.9,offset:.7},
+      {opacity:.42,offset:.16},{opacity:.42,offset:.72},
       {transform:"translate3d("+dx.toFixed(0)+"px,"+dy.toFixed(0)+"px,0) rotate("+ang+"deg)",opacity:0}
     ],{duration:dur,easing:"cubic-bezier(.45,0,.65,1)"});
     a.onfinish=a.oncancel=()=>m.remove();
   }
   function tick(){
-    const delay=2400+Math.random()*4600;
+    const delay=3200+Math.random()*5200;
     setTimeout(()=>{
       if(!document.hidden){spawn();if(Math.random()<0.16)setTimeout(spawn,220+Math.random()*260);}
       tick();
