@@ -1263,6 +1263,18 @@ html[data-theme="dark"] #toast{background:var(--card-3);border:1px solid var(--h
 .rh-ds{max-width:520px;margin:14px auto 0;color:var(--ink-2);font-size:15px;line-height:1.6}
 .rh-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
 .btn-sm{padding:7px 14px;font-size:12.5px}
+
+/* ===== universal chart tooltip — value leads, label follows ===== */
+#charttip{position:fixed;z-index:150;pointer-events:none;background:var(--navy);color:#FBF7EE;
+  border-radius:11px;padding:9px 13px;box-shadow:var(--shadow-lg);opacity:0;transform:translateY(4px);
+  transition:opacity .16s var(--ease),transform .16s var(--ease);min-width:110px;max-width:230px}
+#charttip.on{opacity:1;transform:none}
+html[data-theme="dark"] #charttip{background:var(--card-3);border:1px solid var(--hairline);color:var(--ink)}
+#charttip .ctt-v{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.15}
+#charttip .ctt-l{font-size:11.5px;opacity:.75;margin-top:2px}
+#charttip .ctt-s{font-family:var(--mono);font-size:10px;letter-spacing:.6px;color:var(--gold-soft);margin-top:5px}
+@media(prefers-reduced-motion:reduce){#charttip{transition:opacity .12s}}
+.bar-row:hover .bf,.bar-row:focus-visible .bf{filter:brightness(1.12) saturate(1.06)}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -2765,12 +2777,41 @@ function startHeroSky(canvas,host){
   let W=0,H=0,bg=[],nodes=[],t0=null,hmeteors=[];
   let spin=Math.PI/2,vel=0,dragging=false,lastX=0;
   let mx=0.5,my=0.42,tmx=0.5,tmy=0.42;     // mouse glow (normalised)
+  // real stellar color temperatures — hot blue-white through sun-gold to cool orange-red
+  const STAR_HUES=[["#AFC3FF",.10],["#CAD8FF",.18],["#E8EEFF",.30],["#FFF4E8",.24],["#FFE9C4",.12],["#FFD9A0",.06]];
+  function starHue(){let r=Math.random(),acc=0;for(const[c,w]of STAR_HUES){acc+=w;if(r<=acc)return c;}return "#FFC98B";}
+  let nebula=null;
+  function buildNebula(){
+    // pre-rendered once: a faint Milky Way band of layered cloud blobs on a diagonal
+    nebula=document.createElement("canvas");nebula.width=Math.max(2,Math.round(W/2));nebula.height=Math.max(2,Math.round(H/2));
+    const nc=nebula.getContext("2d");const w=nebula.width,h=nebula.height;
+    nc.clearRect(0,0,w,h);
+    const bandA=-0.42;                       // band angle (radians-ish slope)
+    for(let i=0;i<46;i++){
+      const t=i/46,cx=w*(0.05+t*0.9),cy=h*0.62+ (cx-w*0.5)*bandA + (Math.random()-0.5)*h*0.22;
+      const rr=(0.05+Math.random()*0.12)*w;
+      const warm=Math.random()<0.3;
+      const g=nc.createRadialGradient(cx,cy,0,cx,cy,rr);
+      const al=0.028+Math.random()*0.05;
+      g.addColorStop(0,warm?("rgba(216,190,150,"+al+")"):("rgba(140,165,225,"+al+")"));
+      g.addColorStop(1,"rgba(120,145,210,0)");
+      nc.fillStyle=g;nc.beginPath();nc.arc(cx,cy,rr,0,6.2832);nc.fill();
+    }
+    // faint dense star-dust along the band core
+    for(let i=0;i<Math.round(w*h/900);i++){
+      const x=Math.random()*w,yc=h*0.62+(x-w*0.5)*bandA,y=yc+(Math.random()-0.5)*h*0.16;
+      if(y<0||y>h)continue;
+      nc.globalAlpha=Math.random()*0.22;nc.fillStyle="#dce6ff";nc.fillRect(x,y,0.7,0.7);
+    }
+    nc.globalAlpha=1;
+  }
   function build(){
     const r=host.getBoundingClientRect();if(!r.width)return;
     W=r.width;H=r.height;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     bg=[];const n=Math.round(W*H/2400);
-    for(let i=0;i<n;i++)bg.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,a:Math.random()*0.5+0.12,p:Math.random()*6.28});
+    for(let i=0;i<n;i++)bg.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,a:Math.random()*0.5+0.12,p:Math.random()*6.28,c:starHue(),z:0.25+Math.random()*0.75});
+    buildNebula();
     // every star in every constellation gets a random "from" position to drift in from
     nodes=[];
     for(let i=0;i<12;i++){const data=CONSTELLATIONS[ZODIAC_ORDER[i]];
@@ -2792,8 +2833,14 @@ function startHeroSky(canvas,host){
     mx+=(tmx-mx)*0.06;my+=(tmy-my)*0.06;
     const items=layout();const byi={};items.forEach(c=>byi[c.i]=c);
     ctx.clearRect(0,0,W,H);
-    // drifting background stars
-    for(const s of bg){const tw=0.6+0.4*Math.sin((reduce?0:t*0.001)+s.p);ctx.globalAlpha=s.a*tw*(0.4+0.6*ease);ctx.fillStyle="#dfe7ff";ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.2832);ctx.fill();}
+    // the Milky Way — pre-rendered nebula band, drifting almost imperceptibly
+    if(nebula){ctx.globalAlpha=0.9*ease;
+      const drift=reduce?0:Math.sin(age*0.03)*8;
+      ctx.drawImage(nebula,drift,0,W,H);ctx.globalAlpha=1;}
+    // drifting background stars — real color temperatures + pointer parallax by depth
+    const pxo=fine&&!reduce?(mx-0.5)*18:0,pyo=fine&&!reduce?(my-0.5)*12:0;
+    for(const s of bg){const tw=0.6+0.4*Math.sin((reduce?0:t*0.001)+s.p);ctx.globalAlpha=s.a*tw*(0.4+0.6*ease);ctx.fillStyle=s.c;
+      ctx.beginPath();ctx.arc(s.x-pxo*s.z,s.y-pyo*s.z,s.r,0,6.2832);ctx.fill();}
     ctx.globalAlpha=1;
     // mouse-reactive soft glow (desktop)
     if(fine&&!reduce){const gx=mx*W,gy=my*H,gr=Math.min(W,H)*0.5;const gg=ctx.createRadialGradient(gx,gy,0,gx,gy,gr);
@@ -2814,7 +2861,16 @@ function startHeroSky(canvas,host){
       const g=ctx.createRadialGradient(x,y,0,x,y,rad*3.2);
       g.addColorStop(0,"rgba(255,250,236,"+al+")");g.addColorStop(0.4,"rgba(255,238,196,"+(al*0.55)+")");g.addColorStop(1,"rgba(255,226,150,0)");
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,rad*3.2,0,6.2832);ctx.fill();
-      ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(x,y,rad*0.55,0,6.2832);ctx.fill();}
+      ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(x,y,rad*0.55,0,6.2832);ctx.fill();
+      // diffraction spikes on the brightest, nearest stars — the astrophotography signature
+      if(nd.mag>0.85&&c.depth>0.6){const sl=rad*(3.6+1.4*tw)*ease,sa=al*0.5;
+        const sg2=ctx.createLinearGradient(x-sl,y,x+sl,y);
+        sg2.addColorStop(0,"rgba(255,250,238,0)");sg2.addColorStop(0.5,"rgba(255,250,238,"+sa+")");sg2.addColorStop(1,"rgba(255,250,238,0)");
+        ctx.strokeStyle=sg2;ctx.lineWidth=0.8;
+        ctx.beginPath();ctx.moveTo(x-sl,y);ctx.lineTo(x+sl,y);ctx.stroke();
+        const vg=ctx.createLinearGradient(x,y-sl,x,y+sl);
+        vg.addColorStop(0,"rgba(255,250,238,0)");vg.addColorStop(0.5,"rgba(255,250,238,"+sa+")");vg.addColorStop(1,"rgba(255,250,238,0)");
+        ctx.strokeStyle=vg;ctx.beginPath();ctx.moveTo(x,y-sl);ctx.lineTo(x,y+sl);ctx.stroke();}}
     // soft gold sweep orbiting the belt
     if(!reduce){const sweepA=spin*0.6+age*0.4;const cx=W*0.5,cy=H*0.52,rr=Math.min(W,H)*0.5;
       const sx=cx+Math.cos(sweepA)*rr*0.7,sy=cy+Math.sin(sweepA)*rr*0.55;
@@ -4195,8 +4251,35 @@ function chartGender(list){
 }
 function chartCard(title,cap){const ch=el("div",{class:"chart"});ch.appendChild(el("h3",{text:title}));if(cap)ch.appendChild(el("div",{class:"cap",text:cap}));return ch;}
 function summary(html){return el("div",{class:"summary",html:html});}
+/* one shared tooltip for every bar chart — value leads, label follows, share of view */
+function chartTip(){
+  let t=document.getElementById("charttip");
+  if(!t){t=el("div",{id:"charttip",role:"status","aria-hidden":"true"});
+    t.appendChild(el("div",{class:"ctt-v"}));t.appendChild(el("div",{class:"ctt-l"}));t.appendChild(el("div",{class:"ctt-s"}));
+    document.body.appendChild(t);}
+  return t;
+}
+function showBarTip(row){
+  const t=chartTip();
+  const n=+row.dataset.n||0;let tot=0;
+  row.parentNode.querySelectorAll(".bar-row").forEach(r=>tot+=(+r.dataset.n||0));
+  t.querySelector(".ctt-v").textContent=String(n)+(n===1?" life":" lives");
+  t.querySelector(".ctt-l").textContent=row.dataset.label||"";
+  t.querySelector(".ctt-s").textContent=tot?(Math.round(n/tot*1000)/10)+"% of this view":"";
+  const r=row.getBoundingClientRect();
+  t.classList.add("on");
+  const tw=t.offsetWidth||150;
+  t.style.left=Math.min(Math.max(r.left+r.width*0.45-tw/2,8),window.innerWidth-tw-8)+"px";
+  t.style.top=Math.max(8,r.top-t.offsetHeight-9)+"px";
+}
+function hideBarTip(){const t=document.getElementById("charttip");if(t)t.classList.remove("on");}
 function barRow(label,n,mx,color,onClick){
   const row=el("div",{class:"bar-row"+(onClick?" click":"")});if(onClick){row.addEventListener("click",onClick);row.setAttribute("role","button");row.tabIndex=0;row.addEventListener("keydown",e=>kbd(e,onClick));}
+  row.dataset.n=String(n);row.dataset.label=label;
+  row.addEventListener("mouseenter",()=>showBarTip(row));
+  row.addEventListener("mouseleave",hideBarTip);
+  row.addEventListener("focus",()=>showBarTip(row));
+  row.addEventListener("blur",hideBarTip);
   row.appendChild(el("div",{class:"bl",text:label}));
   const bt=el("div",{class:"bt"});const bf=el("div",{class:"bf"});const target=Math.round((n/mx)*100);
   if(color)bf.style.background=color;
@@ -4705,7 +4788,7 @@ function updateTitle(){
 }
 function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
 function render(){
-  syncNav();renderSubbar();
+  syncNav();renderSubbar();hideBarTip();
   const view=document.getElementById("view");
   if(!REDUCE){view.classList.remove("view-enter");void view.offsetWidth;view.classList.add("view-enter");}
   if(state.view==="discover")renderDiscover(view);
