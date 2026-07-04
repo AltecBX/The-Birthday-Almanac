@@ -1289,6 +1289,125 @@ html[data-theme="dark"] #charttip{background:var(--card-3);border:1px solid var(
 .tl-scrubbing .tdot{opacity:.22;transition:opacity .2s,transform .2s,box-shadow .2s}
 .tl-scrubbing .tdot.lit{opacity:1;transform:translate(-50%,-50%) scale(1.55);z-index:2;box-shadow:0 0 10px 2px rgba(230,206,142,.55)}
 @media(prefers-reduced-motion:reduce){.tl-scrubbing .tdot.lit{transform:translate(-50%,-50%)}}
+
+/* ============================================================
+   HOROSCOPE — celestial dashboard, per-sign daily experience
+   ============================================================ */
+.h-welcome{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin:-4px 0 24px;padding:15px 18px;
+  border:1px solid var(--gold-soft);border-radius:var(--radius);background:var(--gold-wash);color:var(--ink);font-size:14.5px;cursor:pointer;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.h-welcome:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.h-welcome .hw-g{font-size:26px;color:var(--gold-deep);flex:none}
+/* the wheel */
+.hwheel-wrap{display:grid;place-items:center;margin:6px 0 30px}
+.hwheel{position:relative;width:min(340px,78vw);aspect-ratio:1}
+.hwheel::before{content:"";position:absolute;inset:8%;border:1px solid var(--hairline);border-radius:50%}
+.hw-sign{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;
+  border:1px solid var(--hairline);background:var(--card);color:var(--gold-deep);font-size:20px;display:grid;place-items:center;
+  transform:rotate(var(--wa)) translateY(calc(min(340px,78vw)/-2 + 24px)) rotate(calc(var(--wa)*-1));
+  transition:transform .25s var(--spring),box-shadow .2s,border-color .2s;box-shadow:var(--shadow-sm)}
+.hw-sign:hover{border-color:var(--gold);box-shadow:0 0 16px rgba(230,206,142,.4);
+  transform:rotate(var(--wa)) translateY(calc(min(340px,78vw)/-2 + 24px)) rotate(calc(var(--wa)*-1)) scale(1.14)}
+.hw-core{position:absolute;inset:30%;border-radius:50%;display:grid;place-items:center;align-content:center;gap:4px;text-align:center;
+  background:radial-gradient(100% 100% at 50% 30%,var(--card-2),var(--card));border:1px solid var(--hairline);box-shadow:var(--shadow)}
+.hw-core span{font-size:22px;color:var(--gold-deep)}
+.hw-core i{font-family:var(--mono);font-style:normal;font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint)}
+@media(prefers-reduced-motion:no-preference){
+  .hwheel::after{content:"";position:absolute;inset:8%;border-radius:50%;border-top:1px solid rgba(230,206,142,.5);
+    animation:hwSpin 26s linear infinite;pointer-events:none}
+  @keyframes hwSpin{to{transform:rotate(360deg)}}
+}
+/* the twelve cards */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.hcard{position:relative;text-align:left;border:1px solid var(--hairline);border-radius:var(--radius);padding:18px 18px 15px;cursor:pointer;
+  background:radial-gradient(130% 140% at 20% 0%,var(--card-2),var(--card));box-shadow:var(--shadow-sm);
+  transition:transform .26s var(--ease),box-shadow .26s var(--ease),border-color .26s var(--ease)}
+.hcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--gold-soft)}
+.hcard:active{transform:translateY(-1px) scale(.985);transition-duration:.09s}
+.hcard.fire{border-top:3px solid var(--el-fire)}.hcard.earth{border-top:3px solid var(--el-earth)}
+.hcard.air{border-top:3px solid var(--el-air)}.hcard.water{border-top:3px solid var(--el-water)}
+.hc-top{display:flex;align-items:center;justify-content:space-between}
+.hc-g{font-size:24px;color:var(--gold-deep)}
+.hc-el{font-family:var(--mono);font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint)}
+.hc-nm{font-family:var(--serif);font-size:21px;color:var(--ink);margin-top:8px}
+.hc-rg{font-size:11.5px;color:var(--muted);margin-top:2px}
+.hc-prev{margin:11px 0 0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.hc-go{font-size:12.5px;font-weight:600;color:var(--gold-deep);margin-top:11px}
+/* sign hero */
+.hs-hero{position:relative;overflow:hidden;border-radius:var(--radius-xl);border:1px solid var(--hairline);padding:26px 18px 22px;text-align:center;
+  background:radial-gradient(130% 150% at 50% 0%,var(--card-2),var(--card));box-shadow:var(--shadow);margin-bottom:18px;touch-action:pan-y}
+.hs-hero.fire{border-top:3px solid var(--el-fire)}.hs-hero.earth{border-top:3px solid var(--el-earth)}
+.hs-hero.air{border-top:3px solid var(--el-air)}.hs-hero.water{border-top:3px solid var(--el-water)}
+.hs-hero>*{position:relative;z-index:1}
+.hs-hrow{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:560px;margin:0 auto}
+.hs-arrow{width:46px;height:46px;flex:none;border-radius:50%;border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);
+  font-size:18px;transition:transform .18s var(--spring),border-color .18s,box-shadow .18s}
+.hs-arrow:hover{border-color:var(--gold);transform:scale(1.1);box-shadow:0 0 12px rgba(230,206,142,.3)}
+.hs-g{font-size:44px;color:var(--gold-deep);line-height:1}
+.hs-hero h1{font-size:clamp(28px,5vw,40px);margin-top:6px}
+.hs-sub{font-size:13.5px;color:var(--muted);margin-top:4px}
+.hs-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.hs-chip{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--ink-2);
+  border:1px solid var(--hairline);border-radius:999px;padding:5px 11px;background:var(--card-2)}
+.hs-hero canvas{margin-top:8px}
+.hs-save{margin-top:12px;border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font-weight:600;font-size:13px;
+  border-radius:999px;padding:9px 17px;min-height:44px;transition:.18s}
+.hs-save.on,.hs-save:hover{border-color:var(--gold);color:var(--gold-deep);background:var(--gold-wash)}
+/* tabs */
+.hs-tabs{display:flex;gap:4px;background:var(--card-2);border:1px solid var(--hairline);border-radius:999px;padding:4px;width:fit-content;margin:0 auto 22px}
+.hs-tab{border:0;background:transparent;border-radius:999px;padding:9px 18px;min-height:44px;font-weight:600;font-size:13.5px;color:var(--muted);transition:.18s}
+.hs-tab.on{background:var(--navy);color:#FBF7EE;box-shadow:var(--shadow-sm)}
+html[data-theme="dark"] .hs-tab.on{background:var(--card-3);color:var(--ink);border:1px solid var(--hairline)}
+/* main reading */
+.hs-reading{border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:24px clamp(18px,3.5vw,34px);
+  background:radial-gradient(120% 140% at 15% 0%,var(--card-2),var(--card));box-shadow:var(--shadow-md)}
+.hs-reading.fire{border-left:3px solid var(--el-fire)}.hs-reading.earth{border-left:3px solid var(--el-earth)}
+.hs-reading.air{border-left:3px solid var(--el-air)}.hs-reading.water{border-left:3px solid var(--el-water)}
+.hs-rk{font-family:var(--mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold-deep)}
+.hs-rt{margin:10px 0 0;font-family:var(--serif);font-size:clamp(17px,2.4vw,21px);line-height:1.6;color:var(--ink)}
+/* reveal cascade */
+@media(prefers-reduced-motion:no-preference){
+  .hs-reveal{animation:hsUp .6s var(--ease) both}
+  .hs-reveal.d1{animation-delay:.08s}.hs-reveal.d2{animation-delay:.16s}.hs-reveal.d3{animation-delay:.24s}
+  .hs-reveal.d4{animation-delay:.32s}.hs-reveal.d5{animation-delay:.4s}
+  @keyframes hsUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+.hs-swatch{display:inline-block;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.5);box-shadow:var(--shadow-sm)}
+/* meters */
+.hs-energy{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}
+.hs-meterwrap{margin-bottom:13px}.hs-meterwrap:last-child{margin-bottom:0}
+.hs-meterwrap.sm .hs-meter{height:8px}
+.hs-mlab{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--ink-2);margin-bottom:6px}
+.hs-mlab b{font-family:var(--serif);font-size:15px;color:var(--ink)}
+.hs-meter{height:11px;background:var(--card-3);border-radius:999px;overflow:hidden}
+.hs-meter.big{height:13px}
+.hs-meter i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .9s var(--ease)}
+/* expandable sections */
+.hs-sec{border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--card);margin-bottom:9px;box-shadow:var(--shadow-sm);overflow:hidden}
+.hs-sec summary{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;list-style:none;min-height:44px;transition:background .15s}
+.hs-sec summary::-webkit-details-marker{display:none}
+.hs-sec summary:hover{background:var(--card-2)}
+.hs-sec summary::after{content:"+";margin-left:auto;font-size:18px;color:var(--faint);transition:transform .2s var(--ease)}
+.hs-sec[open] summary::after{transform:rotate(45deg)}
+.hss-ic{font-size:17px;flex:none}
+.hs-sec summary b{font-size:14px;color:var(--ink);flex:none}
+.hss-peek{font-size:12px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.hs-sec[open] .hss-peek{display:none}
+.hss-body{margin:0;padding:2px 16px 16px 44px;font-size:14px;line-height:1.62;color:var(--ink-2)}
+/* compatibility */
+.hs-kin{font-size:14.5px;color:var(--ink-2);margin-bottom:14px}
+.hs-pickrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.hs-pick{width:44px;height:44px;border-radius:50%;border:1px solid var(--hairline);background:var(--card);color:var(--gold-deep);font-size:18px;
+  transition:transform .16s var(--spring),border-color .16s,background .16s}
+.hs-pick:hover{transform:scale(1.12);border-color:var(--gold)}
+.hs-pick.on{background:var(--gold-wash);border-color:var(--gold);box-shadow:0 0 10px rgba(230,206,142,.35)}
+.hs-compat{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}
+@media(max-width:600px){
+  .hgrid{grid-template-columns:1fr}
+  .hs-hrow{gap:6px}
+  .hss-peek{display:none}
+  .hs-tabs{width:100%;justify-content:center}
+}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -2620,6 +2739,7 @@ const VIEWS=[
   {key:"timeline",label:"Timeline",icon:"⏳"},
   {key:"patterns",label:"Cosmic Patterns",icon:"\u{1F4CA}"},
   {key:"portal",label:"My Sky",icon:"✦"},
+  {key:"horoscope",label:"Horoscope",icon:"\u{1F52E}"},
   {key:"today",label:"Today",icon:"\u{1F305}"},
   {key:"rabbithole",label:"Rabbit Hole",icon:"\u{1F300}"},
   {key:"compare",label:"Compare",icon:"\u{2696}\u{FE0F}"}
@@ -2627,11 +2747,12 @@ const VIEWS=[
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
 const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
-const MORE_VIEWS=["today","portal","rabbithole","compare","collections","categories","timeline","patterns"];
+const MORE_VIEWS=["today","horoscope","portal","rabbithole","compare","collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
 function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false};}
 let state={view:"discover",search:"",sort:"date",peopleLimit:80,peopleScope:"historical",zSign:null,collectionId:null,
+  hSign:null,hTab:"today",hCmp:null,
   calYear:now.getFullYear(),calMonth:now.getMonth(),f:freshFilters()};
 function basePool(){return HISTORICAL;}
 
@@ -3463,7 +3584,8 @@ function renderPortal(view){
 
   /* actions */
   const acts=el("div",{class:"section portal-acts"});
-  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;setView("zodiac");}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
+  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>openHoroscope(z.sign)},[document.createTextNode("\u{1F52E}  Today's "+z.sign+" horoscope")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>{state.zSign=z.sign;setView("zodiac");}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>sharePortal(z,m,d,y,twins)},[document.createTextNode("\u{1F4E4}  Share my portal")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>saveStarCard({glyph:z.sym,title:"I'm a "+z.sign,sub:MONTHS[m-1]+" "+d+(y?", "+y:"")+(twins.length?"  ·  birthday twin of "+twins[0].name:"")})},[document.createTextNode("\u{1F5BC}\u{FE0F}  Save my star card")]));
   acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{setView("discover");setTimeout(scrollToFindSign,80);}},[document.createTextNode("Edit my birthday")]));
@@ -3535,6 +3657,13 @@ function renderToday(view){
   grid.appendChild(todaySignCard());
   grid.appendChild(moonPhaseCard());
   grid.appendChild(patternOfDayCard());
+  const hs=savedHSign();
+  if(hs){const hh=horoscopeFor(hs,"today");
+    const hcard=el("div",{class:"spot-card click",onClick:()=>openHoroscope(hs)});
+    hcard.appendChild(el("div",{class:"lab",text:"Your horoscope · "+hs+" "+signSym(hs)}));
+    hcard.appendChild(el("div",{class:"big",text:hh.mood+" · lucky "+hh.lucky}));
+    hcard.appendChild(el("div",{class:"meta",text:"Tap for today's full reading →"}));
+    grid.appendChild(hcard);}
   sec.appendChild(grid);view.appendChild(sec);
 
   const f=triviaOfDay();
@@ -3695,6 +3824,431 @@ function renderRabbitHole(view){
     tr.appendChild(foot);view.appendChild(tr);
   }
 }
+/* ============================================================
+   HOROSCOPE ENGINE — deterministic daily/weekly/monthly readings
+   Seeded by (sign + date window) so a sign reads the same all day
+   and turns over at midnight. Entertainment, not prophecy.
+   ============================================================ */
+function hseed(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function hrng(seed){let a=seed;return function(){a|=0;a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return ((t^(t>>>14))>>>0)/4294967296;};}
+function hpick(r,arr){return arr[Math.floor(r()*arr.length)];}
+function dayKey(){const n=new Date();return n.getFullYear()+"-"+(n.getMonth()+1)+"-"+n.getDate();}
+function weekKey(){const n=new Date();const d=new Date(n.getFullYear(),0,1);const w=Math.floor(((n-d)/86400000+d.getDay())/7);return n.getFullYear()+"w"+w;}
+function monthKey(){const n=new Date();return n.getFullYear()+"m"+n.getMonth();}
+
+/* ---- voice pools: warm, specific, symbolic — never fear, never high-stakes advice ---- */
+const H_OPEN={
+  Mars:["Mars puts a spark in your stride today — it wants a mission, not a maybe.","There's engine-heat in your sky; point it at something worth finishing."],
+  Venus:["Venus softens the light around you today, and people lean in.","Beauty keeps catching your eye today — that's Venus, doing her quiet work."],
+  Mercury:["Mercury quickens your wit; the right words arrive before you reach for them.","Your mind is a busy harbor today — messages in, ideas out, all of it cargo."],
+  Moon:["The Moon pulls your tides close to the surface today, and that's a gift.","Feelings arrive early and honest today — let them speak before the schedule does."],
+  Sun:["The Sun leans your way, and rooms notice when you walk in.","Today carries stage-light warmth — you don't have to chase it, just stand in it."],
+  Pluto:["Something beneath the surface wants naming today, and you're the one who can.","Depth is your home ground, and today the water runs unusually clear."],
+  Jupiter:["Jupiter widens the road ahead — today rewards the longer view.","Optimism isn't naive today; it's navigation."],
+  Saturn:["Saturn hands you the long lever today — patience moves heavy things.","The climb likes a steady step today, and yours is steadier than most."],
+  Uranus:["An unconventional idea keeps knocking today. Answer the door.","Today bends the usual pattern just enough to be interesting — you'll love the angle."],
+  Neptune:["The veil is thin today; art and intuition speak the same language.","Your daydreams carry real cargo today — unpack them gently."]
+};
+const H_THEME=[
+  "A conversation you've been circling finally has its opening — the honest version lands better than the polished one.",
+  "Something you shelved months ago is ready to be picked back up; it aged better than you expected.",
+  "A small act of generosity comes back to you from an unexpected direction before the day is out.",
+  "The thing you keep calling a detour is quietly becoming the road.",
+  "Someone nearby is better company than their quiet suggests — a second question opens the door.",
+  "Your instinct about a lingering decision is sharper than the spreadsheet version of it.",
+  "An old skill turns out to be exactly what a new situation needs.",
+  "The pace around you is not the pace you owe anyone — set your own and watch others match it.",
+  "A pattern you noticed last week repeats today, and this time you know what it means.",
+  "What looks like a delay is actually timing doing you a favor.",
+  "You're closer to a finish line than the middle of the work makes it feel.",
+  "A compliment you almost don't say out loud would change someone's whole afternoon.",
+  "The idea that seems too small to mention is the one worth mentioning.",
+  "Today favors editors over authors — trimming, tuning and tending beat starting from scratch.",
+  "A door you assumed was closed was only ever unlatched.",
+  "The lesson from a recent misstep finishes composting today and turns into something usable."
+];
+const H_CLOSE=[
+  "Keep one hour unscheduled — that's where the good part happens.",
+  "Say the kind thing out loud instead of just thinking it.",
+  "Write the idea down before dinner; it won't wait politely.",
+  "Take the longer walk between two places you already had to go.",
+  "Let the first draft be rough — its job is to exist.",
+  "Ask the question you think everyone else already knows the answer to.",
+  "Trade one scroll for one page tonight.",
+  "Leave something better than you found it, even slightly.",
+  "Call the person you thought of twice this week.",
+  "Choose the option that makes a better story.",
+  "Finish the small thing first; momentum is a ladder.",
+  "Look up at least once after dark — your sky is working overtime.",
+  "Save a little energy for the evening; it has plans for you.",
+  "Let someone help you with the thing you always do alone."
+];
+const H_LOVE=[
+  "Affection speaks in small logistics today — the picked-up coffee, the remembered detail. Notice it, and offer it.",
+  "A relationship deepens when you let a silence be comfortable instead of filling it.",
+  "Say the appreciative thing you usually save for occasions. Today is the occasion.",
+  "Someone's teasing is a doorway to a realer conversation — walk through it gently.",
+  "Old warmth resurfaces in a message, a song, or a scent. Enjoy it without needing it to mean everything.",
+  "Your charm is quieter than usual today and twice as effective.",
+  "Listening is your love language today — the person talking will remember how it felt.",
+  "Plans made today have staying power; sketch the trip, the dinner, the someday.",
+  "A little vulnerability from you gives someone else permission for theirs.",
+  "The heart likes honesty served warm — skip the speech, keep the sincerity.",
+  "Shared laughter does more repair work today than any serious talk could.",
+  "New faces are receptive today — the low-stakes hello is worth more than it costs.",
+  "Tend the friendship that never asks for anything; it's quietly central.",
+  "Romance today looks like being fully where you are, phone face-down."
+];
+const H_CAREER=[
+  "Your name comes up in a room you're not in — keep doing the work that put it there.",
+  "A tangled task untangles fast once you explain it to someone else out loud.",
+  "Today rewards the visible middle of work: share progress, not just finished things.",
+  "The meeting that could be a message — make it a message, and spend the saved hour well.",
+  "A colleague's odd suggestion contains a genuinely good idea wearing a disguise.",
+  "Document the thing you figured out today; future-you sends thanks.",
+  "Your craft is compounding — something that took a day last year takes an hour now. Notice that.",
+  "Ambition today is best aimed at quality, not volume.",
+  "The unglamorous task you've been dodging takes twenty minutes and lifts a week of weight.",
+  "Someone junior is watching how you handle today — teach by the doing.",
+  "Say yes to the interesting problem, not the impressive title of it.",
+  "A boundary kindly stated today saves three apologies later.",
+  "Curiosity beats certainty in every conversation you'll have today.",
+  "Your best work today happens in the first focused hour — guard it like treasure."
+];
+const H_MONEY=[
+  "Take stock rather than take action — a clear list of what's working is worth more than a new plan today.",
+  "Something you already own solves the problem you were about to spend on.",
+  "Gratitude for what's already built is today's best investment.",
+  "A small recurring thing deserves a look — not with worry, just with clear eyes.",
+  "Generosity in a small, deliberate dose pays strange and lovely dividends.",
+  "The satisfying purchase today is the useful one, not the shiny one.",
+  "An old skill of yours has quiet market value — no need to act, just notice.",
+  "Simplicity is the luxury today; the uncluttered option is the rich one.",
+  "Let a money thought finish itself in a notebook instead of circling your head.",
+  "Value today hides in maintenance — the mended thing outshines the new thing.",
+  "A conversation about value — your time, your work — goes better today than you expect.",
+  "Count something you're proud of that money never touched."
+];
+const H_HEALTH=[
+  "Your energy runs in long waves today — ride the crest, respect the trough.",
+  "Water, daylight and one honest stretch will do more than anything complicated.",
+  "Your body votes early today; the afternoon goes better if the morning moves.",
+  "Rest is productive today — schedule it like it matters, because it does.",
+  "A walk without a podcast lets the mind finish its filing.",
+  "Cook one thing slowly today; the ritual feeds more than the recipe.",
+  "Energy follows attention — one task at a time leaves you fuller, not emptier.",
+  "The tension you're carrying belongs to a decision, not a muscle. Decide, and feel it lift.",
+  "Sleep is tonight's headline event — give it an opening act of quiet.",
+  "Sunlight before screens sets the whole day's rhythm right.",
+  "Play counts as wellness today — the sillier, the better.",
+  "Your breath is the volume knob for the day; slow it and everything mixes better."
+];
+const H_OPP=[
+  "A skill you undervalue is precisely what someone nearby is looking for.",
+  "The overlooked invitation is the interesting one.",
+  "Ten minutes of tidying — a desk, a list, a plan — unlocks a disproportionate door.",
+  "A stranger's passing remark contains a genuinely useful compass bearing.",
+  "The second attempt at a recent failure goes surprisingly smoothly.",
+  "Collaboration is today's multiplier — the duet outperforms the solo.",
+  "An early start steals a march the whole day thanks you for.",
+  "Asking for the thing directly works today. Just ask.",
+  "Something creative wants to be shared before it's perfect — share it.",
+  "The gentle follow-up you've been postponing lands at exactly the right moment."
+];
+const H_CAUT=[
+  "Watch the urge to say yes twice before breakfast — one yes, well chosen, is plenty.",
+  "Don't edit yourself mid-sentence today; finish the thought, then refine it.",
+  "The clever reply can wait an hour; it'll still be clever and twice as kind.",
+  "Beware the tab explosion — one thing at a time is your superpower today.",
+  "Someone's mood is weather, not a verdict on you. Carry an umbrella, not a grudge.",
+  "Perfectionism will offer to help today. Politely decline.",
+  "Don't spend your best hour on your least important task.",
+  "The assumption is the only thing likely to trip you today — check it once.",
+  "Hurry is contagious; be the one who doesn't catch it.",
+  "Tonight's version of you will want the note you almost didn't write."
+];
+const H_MOODS=["Radiant","Grounded","Electric","Reflective","Bold","Tender","Curious","Magnetic","Serene","Playful","Focused","Dreamy","Resolute","Warm","Quicksilver","Luminous","Steady","Adventurous"];
+const H_TIMES=["just after sunrise","mid-morning","the quiet stretch after lunch","golden hour","early evening","twilight","the first hour of dark","just before midnight"];
+const H_COLORS=[["Midnight sapphire","#27408B"],["Burnished gold","#C29A45"],["Moonstone","#BFD4E8"],["Ember red","#B4472F"],["Deep juniper","#2E5C4D"],["Celestial violet","#6B5B95"],["Dawn rose","#D89AA2"],["Star-white","#F2EEE2"],["Tidal teal","#2F7D7A"],["Nebula plum","#7A4E6D"],["Meteor bronze","#9C6B30"],["Aurora green","#4E9C6B"],["Comet silver","#AeB6C2"],["Saffron","#D99A2B"],["Indigo dusk","#3B3D6B"],["Coral flare","#D96A4F"]];
+const H_WEEK_EARLY=[
+  "The week opens with unfinished business asking politely for an hour — give it the hour and it repays the week.",
+  "Early days favor quiet setup: sharpen, list, arrange. It will look like little and mean everything.",
+  "Monday's small win is structural — it holds up everything you stack on it.",
+  "The week begins social — a check-in you almost skip becomes its anchor conversation.",
+  "Start slow on purpose; the week's real velocity arrives midweek and you'll want reserves."
+];
+const H_WEEK_MID=[
+  "Midweek brings the plot: a shift in plans that turns out friendlier than it first looks.",
+  "By midweek your idea has grown legs — walk it around and let others react.",
+  "The middle days reward saying the true thing in the meeting, kindly and once.",
+  "Midweek, energy and clarity finally sync — schedule the hard, good thing there.",
+  "Around Wednesday a coincidence repeats itself. That's not a coincidence; follow it."
+];
+const H_WEEK_END=[
+  "The weekend wants texture — hands busy, mind loose, someone good nearby.",
+  "Close the week by finishing one loop completely; the peace is disproportionate.",
+  "By week's end an answer you've been chasing strolls in on its own.",
+  "Save the weekend's best hour for something with no purpose except delight.",
+  "The week ends warmer than it began — let it, without auditing why."
+];
+const H_MONTH_ARC=[
+  "This month moves in two acts: the first half clears ground, the second half builds on it — don't judge the whole by the clearing.",
+  "A slow-burn project reaches a visible milestone this month; the applause is quieter than the satisfaction.",
+  "This month's theme is alignment — small course corrections now, a noticeably truer heading by its end.",
+  "Expect one genuine surprise this month: not a storm, more like weather you didn't order but end up loving.",
+  "The month rewards depth over breadth — three things done beautifully will outshine ten done adequately."
+];
+const H_MONTH_FOCUS=[
+  "Relationships carry the month's best chapters; invest in the recurring ones, not just the shiny new ones.",
+  "Craft is the month's compass — whatever you're getting better at, get deliberately better at it.",
+  "Home gravity is strong this month; improving your own corner improves everything launched from it.",
+  "Your voice matters more than usual this month — write, speak, send the thing.",
+  "Learning is the month's luck engine; every new competence opens two doors."
+];
+const H_MONTH_CLOSE=[
+  "By the final week, something that felt tangled resolves into an obvious next step.",
+  "Close the month with an inventory of what grew — you planted more than you remember.",
+  "The month's last days are for gratitude and a short list: keep, change, begin.",
+  "You end the month with more momentum than you started — spend it on the bold option.",
+  "A conversation in the last week sets up next month's best storyline."
+];
+/* element flavor injected into readings so signs never sound interchangeable */
+const H_EL_FLAVOR={Fire:"Lead with the bold version",Earth:"Trust the practical read",Air:"Talk it into focus",Water:"Trust the felt sense"};
+
+function horoscopeFor(sign,mode){
+  const meta=ZMETA[sign];
+  const key=mode==="week"?weekKey():mode==="month"?monthKey():dayKey();
+  const r=hrng(hseed(sign+"|"+key+"|"+mode));
+  const out={sign,mode,meta};
+  if(mode==="week"){
+    const th=hpick(hrng(hseed(sign+"|"+key+"|t")),H_THEME);
+    out.reading=hpick(r,H_WEEK_EARLY)+" "+hpick(r,H_WEEK_MID)+" For "+meta.sub.toLowerCase()+" in you, "+th.charAt(0).toLowerCase()+th.slice(1)+" "+hpick(r,H_WEEK_END);
+  }else if(mode==="month"){
+    const th=hpick(hrng(hseed(sign+"|"+key+"|t")),H_THEME);
+    out.reading=hpick(r,H_MONTH_ARC)+" "+hpick(r,H_MONTH_FOCUS)+" "+meta.element+" carries you here: "+th+" "+hpick(r,H_MONTH_CLOSE);
+  }else{
+    const cl=hpick(r,H_CLOSE);
+    out.reading=hpick(r,H_OPEN[meta.planet]||H_OPEN.Sun)+" "+hpick(r,H_THEME)+" "+H_EL_FLAVOR[meta.element]+" — "+cl.charAt(0).toLowerCase()+cl.slice(1);
+  }
+  // sections (always seeded from the same window so they hold steady all day)
+  out.love=hpick(r,H_LOVE);out.career=hpick(r,H_CAREER);out.money=hpick(r,H_MONEY);out.health=hpick(r,H_HEALTH);
+  out.opportunity=hpick(r,H_OPP);out.caution=hpick(r,H_CAUT);
+  out.mood=hpick(r,H_MOODS);
+  out.lucky=1+Math.floor(r()*98);
+  out.color=hpick(r,H_COLORS);
+  out.time=hpick(r,H_TIMES);
+  out.meter=55+Math.round(r()*40);
+  out.energy={mind:45+Math.round(r()*11)*5,heart:45+Math.round(r()*11)*5,drive:45+Math.round(r()*11)*5};
+  // today's kindred sign — highest-compat pool, seeded daily
+  const pool=ZODIAC_ORDER.filter(s=>s!==sign&&compatScore(sign,s)>=75);
+  out.match=pool.length?hpick(r,pool):hpick(r,ZODIAC_ORDER.filter(s=>s!==sign));
+  return out;
+}
+/* rules-based compatibility: elements first, modality seasoning, stable per pair */
+function compatScore(a,b){
+  const A=ZMETA[a],B=ZMETA[b];
+  const pair=[a,b].sort().join("+");
+  const j=Math.floor(hrng(hseed(pair))()*11)-5;   // stable ±5 character
+  let base;
+  if(a===b)base=80;
+  else if(A.element===B.element)base=87;
+  else{const set=[A.element,B.element].sort().join("-");
+    base={"Air-Fire":85,"Earth-Water":85,"Air-Water":67,"Earth-Fire":62,"Air-Earth":60,"Fire-Water":58}[set]||65;}
+  if(a!==b)base+=(A.modality===B.modality?-4:3);
+  return Math.max(40,Math.min(98,base+j));
+}
+function compatBlurb(a,b){
+  const s=compatScore(a,b),A=ZMETA[a],B=ZMETA[b];
+  const ta=A.traits.split(" · ")[0].toLowerCase(),tb=B.traits.split(" · ")[0].toLowerCase();
+  let band;
+  if(a===b)band="Mirror energy — you understand each other instantly, and challenge each other to grow past your shared habits.";
+  else if(s>=85)band="Written in the same ink. "+a+"'s "+ta+" spirit and "+b+"'s "+tb+" nature feed each other naturally.";
+  else if(s>=72)band="A strong pairing with real spark — "+a+" brings the "+ta+", "+b+" answers with the "+tb+", and both are better for it.";
+  else if(s>=58)band="Different speeds, interesting music. "+a+"'s "+ta+" side has to make room for "+b+"'s "+tb+" one — worth the practice.";
+  else band="Opposites with homework. "+A.element+" meets "+B.element+", and when it works, it's precisely because you're not the same.";
+  return {score:s,text:band};
+}
+/* saved sign: explicit choice first, else derived from the saved birthday */
+function savedHSign(){
+  const s=STORE.get("hsign",null);if(s&&ZMETA[s])return s;
+  const b=STORE.get("bday",null);if(b&&b.m){const z=zodiac(b.m,b.d);if(z)return z.sign;}
+  return null;
+}
+
+/* ============================================================
+   HOROSCOPE VIEWS — landing wheel + per-sign daily experience
+   ============================================================ */
+function openHoroscope(sign){state.hSign=sign;state.view="horoscope";window.scrollTo({top:0,behavior:"auto"});render();}
+function renderHoroscope(view){
+  view.innerHTML="";
+  if(state.hSign&&ZMETA[state.hSign]){renderHoroscopeSign(view,state.hSign);return;}
+  const saved=savedHSign();
+  const head=el("div",{class:"viewhead cosmic"});
+  head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Daily horoscopes"}));
+  head.appendChild(el("h1",{text:"What the sky says today"}));
+  head.appendChild(el("div",{class:"lede",text:"Twelve signs, refreshed each midnight — readings for love, work, energy and luck, written in the almanac's voice. For reflection and delight, not prophecy."}));
+  view.appendChild(head);
+  if(saved){
+    const wb=el("button",{class:"h-welcome",onClick:()=>openHoroscope(saved)});
+    wb.appendChild(el("span",{class:"hw-g",text:signSym(saved)}));
+    wb.appendChild(el("span",{html:"Welcome back — the stars kept your place. <b>Read today's "+saved+" horoscope →</b>"}));
+    view.appendChild(wb);
+  }
+  /* the wheel: a slowly turning ring of glyphs */
+  const wheelWrap=el("div",{class:"hwheel-wrap"});
+  const wheel=el("div",{class:"hwheel","aria-label":"Choose your zodiac sign",role:"group"});
+  ZODIAC_ORDER.forEach((s,i)=>{
+    const b=el("button",{class:"hw-sign","aria-label":s+" horoscope",style:"--wa:"+(i*30)+"deg",onClick:()=>openHoroscope(s)});
+    b.appendChild(el("span",{text:signSym(s)}));
+    wheel.appendChild(b);
+  });
+  wheel.appendChild(el("div",{class:"hw-core","aria-hidden":"true"},[el("span",{text:"✦"}),el("i",{text:"pick your sign"})]));
+  wheelWrap.appendChild(wheel);view.appendChild(wheelWrap);
+  /* the twelve cards */
+  const grid=el("div",{class:"hgrid"});
+  ZODIAC_ORDER.forEach(s=>{
+    const m=ZMETA[s],h=horoscopeFor(s,"today");
+    const c=el("button",{class:"hcard "+m.element.toLowerCase(),onClick:()=>openHoroscope(s)});
+    c.appendChild(el("div",{class:"hc-top"},[el("span",{class:"hc-g",text:signSym(s)}),el("span",{class:"hc-el",text:m.element+" · "+m.modality})]));
+    c.appendChild(el("div",{class:"hc-nm",text:s}));
+    c.appendChild(el("div",{class:"hc-rg",text:m.range+" · ruled by "+m.planet}));
+    c.appendChild(el("p",{class:"hc-prev",text:h.reading.split(" — ")[0].split(". ")[0]+"."}));
+    c.appendChild(el("div",{class:"hc-go",text:"Today's reading →"}));
+    grid.appendChild(c);
+  });
+  view.appendChild(el("section",{class:"section"},[grid]));
+}
+function renderHoroscopeSign(view,sign){
+  const m=ZMETA[sign];
+  const tab=state.hTab||"today";
+  const h=horoscopeFor(sign,tab);
+  const saved=STORE.get("hsign",null)===sign;
+  const idx=ZODIAC_ORDER.indexOf(sign);
+  const prev=ZODIAC_ORDER[(idx+11)%12],next=ZODIAC_ORDER[(idx+1)%12];
+  view.appendChild(el("button",{class:"backlink",onClick:()=>{state.hSign=null;render();}},[document.createTextNode("← All horoscopes")]));
+
+  /* header */
+  const hero=el("div",{class:"hs-hero "+m.element.toLowerCase()});
+  hero.appendChild(starLayer("star-layer",22));
+  const hrow=el("div",{class:"hs-hrow"});
+  hrow.appendChild(el("button",{class:"hs-arrow","aria-label":"Previous sign: "+prev,onClick:()=>openHoroscope(prev)},[document.createTextNode("←")]));
+  const hmid=el("div",{class:"hs-mid"});
+  hmid.appendChild(el("div",{class:"hs-g",text:signSym(sign)}));
+  hmid.appendChild(el("h1",{text:sign}));
+  hmid.appendChild(el("div",{class:"hs-sub",text:m.sub+" · "+m.range}));
+  const chips=el("div",{class:"hs-chips"});
+  [[m.element,"el"],[m.modality,"mo"],["Ruled by "+m.planet,"pl"]].forEach(x=>chips.appendChild(el("span",{class:"hs-chip",text:x[0]})));
+  hmid.appendChild(chips);
+  hrow.appendChild(hmid);
+  hrow.appendChild(el("button",{class:"hs-arrow","aria-label":"Next sign: "+next,onClick:()=>openHoroscope(next)},[document.createTextNode("→")]));
+  hero.appendChild(hrow);
+  hero.appendChild(miniConstellation(sign,170));
+  const sv=el("button",{class:"hs-save"+(saved?" on":""),"aria-pressed":saved?"true":"false",onClick:function(){
+    const on=STORE.get("hsign",null)!==sign;STORE.set("hsign",on?sign:"");
+    this.classList.toggle("on",on);this.setAttribute("aria-pressed",on?"true":"false");
+    this.textContent=on?"★ My sign":"☆ Make this my sign";
+    toast(on?("★  "+sign+" saved — your horoscope will greet you"):"Sign preference cleared");
+  }},[document.createTextNode(saved?"★ My sign":"☆ Make this my sign")]);
+  hero.appendChild(sv);
+  view.appendChild(hero);
+  // swipe between signs (mobile)
+  let tx0=null,ty0=null;
+  hero.addEventListener("touchstart",e=>{tx0=e.touches[0].clientX;ty0=e.touches[0].clientY;},{passive:true});
+  hero.addEventListener("touchend",e=>{if(tx0==null)return;const dx=e.changedTouches[0].clientX-tx0,dy=e.changedTouches[0].clientY-ty0;
+    if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.5)openHoroscope(dx<0?next:prev);tx0=null;},{passive:true});
+
+  /* tabs */
+  const tabs=el("div",{class:"hs-tabs",role:"tablist","aria-label":"Reading window"});
+  [["today","Today"],["week","This week"],["month","This month"]].forEach(t=>{
+    tabs.appendChild(el("button",{class:"hs-tab"+(tab===t[0]?" on":""),role:"tab","aria-selected":tab===t[0]?"true":"false",
+      onClick:()=>{state.hTab=t[0];render();}},[document.createTextNode(t[1])]));
+  });
+  view.appendChild(tabs);
+
+  /* main reading — daily reveal animation */
+  const main=el("section",{class:"section hs-main hs-reveal"});
+  const rc=el("div",{class:"hs-reading "+m.element.toLowerCase()});
+  rc.appendChild(el("div",{class:"hs-rk",text:(tab==="today"?"Today · ":tab==="week"?"This week · ":"This month · ")+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric"})}));
+  rc.appendChild(el("p",{class:"hs-rt",text:h.reading}));
+  main.appendChild(rc);
+  view.appendChild(main);
+
+  /* meta tiles: mood / lucky number / color / best time */
+  const tiles=el("section",{class:"section portal-tiles hs-reveal d1"});
+  tiles.appendChild(el("div",{class:"ptile"},[el("div",{class:"pt-ic",text:"\u{1F31F}"}),el("div",{class:"pt-lab",text:"Mood"}),el("div",{class:"pt-val",text:h.mood})]));
+  tiles.appendChild(el("div",{class:"ptile"},[el("div",{class:"pt-ic",text:"\u{1F340}"}),el("div",{class:"pt-lab",text:"Lucky number"}),el("div",{class:"pt-val",text:String(h.lucky)})]));
+  const colTile=el("div",{class:"ptile"});
+  colTile.appendChild(el("div",{class:"pt-ic"},[el("i",{class:"hs-swatch",style:"background:"+h.color[1]})]));
+  colTile.appendChild(el("div",{class:"pt-lab",text:"Lucky color"}));
+  colTile.appendChild(el("div",{class:"pt-val",text:h.color[0]}));
+  tiles.appendChild(colTile);
+  tiles.appendChild(el("div",{class:"ptile"},[el("div",{class:"pt-ic",text:"\u{1F55C}"}),el("div",{class:"pt-lab",text:"Best time"}),el("div",{class:"pt-val",text:h.time})]));
+  view.appendChild(tiles);
+
+  /* intensity + energy visualization */
+  const en=el("section",{class:"section hs-energy hs-reveal d2"});
+  const inten=el("div",{class:"hs-meterwrap"});
+  inten.appendChild(el("div",{class:"hs-mlab"},[el("span",{text:"Cosmic intensity"}),el("b",{text:h.meter+"%"})]));
+  const mt=el("div",{class:"hs-meter"});const mf=el("i",{style:"background:linear-gradient(90deg,var(--gold-soft),var(--gold))"});
+  mt.appendChild(mf);inten.appendChild(mt);en.appendChild(inten);
+  [["Mind",h.energy.mind],["Heart",h.energy.heart],["Drive",h.energy.drive]].forEach(x=>{
+    const w=el("div",{class:"hs-meterwrap sm"});
+    w.appendChild(el("div",{class:"hs-mlab"},[el("span",{text:x[0]}),el("b",{text:x[1]+"%"})]));
+    const t=el("div",{class:"hs-meter"});const f=el("i");t.appendChild(f);w.appendChild(t);en.appendChild(w);
+    if(REDUCE)f.style.width=x[1]+"%";else requestAnimationFrame(()=>requestAnimationFrame(()=>f.style.width=x[1]+"%"));
+  });
+  if(REDUCE)mf.style.width=h.meter+"%";else requestAnimationFrame(()=>requestAnimationFrame(()=>mf.style.width=h.meter+"%"));
+  view.appendChild(en);
+
+  /* expandable sections */
+  const secs=el("section",{class:"section hs-reveal d3"});
+  [["\u{1F495}","Love",h.love],["\u{1F3AF}","Career",h.career],["\u{1FA99}","Money",h.money],["\u{1F33F}","Health & energy",h.health],["\u{1F511}","Main opportunity",h.opportunity],["\u{1F9ED}","Main caution",h.caution]].forEach((s,i)=>{
+    const d=el("details",{class:"hs-sec"+(i<2?" open-desk":"")});
+    const sum=el("summary");
+    sum.appendChild(el("span",{class:"hss-ic",text:s[0]}));
+    sum.appendChild(el("b",{text:s[1]}));
+    sum.appendChild(el("span",{class:"hss-peek",text:s[2].split(" ").slice(0,7).join(" ")+"…"}));
+    d.appendChild(sum);
+    d.appendChild(el("p",{class:"hss-body",text:s[2]}));
+    secs.appendChild(d);
+  });
+  view.appendChild(secs);
+
+  /* compatibility */
+  const comp=el("section",{class:"section hs-reveal d4"});
+  comp.appendChild(secHead("Compatibility","Today's kindred sign, or pick anyone"));
+  const kin=el("div",{class:"hs-kin"});
+  kin.appendChild(el("span",{html:"Today "+sign+" pairs brightest with <b>"+h.match+" "+signSym(h.match)+"</b>"}));
+  comp.appendChild(kin);
+  const pickRow=el("div",{class:"hs-pickrow",role:"group","aria-label":"Compare with another sign"});
+  ZODIAC_ORDER.forEach(s2=>{if(s2===sign)return;
+    pickRow.appendChild(el("button",{class:"hs-pick"+(state.hCmp===s2?" on":""),"aria-pressed":state.hCmp===s2?"true":"false","aria-label":"Compatibility with "+s2,
+      onClick:()=>{state.hCmp=state.hCmp===s2?null:s2;render();}},[document.createTextNode(signSym(s2))]));
+  });
+  comp.appendChild(pickRow);
+  const other=state.hCmp||h.match;
+  const cb=compatBlurb(sign,other);
+  const cwrap=el("div",{class:"hs-compat"});
+  cwrap.appendChild(el("div",{class:"hs-mlab"},[el("span",{html:sign+" ✦ "+other}),el("b",{text:cb.score+"%"})]));
+  const cm=el("div",{class:"hs-meter big"});const cf=el("i");cm.appendChild(cf);cwrap.appendChild(cm);
+  if(REDUCE)cf.style.width=cb.score+"%";else requestAnimationFrame(()=>requestAnimationFrame(()=>cf.style.width=cb.score+"%"));
+  cwrap.appendChild(el("p",{class:"hss-body",text:cb.text}));
+  const cacts=el("div",{class:"portal-acts",style:"margin-top:10px"});
+  cacts.appendChild(el("button",{class:"btn btn-ghost btn-sm",onClick:()=>{state.zSign=other;setView("zodiac");}},[document.createTextNode("Famous "+signPlural(other)+" →")]));
+  cwrap.appendChild(cacts);
+  comp.appendChild(cwrap);
+  view.appendChild(comp);
+
+  /* share + cross-links */
+  const acts=el("div",{class:"section portal-acts hs-reveal d5"});
+  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=sign;setView("zodiac");}},[document.createTextNode("Famous "+signPlural(sign)+" →")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>doShare(sign+" "+signSym(sign)+" · "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric"})+" — "+h.reading+" (Mood: "+h.mood+" · Lucky number: "+h.lucky+")",location.origin+location.pathname+"#/horoscope/"+sign.toLowerCase())},[document.createTextNode("\u{1F4E4}  Share this reading")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>saveStarCard({glyph:signSym(sign),title:sign+" · "+h.mood,sub:h.reading.split(". ")[0]+"."})},[document.createTextNode("\u{1F5BC}\u{FE0F}  Star card")]));
+  acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>setView("patterns")},[document.createTextNode("Cosmic patterns")]));
+  view.appendChild(acts);
+}
+
 function patternOfDayCard(){
   const facts=buildPatterns(HISTORICAL);
   const idx=(TODAY_M*31+TODAY_D)%facts.length;
@@ -4071,7 +4625,10 @@ function renderZodiacSign(view,sign){
   ht.appendChild(el("p",{class:"eyebrow",text:m.element+" · "+m.modality+" · Ruled by "+m.planet}));
   ht.appendChild(el("h1",{text:sign}));
   ht.appendChild(el("div",{class:"zh-sub",text:m.sub+"  ·  "+m.range}));
-  ht.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{goWithFilter(f=>f.zodiac=sign,"people");}},[document.createTextNode("Explore all "+ppl.length+" "+signPlural(sign)+" →")]));
+  const zacts=el("div",{class:"zh-acts"});
+  zacts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{goWithFilter(f=>f.zodiac=sign,"people");}},[document.createTextNode("Explore all "+ppl.length+" "+signPlural(sign)+" →")]));
+  zacts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>openHoroscope(sign)},[document.createTextNode("\u{1F52E}  Today's "+sign+" horoscope")]));
+  ht.appendChild(zacts);
   hero.appendChild(ht);view.appendChild(hero);
   /* stat tiles */
   const tc=topCatOf(ppl);const dated=ppl.filter(p=>p.birthYear!=null);
@@ -4906,6 +5463,7 @@ function findSign(p){if(!p)return null;const z=ZODIAC.find(z=>z.sign.toLowerCase
 function currentRoute(){
   const v=state.view;
   if(v==="zodiac"&&state.zSign)return "#/zodiac/"+state.zSign.toLowerCase();
+  if(v==="horoscope"&&state.hSign)return "#/horoscope/"+state.hSign.toLowerCase();
   if(v==="collections"&&state.collectionId)return "#/collection/"+state.collectionId;
   return "#/"+v;
 }
@@ -4918,6 +5476,7 @@ function applyHash(){
   if(seg==="person"&&param){const p=PEOPLE.find(x=>x.id===param);if(p){state.view=p.isPersonal?"people":(DATA_VIEWS.has(state.view)?state.view:"discover");render();openPerson(p);return;}}
   if(seg==="day"&&param){const [mm,dd]=param.split("-").map(Number);if(mm&&dd){state.view="calendar";state.calMonth=mm-1;render();const ppl=HISTORICAL.filter(p=>p.month===mm&&p.day===dd);if(ppl.length){openDay(mm,dd,ppl);}return;}}
   if(seg==="zodiac"){state.view="zodiac";state.zSign=findSign(param);}
+  else if(seg==="horoscope"){state.view="horoscope";state.hSign=findSign(param);}
   else if(seg==="collection"&&param&&COLLECTION_BY_ID[param]){state.view="collections";state.collectionId=param;}
   else if(seg==="collections"){state.view="collections";}
   else if(seg==="category"&&param&&CATS[param]){state.f=freshFilters();state.peopleScope="historical";state.f.cats.add(param);state.view="people";}
@@ -4934,7 +5493,7 @@ function updateTitle(){
   else if(v!=="discover")t=(VIEW_BY_KEY[v]||{}).label+" · "+base;
   document.title=t;
 }
-function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
+function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.hSign=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
 function render(){
   syncNav();renderSubbar();hideBarTip();
   const view=document.getElementById("view");
@@ -4948,6 +5507,7 @@ function render(){
   else if(state.view==="timeline")renderTimeline(view);
   else if(state.view==="patterns")renderPatterns(view);
   else if(state.view==="portal")renderPortal(view);
+  else if(state.view==="horoscope")renderHoroscope(view);
   else if(state.view==="today")renderToday(view);
   else if(state.view==="compare")renderCompare(view);
   else if(state.view==="rabbithole")renderRabbitHole(view);
@@ -5128,6 +5688,9 @@ document.addEventListener("keydown",e=>{
   const tag=(document.activeElement&&document.activeElement.tagName)||"";
   if(tag==="INPUT"||tag==="SELECT"||tag==="TEXTAREA")return;
   if(state.view==="calendar"){if(e.key==="ArrowLeft")stepMonth(-1);if(e.key==="ArrowRight")stepMonth(1);}
+  if(state.view==="horoscope"&&state.hSign){const i=ZODIAC_ORDER.indexOf(state.hSign);
+    if(e.key==="ArrowLeft")openHoroscope(ZODIAC_ORDER[(i+11)%12]);
+    if(e.key==="ArrowRight")openHoroscope(ZODIAC_ORDER[(i+1)%12]);}
 });
 
 /* deep-link routing: honor the hash on load and on back/forward */
