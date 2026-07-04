@@ -317,7 +317,7 @@ html:not([data-theme="dark"]) .gstar{background:#D9B860;box-shadow:0 0 7px 1px r
 @media(max-width:1180px){#starscape{display:none}}
 
 /* 0b — shooting stars: occasional meteors streak edge-to-edge across the sky */
-#meteors{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:layout paint}
+#meteors{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;contain:layout paint}
 .meteor{position:absolute;height:1.5px;border-radius:2px;opacity:0;will-change:transform,opacity;
   background:linear-gradient(90deg,rgba(255,247,224,0),rgba(255,247,224,.1) 55%,rgba(255,247,224,.85) 100%)}
 .meteor::after{content:"";position:absolute;right:-1px;top:50%;width:2.5px;height:2.5px;border-radius:50%;transform:translateY(-50%);
@@ -1275,6 +1275,20 @@ html[data-theme="dark"] #charttip{background:var(--card-3);border:1px solid var(
 #charttip .ctt-s{font-family:var(--mono);font-size:10px;letter-spacing:.6px;color:var(--gold-soft);margin-top:5px}
 @media(prefers-reduced-motion:reduce){#charttip{transition:opacity .12s}}
 .bar-row:hover .bf,.bar-row:focus-visible .bf{filter:brightness(1.12) saturate(1.06)}
+
+/* ===== tonight's moon ===== */
+.moon-row{display:flex;align-items:center;gap:16px;margin-top:8px}
+.moon-cv{flex:none;filter:drop-shadow(0 0 14px rgba(239,229,204,.25))}
+
+/* ===== timeline year scrubber ===== */
+.tl-scrub{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 18px;margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.tl-scrub input[type=range]{width:100%;accent-color:var(--gold);cursor:ew-resize;height:26px}
+.tls-out{font-size:14px;color:var(--ink-2);margin-top:6px;min-height:20px}
+.tls-out b{font-family:var(--serif);font-size:16px;color:var(--ink)}
+.tls-hint{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-top:5px}
+.tl-scrubbing .tdot{opacity:.22;transition:opacity .2s,transform .2s,box-shadow .2s}
+.tl-scrubbing .tdot.lit{opacity:1;transform:translate(-50%,-50%) scale(1.55);z-index:2;box-shadow:0 0 10px 2px rgba(230,206,142,.55)}
+@media(prefers-reduced-motion:reduce){.tl-scrubbing .tdot.lit{transform:translate(-50%,-50%)}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -2804,6 +2818,10 @@ function startHeroSky(canvas,host){
       nc.globalAlpha=Math.random()*0.22;nc.fillStyle="#dce6ff";nc.fillRect(x,y,0.7,0.7);
     }
     nc.globalAlpha=1;
+    // whisper of airglow along the horizon — the atmosphere's own light
+    const ag=nc.createLinearGradient(0,h*0.8,0,h);
+    ag.addColorStop(0,"rgba(96,180,160,0)");ag.addColorStop(0.75,"rgba(96,180,160,.045)");ag.addColorStop(1,"rgba(120,190,150,.07)");
+    nc.fillStyle=ag;nc.fillRect(0,h*0.8,w,h*0.2);
   }
   function build(){
     const r=host.getBoundingClientRect();if(!r.width)return;
@@ -2879,12 +2897,14 @@ function startHeroSky(canvas,host){
       ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);}
     // occasional shooting stars — subtle, gliding behind the wordmark
     if(!reduce){
-      if(Math.random()<0.0065&&hmeteors.length<2){const sp=W*0.013+Math.random()*W*0.007,a=0.46+Math.random()*0.3;
-        hmeteors.push({x:Math.random()*W*0.85,y:Math.random()*H*0.34,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:55+Math.random()*75,life:1});}
-      for(let i=hmeteors.length-1;i>=0;i--){const mt=hmeteors[i];mt.x+=mt.vx;mt.y+=mt.vy;mt.life-=0.011;
-        if(mt.life<=0||mt.x>W+90||mt.y>H+90){hmeteors.splice(i,1);continue;}
+      if(Math.random()<0.0065&&hmeteors.length<2){const sp=W*0.008+Math.random()*W*0.004,a=(0.12+Math.random()*0.16);
+        hmeteors.push({x:-(60+Math.random()*40),y:Math.random()*H*0.5+8,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:55+Math.random()*75});}
+      for(let i=hmeteors.length-1;i>=0;i--){const mt=hmeteors[i];mt.x+=mt.vx;mt.y+=mt.vy;
+        if(mt.x>W+mt.len+40||mt.y>H+mt.len){hmeteors.splice(i,1);continue;}
         const sp=Math.hypot(mt.vx,mt.vy),tx=mt.x-mt.vx/sp*mt.len,ty=mt.y-mt.vy/sp*mt.len;
-        const al=Math.min(1,mt.life*1.5)*0.5*ease;
+        // fade with POSITION, not time — bright across the sky, dim only at the very edges
+        const fin=Math.min(1,(mt.x+mt.len)/ (W*0.08)),fout=Math.min(1,(W+mt.len-mt.x)/(W*0.10));
+        const al=Math.max(0,Math.min(fin,fout))*0.5*ease;
         const mg=ctx.createLinearGradient(mt.x,mt.y,tx,ty);
         mg.addColorStop(0,"rgba(255,248,226,"+al+")");mg.addColorStop(1,"rgba(255,248,226,0)");
         ctx.strokeStyle=mg;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(mt.x,mt.y);ctx.lineTo(tx,ty);ctx.stroke();
@@ -3172,6 +3192,7 @@ function miniConstellation(sign,size){
   const pts=data.stars.map(s=>[cx+s[0]*span,cy+s[1]*span,s[2]]);
   const glow=ELEMENT_GLOW[ZMETA[sign].element]||"#E6CE8E",rgb=hexToRgb(glow);
   const segs=data.lines,reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const named=STAR_NAMES[sign]||{};let hovK=-1;
   function draw(prog,t){
     ctx.clearRect(0,0,size,size);
     const shown=prog*segs.length;
@@ -3182,13 +3203,29 @@ function miniConstellation(sign,size){
       if(i+1<=Math.floor(shown)){ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);}
       else if(i<shown){const f=shown-i;ctx.moveTo(a[0],a[1]);ctx.lineTo(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f);}}
     ctx.stroke();
-    for(let k=0;k<pts.length;k++){const p=pts[k],r=1.5+p[2]*1.5;
+    for(let k=0;k<pts.length;k++){const p=pts[k],hov=k===hovK,r=(1.5+p[2]*1.5)*(hov?1.5:1);
       const tw=prog>=1?(0.78+0.22*Math.sin(t*0.0022+k*1.7)):1;
-      const al=Math.min(1,prog*1.5)*tw;
+      const al=Math.min(1,prog*1.5)*(hov?1:tw);
       const g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3*(prog>=1?(0.92+0.12*Math.sin(t*0.0022+k*1.7)):1));
       g.addColorStop(0,"rgba(255,250,236,"+al+")");g.addColorStop(0.4,"rgba("+rgb+","+(al*0.7)+")");g.addColorStop(1,"rgba("+rgb+",0)");
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(p[0],p[1],r*3,0,6.2832);ctx.fill();
       ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(p[0],p[1],r*0.6,0,6.2832);ctx.fill();}
+    // the hovered bright star reveals its real name
+    if(hovK>=0&&named[hovK]&&prog>=1){const p=pts[hovK];
+      ctx.font="600 11px 'IBM Plex Mono',monospace";ctx.textAlign="center";
+      const ly=p[1]>size*0.24?p[1]-14:p[1]+20;
+      ctx.lineWidth=3;ctx.strokeStyle="rgba(8,14,26,.85)";ctx.strokeText(named[hovK],p[0],ly);
+      ctx.fillStyle="#F5E9C8";ctx.fillText(named[hovK],p[0],ly);}
+  }
+  // hover a named star to reveal it (larger renders only; decorative chips skip this)
+  if(size>=120&&Object.keys(named).length){
+    cv.addEventListener("pointermove",e=>{
+      const r=cv.getBoundingClientRect(),x=(e.clientX-r.left),y=(e.clientY-r.top);
+      let best=-1,bd=18*18;
+      for(const k of Object.keys(named)){const p=pts[+k];if(!p)continue;const d=(p[0]-x)*(p[0]-x)+(p[1]-y)*(p[1]-y);if(d<bd){bd=d;best=+k;}}
+      if(best!==hovK){hovK=best;cv.style.cursor=best>=0?"pointer":"";if(reduce)draw(1,0);}
+    },{passive:true});
+    cv.addEventListener("pointerleave",()=>{if(hovK!==-1){hovK=-1;cv.style.cursor="";if(reduce)draw(1,0);}},{passive:true});
   }
   if(reduce){draw(1,0);return cv;}
   let start=null;const dur=1100;
@@ -3317,6 +3354,43 @@ function doShare(text,url){
   else toast("Share: "+full);
 }
 function sharePortal(z,m,d,y,twins){doShare(shareLine(z,m,d,y,twins),location.origin+location.pathname+"#/portal");}
+/* generated share cards — a real 1200x630 image, shared or downloaded */
+function makeStarCard(o){
+  const cv=document.createElement("canvas");cv.width=1200;cv.height=630;
+  const c=cv.getContext("2d");
+  const g=c.createLinearGradient(0,0,0,630);g.addColorStop(0,"#0e1a2c");g.addColorStop(1,"#060d1a");
+  c.fillStyle=g;c.fillRect(0,0,1200,630);
+  const rg=c.createRadialGradient(600,230,0,600,230,720);
+  rg.addColorStop(0,"rgba(230,206,142,.13)");rg.addColorStop(1,"rgba(0,0,0,0)");
+  c.fillStyle=rg;c.fillRect(0,0,1200,630);
+  for(let i=0;i<230;i++){c.globalAlpha=Math.random()*0.75+0.1;
+    c.fillStyle=Math.random()<0.28?"#ffe9c4":"#dfe7ff";
+    const r=Math.random()*1.7+0.4;c.beginPath();c.arc(Math.random()*1200,Math.random()*630,r,0,6.2832);c.fill();}
+  c.globalAlpha=1;c.textAlign="center";
+  c.font="600 118px Georgia,serif";c.fillStyle="#E6CE8E";c.fillText(o.glyph||"✦",600,208);
+  c.font="600 62px Fraunces,Georgia,serif";c.fillStyle="#FAF4E6";c.fillText(o.title,600,322);
+  c.font="27px Inter,system-ui,sans-serif";c.fillStyle="#CBC4B3";c.fillText(o.sub||"",600,378);
+  c.fillStyle="rgba(230,206,142,.55)";c.fillRect(510,428,180,2);
+  c.font="600 21px 'IBM Plex Mono',monospace";c.fillStyle="#B9AF97";
+  c.fillText("THE BIRTHDAY ALMANAC",600,486);
+  return cv;
+}
+function saveStarCard(o){
+  try{
+    const done=()=>makeStarCard(o).toBlob(b=>{
+      if(!b){toast("Couldn't create the card");return;}
+      const file=new File([b],"birthday-almanac-card.png",{type:"image/png"});
+      if(navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){
+        navigator.share({files:[file],title:"The Birthday Almanac"}).catch(()=>{});
+      }else{
+        const u=URL.createObjectURL(b),a=document.createElement("a");
+        a.href=u;a.download="birthday-almanac-card.png";document.body.appendChild(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(u),4000);toast("Star card saved ✦");
+      }
+    },"image/png");
+    if(document.fonts&&document.fonts.load)document.fonts.load("600 62px Fraunces").then(done,done);else done();
+  }catch(e){toast("Couldn't create the card");}
+}
 /* generic toast (also used for saved-person feedback) */
 let _toastT=0;
 function toast(msg){
@@ -3391,6 +3465,7 @@ function renderPortal(view){
   const acts=el("div",{class:"section portal-acts"});
   acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;setView("zodiac");}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>sharePortal(z,m,d,y,twins)},[document.createTextNode("\u{1F4E4}  Share my portal")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>saveStarCard({glyph:z.sym,title:"I'm a "+z.sign,sub:MONTHS[m-1]+" "+d+(y?", "+y:"")+(twins.length?"  ·  birthday twin of "+twins[0].name:"")})},[document.createTextNode("\u{1F5BC}\u{FE0F}  Save my star card")]));
   acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{setView("discover");setTimeout(scrollToFindSign,80);}},[document.createTextNode("Edit my birthday")]));
   view.appendChild(acts);
 }
@@ -3399,6 +3474,52 @@ function renderPortal(view){
    DAILY BRIEFING — a dedicated, stable "today" view
    ============================================================ */
 function triviaOfDay(){const i=(dayOfYear(TODAY_M,TODAY_D)||1)%TRIVIA.length;return TRIVIA[i];}
+/* tonight's moon — phase computed from the synodic month, drawn with a real terminator */
+function moonPhase(date){
+  const synodic=29.530588853;
+  const epoch=Date.UTC(2000,0,6,18,14);            // known new moon
+  let p=((date.getTime()-epoch)/86400000)%synodic;if(p<0)p+=synodic;
+  return p/synodic;                                 // 0=new, .5=full
+}
+function moonName(p){
+  const b=Math.round(p*8)%8;
+  return ["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"][b];
+}
+function drawMoon(cv,p){
+  const dpr=Math.min(window.devicePixelRatio||1,2),S=+cv.dataset.size;
+  cv.width=S*dpr;cv.height=S*dpr;cv.style.width=S+"px";cv.style.height=S+"px";
+  const c=cv.getContext("2d");c.scale(dpr,dpr);
+  const r=S/2-3,cx=S/2,cy=S/2;
+  // dark disc with faint limb
+  c.fillStyle="#232d47";c.beginPath();c.arc(cx,cy,r,0,6.2832);c.fill();
+  c.strokeStyle="rgba(220,230,255,.16)";c.lineWidth=1;c.stroke();
+  // lit region: half-disc + terminator ellipse (the classic construction)
+  const lit="#EFE5CC",dark="#232d47",cosp=Math.cos(p*2*Math.PI);
+  c.save();c.beginPath();c.arc(cx,cy,r,0,6.2832);c.clip();
+  c.fillStyle=lit;c.beginPath();
+  if(p<0.5)c.arc(cx,cy,r,-Math.PI/2,Math.PI/2);else c.arc(cx,cy,r,Math.PI/2,Math.PI*1.5);
+  c.fill();
+  c.fillStyle=(p<0.25||p>=0.75)?dark:lit;
+  c.beginPath();c.ellipse(cx,cy,Math.abs(cosp)*r,r,0,0,6.2832);c.fill();
+  // a few soft maria on the lit surface
+  c.globalAlpha=0.1;c.fillStyle="#8d9070";
+  [[-0.25,-0.3,0.28],[0.2,0.05,0.34],[-0.05,0.38,0.2]].forEach(m=>{c.beginPath();c.arc(cx+m[0]*r,cy+m[1]*r,m[2]*r,0,6.2832);c.fill();});
+  c.restore();c.globalAlpha=1;
+}
+function moonPhaseCard(){
+  const p=moonPhase(new Date()),illum=Math.round((1-Math.cos(p*2*Math.PI))/2*100);
+  const card=el("div",{class:"spot-card moon-card"});
+  card.appendChild(el("div",{class:"lab",text:"Tonight's moon"}));
+  const row=el("div",{class:"moon-row"});
+  const cv=el("canvas",{class:"moon-cv","aria-hidden":"true"});cv.dataset.size="64";
+  row.appendChild(cv);
+  const tx=el("div");
+  tx.appendChild(el("div",{class:"big",text:moonName(p)}));
+  tx.appendChild(el("div",{class:"meta",text:illum+"% illuminated"}));
+  row.appendChild(tx);card.appendChild(row);
+  requestAnimationFrame(()=>drawMoon(cv,p));
+  return card;
+}
 function renderToday(view){
   view.innerHTML="";
   const head=el("div",{class:"viewhead cosmic"});
@@ -3412,6 +3533,7 @@ function renderToday(view){
   const grid=el("div",{class:"brief-grid"});
   grid.appendChild(onThisDayCard());
   grid.appendChild(todaySignCard());
+  grid.appendChild(moonPhaseCard());
   grid.appendChild(patternOfDayCard());
   sec.appendChild(grid);view.appendChild(sec);
 
@@ -4087,8 +4209,32 @@ function renderTimeline(view){
   const list=current();
   const head=el("div",{class:"viewhead"});
   head.appendChild(el("h1",{text:"Across the eras"}));
-  head.appendChild(el("div",{class:"lede",text:"Every figure placed by birth year. Hover a dot to see who, click to open them."}));
+  head.appendChild(el("div",{class:"lede",text:"Every figure placed by birth year. Hover a dot to see who, click to open them — or drag the scrubber to sweep through history."}));
   view.appendChild(head);
+  /* ---- year scrubber: sweep history, watch the eras light up ---- */
+  const dated=list.filter(p=>p.birthYear!=null);
+  const scrub=el("div",{class:"tl-scrub"});
+  const sIn=el("input",{type:"range",min:"-700",max:"2010",step:"5",value:"1500","aria-label":"Sweep through history by year"});
+  const sOut=el("div",{class:"tls-out"});
+  const sHint=el("div",{class:"tls-hint",text:"Drag to travel through time"});
+  scrub.append(sIn,sOut,sHint);
+  view.appendChild(scrub);
+  let sraf2=0;
+  function doScrub(){
+    sraf2=0;const Y=+sIn.value;
+    view.classList.add("tl-scrubbing");
+    let hits=[];
+    view.querySelectorAll(".tdot").forEach(d=>{
+      const dy=+d.dataset.y,on=Math.abs(dy-Y)<=25;
+      d.classList.toggle("lit",on);
+      if(on)hits.push({n:d.dataset.name,d:Math.abs(dy-Y)});
+    });
+    hits.sort((a,b)=>a.d-b.d);
+    sOut.innerHTML="";
+    sOut.appendChild(el("b",{text:"Around "+fmtYearNum(Y)}));
+    sOut.appendChild(document.createTextNode(" · "+hits.length+" "+(hits.length===1?"life":"lives")+(hits.length?" — "+hits.slice(0,4).map(h=>h.n).join(", ")+(hits.length>4?"…":""):"")));
+  }
+  sIn.addEventListener("input",()=>{if(!sraf2)sraf2=requestAnimationFrame(doScrub);},{passive:true});
   const ranges={Ancient:[-700,500],Medieval:[500,1400],"Early Modern":[1400,1800],Modern:[1800,1945],Contemporary:[1945,2030]};
   let any=false;
   ERAS.forEach(era=>{
@@ -4102,6 +4248,7 @@ function renderTimeline(view){
       const yv=p.era==="BC"?-Math.abs(p.birthYear):p.birthYear;
       const x=Math.max(1.2,Math.min(98.8,((yv-lo)/(hi-lo))*100));
       const node=el("button",{class:"tdot","aria-label":p.name+" born "+fmtYear(p),title:p.name+" · "+fmtYear(p),onClick:()=>openPerson(p)});
+      node.dataset.y=String(yv);node.dataset.name=p.name;
       node.style.left=x+"%";node.style.background=catColor(p.category);track.appendChild(node);
     });
     wrap.appendChild(track);
@@ -4423,6 +4570,7 @@ function buildPersonModal(p){
   tools.appendChild(el("button",{class:"mtool",onClick:function(){const url=location.origin+location.pathname+"#/person/"+p.id;
     const txt=p.name+((p.month&&p.day)?(" — born "+MONTHS[p.month-1]+" "+p.day):"")+(p.zsign?(" · "+p.zsign+" "+(p.zsym||"")):"")+". Discover them in The Birthday Almanac.";
     doShare(txt,url);}},[document.createTextNode("\u{1F4E4} Share")]));
+  tools.appendChild(el("button",{class:"mtool",onClick:()=>saveStarCard({glyph:p.zsym||"✦",title:p.name,sub:((p.month&&p.day)?("Born "+MONTHS[p.month-1]+" "+p.day+(fmtYear(p)?", "+fmtYear(p):"")):"")+(p.zsign?"  ·  "+p.zsign:"")})},[document.createTextNode("\u{1F5BC}\u{FE0F} Card")]));
   tools.appendChild(el("button",{class:"mtool",onClick:()=>{state.cmpA=p.id;state.cmpB=null;closeModal();setView("compare");}},[document.createTextNode("\u{2696}\u{FE0F} Compare")]));
   tools.appendChild(el("button",{class:"mtool",onClick:()=>{closeModal();enterRabbitHole(p);}},[document.createTextNode("\u{1F300} Rabbit hole")]));
   top.appendChild(tools);
@@ -5083,20 +5231,24 @@ if(window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches&&!R
   const layer=el("div",{id:"meteors","aria-hidden":"true"});document.body.appendChild(layer);
   function spawn(){
     const vw=window.innerWidth,vh=window.innerHeight;
-    const ang=16+Math.random()*26;                  // degrees below horizontal
-    const rad=ang*Math.PI/180,dist=Math.hypot(vw,vh)*1.05;
-    const dx=Math.cos(rad)*dist,dy=Math.sin(rad)*dist;
+    // shallow, realistic entry: begin fully off the LEFT edge and travel until fully past the RIGHT edge
+    const ang=7+Math.random()*9;                    // degrees below horizontal — shallow like a real meteor
+    const rad=ang*Math.PI/180;
+    const len=130+Math.random()*130;                // trail length
+    const dx=vw+len*2+120;                          // total x travel: guaranteed off the far side
+    const dy=Math.tan(rad)*dx;
     const m=el("i",{class:"meteor"});
-    m.style.width=(120+Math.random()*120).toFixed(0)+"px";
-    m.style.left=(Math.random()*vw*0.85-vw*0.12).toFixed(0)+"px";
-    m.style.top=(-30+Math.random()*vh*0.45).toFixed(0)+"px";
+    m.style.width=len.toFixed(0)+"px";
+    m.style.left=(-len-60)+"px";
+    // keep the whole path on screen vertically
+    m.style.top=(Math.random()*Math.max(40,vh-dy-80)+10).toFixed(0)+"px";
     layer.appendChild(m);
-    const dur=1000+Math.random()*900;
+    const dur=dx/(0.75+Math.random()*0.35);         // constant speed ~0.75–1.1 px/ms
     const a=m.animate([
       {transform:"translate3d(0,0,0) rotate("+ang+"deg)",opacity:0},
-      {opacity:.42,offset:.16},{opacity:.42,offset:.72},
+      {opacity:.42,offset:.07},{opacity:.42,offset:.93},
       {transform:"translate3d("+dx.toFixed(0)+"px,"+dy.toFixed(0)+"px,0) rotate("+ang+"deg)",opacity:0}
-    ],{duration:dur,easing:"cubic-bezier(.45,0,.65,1)"});
+    ],{duration:dur,easing:"linear"});
     a.onfinish=a.oncancel=()=>m.remove();
   }
   function tick(){
