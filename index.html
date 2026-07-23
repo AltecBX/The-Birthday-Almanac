@@ -1403,6 +1403,22 @@ html[data-theme="dark"] .hs-tab.on{background:var(--card-3);color:var(--ink);bor
 .hs-pick.on{background:var(--gold-wash);border-color:var(--gold);box-shadow:0 0 10px rgba(230,206,142,.35)}
 .hs-compat{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}
 
+/* ===== portraits — public images with monogram fallback ===== */
+.mhead{display:flex;align-items:center;gap:18px;margin-top:12px}
+.mhead-t{min-width:0}
+.mhead h2{margin-top:0}
+.mportrait{position:relative;width:96px;height:96px;flex:none;border-radius:28px;overflow:hidden;
+  background:linear-gradient(155deg,var(--card-2),var(--card-3));
+  box-shadow:0 0 0 2.5px var(--cat,var(--gold-soft)),var(--shadow-md)}
+.mp-mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:36px;color:var(--gold-deep)}
+.mp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.07);
+  transition:opacity .5s var(--ease),transform .7s var(--ease)}
+.mportrait.has .mp-img,.rh-av.has .mp-img,.cc-av.has .mp-img{opacity:1;transform:none}
+.rh-av,.cc-av{overflow:hidden;position:relative}
+.rh-av .mp-mono{font-size:36px}.cc-av .mp-mono{font-size:26px}
+@media(max-width:560px){.mportrait{width:78px;height:78px;border-radius:22px}.mp-mono{font-size:30px}.mhead{gap:14px}}
+@media(prefers-reduced-motion:reduce){.mp-img{transition:opacity .2s;transform:none}}
+
 /* ===== daily star quiz ===== */
 .quiz-card{position:relative;background:radial-gradient(130% 150% at 12% 0%,var(--card-2),var(--card));border:1px solid var(--hairline);
   border-radius:var(--radius-lg);padding:22px clamp(18px,3vw,28px);box-shadow:var(--shadow-md)}
@@ -3005,6 +3021,7 @@ function activeFilterCount(){return activeFilters().length;}
    ============================================================ */
 function personCard(p){
   const card=el("button",{class:"pcard","aria-label":"Open "+p.name,onClick:()=>openPerson(p)});
+  card.addEventListener("pointerenter",()=>{if(window._pfN>=2)return;window._pfN=(window._pfN||0)+1;personImage(p).finally(()=>window._pfN--);},{once:true,passive:true});
   card.style.setProperty("--cat",catColor(p.category));
   const rib=el("div",{class:"ribbon"});rib.style.background=catColor(p.category);card.appendChild(rib);
   const inn=el("div",{class:"pc-in"});
@@ -3925,7 +3942,8 @@ function cmpSlot(label,p,onPick){
   const slot=el("div",{class:"cmp-slot"});
   if(p){
     const card=el("div",{class:"cmp-card "+(p.zElement?p.zElement.toLowerCase():"")});
-    card.appendChild(el("div",{class:"cc-av",text:p.zsym||p.name[0]}));
+    const cav=el("div",{class:"cc-av"},[el("span",{class:"mp-mono",text:p.zsym||p.name[0]})]);
+    card.appendChild(cav);loadPortrait(cav,p);
     card.appendChild(el("div",{class:"cc-nm",text:p.name}));
     card.appendChild(el("div",{class:"cc-meta",text:shortDate(p)+(fmtYear(p)?" · "+fmtYear(p):"")}));
     card.appendChild(el("div",{class:"cc-sub",text:(p.zsign?p.zsign+" · "+p.zElement+" · ":"")+CATS[p.category].label}));
@@ -4018,7 +4036,8 @@ function renderRabbitHole(view){
   const card=el("div",{class:"rh-card "+(p.zElement?p.zElement.toLowerCase():"")});
   card.appendChild(starLayer("star-layer",16));
   if(state.rhReason)card.appendChild(el("div",{class:"rh-link",html:"↳ "+state.rhReason.rel+" <b>"+state.rhReason.from+"</b>"}));
-  card.appendChild(el("div",{class:"rh-av",text:p.zsym||p.name[0]}));
+  const rav=el("div",{class:"rh-av"},[el("span",{class:"mp-mono",text:p.zsym||p.name[0]})]);
+  card.appendChild(rav);loadPortrait(rav,p);
   card.appendChild(el("h2",{class:"rh-nm",text:p.name}));
   card.appendChild(el("div",{class:"rh-meta",text:shortDate(p)+(fmtYear(p)?" · "+fmtYear(p):"")+" · "+CATS[p.category].label+(p.country&&p.country!=="Unknown"?" · "+p.country:"")}));
   card.appendChild(el("p",{class:"rh-ds",text:p.shortDescription||p.bio||""}));
@@ -5315,6 +5334,39 @@ function openPerson(p){
   openModal(()=>buildPersonModal(p));
   setHash("#/person/"+p.id);document.title=p.name+" · The Birthday Almanac";
 }
+/* ============================================================
+   PORTRAITS — public Wikipedia/Wikimedia images, resolved on
+   demand and cached locally; graceful monogram fallback.
+   ============================================================ */
+let _imgMem=null;
+function _imgCache(){if(!_imgMem)_imgMem=STORE.get("imgs",{});return _imgMem;}
+function wikiTitleOf(p){
+  if(!p.sourceUrl||p.sourceUrl.indexOf("wikipedia.org/wiki/")<0)return null;
+  return p.sourceUrl.split("/wiki/")[1].split("#")[0];
+}
+function personImage(p){
+  const c=_imgCache();
+  if(c[p.id]!==undefined)return Promise.resolve(c[p.id]||null);
+  const t=wikiTitleOf(p);
+  if(!t)return Promise.resolve(null);
+  return fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+t)
+    .then(r=>r.ok?r.json():null)
+    .then(j=>{
+      // use the API's own thumbnail URL verbatim — Wikimedia rejects arbitrary widths
+      const u=(j&&j.thumbnail&&j.thumbnail.source)?j.thumbnail.source:null;
+      c[p.id]=u||"";try{STORE.set("imgs",c);}catch(e){}
+      return u;
+    }).catch(()=>null);
+}
+function loadPortrait(box,p){
+  personImage(p).then(u=>{
+    if(!u||!box.isConnected)return;
+    const img=new Image();
+    img.alt="Portrait of "+p.name;img.className="mp-img";img.referrerPolicy="no-referrer";img.decoding="async";
+    img.onload=()=>{if(box.isConnected){box.appendChild(img);requestAnimationFrame(()=>box.classList.add("has"));}};
+    img.src=u;
+  });
+}
 function buildPersonModal(p){
   const m=el("div");
   const top=el("div",{class:"mtop"});
@@ -5325,11 +5377,19 @@ function buildPersonModal(p){
   if(p.isPersonal)eye.appendChild(el("span",{class:"tier",text:"Personal"}));
   (p.secondaryCategories||[]).forEach(sc=>{const t=el("span",{class:"tag",text:CATS[sc].label});t.style.background=catColor(sc);t.style.opacity=".85";eye.appendChild(t);});
   top.appendChild(eye);
-  top.appendChild(el("h2",{id:"modalTitle",text:p.name}));
+  const mh=el("div",{class:"mhead"});
+  const av=el("div",{class:"mportrait"});av.style.setProperty("--cat",catColor(p.category));
+  av.appendChild(el("span",{class:"mp-mono",text:p.zsym||p.name.charAt(0)}));
+  mh.appendChild(av);
+  const mht=el("div",{class:"mhead-t"});
+  mht.appendChild(el("h2",{id:"modalTitle",text:p.name}));
   const dt=el("div",{class:"mdate"});
   dt.appendChild(el("span",{text:fmtDate(p)}));
   if(p.zsym){dt.appendChild(el("span",{class:"zbig",text:p.zsym}));dt.appendChild(el("span",{text:p.zsign+(p.zElement?" · "+p.zElement:"")}));}
-  top.appendChild(dt);
+  mht.appendChild(dt);
+  mh.appendChild(mht);
+  top.appendChild(mh);
+  loadPortrait(av,p);
   if(p.month&&BIRTH_MONTH[p.month]){const bm=BIRTH_MONTH[p.month];const bf=el("div",{class:"mbf"});
     bf.appendChild(el("span",{class:"chip"},[el("span",{class:"gi",text:"\u{1F48E}"}),document.createTextNode("Birthstone · "),el("b",{text:bm.stone})]));
     bf.appendChild(el("span",{class:"chip"},[el("span",{class:"gi",text:"\u{1F33C}"}),document.createTextNode("Birth flower · "),el("b",{text:bm.flower})]));
