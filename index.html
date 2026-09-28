@@ -1846,6 +1846,91 @@ button.dn-row{cursor:pointer}button.dn-row:hover{background:var(--card-2)}
   .cols{height:160px}
   .oe-row{grid-template-columns:64px 1fr 40px;gap:7px}
 }
+/* ===== DISCOVER: globe ===== */
+.globe-wrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:26px;align-items:center;border-radius:var(--radius-xl);padding:22px 26px;overflow:hidden;position:relative;
+  background:radial-gradient(600px 360px at 20% 50%,rgba(90,130,220,.22),transparent 65%),radial-gradient(500px 300px at 100% 0%,rgba(230,206,142,.12),transparent 60%),linear-gradient(160deg,#141f38,#0c1426 60%,#080e1c);
+  box-shadow:0 30px 70px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06);color:#F3ECDD}
+.globe-box{position:relative;width:100%;max-width:560px;aspect-ratio:1;margin:0 auto}
+.globe-cv{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y;border-radius:50%}
+.globe-cv:focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px}
+.globe-cv:active{cursor:grabbing}
+.globe-tip{position:absolute;transform:translate(-50%,-100%);pointer-events:none;background:rgba(10,16,30,.92);border:1px solid rgba(230,206,142,.35);color:#F3ECDD;border-radius:12px;padding:8px 12px;
+  min-width:150px;max-width:230px;text-align:center;opacity:0;transition:opacity .12s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.globe-tip.on{opacity:1}
+.globe-tip b{display:block;font-size:13.5px}
+.globe-tip span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--gold-soft);margin-top:1px}
+.globe-tip em{display:block;font-style:normal;font-size:11px;color:#B9C1DD;margin-top:3px;line-height:1.35}
+.globe-side{min-width:0}
+.gs-k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:#AEB9E8}
+.gs-h{font-family:var(--serif);font-size:30px;line-height:1.1;color:#FBF4E6;margin:4px 0 6px}
+.gs-s{font-size:13px;color:#C8CFE6;line-height:1.5;margin:0 0 12px}
+.gs-new{color:#8fe6c8;font-weight:600}
+.gs-rank{display:flex;flex-direction:column;gap:3px;margin-bottom:12px}
+.gs-r{display:grid;grid-template-columns:20px minmax(0,1fr) 34% 34px;gap:8px;align-items:center;border:0;background:none;color:inherit;font:inherit;text-align:left;padding:6px 8px;border-radius:10px;cursor:pointer;transition:background .15s}
+.gs-r:hover,.gs-r:focus-visible{background:rgba(255,255,255,.07);outline:none}
+.gs-i{font-family:var(--mono);font-size:10.5px;color:#8E98B8}
+.gs-n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs-b{height:6px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.gs-b i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#b88a33,#F3DFA6)}
+.gs-c{font-family:var(--mono);font-size:11.5px;color:var(--gold-soft);text-align:right}
+.gs-pick{width:100%;appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#F3ECDD;font:inherit;font-size:13px;padding:9px 12px;border-radius:12px}
+.gs-pick option{color:#1E2A38}
+.gs-back{border:0;background:none;color:#AEB9E8;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:0;margin-bottom:10px}
+.gs-back:hover{color:#FBF4E6}
+.gs-list{display:flex;flex-direction:column;gap:5px}
+.gs-p{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:inherit;font:inherit;text-align:left;padding:6px 10px 6px 6px;border-radius:12px;cursor:pointer;transition:.15s}
+.gs-p:hover,.gs-p:focus-visible{background:rgba(255,255,255,.09);border-color:rgba(230,206,142,.4);transform:translateX(2px);outline:none}
+.gs-p span{min-width:0}
+.gs-p b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs-p em{display:block;font-style:normal;font-size:11px;color:#AEB9E8}
+.gs-all{margin-top:10px;border:0;border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;color:#1b2335;background:linear-gradient(180deg,#F3DFA6,#D7B45E)}
+.dr-id{display:flex;align-items:center;gap:11px;min-width:0}
+/* ===== DISCOVER: who came first ===== */
+.wf{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-xl);padding:20px 22px 22px;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.wf::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--c-science),var(--c-music),var(--gold),var(--c-sports))}
+.wf.pop{animation:wfPop .45s var(--spring)}
+@keyframes wfPop{40%{transform:scale(1.012)}}
+.wf-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.wf-lvl{font-size:13px;color:var(--muted)}
+.wf-lvl b{color:var(--gold-deep);font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.wf-stats{display:flex;gap:8px}
+.wf-st{display:flex;flex-direction:column;align-items:center;min-width:64px;background:var(--card-2);border:1px solid var(--hairline-2);border-radius:12px;padding:5px 10px}
+.wf-st b{font-family:var(--serif);font-size:20px;line-height:1.1}
+.wf-st em{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--faint)}
+.wf-stage{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;perspective:1000px}
+.wf-card{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border:1px solid var(--hairline);background:linear-gradient(180deg,var(--card-2),var(--card));border-radius:20px;padding:18px 14px 16px;
+  cursor:pointer;font:inherit;color:inherit;transition:transform .25s var(--spring),box-shadow .25s,border-color .2s;box-shadow:0 2px 0 var(--card),0 4px 0 -1px var(--hairline),0 14px 26px -16px rgba(28,42,56,.45)}
+.wf-card:not(:disabled):hover,.wf-card:not(:disabled):focus-visible{transform:translateY(-4px) rotateX(4deg);border-color:var(--gold-soft);box-shadow:0 2px 0 var(--card),0 6px 0 -1px var(--gold-soft),0 22px 36px -16px rgba(168,126,46,.5);outline:none}
+.wf-card:disabled{cursor:default}
+.wf-card .pc-face{box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--gold-soft),0 10px 22px rgba(0,0,0,.2)}
+.wf-card .pc-face .pc-mono{font-size:32px}
+.wf-name{font-family:var(--serif);font-size:19px;line-height:1.2;margin-top:6px}
+.wf-meta{font-size:12px;color:var(--muted)}
+.wf-year{margin-top:6px;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--faint);min-height:20px;transition:color .2s}
+.wf-card.first .wf-year{color:var(--ok)}
+.wf-card.second .wf-year{color:var(--ink-2)}
+.wf-card.right{border-color:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 35%,transparent),0 18px 30px -18px rgba(46,125,107,.6)}
+.wf-card.wrong{border-color:var(--bad);animation:wfShake .4s}
+@keyframes wfShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.wf-vs{align-self:center;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:14px;color:#1b2335;
+  background:radial-gradient(circle at 35% 30%,#fff3cf,#E6CE8E 50%,#C29A45);box-shadow:0 6px 18px rgba(194,154,69,.4)}
+.wf-foot{margin-top:14px;text-align:center;min-height:44px}
+.wf-q{color:var(--muted);font-size:13.5px;margin:6px 0 0}
+.wf-res{font-size:14.5px;margin:4px 0 12px;line-height:1.5}
+.wf-res.ok b:first-child{color:var(--ok)}
+.wf-res.no b:first-child{color:var(--bad)}
+.wf-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+html[data-theme="dark"] .wf-res.ok b:first-child{color:#6fc7ae}
+@media(max-width:820px){
+  .globe-wrap{grid-template-columns:1fr;padding:16px 14px 18px;border-radius:var(--radius-lg)}
+  .gs-h{font-size:24px}
+  .wf{padding:16px 14px 18px}
+  .wf-stage{grid-template-columns:1fr 1fr;gap:10px}
+  .wf-vs{display:none}
+  .wf-card{padding:14px 8px 12px}.wf-name{font-size:16px}
+  .wf-st{min-width:54px;padding:4px 7px}
+}
+@media(prefers-reduced-motion:reduce){.wf.pop,.wf-card.wrong{animation:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -5151,6 +5236,226 @@ function startHeroSky(canvas,host){
   if(window.ResizeObserver){const ro=new ResizeObserver(()=>build());ro.observe(host);}
   requestAnimationFrame(()=>{build();_heroRAF=requestAnimationFrame(frame);});
 }
+/* globe data: where each country sits (modern equivalents for historical states), and a 2-degree land mask.
+   Built from Natural Earth via world-atlas (public domain). */
+const GEO_PLACES={"United States":[39.5,-98.4],"Nigeria":[9.54,7.99],"Germany":[51.08,10.27],"Greece":[39.32,22.55],"Netherlands":[52.29,5.5],"France":[46.6,2.4],"Brazil":[-10.66,-53.17],"Spain":[40.32,-3.62],"Croatia":[45.01,16.57],"United Kingdom":[53.77,-2.57],"Portugal":[39.61,-8.06],"Hungary":[47.2,19.34],"Argentina":[-34.57,-64.74],"Italy":[43.43,12.37],"Sweden":[62.42,16.11],"Poland":[52.13,19.34],"Philippines":[15.74,121.55],"Panama":[8.53,-80.11],"Mexico":[23.91,-102.22],"Ukraine":[49.19,31.29],"Australia":[-25.62,134.23],"Czechia":[49.78,15.34],"Russia":[57.5,45],"Puerto Rico":[18.24,-66.48],"Dominican Republic":[18.89,-70.46],"Japan":[36.01,136.71],"Romania":[45.85,24.95],"Finland":[64.26,26.14],"Ethiopia":[8.65,39.56],"India":[22.82,79.54],"China":[36.75,103.42],"Hong Kong":[22.32,114.17],"Ireland":[53.17,-8.02],"Canada":[52,-100],"New Zealand":[-43.96,170.6],"South Africa":[-28.92,25.16],"Israel":[31.48,35],"Austria":[47.62,14.06],"Egypt":[26.47,29.86],"Belgium":[50.65,4.59],"Vietnam":[16.56,106.33],"Switzerland":[46.79,8.12],"Norway":[61,9],"Pakistan":[29.91,69.23],"Turkey":[39.06,35.37],"Jamaica":[18.14,-77.32],"Denmark":[56,9.5],"Tibet":[29.65,91.1],"Nepal":[28.25,84.04],"Iran":[32.47,54.45],"Kenya":[0.6,37.79],"Chile":[-33.5,-70.6],"Algeria":[28.09,2.61],"North Korea":[40.13,127.13],"Guatemala":[15.7,-90.37],"Taiwan":[23.74,120.97],"Antigua and Barbuda":[17.12,-61.85],"Belarus":[53.5,27.96],"South Korea":[36.42,127.82],"Palestine":[31.94,35.27],"Lebanon":[33.91,35.87],"Ghana":[7.92,-1.24],"Libya":[26.99,18.03],"Myanmar":[20.94,96.51],"Latvia":[56.82,24.84],"Colombia":[3.92,-73.07],"Venezuela":[7.16,-66.15],"Iraq":[33.01,43.79],"Malaysia":[3.5,102],"Barbados":[13.19,-59.54],"Zimbabwe":[-18.9,29.79],"Peru":[-9.15,-74.43],"Liberia":[6.43,-9.41],"Lithuania":[55.28,23.89],"Bangladesh":[23.83,90.28],"Uruguay":[-32.77,-56.01],"Trinidad and Tobago":[10.43,-61.33],"DR Congo":[-2.84,23.58],"Mongolia":[46.95,103.02],"Iceland":[65.08,-18.77],"Azerbaijan":[40.28,47.69],"Cuba":[21.65,-78.93],"Slovenia":[46.13,14.93],"Burkina Faso":[12.31,-1.78],"Rwanda":[-2.01,29.92],"Ivory Coast":[7.55,-5.61],"Cameroon":[5.65,12.61],"Senegal":[14.35,-14.51],"Cambodia":[12.68,104.87],"Tunisia":[34.14,9.54],"Slovakia":[48.73,19.5],"Bosnia and Herzegovina":[44.18,17.82],"Uzbekistan":[41.77,63.37],"Thailand":[14.98,101],"Indonesia":[-6.5,110],"Bolivia":[-16.7,-64.65],"Jordan":[31.24,36.77],"Kyrgyzstan":[41.52,74.59],"Saint Lucia":[13.91,-60.98],"Saudi Arabia":[24.09,44.64],"Yemen":[15.92,47.52],"Sri Lanka":[7.7,80.67],"Tanzania":[-6.25,34.74],"Afghanistan":[33.84,66],"Armenia":[40.21,45.01],"Bulgaria":[42.76,25.19],"Nicaragua":[12.85,-85.02],"Costa Rica":[9.97,-84.17],"Zambia":[-13.39,27.76],"Cape Verde":[15.1,-23.6],"United Arab Emirates":[23.87,54.2],"Serbia":[44.22,20.84],"Angola":[-12.27,17.5],"Mozambique":[-17.15,35.54],"Benin":[9.64,2.34],"Kazakhstan":[48.41,67.24],"El Salvador":[13.73,-88.87],"Mali":[17.24,-3.59],"Morocco":[29.82,-8.69],"Gambia":[13.48,-15.43],"Roman Judea":[31.78,35.22],"Singapore":[1.35,103.82],"Monaco":[43.74,7.42],"Bahamas":[24.51,-77.91]};
+const GEO_ALIAS={"Czech Republic":"Czechia","German Empire":"Germany","Kingdom of England":"United Kingdom","Duchy of Florence":"Italy","Second Polish Republic":"Poland","United Kingdom of Great Britain and Ireland":"United Kingdom","Kingdom of Poland":"Poland","Duchy of Württemberg":"Germany","Austrian Empire":"Austria","German Reich":"Germany","West Germany":"Germany","Russian Empire":"Russia","Ancient Greece":"Greece","Lands of the Crown of Saint Stephen":"Croatia","Scotland":"United Kingdom","Holy Roman Empire":"Germany","Han China":"China","Republic of China":"China","Roman Empire":"Italy","Ptolemaic Egypt":"Egypt","Frankish Empire":"France","Gran Colombia":"Venezuela","Roman Republic":"Italy","Macedonia":"Greece","Mongol Empire":"Mongolia","Electorate of Saxony":"Germany","Ancient Rome":"Italy","Dominion of India":"India","Arabia":"Saudi Arabia","Ancient India":"India","Ancient Egypt":"Egypt","Kingdom of Prussia":"Germany","Kingdom of France":"France","Republic of Geneva":"Switzerland","Ancient China":"China","Kingdom of Sicily":"Italy","Republic of Florence":"Italy","Prince-Archbishopric of Salzburg":"Austria","Saxe-Eisenach":"Germany","Kingdom of the Netherlands":"Netherlands","Dutch Republic":"Netherlands","Electorate of Cologne":"Germany","Saxe-Weimar-Eisenach":"Germany","Soviet Union":"Russia","French Indochina":"Vietnam","Mandatory Palestine":"Israel","Gold Coast Colony":"Ghana","The Bahamas":"Bahamas","Socialist Federal Republic of Yugoslavia":"Serbia","Sultanate of Zanzibar":"Tanzania","British Raj":"India","Republic of Genoa":"Italy","Republic of Venice":"Italy","Ming China":"China","England":"United Kingdom","Kingdom of Great Britain":"United Kingdom","Empire of Japan":"Japan","Persia":"Iran","Habsburg Netherlands":"Belgium","Kingdom of Hanover":"Germany","Cisleithania":"Austria","Austria–Hungary":"Austria","Confederation of the Rhine":"Germany","Kingdom of Bavaria":"Germany","Kingdom of Sardinia":"Italy","Roman Egypt":"Egypt","Abbasid Caliphate":"Iraq","Kingdom of Württemberg":"Germany","Kingdom of Italy":"Italy","Republic of Baden":"Germany","Ukrainian People's Republic":"Ukraine","Duchy of Milan":"Italy","Babylon":"Iraq","Byzantine Empire":"Turkey","al-Andalus":"Spain","British Hong Kong":"Hong Kong","Thirteen Colonies":"United States","British America":"United States","Ancient Persia":"Iran","Zhou dynasty":"China","Sasanian Empire":"Iran","Rashidun Caliphate":"Saudi Arabia","Seventeen Provinces":"Netherlands","Kingdom of Denmark":"Denmark","Qin":"China","Anshan Persia":"Iran","Maurya empire":"India","Ayyubid Sultanate":"Iraq","Ottoman Empire":"Turkey","Mughal Empire":"India","Duchy of Normandy":"France","Russian Socialist Federative Soviet Republic":"Russia","Tsardom of Russia":"Russia","Commonwealth of England":"United Kingdom","Tokugawa shogunate":"Japan","Mali Empire":"Mali","Classical Athens":"Greece","Ancient Carthage":"Tunisia","Wu":"China","Crown of Castile":"Spain","Kingdom of Saxony":"Germany","Congress Poland":"Poland"};
+const GEO_MASK="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAfAP8HAAAAAAAAAAAAAAAAAAAAAADo//z//wcAAAAAAAACAAAAAAAAAAAAhvvw//8PAPABAAAAwAMAAAAAAAAAwADkw////wEABAAAAABgAAAAAAAAAADAUT8A/v8PAAAAAAwA/j8AuAEAAAAAcBHtDcD/fwAAAAAwAPz/fwMAABCAAQD5w/wD8P8FAAAcAIL7//9//xOAAP/ff0668QD/HwAA+A8At///////v3/w/////x8++B8AAOD/1//7////////jP////+/+AE/gAcAn9f//////////w/w/////wEs4AEAAHz+////////////gL////8HeAAcAADg5///////////9ADgAf7/f4AnAAAAAH78////////H0QAAAiA//8f8AcAAIBB4////////38ADwAQAOD//5//AQAAHAT/////////A3AAAAAA/v//+T8AAGDz//////////8DAQAAAMD/////AwAAsP//////////LwAAAAAA6P///2IAAAD+//////////8CAAAAAAD///8/CAAA4P//////////JwAAAAAA8P///wYAAAD+/unz/////z8AAAAAAAD///8HAAAA/pgPPP//////MQAAAAAA8P//PwAAAMBD9v7n/////wcBAAAAAAD///8AAAAAPkD7f/7///8hEAAAAAAA4P//DwAAAIDhAv/n////f8YAAAAAAAD8//8AAAAA+AdE//////8jDwAAAAAAgP//AwAAAMD/APD/////PxgAAAAAAADw/x8AAAAA/n/v//////8HAAAAAAAAAPwDAgAAAOD////7////fwAAAAAAAACgHyAAAACA//9/f/7///8DAAAAAAAAAPQBAAAAAPj//+cv+P//PwAAAAAAAAAAHjAAAADA/////g/+//8EAAAAAAAAAOBhCAAAAP7//99/4D//AAAAAAAAAAAAPAMEAADA////+Qf84BcAAAAAAAAAAAA/AAAAAPz//58fgAf+QAAAAAAAAAAAAA8AAADg////ewA4gA8EAAAAAAAAAADAAAAAAPz//38BgAP4QQAAAAAAAAAAAAgPAADA////zwAwgAwQAAAAAAAAAAAA9Q8AAPj///8HAAVIAAAAAAAAAAAAAID/AQAA////fwBAAAAQAAAAAAAAAAAA+P8AAGDh//8DAAA0GAAAAAAAAAAAAID/HwAAAPj/HwAAgMIBAAAAAAAAAAAA/P8BAACA//8AAAAYXgAAAAAAAAAAAMD/fwAAAPz/BwAAAOOBAQAAAAAAAAAA/P8/AACA/z8AAABgbtQBAAAAAAAAAOD//w8AAPD/AwAAAAQIeAAAAAAAAAAA/P//AQAA/z8AAACAA4APAQAAAAAAAID//w8AAPD/AwAAAAARsEAAAAAAAAAA+P9/AAAA/j8AAAAAAAAAAAAAAAAAAAD//wcAAPD/QwAAAACAIwAAAAAAAAAA8P9/AAAA/z8EAAAAAD8GIAAAAAAAAAD8/wMAAPD/cQAAAAD4ZwAAAAAAAAAAgP8/AAAA/w8HAAAAgP8HAAAAAAAAAAD4/wMAAOD/MAAAAAD//wEBAAAAAAAAgP8PAAAA/g8DAAAA+P8fAAAAAAAAAAD4PwAAAOB/EAAAAID//wMAAAAAAAAAgP8DAAAA/AMAAAAA+P9/AAAAAAAAAAD8HwAAAMA/AAAAAID//wcAAAAAAAAAwP8BAAAA+AEAAAAA8P9/AAAAAAAAAAD8DwAAAIAPAAAAAAAP/gMAAAAAAAAAwB8AAAAAAAAAAAAAEIAfAAEAAAAAAAD+AwAAAAAAAAAAAAAA8AEgAAAAAAAA4AcAAAAAAAAAAAAAAAAAAAYAAAAAAABeAAAAAAAAAAAAAAAAwAAwAAAAAAAAwAMAAAAAAAAAAAAAAAAIgAEAAAAAAAAeAAAAAAAAAAAAAAAAAAAMAAAAAAAA4AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAAABAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAB4AEDwn/8HAAAAAAAAAAAwAAAAAACA/P/h/////w8AAAAAAAAAwAcAAAD4////z///////PwAAAAAAHALwAACA//////////////8HAADw/y///wMAAP7/////////////HwAA+P///38AAID///////////////8AAPL/////BwAO////////////////DwAA8P////8HEPD//////////////z8AAOD/////////////////////////H/AfwP//////////////////////////////////////////////////////////////////////////////////////";
+/* ============================================================
+   DISCOVER EXTRAS — a spinnable globe of where the almanac's
+   people come from, and a "Who came first?" streak game.
+   ============================================================ */
+/* a generic people list in the modal (used by the globe) */
+function openPeopleList(title,eyebrow,ppl){
+  modalList=ppl.slice();modalIdx=-1;
+  openModal(()=>{
+    const m=el("div");const top=el("div",{class:"mtop"});
+    top.appendChild(el("button",{class:"mclose","aria-label":"Close",html:"&times;",onClick:closeModal}));
+    top.appendChild(el("div",{class:"meyebrow"},[el("span",{class:"tier",text:eyebrow})]));
+    top.appendChild(el("h2",{id:"modalTitle",text:title}));m.appendChild(top);
+    const dl=el("div",{class:"daylist"});
+    ppl.forEach(p=>{const r=el("button",{class:"dr",onClick:()=>openPerson(p)});
+      r.appendChild(el("div",{class:"dr-id"},[personFace(p,34),el("div",{},[el("div",{class:"nm",text:p.name}),el("div",{class:"ds",text:(fmtYear(p)?fmtYear(p)+" · ":"")+(p.shortDescription||p.bio||"").slice(0,80)})])]));
+      const tag=el("span",{class:"ctag",text:CATS[p.category].label});tag.style.background=catColor(p.category);r.appendChild(el("div",{},[tag]));dl.appendChild(r);});
+    m.appendChild(dl);return m;});
+}
+/* where each person comes from, as a place on the globe */
+function placeOf(p){if(!p.country||p.country==="Unknown")return null;const k=GEO_ALIAS[p.country]||p.country;return GEO_PLACES[k]?k:null;}
+let _landPts=null;
+function landPoints(){
+  if(_landPts)return _landPts;
+  const bin=atob(GEO_MASK),pts=[];
+  for(let r=0;r<90;r++){const lat=89-2*r,step=Math.max(1,Math.round(1/Math.max(0.12,Math.cos(lat*Math.PI/180))));
+    for(let c=0;c<180;c+=step){const i=r*180+c;if(bin.charCodeAt(i>>3)&(1<<(i&7)))pts.push([lat*Math.PI/180,(-179+2*c)*Math.PI/180]);}}
+  return (_landPts=pts);}
+function globeSection(){
+  const sec=el("section",{class:"section globe-sec"});
+  const byPlace={};
+  HISTORICAL.forEach(p=>{const k=placeOf(p);if(k)(byPlace[k]=byPlace[k]||[]).push(p);});
+  Object.values(byPlace).forEach(a=>a.sort((x,y)=>rankScore(y)-rankScore(x)));
+  const places=Object.keys(byPlace).map(k=>({k,lat:GEO_PLACES[k][0]*Math.PI/180,lon:GEO_PLACES[k][1]*Math.PI/180,n:byPlace[k].length,fresh:byPlace[k].filter(p=>p.isNew).length}))
+    .sort((a,b)=>b.n-a.n);
+  sec.appendChild(secHead("The world in the almanac",places.length+" countries and counting. Drag the globe to spin it; tap a light to meet the people from there"));
+  const wrap=el("div",{class:"globe-wrap"});
+  const box=el("div",{class:"globe-box"});
+  const cv=el("canvas",{class:"globe-cv",tabindex:"0","aria-label":"Interactive globe. Use arrow keys to rotate; the list beside it has every country."});
+  const tip=el("div",{class:"globe-tip","aria-hidden":"true"});
+  box.append(cv,tip);wrap.appendChild(box);
+  const side=el("div",{class:"globe-side"});wrap.appendChild(side);
+  sec.appendChild(wrap);
+  const maxN=places[0]?places[0].n:1;
+  places.forEach(pl=>pl.r=2.4+Math.min(12,Math.sqrt(pl.n)*1.15));
+  /* view state */
+  let lon0=-(GEO_PLACES["France"]?GEO_PLACES["France"][1]:10)*Math.PI/180+0.4,lat0=0.42,vx=0,vy=0,dragging=false,hover=null,sel=null,idleAt=0,tween=null,raf=0,W=0,R=0,dpr=1;
+  const ctx=cv.getContext("2d");
+  function project(lat,lon){const cl=Math.cos(lat),dl=lon-lon0;
+    const x=cl*Math.sin(dl),y=Math.cos(lat0)*Math.sin(lat)-Math.sin(lat0)*cl*Math.cos(dl),z=Math.sin(lat0)*Math.sin(lat)+Math.cos(lat0)*cl*Math.cos(dl);
+    return [W/2+R*x,W/2-R*y,z];}
+  function size(){const w=Math.min(box.clientWidth,560);if(!w)return;dpr=Math.min(window.devicePixelRatio||1,2);W=w;R=w*0.44;
+    cv.width=w*dpr;cv.height=w*dpr;cv.style.width=w+"px";cv.style.height=w+"px";ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function draw(){
+    ctx.clearRect(0,0,W,W);
+    /* atmosphere and ocean */
+    const c=W/2,g=ctx.createRadialGradient(c,c,R*0.9,c,c,R*1.16);g.addColorStop(0,"rgba(120,160,255,.28)");g.addColorStop(1,"rgba(120,160,255,0)");
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(c,c,R*1.16,0,6.2832);ctx.fill();
+    const o=ctx.createRadialGradient(c-R*0.35,c-R*0.4,R*0.1,c,c,R);o.addColorStop(0,"#27406f");o.addColorStop(0.65,"#132544");o.addColorStop(1,"#0a1428");
+    ctx.fillStyle=o;ctx.beginPath();ctx.arc(c,c,R,0,6.2832);ctx.fill();
+    /* land as dots, the far side faintly visible through the sphere */
+    const pts=landPoints();
+    for(let i=0;i<pts.length;i++){const [x,y,z]=project(pts[i][0],pts[i][1]);
+      if(z>0){ctx.fillStyle="rgba(200,215,245,"+(0.25+0.6*z).toFixed(3)+")";const s=0.8+0.9*z;ctx.fillRect(x-s/2,y-s/2,s,s);}
+      else if(z>-0.6){ctx.fillStyle="rgba(150,170,220,0.05)";ctx.fillRect(x-0.5,y-0.5,1,1);}}
+    /* rim light */
+    ctx.strokeStyle="rgba(170,200,255,.35)";ctx.lineWidth=1;ctx.beginPath();ctx.arc(c,c,R,0,6.2832);ctx.stroke();
+    /* the people, as glowing lights */
+    const t=performance.now()/1000;
+    for(const pl of places){const [x,y,z]=project(pl.lat,pl.lon);pl.sx=x;pl.sy=y;pl.z=z;if(z<=0.02)continue;
+      const k=pl===hover||pl===sel,rr=pl.r*(0.55+0.45*z)*(k?1.25:1);
+      const gl=ctx.createRadialGradient(x,y,0,x,y,rr*2.3);gl.addColorStop(0,"rgba(255,226,150,"+(0.55*z).toFixed(3)+")");gl.addColorStop(1,"rgba(255,200,110,0)");
+      ctx.fillStyle=gl;ctx.beginPath();ctx.arc(x,y,rr*2.3,0,6.2832);ctx.fill();
+      ctx.fillStyle=k?"#fff6d8":"rgba(255,232,170,"+(0.55+0.45*z).toFixed(3)+")";ctx.beginPath();ctx.arc(x,y,Math.max(1.6,rr*0.42),0,6.2832);ctx.fill();
+      if(pl.fresh&&!REDUCE){const ph=(t*0.6+pl.lat)%1;ctx.strokeStyle="rgba(140,230,200,"+((1-ph)*0.6*z).toFixed(3)+")";ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(x,y,rr*0.6+ph*rr*1.6,0,6.2832);ctx.stroke();}
+      if(k){ctx.strokeStyle="rgba(255,246,216,.9)";ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,rr+3,0,6.2832);ctx.stroke();}}
+  }
+  function frame(){
+    raf=0;if(!cv.isConnected)return;
+    const now=performance.now();
+    if(tween){const k=Math.min(1,(now-tween.t0)/900),e=k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      lon0=tween.l0+(tween.l1-tween.l0)*e;lat0=tween.a0+(tween.a1-tween.a0)*e;if(k>=1)tween=null;}
+    else if(!dragging){lon0+=vx;lat0=Math.max(-1.1,Math.min(1.1,lat0+vy));vx*=0.94;vy*=0.94;
+      if(!REDUCE&&!hover&&now>idleAt&&Math.abs(vx)<0.0005)lon0+=0.0016;}
+    draw();
+    if(visible)raf=requestAnimationFrame(frame);}
+  let visible=false;
+  const io=("IntersectionObserver" in window)?new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(frame);}):null;
+  function pick(e){const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=null,bd=1e9;
+    for(const pl of places){if(!(pl.z>0.05))continue;const d=Math.hypot(pl.sx-x,pl.sy-y);if(d<pl.r+7&&d<bd){bd=d;best=pl;}}return best;}
+  function showTip(pl){if(!pl){tip.classList.remove("on");return;}
+    tip.innerHTML="";tip.append(el("b",{text:pl.k}),el("span",{text:pl.n+(pl.n===1?" life":" lives")+(pl.fresh?" · "+pl.fresh+" new":"")}),el("em",{text:byPlace[pl.k].slice(0,3).map(p=>p.name).join(" · ")}));
+    tip.style.left=Math.min(Math.max(pl.sx,90),W-90)+"px";tip.style.top=(pl.sy-pl.r-10)+"px";tip.classList.add("on");}
+  function focusPlace(pl){sel=pl;idleAt=performance.now()+6000;
+    let l1=pl.lon;while(l1-lon0>Math.PI)l1-=2*Math.PI;while(l1-lon0<-Math.PI)l1+=2*Math.PI;
+    tween={t0:performance.now(),l0:lon0,l1,a0:lat0,a1:Math.max(-0.9,Math.min(0.9,pl.lat*0.85))};
+    if(REDUCE){lon0=l1;lat0=tween.a1;tween=null;}
+    paintSide();if(!raf)raf=requestAnimationFrame(frame);}
+  let down=null;
+  cv.addEventListener("pointerdown",e=>{down={x:e.clientX,y:e.clientY,moved:false,touch:e.pointerType!=="mouse"};dragging=true;tween=null;vx=vy=0;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener("pointermove",e=>{
+    if(down){const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>4)down.moved=true;
+      if(down.moved){const k=1/R;lon0-=dx*k;vx=-dx*k*0.6;if(!down.touch){lat0=Math.max(-1.1,Math.min(1.1,lat0+dy*k));vy=dy*k*0.6;}down.x=e.clientX;down.y=e.clientY;showTip(null);}
+      idleAt=performance.now()+4000;return;}
+    const pl=pick(e);if(pl!==hover){hover=pl;cv.style.cursor=pl?"pointer":"grab";showTip(pl);}else if(pl)showTip(pl);});
+  cv.addEventListener("pointerup",e=>{dragging=false;if(down&&!down.moved){const pl=pick(e);if(pl)focusPlace(pl);}down=null;});
+  cv.addEventListener("pointercancel",()=>{dragging=false;down=null;});
+  cv.addEventListener("pointerleave",()=>{if(!dragging){hover=null;showTip(null);}});
+  cv.addEventListener("keydown",e=>{const k={ArrowLeft:[0.2,0],ArrowRight:[-0.2,0],ArrowUp:[0,0.15],ArrowDown:[0,-0.15]}[e.key];
+    if(k){e.preventDefault();tween={t0:performance.now(),l0:lon0,l1:lon0-k[0],a0:lat0,a1:Math.max(-1.1,Math.min(1.1,lat0+k[1]))};idleAt=performance.now()+5000;if(!raf)raf=requestAnimationFrame(frame);}});
+  /* side panel: the leaderboard, or the chosen country */
+  function paintSide(){
+    side.innerHTML="";
+    if(sel){const ppl=byPlace[sel.k];
+      side.appendChild(el("button",{class:"gs-back",text:"← All countries",onClick:()=>{sel=null;paintSide();}}));
+      side.appendChild(el("div",{class:"gs-k",text:"From what is now"}));
+      side.appendChild(el("h3",{class:"gs-h",text:sel.k}));
+      const fields=Object.entries(countBy(ppl,"category")).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([c])=>CATS[c].label);
+      side.appendChild(el("p",{class:"gs-s",text:ppl.length+(ppl.length===1?" life":" lives")+(sel.fresh?", "+sel.fresh+" just added":"")+" · strongest in "+fields.join(", ")}));
+      const ul=el("div",{class:"gs-list"});
+      ppl.slice(0,7).forEach(p=>{const b=el("button",{class:"gs-p",onClick:()=>openPerson(p)},[personFace(p,34),el("span",{},[el("b",{text:p.name}),el("em",{text:(fmtYear(p)||"")+" · "+CATS[p.category].label})])]);ul.appendChild(b);});
+      side.appendChild(ul);
+      if(ppl.length>7)side.appendChild(el("button",{class:"gs-all",text:"See all "+ppl.length+" →",onClick:()=>openPeopleList(sel.k,ppl.length+" lives in the almanac",ppl)}));
+      return;}
+    const fresh=places.filter(p=>p.fresh).length;
+    side.appendChild(el("div",{class:"gs-k",text:"Where they come from"}));
+    side.appendChild(el("h3",{class:"gs-h",text:places.length+" countries"}));
+    side.appendChild(el("p",{class:"gs-s",html:"Brighter lights hold more lives. <span class=\"gs-new\">Pulsing rings</span> mark the "+fresh+" countries with people just added."}));
+    const ul=el("div",{class:"gs-rank"});
+    places.slice(0,10).forEach((pl,i)=>{const b=el("button",{class:"gs-r",onClick:()=>focusPlace(pl)});
+      const bar=el("i");bar.style.width=Math.max(4,pl.n/maxN*100)+"%";
+      b.append(el("span",{class:"gs-i",text:String(i+1)}),el("span",{class:"gs-n",text:pl.k}),el("span",{class:"gs-b"},[bar]),el("span",{class:"gs-c",text:String(pl.n)}));ul.appendChild(b);});
+    side.appendChild(ul);
+    const sel2=el("select",{class:"gs-pick","aria-label":"Choose any country",onChange:e=>{const pl=places.find(x=>x.k===e.target.value);if(pl)focusPlace(pl);}});
+    sel2.appendChild(el("option",{value:"",text:"Or pick any of the "+places.length+" countries…"}));
+    places.slice().sort((a,b)=>a.k.localeCompare(b.k)).forEach(pl=>sel2.appendChild(el("option",{value:pl.k,text:pl.k+" ("+pl.n+")"})));
+    side.appendChild(sel2);
+  }
+  paintSide();
+  requestAnimationFrame(()=>{size();draw();if(io)io.observe(cv);else{visible=true;raf=requestAnimationFrame(frame);}});
+  if(window.ResizeObserver){const ro=new ResizeObserver(()=>{if(!cv.isConnected){ro.disconnect();return;}size();draw();});ro.observe(box);}
+  return sec;
+}
+
+/* ---------- Who came first? ---------- */
+function wfPool(){
+  if(wfPool._c)return wfPool._c;
+  const ok=HISTORICAL.filter(p=>!p.isPersonal&&p.birthYear!=null&&p.dateStatus!=="unknown");
+  return (wfPool._c=featuredOf(ok,1100));}
+function wfKey(p){return p.birthYear*10000+(p.month||6)*100+(p.day||15);}
+function whoFirstSection(){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Who came first?","Two famous lives, one question. The pairs get closer together as your streak grows"));
+  const card=el("div",{class:"wf"});sec.appendChild(card);
+  const LEVELS=[["Warm-up","centuries apart",80,99999],["Getting warmer","a lifetime apart",25,80],["Tricky","the same generation",8,25],["Hard","within a few years",1,8],["Expert","born the same year",0,0]];
+  let streak=0,best=STORE.get("wf_best",0),played=STORE.get("wf_n",0),right=STORE.get("wf_c",0),pair=null,answered=false;const recent=[];
+  const head=el("div",{class:"wf-head"});
+  const lvl=el("div",{class:"wf-lvl"}),stats=el("div",{class:"wf-stats"});head.append(lvl,stats);card.appendChild(head);
+  const stage=el("div",{class:"wf-stage"});card.appendChild(stage);
+  const foot=el("div",{class:"wf-foot","aria-live":"polite"});card.appendChild(foot);
+  function level(){return LEVELS[Math.min(LEVELS.length-1,Math.floor(streak/3))];}
+  function newPair(){
+    const pool=wfPool();
+    for(let li=Math.min(LEVELS.length-1,Math.floor(streak/3));li>=0;li--){const L=LEVELS[li];
+    for(let tries=0;tries<120;tries++){
+      const a=pool[Math.floor(Math.random()*pool.length)];if(recent.includes(a.id))continue;
+      const cands=pool.filter(b=>{if(b.id===a.id||recent.includes(b.id))return false;const gap=Math.abs(yrsBetween(a.birthYear,b.birthYear));
+        if(L[2]===0)return gap===0&&a.dateStatus==="exact"&&b.dateStatus==="exact"&&a.month&&b.month&&wfKey(a)!==wfKey(b);
+        return gap>=L[2]&&gap<L[3]&&wfKey(a)!==wfKey(b);});
+      if(!cands.length)continue;
+      const b=cands[Math.floor(Math.random()*cands.length)];
+      recent.push(a.id,b.id);while(recent.length>40)recent.shift();
+      return Math.random()<0.5?[a,b]:[b,a];}}
+    return null;}
+  function paintHead(){lvl.innerHTML="";const L=level();lvl.append(el("b",{text:L[0]}),el("span",{text:" · "+L[1]}));
+    stats.innerHTML="";[["Streak",streak],["Best",best],["Accuracy",played?Math.round(right/played*100)+"%":"—"]].forEach(([k,v])=>stats.appendChild(el("span",{class:"wf-st"},[el("b",{text:String(v)}),el("em",{text:k})])));}
+  function fullDate(p){return (p.month&&p.day&&p.dateStatus==="exact"?MONTHS[p.month-1]+" "+p.day+", ":"")+fmtYear(p);}
+  function round(){
+    answered=false;pair=newPair();stage.innerHTML="";foot.innerHTML="";paintHead();
+    if(!pair){stage.appendChild(el("p",{class:"muted",text:"No more pairs at this level. Amazing!"}));return;}
+    pair.forEach((p,i)=>{
+      const b=el("button",{class:"wf-card","aria-label":"Choose "+p.name});
+      b.appendChild(personFace(p,84));
+      b.appendChild(el("b",{class:"wf-name",text:p.name}));
+      b.appendChild(el("span",{class:"wf-meta",text:CATS[p.category].label+(p.country&&p.country!=="Unknown"?" · "+p.country:"")}));
+      b.appendChild(el("span",{class:"wf-year",text:"?"}));
+      b.addEventListener("click",()=>answer(i,b));
+      stage.appendChild(b);
+      if(i===0)stage.appendChild(el("div",{class:"wf-vs","aria-hidden":"true",text:"VS"}));});
+    foot.appendChild(el("p",{class:"wf-q",text:"Tap the person who was born first."}));
+  }
+  function answer(i){
+    if(answered)return;answered=true;
+    const [a,b]=pair,first=wfKey(a)<wfKey(b)?0:1,ok=i===first;
+    played++;if(ok){right++;streak++;if(streak>best)best=streak;}else streak=0;
+    STORE.set("wf_best",best);STORE.set("wf_n",played);STORE.set("wf_c",right);
+    const cards=stage.querySelectorAll(".wf-card");
+    cards.forEach((c,j)=>{c.disabled=true;c.classList.add(j===first?"first":"second");if(j===i)c.classList.add(ok?"right":"wrong");
+      c.querySelector(".wf-year").textContent=fullDate(pair[j]);});
+    const A=pair[first],B=pair[1-first];let gap;
+    const yrs=yrsBetween(A.birthYear,B.birthYear);
+    if(yrs===0&&A.month&&B.month){const d=Math.round((new Date(2001,B.month-1,B.day||1)-new Date(2001,A.month-1,A.day||1))/864e5);gap=d+(d===1?" day":" days");}
+    else gap=yrs+(yrs===1?" year":" years");
+    foot.innerHTML="";
+    foot.appendChild(el("p",{class:"wf-res "+(ok?"ok":"no"),html:(ok?"<b>Correct!</b> ":"<b>Not quite.</b> ")+esc(A.name)+" was born <b>"+gap+"</b> before "+esc(B.name)+"."}));
+    const row=el("div",{class:"wf-btns"});
+    row.appendChild(el("button",{class:"btn btn-gold",text:ok?"Next pair →":"Try again →",onClick:round}));
+    row.appendChild(el("button",{class:"btn btn-line",text:"Meet "+A.name.split(" ")[0],onClick:()=>openPerson(A)}));
+    foot.appendChild(row);paintHead();
+    if(ok&&!REDUCE)card.classList.remove("pop"),void card.offsetWidth,card.classList.add("pop");
+    row.firstChild.focus({preventScroll:true});
+  }
+  round();
+  return sec;
+}
+
 function renderDiscover(view){
   view.innerHTML="";
   /* ---- CINEMATIC HERO: the zodiac universe forms behind the wordmark ---- */
@@ -5195,11 +5500,14 @@ function renderDiscover(view){
   spot.appendChild(todaySignCard());
   tsec.appendChild(spot);view.appendChild(tsec);
 
+  /* ---- WHO CAME FIRST? (a streak game) ---- */
+  view.appendChild(whoFirstSection());
+
   /* ---- JUST ADDED (rotates daily so the almanac never looks the same twice) ---- */
   const freshAll=HISTORICAL.filter(p=>p.isNew);
   if(freshAll.length){
     const fs=el("section",{class:"section"});
-    fs.appendChild(secHead("Just added to the almanac",freshAll.length+" new names — a different selection each day",
+    fs.appendChild(secHead("Just added to the almanac",freshAll.length+" new names from "+new Set(freshAll.map(p=>p.country)).size+" countries, a different selection each day",
       "See them all →",()=>goWithFilter(f=>f.justAdded=true,"people")));
     const r=hrng(hseed("fresh|"+dayKey()));
     const shuffled=freshAll.slice();
@@ -5207,6 +5515,9 @@ function renderDiscover(view){
     fs.appendChild(scroller(shuffled.slice(0,18)));
     view.appendChild(fs);
   }
+
+  /* ---- THE WORLD IN THE ALMANAC (a spinnable globe) ---- */
+  view.appendChild(globeSection());
 
   /* ---- MILESTONE BIRTHDAYS OF THIS YEAR ---- */
   const mSec=milestoneSection();if(mSec)view.appendChild(mSec);
