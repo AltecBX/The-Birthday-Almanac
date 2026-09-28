@@ -503,45 +503,150 @@ html:not([data-theme="dark"]) .meteor::after{background:#C99A45;box-shadow:0 0 5
 .catcard .cc-go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:var(--gold-deep);font-weight:700;font-size:13px}
 
 /* ===== CALENDAR ===== */
-.cal-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.cal-title{display:flex;align-items:baseline;gap:12px}
-.cal-title h1{font-size:28px;font-weight:600}
-.cal-title .yr{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.cal-ctrls{display:flex;align-items:center;gap:8px}
 .navbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font-size:18px;display:grid;place-items:center;transition:.15s}
 .navbtn:hover{background:var(--card-2);border-color:var(--gold-soft)}
 .monthjump{appearance:none;border:1px solid var(--hairline);background:var(--card);color:var(--ink);font-weight:600;font-size:13.5px;
   padding:8px 30px 8px 14px;border-radius:12px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
   background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
-.cal-banner{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.banner-card{flex:1 1 240px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,var(--navy-3),var(--navy-2));color:#F3ECDD;border-radius:var(--radius);padding:15px 18px;border:1px solid #0c1825;position:relative;overflow:hidden}
-.banner-card.gold{background:linear-gradient(160deg,#fff8e8,#f6ead0);color:#5b4a1c;border-color:var(--gold-soft)}
-.banner-card .bnl{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-soft);opacity:.95}
-.banner-card.gold .bnl{color:var(--gold-deep)}
-.banner-card .bnv{font-family:var(--serif);font-size:17px;margin-top:6px;line-height:1.25;text-align:left}
-.banner-card .bnm{font-size:12.5px;margin-top:4px;opacity:.85}
-.banner-card a{color:inherit;font-weight:600;cursor:pointer}
+/* hero */
+.cal-hero{position:relative;overflow:hidden;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  border-radius:var(--radius-xl);padding:26px 28px 22px;margin-bottom:16px;color:#F3ECDD;
+  background:radial-gradient(700px 320px at 90% -40%,rgba(120,140,210,.34),transparent 62%),radial-gradient(500px 260px at -5% 130%,rgba(230,206,142,.16),transparent 60%),linear-gradient(160deg,#1b2640,#11182b 55%,#0b1020);
+  box-shadow:0 26px 60px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.cal-hero>*:not(.star-layer){position:relative;z-index:1}
+.cal-hero .eyebrow{color:#AEB9E8;margin:0 0 2px}
+.ch-text{flex:1 1 420px;min-width:0}
+.ch-title{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ch-title h1{font-size:clamp(40px,6vw,62px);line-height:1;color:#FBF4E6;letter-spacing:-1px;text-shadow:0 8px 34px rgba(230,206,142,.22)}
+.ch-year{display:inline-flex;align-items:center;gap:2px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:3px}
+.ch-year span{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--gold-soft);padding:0 6px;font-variant-numeric:tabular-nums}
+.ch-year button{width:28px;height:28px;border-radius:50%;border:0;background:none;color:#DCE2F5;font-size:17px;cursor:pointer}
+.ch-year button:hover{background:rgba(255,255,255,.1)}
+.ch-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.ch-chip{font-size:12.5px;color:#DCE2F5;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:5px 11px}
+.ch-chip b{color:#FBF4E6}
+.ch-sky{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.ch-ev{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#F3ECDD;background:rgba(230,206,142,.1);border:1px solid rgba(230,206,142,.26);border-radius:999px;padding:4px 12px 4px 5px;cursor:pointer;transition:.15s}
+.ch-ev:hover{background:rgba(230,206,142,.2)}
+.ch-ev b{font-weight:600;color:var(--gold-soft)}
+.ch-ev.new{background:rgba(174,185,232,.08);border-color:rgba(174,185,232,.22)}
+.ch-sun{width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle,#ffe8a6,#f0b64a);color:#8a5a10;font-size:11px}
+.ch-ctrls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cal-hero .navbtn,.cal-hero .monthjump{background-color:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#F3ECDD}
+.cal-hero .monthjump option{color:#1E2A38}
+.cal-hero .navbtn:hover{background-color:rgba(255,255,255,.16)}
+.ch-today{border:0;border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;color:#1b2335;background:linear-gradient(180deg,#F3DFA6,#D7B45E)}
+/* month ribbon */
+.cal-ribbon{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-bottom:18px}
+.cr-m{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:66px;border:1px solid var(--hairline);background:var(--card);border-radius:12px;padding:6px 2px;cursor:pointer;transition:.15s}
+.cr-m i{width:58%;max-width:26px;border-radius:4px 4px 2px 2px;background:linear-gradient(180deg,var(--gold-soft),var(--gold));opacity:.55;transition:.2s}
+.cr-m span{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--muted)}
+.cr-m em{font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--faint);line-height:1}
+.cr-m.on em{color:var(--gold-soft)}
+.cr-m:hover{border-color:var(--gold-soft);transform:translateY(-1px)}
+.cr-m:hover i{opacity:.9}
+.cr-m.on{background:var(--navy);border-color:var(--navy);box-shadow:var(--shadow-md)}
+.cr-m.on i{opacity:1;background:linear-gradient(180deg,#fff0c2,var(--gold))}
+.cr-m.on span{color:#F3ECDD}
+html[data-theme="dark"] .cr-m.on{background:#284268;border-color:#35527c}
+/* layout */
+.cal-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.cal-stage{perspective:1600px;min-width:0}
 .weekhead{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
 .weekhead div{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);text-align:center}
-.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-@media(prefers-reduced-motion:no-preference){
-  .calgrid .cell.casc{opacity:0;animation:calCasc .42s var(--ease) var(--cd,0s) forwards}
-}
-@keyframes calCasc{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
-.cell{position:relative;min-height:96px;border:1px solid var(--hairline);border-radius:14px;background:var(--card);padding:9px 10px;
-  text-align:left;overflow:hidden;display:flex;flex-direction:column;gap:5px;transition:transform .12s,box-shadow .16s,border-color .16s}
-.cell.empty{background:transparent;border:1px solid transparent}
-.cell.has{cursor:pointer}
-.cell.has:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--gold-soft);z-index:1}
-.cell.today{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-wash)}
-.cell .density{position:absolute;inset:0;pointer-events:none}
-.cell .dnum{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-2);position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
-.cell .cnt-badge{font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--navy);border-radius:999px;padding:1px 7px}
-.cell .clab{font-size:12px;font-weight:600;color:var(--ink);line-height:1.2;position:relative;z-index:1;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cell .dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto;position:relative;z-index:1}
+.weekhead div.we{color:var(--gold-deep)}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;transform-style:preserve-3d}
+/* tiles */
+.cell{position:relative;min-height:112px;min-width:0;border:1px solid var(--hairline);border-radius:14px;padding:8px 9px;text-align:left;
+  display:flex;flex-direction:column;gap:5px;font:inherit;color:inherit;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cat,var(--gold)) calc(var(--heat,0) * 100%),var(--card)),var(--card) 85%);
+  box-shadow:0 1px 0 var(--card),0 3px 0 -1px var(--hairline),0 8px 16px -10px rgba(28,42,56,.35);
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0);
+  transition:transform .2s var(--ease),box-shadow .2s,border-color .2s}
+.cell.empty{background:transparent;border-color:transparent;box-shadow:none}
+.cell.tile{cursor:pointer}
+.cell.none{background:var(--card);opacity:.9}
+.cell.we:not(.empty){background-color:var(--card-2)}
+.cell::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(180px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.55),transparent 60%);mix-blend-mode:soft-light}
+.cell.tile:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(26px);z-index:2;border-color:var(--gold-soft);
+  box-shadow:0 2px 0 var(--card),0 5px 0 -1px var(--gold-soft),0 22px 36px -14px rgba(28,42,56,.45)}
+.cell.tile:hover::after{opacity:1}
+.cell.tile:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.cell.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 3px 0 -1px var(--gold-soft),0 16px 28px -14px rgba(168,126,46,.5)}
+.cell.today{border-color:var(--gold)}
+.cell.today .dn{background:var(--gold);color:#fff;border-radius:999px;padding:0 7px;margin-left:-3px}
+.cell.mine{box-shadow:0 0 0 2px var(--c-music),0 3px 0 -1px var(--hairline),0 14px 24px -12px rgba(194,64,122,.45)}
+.cell.fullmoon{background-image:radial-gradient(90px 60px at 100% 0%,rgba(239,229,204,.55),transparent 70%)}
+html[data-theme="dark"] .cell.fullmoon{background-image:radial-gradient(90px 60px at 100% 0%,rgba(239,229,204,.16),transparent 70%)}
+.cell .dnum{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:4px}
+.dr-r{display:inline-flex;align-items:center;gap:5px}
+.cell .cnt-badge{font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--navy);border-radius:999px;padding:1px 6px}
+html[data-theme="dark"] .cell .cnt-badge{background:#35527c}
+.ctag-l{font-size:10px;font-weight:700;letter-spacing:.2px;color:var(--gold-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctag-l.sun{color:var(--c-sports)}
+.ctag-l.me{color:var(--c-music)}
+.c-lead{display:flex;align-items:center;gap:6px;min-width:0}
+.c-lead .pc-face{flex:none;box-shadow:0 0 0 1.5px var(--card),0 0 0 2.5px color-mix(in srgb,var(--cat,var(--gold)) 60%,transparent)}
+.cell .clab{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:4px}
+.cell .dots{display:flex;gap:3px;flex-wrap:wrap}
 .cell .dots i{width:7px;height:7px;border-radius:50%}
-.cell .more{font-family:var(--mono);font-size:10px;color:var(--muted);position:relative;z-index:1}
+.cell .more{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--muted)}
+.moon-svg{flex:none;display:block;overflow:visible}
+.moon-svg .mn-d{fill:#2b3550;stroke:rgba(120,130,160,.35);stroke-width:.6}
+.moon-svg .mn-l{fill:#EFE5CC}
+html[data-theme="dark"] .moon-svg .mn-d{fill:#0b1222;stroke:rgba(200,210,240,.22)}
+/* month change: tiles flip in along the diagonal */
+@media(prefers-reduced-motion:no-preference){
+  .calgrid.flip-next .cell:not(.empty),.calgrid.flip-prev .cell:not(.empty),.calgrid.flip-first .cell:not(.empty){animation:tileIn .6s var(--ease) var(--cd,0s) backwards}
+  .calgrid.flip-next .cell:not(.empty){--fy:-80deg}
+  .calgrid.flip-prev .cell:not(.empty){--fy:80deg}
+  .calgrid.flip-first .cell:not(.empty){--fy:0deg;--fx:-55deg}
+}
+@keyframes tileIn{from{opacity:0;transform:perspective(900px) rotateX(var(--fx,0deg)) rotateY(var(--fy,0deg)) translateZ(-40px)}}
+.cal-legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:12px;font-size:12px;color:var(--muted)}
+.cal-legend>span{display:inline-flex;align-items:center;gap:6px}
+.lg-heat{width:26px;height:10px;border-radius:4px;background:linear-gradient(90deg,var(--card-3),var(--gold))}
+.lg-hint{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+/* day panel */
+.cal-focus{position:sticky;top:92px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:18px 18px 16px;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
+.cal-focus.preview{border-color:var(--gold-soft)}
+.cf-wd{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-deep)}
+.cf-head h2{font-size:28px;line-height:1.1;margin:3px 0 2px}
+.cf-z{font-size:13px;color:var(--muted)}
+.cf-sky{display:flex;align-items:center;gap:12px;margin:14px 0 10px;padding:11px 12px;border-radius:14px;background:linear-gradient(160deg,#1b2640,#10172a);color:#F3ECDD}
+.cf-sky .moon-svg{filter:drop-shadow(0 0 10px rgba(239,229,204,.3))}
+.cf-sky .moon-svg .mn-d{fill:#0b1222;stroke:rgba(200,210,240,.25)}
+.cf-sky b{display:block;font-size:14px}
+.cf-sky span{display:block;font-size:11.5px;color:#B9C1DD;margin-top:1px}
+.cf-note{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 10px}
+.cf-mine{font-size:12.5px;font-weight:600;color:var(--c-music);margin:0 0 10px}
+.cf-k{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);margin:6px 0 8px}
+.cf-list{display:flex;flex-direction:column;gap:6px}
+.cf-p{position:relative;display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--hairline-2);background:var(--card-2);border-radius:13px;padding:7px 10px 7px 7px;cursor:pointer;overflow:hidden;transition:.15s}
+.cf-p:hover{border-color:var(--gold-soft);transform:translateX(2px);background:var(--card)}
+.cf-t{min-width:0;flex:1}
+.cf-t b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-t span{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-t em{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--gold-deep);margin-top:1px}
+.cf-sw{position:absolute;left:0;top:0;bottom:0;width:3px}
+.cf-all{margin-top:12px;width:100%;border:0;border-radius:12px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;color:#F3ECDD;background:var(--navy)}
+html[data-theme="dark"] .cf-all{background:#284268}
+.cf-empty{font-size:13px;color:var(--muted);line-height:1.5}
+@media(max-width:1099px){.cal-layout{grid-template-columns:1fr}.cal-focus{position:static}.lg-hint{margin-left:0}}
+@media(max-width:820px){
+  .cal-hero{padding:22px 18px 18px;border-radius:var(--radius-lg)}
+  .cal-ribbon{gap:3px}.cr-m{height:56px;border-radius:9px}.cr-m em{display:none}.cr-m span{font-size:9.5px;letter-spacing:-.2px}
+  .calgrid,.weekhead{gap:5px}.cell{min-height:78px;padding:6px 6px;border-radius:11px}
+  .c-lead .pc-face{display:none}.cell .clab{font-size:10.5px}.ctag-l{font-size:9px}
+  .dr-r .moon-svg{width:12px;height:12px}
+}
+@media(max-width:480px){
+  .calgrid,.weekhead{gap:3px}.cell{min-height:64px;padding:5px 4px;border-radius:9px;gap:3px}
+  .cell .cnt-badge{display:none}.cell .more{display:none}.cell .clab{font-size:9.5px;-webkit-line-clamp:2}.ctag-l{display:none}
+  .cell .dots i{width:5px;height:5px}
+}
 .cal-extra{margin-top:18px}
 .fam-label{font-size:11px;color:var(--faint);font-weight:600;margin-bottom:7px;font-family:var(--mono);letter-spacing:.6px;text-transform:uppercase}
 
@@ -567,17 +672,6 @@ html:not([data-theme="dark"]) .meteor::after{background:#C99A45;box-shadow:0 0 5
 .loadmore:hover{background:var(--card-2);border-color:var(--gold-soft)}
 
 /* ===== TIMELINE ===== */
-.tl-era{margin-bottom:26px}
-.tl-eh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
-.tl-eh b{font-family:var(--serif);font-size:18px;font-weight:600}
-.tl-eh span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
-.tl-track{position:relative;height:54px;background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--hairline);
-  border-radius:12px;margin-bottom:5px}
-.tdot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;border:2px solid var(--card);transform:translate(-50%,-50%);
-  transition:transform .12s,box-shadow .15s;box-shadow:var(--shadow-sm)}
-.tdot:hover{transform:translate(-50%,-50%) scale(1.5);box-shadow:var(--shadow);z-index:2}
-.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-
 /* ===== PATTERNS / CHARTS ===== */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px}
 .chart{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:20px 22px;box-shadow:var(--shadow-sm)}
@@ -1110,9 +1204,6 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
   .cardgrid{grid-template-columns:1fr;gap:14px}
   .catcard .cc-band{padding:16px 18px}
   /* calendar compact */
-  .calgrid{gap:5px}.cell{min-height:72px;padding:6px 7px}.cell .clab{font-size:11px}
-  .cal-banner{flex-direction:column}
-  .banner-card{flex:0 0 auto}
   /* charts */
   .chart{padding:16px 16px}
   .bar-row{grid-template-columns:70px 1fr 28px;gap:8px}
@@ -1134,8 +1225,6 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
 
 @media(max-width:480px){
   .wrap{padding:0 13px}
-  .calgrid{gap:4px}.cell{min-height:60px;border-radius:10px;padding:5px 6px}
-  .cell .clab{font-size:10.5px;-webkit-line-clamp:2}.cell .more{display:none}
   .mtop h2{font-size:25px}
   .dhero-cta .btn{flex:1;justify-content:center}
   .statstrip{grid-template-columns:1fr 1fr}
@@ -1283,15 +1372,134 @@ html[data-theme="dark"] #charttip{background:var(--card-3);border:1px solid var(
 .moon-row{display:flex;align-items:center;gap:16px;margin-top:8px}
 .moon-cv{flex:none;filter:drop-shadow(0 0 14px rgba(239,229,204,.25))}
 
-/* ===== timeline year scrubber ===== */
-.tl-scrub{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:16px 18px;margin-bottom:22px;box-shadow:var(--shadow-sm)}
-.tl-scrub input[type=range]{width:100%;accent-color:var(--gold);cursor:ew-resize;height:26px}
-.tls-out{font-size:14px;color:var(--ink-2);margin-top:6px;min-height:20px}
-.tls-out b{font-family:var(--serif);font-size:16px;color:var(--ink)}
-.tls-hint{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-top:5px}
-.tl-scrubbing .tdot{opacity:.22;transition:opacity .2s,transform .2s,box-shadow .2s}
-.tl-scrubbing .tdot.lit{opacity:1;transform:translate(-50%,-50%) scale(1.55);z-index:2;box-shadow:0 0 10px 2px rgba(230,206,142,.55)}
-@media(prefers-reduced-motion:reduce){.tl-scrubbing .tdot.lit{transform:translate(-50%,-50%)}}
+/* ===== TIMELINE — time machine ===== */
+.tm{position:relative;overflow:hidden;border-radius:var(--radius-xl);padding:28px 30px 22px;margin-bottom:34px;color:#F3ECDD;
+  background:radial-gradient(800px 380px at 88% -30%,rgba(120,140,210,.34),transparent 62%),radial-gradient(600px 300px at 0% 120%,rgba(230,206,142,.14),transparent 60%),linear-gradient(160deg,#1b2640,#11182b 55%,#0b1020);
+  box-shadow:0 30px 70px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.tm>*:not(.star-layer){position:relative;z-index:1}
+.tm .eyebrow{color:#AEB9E8;margin:0 0 4px}
+.tm-top{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap}
+.tm-yearbox{flex:1 1 260px;min-width:0}
+.tm-year{font-family:var(--serif);font-weight:600;font-size:clamp(56px,9vw,104px);line-height:.92;letter-spacing:-2px;color:#FBF4E6;
+  text-shadow:0 2px 0 rgba(0,0,0,.25),0 10px 40px rgba(230,206,142,.28);font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px}
+.tm-year small{font-size:.3em;letter-spacing:1px;color:var(--gold-soft);font-family:var(--mono)}
+.tm-era{font-family:var(--mono);font-size:12px;letter-spacing:.6px;color:#AEB9E8;margin-top:8px}
+.tm-stats{display:flex;gap:10px;flex-wrap:wrap}
+.tm-stat{min-width:104px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:11px 14px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tm-stat b{display:block;font-family:var(--serif);font-size:28px;font-weight:600;color:#FBF4E6;font-variant-numeric:tabular-nums;line-height:1.05}
+.tm-stat span{font-size:11.5px;color:#B9C1DD}
+.tm-play{flex:none;width:58px;height:58px;border-radius:50%;border:0;font-size:19px;color:#1b2335;cursor:pointer;
+  background:radial-gradient(circle at 35% 30%,#fff3cf,#E6CE8E 45%,#C29A45);box-shadow:0 8px 24px rgba(230,206,142,.35),inset 0 -3px 6px rgba(120,80,20,.35);
+  transition:transform .18s var(--spring)}
+.tm-play:hover{transform:scale(1.07)}
+.tm-play.on{animation:tmPulse 1.6s ease-in-out infinite}
+@keyframes tmPulse{50%{box-shadow:0 8px 34px rgba(230,206,142,.65),inset 0 -3px 6px rgba(120,80,20,.35)}}
+.tm-events{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 4px}
+.tm-ev{display:flex;align-items:center;gap:10px;background:rgba(230,206,142,.1);border:1px solid rgba(230,206,142,.28);border-radius:999px;padding:7px 14px 7px 8px;font-size:13px;color:#F3ECDD;max-width:100%}
+.tm-ev.next{background:rgba(174,185,232,.08);border-color:rgba(174,185,232,.25)}
+.tm-ev.quiet{opacity:.75}
+.tm-evk{flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;background:rgba(0,0,0,.25);color:var(--gold-soft);border-radius:999px;padding:3px 9px}
+.tm-ev.next .tm-evk{color:#C8D0F0}
+.tm-faces{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:14px 2px 8px;margin:0 -2px;min-height:112px}
+.tm-faces::-webkit-scrollbar{display:none}
+.tm-face{flex:none;width:92px;display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:0;color:#F3ECDD;cursor:pointer;padding:4px 2px;border-radius:14px;
+  transition:background .15s,transform .2s var(--spring);animation:tmFaceIn .35s var(--ease) both}
+.tm-face:hover,.tm-face:focus-visible{background:rgba(255,255,255,.07);transform:translateY(-3px)}
+.tm-face .pc-face{box-shadow:0 0 0 2px rgba(230,206,142,.55),0 8px 18px rgba(0,0,0,.35)}
+.tm-face b{font-size:11.5px;font-weight:600;line-height:1.2;text-align:center;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tm-face span{font-family:var(--mono);font-size:10px;color:var(--gold-soft)}
+@keyframes tmFaceIn{from{opacity:0;transform:translateY(6px) scale(.94)}}
+.tm-none{color:#B9C1DD;font-size:13.5px;align-self:center;padding:0 6px}
+.tm-slider{position:relative;height:74px;margin-top:6px}
+.tm-spark{position:absolute;left:0;right:0;top:0;width:100%;height:40px}
+.tm-spark path{fill:rgba(174,185,232,.22);stroke:rgba(174,185,232,.45);stroke-width:1;vector-effect:non-scaling-stroke}
+.tm-ticks{position:absolute;left:0;right:0;top:40px;height:10px;pointer-events:none}
+.tm-ticks i{position:absolute;top:0;width:2px;height:8px;margin-left:-1px;background:rgba(230,206,142,.6);border-radius:1px}
+.tm-slider input[type=range]{position:absolute;left:0;right:0;top:30px;width:100%;margin:0;height:24px;background:transparent;-webkit-appearance:none;appearance:none;cursor:ew-resize}
+.tm-slider input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,.14),rgba(230,206,142,.5))}
+.tm-slider input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,.14),rgba(230,206,142,.5))}
+.tm-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7de,#E6CE8E 55%,#b88a33);border:2px solid #0f1628;box-shadow:0 0 0 4px rgba(230,206,142,.25),0 4px 12px rgba(0,0,0,.5)}
+.tm-slider input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#E6CE8E;border:2px solid #0f1628;box-shadow:0 0 0 4px rgba(230,206,142,.25)}
+.tm-slider input[type=range]:focus-visible{outline:none}
+.tm-slider input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 6px rgba(230,206,142,.5)}
+.tm-labels{position:absolute;left:0;right:0;top:58px;height:14px}
+.tm-labels span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:#8E98B8;white-space:nowrap}
+.tm-labels span:first-child{transform:none}.tm-labels span:last-child{transform:translateX(-100%)}
+.tm-jumps{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tm-jump{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#DCE2F5;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s}
+.tm-jump:hover{background:rgba(230,206,142,.16);border-color:rgba(230,206,142,.45);color:#FBF4E6}
+/* ===== lifelines ===== */
+.ll-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.ll-head h2{font-size:24px}
+.ll-head .sub{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+.ll-zoom{display:inline-flex;background:var(--card-2);border:1px solid var(--hairline);border-radius:999px;padding:3px;gap:2px}
+.ll-zoom button{border:0;background:none;color:var(--ink-2);font-weight:600;font-size:12.5px;padding:7px 12px;border-radius:999px;cursor:pointer}
+.ll-zoom button[aria-pressed="true"]{background:var(--navy);color:#F3ECDD;box-shadow:var(--shadow-sm)}
+.ll-stage{position:relative;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--hairline);border-radius:var(--radius-lg);
+  padding:40px 0 16px;overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:var(--shadow-md)}
+.ll-stage:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.ll-stage.dragging{cursor:grabbing}
+.ll-axis{position:absolute;left:0;right:0;top:0;height:30px;border-bottom:1px solid var(--hairline-2)}
+.ll-axis span{position:absolute;top:9px;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;color:var(--faint);white-space:nowrap}
+.ll-axis span::after{content:"";position:absolute;left:50%;top:18px;width:1px;height:2000px;background:var(--hairline-2);opacity:.7}
+.ll-pins{position:absolute;left:0;right:0;top:24px;height:12px;z-index:3}
+.ll-pin{position:absolute;width:10px;height:10px;margin-left:-5px;transform:rotate(45deg);background:var(--gold);border:2px solid var(--card);border-radius:2px;cursor:help;box-shadow:0 0 0 1px var(--gold-soft)}
+.ll-pin:hover,.ll-pin:focus-visible{background:var(--gold-deep);outline:none;transform:rotate(45deg) scale(1.3)}
+.ll-bars{position:relative;margin:0 0 0;min-height:81px}
+.ll-bar{position:absolute;left:0;top:0;height:21px;border:0;padding:0 8px;border-radius:999px;cursor:pointer;text-align:left;
+  background:color-mix(in srgb,var(--cat) 30%,var(--card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--cat) 55%,transparent);
+  opacity:.62;transition:opacity .25s,box-shadow .2s,filter .2s}
+.ll-bar.now{opacity:1;background:linear-gradient(180deg,color-mix(in srgb,var(--cat) 92%,#fff),var(--cat));box-shadow:0 3px 10px -3px color-mix(in srgb,var(--cat) 70%,transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+.ll-bar.living{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),rgba(0,0,0,.25));mask-image:linear-gradient(90deg,#000 calc(100% - 26px),rgba(0,0,0,.25))}
+.ll-bar.living.out{-webkit-mask-image:none;mask-image:none}
+.ll-bar:hover,.ll-bar:focus-visible{opacity:1;filter:brightness(1.08);outline:none;z-index:2;box-shadow:0 0 0 2px var(--gold),0 6px 16px -4px rgba(0,0,0,.35)}
+.ll-name{display:block;font-size:11.5px;font-weight:600;line-height:21px;white-space:nowrap;color:var(--ink);pointer-events:none}
+.ll-bar.now .ll-name{color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.3)}
+.ll-bar.out .ll-name{position:absolute;left:calc(100% + 6px);top:0;color:var(--ink-2);text-shadow:none}
+.ll-bar.out.now .ll-name{color:var(--ink);font-weight:700}
+.ll-bar.out.flip .ll-name{left:auto;right:calc(100% + 6px)}
+.ll-stage.smooth .ll-bar{transition:transform .5s var(--ease),width .5s var(--ease),opacity .25s,box-shadow .2s}
+.ll-bar.enter{opacity:0}
+.ll-now{position:absolute;top:30px;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(180deg,var(--gold),rgba(194,154,69,.15));z-index:4;pointer-events:none}
+.ll-stage.smooth .ll-now{transition:left .5s var(--ease)}
+.ll-now span{position:absolute;top:-2px;left:50%;transform:translate(-50%,-100%);background:var(--navy);color:#F3ECDD;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap;box-shadow:var(--shadow-sm)}
+html[data-theme="dark"] .ll-now span{background:var(--gold);color:#101828}
+html[data-theme="dark"] .ll-zoom button[aria-pressed="true"]{background:#284268}
+.ll-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.ll-k{display:inline-flex;align-items:center;gap:6px}
+.ll-k i{width:22px;height:9px;border-radius:999px;display:inline-block}
+.ll-k i.a{background:linear-gradient(90deg,var(--c-science),var(--c-music))}
+.ll-k i.b{background:linear-gradient(90deg,var(--c-sports),transparent)}
+.ll-k i.c{width:9px;height:9px;border-radius:2px;transform:rotate(45deg);background:var(--gold)}
+/* ===== every life by era ===== */
+.tl-era{margin-bottom:24px}
+.tl-eh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.tl-eh b{font-family:var(--serif);font-size:18px;font-weight:600}
+.tl-eh span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.tl-swarm{position:relative;background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--hairline);border-radius:14px 14px 4px 4px;margin-bottom:5px;box-shadow:var(--shadow-sm)}
+.sdot{position:absolute;padding:0;border:0;border-radius:50%;cursor:pointer;opacity:.78;box-shadow:inset 0 -1px 0 rgba(0,0,0,.18);transition:opacity .25s,transform .15s var(--spring),box-shadow .25s}
+.sdot:hover,.sdot:focus-visible{transform:scale(1.7);opacity:1;z-index:3;outline:none;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--gold)}
+.sdot.lit{opacity:1;box-shadow:0 0 0 1.5px var(--card),0 0 0 3px var(--gold),0 0 10px 2px rgba(230,206,142,.6);z-index:2}
+.sw-ev{position:absolute;bottom:0;width:1px;height:100%;background:linear-gradient(0deg,rgba(194,154,69,.45),transparent 70%);pointer-events:none}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.sw-axis{position:relative;height:14px;display:block}
+.sw-axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+#tltip{position:fixed;z-index:120;display:flex;align-items:center;gap:10px;max-width:300px;background:#0f1722;color:#F3ECDD;border-radius:13px;padding:9px 13px 9px 9px;
+  box-shadow:0 14px 34px rgba(0,0,0,.35);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s,transform .14s}
+#tltip.on{opacity:1;transform:none}
+#tltip b{display:block;font-size:13px}
+#tltip span{display:block;font-size:11.5px;color:#B9C1DD;margin-top:1px}
+#tltip em{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--gold-soft);margin-top:3px}
+@media(max-width:700px){
+  .tm{padding:22px 18px 18px;border-radius:var(--radius-lg)}
+  .tm-top{gap:14px}.tm-stats{width:100%}.tm-stat{flex:1;min-width:0;padding:9px 10px}.tm-stat b{font-size:22px}
+  .tm-play{position:absolute;right:0;top:0;width:50px;height:50px}
+  .tm-face{width:78px}
+  .tm-labels span:nth-child(2){display:none}
+  .ll-head h2{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){.tm-face{animation:none}.tm-play.on{animation:none}}
 
 /* ============================================================
    HOROSCOPE — celestial dashboard, per-sign daily experience
@@ -1514,6 +1722,129 @@ html[data-theme="dark"] .hs-tab.on{background:var(--card-3);color:var(--ink);bor
   .hs-hrow{gap:6px}
   .hss-peek{display:none}
   .hs-tabs{width:100%;justify-content:center}
+}
+/* ===== PATTERNS — richer ===== */
+.pat-sec{margin:40px 0 16px}
+.pat-sec h2{font-size:26px}
+.pat-sec p{color:var(--muted);font-size:14px;margin-top:4px;max-width:720px}
+.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:8px}
+.ins{position:relative;text-align:left;display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:15px 16px 14px;box-shadow:var(--shadow-sm);overflow:hidden;font:inherit;color:inherit}
+.ins::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold))}
+.ins.go{cursor:pointer;transition:transform .18s var(--spring),box-shadow .2s,border-color .2s}
+.ins.go:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-soft)}
+.ins-ic{font-size:18px;margin-bottom:4px}
+.ins b{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
+.ins-l{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.ins-s{font-size:11.5px;color:var(--muted);line-height:1.35;margin-top:2px}
+.chart-grid.wide2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));margin-bottom:18px}
+.chart-grid.stat-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+/* clock */
+.clock-chart{margin-bottom:18px}
+.clock-wrap{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:28px;align-items:center}
+.clock-box{position:relative;width:100%;max-width:440px;aspect-ratio:1;margin:0 auto;cursor:crosshair;touch-action:pan-y}
+.clock-svg{width:100%;height:100%;display:block;overflow:visible}
+.ck-ring{fill:color-mix(in srgb,var(--card-2) 70%,transparent);stroke:var(--hairline)}
+.ck-core{fill:var(--card);stroke:var(--hairline)}
+.ck-grid{fill:none;stroke:var(--hairline-2);stroke-dasharray:2 4}
+.ck-sp{stroke-width:2.1;stroke-linecap:round;opacity:.85;transition:opacity .2s}
+.clock-svg.focus .ck-sp{opacity:.28}
+.clock-svg.focus .ck-sp.on{opacity:1;stroke-width:4}
+.ck-msep{stroke:var(--hairline);stroke-width:1}
+.ck-zsep{stroke:var(--hairline);stroke-width:1}
+.ck-m{font-family:var(--mono);font-size:10.5px;font-weight:600;fill:var(--muted);text-anchor:middle;dominant-baseline:central;letter-spacing:.5px}
+.ck-z{font-size:12px;text-anchor:middle;dominant-baseline:central}
+.ck-hand{stroke:var(--gold);stroke-width:1.5;stroke-dasharray:3 3;transition:opacity .2s}
+.clock-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:36%;text-align:center;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+.clock-center b{font-family:var(--serif);font-size:clamp(16px,3.2vw,24px);font-weight:600;line-height:1.1;color:var(--ink)}
+.clock-center span{font-size:11.5px;color:var(--muted)}
+.clock-center em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--gold-deep)}
+.clock-center small{font-size:10.5px;color:var(--ink-2);line-height:1.3;margin-top:3px}
+.clock-side h3{font-size:22px;margin-bottom:4px}
+.ck-top{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.ck-tr{display:grid;grid-template-columns:22px 58px minmax(0,1fr) auto;align-items:center;gap:8px;text-align:left;border:1px solid transparent;background:none;border-radius:10px;padding:6px 8px;cursor:pointer;font:inherit;color:inherit;transition:.15s}
+.ck-tr:hover{background:var(--card-2);border-color:var(--hairline)}
+.ck-rk{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.ck-tr b{font-size:13px}
+.ck-nm{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ck-n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold-deep)}
+.ck-legend,.fe-key{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.ck-legend span,.fe-key span{display:inline-flex;align-items:center;gap:6px}
+.ck-legend i,.fe-key i{width:10px;height:10px;border-radius:3px}
+/* observed vs expected */
+.stat-q{font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:4px}
+.chart.stat h3{margin-bottom:14px}
+.oe{display:flex;flex-direction:column;gap:5px}
+.oe-row{display:grid;grid-template-columns:78px 1fr 46px;align-items:center;gap:10px}
+.oe-l{font-family:var(--mono);font-size:11px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oe-t{position:relative;height:12px;background:var(--card-3);border-radius:999px}
+.oe-f{position:absolute;left:0;top:0;bottom:0;border-radius:999px;transition:width .8s var(--ease)}
+.oe-f.up{background:linear-gradient(90deg,var(--gold-soft),var(--gold))}
+.oe-f.dn{background:linear-gradient(90deg,color-mix(in srgb,var(--c-explorers) 35%,var(--card)),color-mix(in srgb,var(--c-explorers) 70%,var(--card)))}
+.oe-x{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--ink);border-radius:1px;opacity:.7}
+.oe-x.k{position:relative;display:inline-block;top:0;height:12px;margin:0 6px 0 0;vertical-align:-2px}
+.oe-v{font-family:var(--mono);font-size:11px;text-align:right;color:var(--muted)}
+.oe-v.up{color:var(--gold-deep)}.oe-v.dn{color:var(--c-explorers)}
+.oe-key{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--muted);margin-top:10px}
+.verdict{margin-top:14px;border-radius:14px;padding:12px 14px;border:1px solid var(--hairline);background:var(--card-2)}
+.verdict.ns{border-color:color-mix(in srgb,var(--ok) 40%,transparent);background:color-mix(in srgb,var(--ok) 8%,var(--card))}
+.verdict.sig{border-color:var(--gold-soft);background:var(--gold-wash)}
+.vd-h{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:3px}
+.verdict.ns .vd-h{color:var(--ok)}
+.verdict.sig .vd-h{color:var(--gold-deep)}
+.verdict p{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin:0}
+html[data-theme="dark"] .verdict.ns .vd-h{color:#6fc7ae}
+/* column charts */
+.cols{display:flex;align-items:stretch;gap:4px;height:190px;padding-top:4px}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:0;font:inherit;color:inherit;border-radius:8px}
+button.col{cursor:pointer}
+.col-v{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
+.cols.dense .col-v{display:none}
+.col-bw{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.col-b{display:block;width:78%;max-width:34px;min-height:2px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,var(--gold),var(--gold-soft));transition:height .8s var(--ease),filter .15s}
+.cols.dense .col-b{width:88%;border-radius:3px 3px 1px 1px}
+.col:hover .col-b,.col:focus-visible .col-b{filter:brightness(1.12) saturate(1.1)}
+.col:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.col-l{font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap;height:13px}
+/* fields by era */
+.fields-era{margin-bottom:18px}
+.fe-rows{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.fe-row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}
+.fe-l b{display:block;font-size:13px}
+.fe-l span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.fe-bar{display:flex;height:30px;border-radius:10px;overflow:hidden;gap:2px;background:var(--card-3)}
+.fe-seg{border:0;min-width:3px;color:#fff;font-family:var(--mono);font-size:10.5px;font-weight:700;cursor:pointer;text-shadow:0 1px 1px rgba(0,0,0,.25);transition:filter .15s,flex .6s var(--ease)}
+.fe-seg:hover,.fe-seg:focus-visible{filter:brightness(1.15);outline:none}
+/* extremes */
+.xrow{display:grid;grid-template-columns:34px minmax(0,1fr) 70px 34px;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;border-radius:12px;padding:6px 6px;cursor:pointer;font:inherit;color:inherit;transition:background .15s}
+.xrow:hover{background:var(--card-2)}
+.x-t b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x-t span{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x-bar{height:8px;background:var(--card-3);border-radius:999px;overflow:hidden}
+.x-bar i{display:block;height:100%;border-radius:999px}
+.x-n{font-family:var(--serif);font-size:18px;font-weight:600;text-align:right}
+/* donuts */
+.donut{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.dn-box{position:relative;width:132px;height:132px;flex:none}
+.donut-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dn-bg{fill:none;stroke:var(--card-3);stroke-width:16}
+.dn-seg{fill:none;stroke-width:16;transition:stroke-width .2s}
+.dn-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dn-c b{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.1}
+.dn-c span{font-size:11px;color:var(--muted)}
+.dn-lg{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px}
+.dn-row{display:grid;grid-template-columns:10px 1fr auto 38px;gap:8px;align-items:center;font-size:12.5px;text-align:left;border:0;background:none;padding:5px 6px;border-radius:8px;font:inherit;color:inherit}
+button.dn-row{cursor:pointer}button.dn-row:hover{background:var(--card-2)}
+.dn-row i{width:10px;height:10px;border-radius:3px}
+.dn-row span{font-size:12.5px;color:var(--ink-2)}
+.dn-row b{font-family:var(--mono);font-size:12px}
+.dn-row em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right}
+.crowd-row .pc-face{flex:none}
+@media(max-width:820px){
+  .clock-wrap{grid-template-columns:1fr;gap:18px}
+  .pat-sec h2{font-size:22px}
+  .fe-row{grid-template-columns:1fr;gap:5px}
+  .cols{height:160px}
+  .oe-row{grid-template-columns:64px 1fr 40px;gap:7px}
 }
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
@@ -5876,80 +6207,223 @@ function onThisDayCard(){
 /* ============================================================
    CALENDAR
    ============================================================ */
+/* ============================================================
+   CALENDAR — a living month: 3D tiles, the real Moon for every
+   day of the chosen year, equinoxes and solstices, named full
+   moons, and a day panel that follows your pointer.
+   ============================================================ */
+/* a crisp SVG Moon for any phase (0 new → .5 full → 1 new) */
+function moonSVG(phase,size){
+  const r=size/2-1,c=size/2,k=Math.cos(phase*2*Math.PI),rx=Math.abs(k)*r;
+  const wax=phase<0.5,outer=wax?1:0,term=wax?(phase<0.25?0:1):(phase<0.75?0:1);
+  const d="M"+c+" "+(c-r)+" A"+r+" "+r+" 0 0 "+outer+" "+c+" "+(c+r)+" A"+rx.toFixed(2)+" "+r+" 0 0 "+term+" "+c+" "+(c-r)+" Z";
+  const s=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  s.setAttribute("viewBox","0 0 "+size+" "+size);s.setAttribute("width",size);s.setAttribute("height",size);s.setAttribute("class","moon-svg");s.setAttribute("aria-hidden","true");
+  s.innerHTML='<circle cx="'+c+'" cy="'+c+'" r="'+r+'" class="mn-d"/>'+(phase>0.015&&phase<0.985?'<path d="'+d+'" class="mn-l"/>':"");
+  return s;}
+const FULL_MOON_NAMES=["Wolf Moon","Snow Moon","Worm Moon","Pink Moon","Flower Moon","Strawberry Moon","Buck Moon","Sturgeon Moon","Corn Moon","Hunter's Moon","Beaver Moon","Cold Moon"];
+/* lunar and solar events for every day of a month, by UT calendar day */
+const _monthSky={};
+function monthSky(y,m){  // m is 1-12
+  const key=y+"-"+m;if(_monthSky[key])return _monthSky[key];
+  const dim=new Date(y,m,0).getDate(),out={};
+  const ph=J=>SKY.moonAt(J).phase;
+  for(let d=1;d<=dim;d++){
+    const J=SKY.jdn(y,m,d),a=ph(J-0.5),b=ph(J+0.5),s=SKY.day(y,m,d);
+    const o={moon:s.moon,weekday:s.weekday,sun:s.sunNoon};
+    if(a>b)o.lunar="New Moon";else if(a<0.5&&b>=0.5)o.lunar="Full Moon";
+    else if(a<0.25&&b>=0.25)o.lunar="First Quarter";else if(a<0.75&&b>=0.75)o.lunar="Last Quarter";
+    if(s.sunIngress){o.ingress=s.sunIngress;
+      o.season={Aries:"March equinox",Cancer:"June solstice",Libra:"September equinox",Capricorn:"December solstice"}[s.sunIngress.to]||null;}
+    out[d]=o;}
+  /* names for the full moons: traditional month names, the Harvest Moon nearest the
+     September equinox, the Hunter's Moon after it, and a Blue Moon for a month's second full moon */
+  const fulls=Object.keys(out).filter(d=>out[d].lunar==="Full Moon").map(Number);
+  const harvest=harvestMoon(y);
+  fulls.forEach((d,i)=>{let n=FULL_MOON_NAMES[m-1];
+    if(harvest){const t=Date.UTC(y,m-1,d),h=Date.UTC(harvest.y,harvest.m-1,harvest.d);
+      if(t===h)n="Harvest Moon";else if(t>h&&(t-h)/864e5<35)n="Hunter's Moon";else if(m===9||m===10)n=m===9?"Corn Moon":"Hunter's Moon";}
+    if(i===1)n="Blue Moon";
+    out[d].moonName=n;});
+  return (_monthSky[key]=out);}
+const _harvest={};
+function harvestMoon(y){if(_harvest[y]!==undefined)return _harvest[y];
+  let best=null,bd=1e9;const eq=Date.UTC(y,8,22);
+  for(let t=Date.UTC(y,7,20);t<=Date.UTC(y,9,25);t+=864e5){const dt=new Date(t),J=SKY.jdn(dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate());
+    const a=SKY.moonAt(J-0.5).phase,b=SKY.moonAt(J+0.5).phase;
+    if(a<0.5&&b>=0.5&&Math.abs(t-eq)<bd){bd=Math.abs(t-eq);best={y,m:dt.getUTCMonth()+1,d:dt.getUTCDate()};}}
+  return (_harvest[y]=best);}
+function calAgeNote(p,y){if(p.birthYear==null)return "";
+  const n=yrsBetween(p.birthYear,y);
+  if(p.alive)return n>0?"turns "+n+" in "+y:"";
+  if(p.deathYear!=null&&y<=p.deathYear)return "age "+n+" in "+y;
+  return n>0?n+" years since their birth":"";}
+function stepMonth(d){let m=state.calMonth+d,y=state.calYear;if(m<0){m=11;y--;}if(m>11){m=0;y++;}
+  state.calDir=d;state.calSel=null;state.calMonth=m;state.calYear=Math.max(1583,Math.min(2400,y));render();}
+function goMonth(m,y){const dir=(y*12+m)>(state.calYear*12+state.calMonth)?1:-1;state.calDir=dir;state.calSel=null;state.calMonth=m;state.calYear=y;render();}
+
 function renderCalendar(view){
   view.innerHTML="";
   const list=current();
-  const m=state.calMonth,y=state.calYear;
+  const m=state.calMonth,y=state.calYear,dir=state.calDir||0;state.calDir=0;
   const onMonth=list.filter(p=>p.month===m+1);
   const byDay={};onMonth.forEach(p=>{const k=p.day||0;(byDay[k]=byDay[k]||[]).push(p);});
   Object.values(byDay).forEach(a=>a.sort((x,y)=>rankScore(y)-rankScore(x)||x.name.localeCompare(y.name)));
+  const sky=monthSky(y,m+1);
+  const bday=STORE.get("bday",null);
+  const dim=new Date(y,m+1,0).getDate();
+  const isNowMonth=m===TODAY_M-1&&y===now.getFullYear();
+  const wide=()=>window.matchMedia("(min-width:1100px)").matches;
 
-  const top=el("div",{class:"cal-top"});
-  top.appendChild(el("div",{class:"cal-title"},[el("h1",{text:MONTHS[m]}),el("span",{class:"yr",text:onMonth.length+" of "+list.length+" in view"})]));
-  const ctr=el("div",{class:"cal-ctrls"});
-  const jump=el("select",{class:"monthjump","aria-label":"Jump to month",onChange:e=>{state.calMonth=+e.target.value;render();}});
-  MONTHS.forEach((mn,i)=>{const o=el("option",{value:String(i),text:mn});if(i===m)o.selected=true;jump.appendChild(o);});
+  /* ---------- hero ---------- */
+  const hero=el("section",{class:"cal-hero"});
+  hero.appendChild(starLayer("star-layer",18));
+  const ht=el("div",{class:"ch-text"});
+  ht.appendChild(el("p",{class:"eyebrow",text:"The birthday calendar"}));
+  const ttl=el("div",{class:"ch-title"});
+  ttl.appendChild(el("h1",{text:MONTHS[m]}));
+  const ys=el("div",{class:"ch-year",role:"group","aria-label":"Year"});
+  ys.append(el("button",{"aria-label":"Previous year",html:"&#8249;",onClick:()=>goMonth(m,Math.max(1583,y-1))}),el("span",{text:String(y)}),
+    el("button",{"aria-label":"Next year",html:"&#8250;",onClick:()=>goMonth(m,Math.min(2400,y+1))}));
+  ttl.appendChild(ys);ht.appendChild(ttl);
+  /* the month's zodiac span, stone and flower */
+  const zs=[];for(let d=1;d<=dim;d++){const z=zodiac(m+1,d);if(z&&!zs.find(x=>x.sign===z.sign))zs.push(z);}
+  const bm=BIRTH_MONTH[m+1];
+  const meta=el("div",{class:"ch-meta"});
+  meta.appendChild(el("span",{class:"ch-chip"},[el("b",{text:onMonth.length.toLocaleString()}),document.createTextNode(onMonth.length===1?" birthday":" birthdays")]));
+  meta.appendChild(el("span",{class:"ch-chip",text:zs.map(z=>z.sym+" "+z.sign).join("  →  ")}));
+  if(bm){meta.appendChild(el("span",{class:"ch-chip",text:"\u{1F48E} "+bm.stone}));meta.appendChild(el("span",{class:"ch-chip",text:"\u{1F33C} "+bm.flower}));}
+  ht.appendChild(meta);
+  /* this month's sky events as a strip */
+  const evs=[];Object.keys(sky).forEach(d=>{const o=sky[d];
+    if(o.lunar==="Full Moon")evs.push({d:+d,ic:"full",t:o.moonName,s:"Full Moon"});
+    if(o.lunar==="New Moon")evs.push({d:+d,ic:"new",t:"New Moon",s:""});
+    if(o.season)evs.push({d:+d,ic:"sun",t:o.season,s:"Sun enters "+o.ingress.to});});
+  if(evs.length){const st=el("div",{class:"ch-sky"});
+    evs.sort((a,b)=>a.d-b.d).forEach(e=>{const b=el("button",{class:"ch-ev "+e.ic,onClick:()=>selectDay(e.d,true)});
+      b.appendChild(e.ic==="sun"?el("span",{class:"ch-sun",text:"☀"}):moonSVG(e.ic==="full"?0.5:0,18));
+      b.appendChild(el("span",{},[el("b",{text:MS[m]+" "+e.d}),document.createTextNode(" · "+e.t)]));st.appendChild(b);});
+    ht.appendChild(st);}
+  hero.appendChild(ht);
+  const ctr=el("div",{class:"ch-ctrls"});
   ctr.appendChild(el("button",{class:"navbtn","aria-label":"Previous month",html:"&#8249;",onClick:()=>stepMonth(-1)}));
+  const jump=el("select",{class:"monthjump","aria-label":"Jump to month",onChange:e=>goMonth(+e.target.value,y)});
+  MONTHS.forEach((mn,i)=>{const o=el("option",{value:String(i),text:mn});if(i===m)o.selected=true;jump.appendChild(o);});
   ctr.appendChild(jump);
   ctr.appendChild(el("button",{class:"navbtn","aria-label":"Next month",html:"&#8250;",onClick:()=>stepMonth(1)}));
-  top.appendChild(ctr);view.appendChild(top);
+  if(!isNowMonth)ctr.appendChild(el("button",{class:"ch-today",text:"Today",onClick:()=>{const ny=now.getFullYear();state.calDir=(ny*12+TODAY_M-1)>(y*12+m)?1:-1;state.calMonth=TODAY_M-1;state.calYear=ny;state.calSel=TODAY_D;render();}}));
+  hero.appendChild(ctr);
+  view.appendChild(hero);
 
-  /* banners: today / countdown */
-  const ban=el("div",{class:"cal-banner"});
-  const todays=list.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);
-  if(todays.length){
-    const c=el("div",{class:"banner-card gold"});
-    c.appendChild(el("div",{class:"bnl",text:"Today in history · "+MONTHS[TODAY_M-1]+" "+TODAY_D}));
-    c.appendChild(el("div",{class:"bnv",text:todays.map(p=>p.name).slice(0,3).join(", ")+(todays.length>3?" +"+(todays.length-3):"")}));
-    c.appendChild(el("a",{text:"Open this day →",role:"button",tabindex:"0",onClick:()=>openDay(TODAY_M,TODAY_D,todays),onKeydown:e=>kbd(e,()=>openDay(TODAY_M,TODAY_D,todays))}));
-    ban.appendChild(c);
-  }
-  const soon=list.filter(p=>p.month&&p.day).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b))[0];
-  if(soon){
-    const d=daysUntilBirthday(soon);
-    const c=el("div",{class:"banner-card"});
-    c.appendChild(el("div",{class:"bnl",text:"Next birthday in view"}));
-    c.appendChild(el("div",{class:"bnv",text:soon.name}));
-    c.appendChild(el("div",{class:"bnm",text:(d===0?"Today":d===1?"Tomorrow":"In "+d+" days")+" · "+MONTHS[soon.month-1]+" "+soon.day}));
-    c.addEventListener("click",()=>openPerson(soon));c.style.cursor="pointer";
-    ban.appendChild(c);
-  }
-  if(ban.children.length)view.appendChild(ban);
+  /* ---------- month ribbon ---------- */
+  const mc=monthCounts(list),mmx=Math.max(1,...mc),mmn=Math.min(...mc)*0.8;
+  const rib=el("div",{class:"cal-ribbon",role:"tablist","aria-label":"Months"});
+  MS.forEach((s,i)=>{const b=el("button",{class:"cr-m"+(i===m?" on":""),role:"tab","aria-selected":i===m?"true":"false","aria-label":MONTHS[i]+", "+mc[i]+" birthdays",onClick:()=>goMonth(i,y)});
+    const bar=el("i");bar.style.height=(4+Math.round(Math.max(0,mc[i]-mmn)/Math.max(1,mmx-mmn)*22))+"px";
+    b.append(el("em",{text:String(mc[i])}),bar,el("span",{text:s}));rib.appendChild(b);});
+  view.appendChild(rib);
 
-  const wh=el("div",{class:"weekhead"});WD.forEach(d=>wh.appendChild(el("div",{text:d})));view.appendChild(wh);
-  const grid=el("div",{class:"calgrid"});
+  /* ---------- grid + day panel ---------- */
+  const lay=el("div",{class:"cal-layout"});
+  const stage=el("div",{class:"cal-stage"});
+  const wh=el("div",{class:"weekhead"});WD.forEach((d,i)=>wh.appendChild(el("div",{class:i===0||i===6?"we":"",text:d})));stage.appendChild(wh);
+  const grid=el("div",{class:"calgrid"+(dir&&!REDUCE?(dir>0?" flip-next":" flip-prev"):(!REDUCE?" flip-first":""))});
   const lead=new Date(y,m,1).getDay();
   for(let i=0;i<lead;i++)grid.appendChild(el("div",{class:"cell empty","aria-hidden":"true"}));
-  const dim=(m===1)?(new Date(y,2,0).getDate()):DIM[m];
   const mx=Math.max(1,...Object.values(byDay).map(a=>a.length));
+  const cells={};
   for(let d=1;d<=dim;d++){
-    const ppl=byDay[d]||[];
-    const isToday=(m===TODAY_M-1&&y===now.getFullYear()&&d===TODAY_D);
-    const cell=el(ppl.length?"button":"div",{class:"cell casc"+(ppl.length?" has":"")+(isToday?" today":""),
-      "aria-label":ppl.length?(MONTHS[m]+" "+d+", "+ppl.length+" figures, open day"):MONTHS[m]+" "+d});
-    cell.style.setProperty("--cd",(Math.min(d,31)*0.012).toFixed(3)+"s");
-    if(ppl.length){const dens=el("div",{class:"density"});dens.style.background=catColor(ppl[0].category);dens.style.opacity=(0.04+0.12*(ppl.length/mx)).toFixed(3);cell.appendChild(dens);}
-    const dn=el("div",{class:"dnum"});dn.appendChild(el("span",{text:String(d)}));
-    if(ppl.length>2)dn.appendChild(el("span",{class:"cnt-badge",text:String(ppl.length)}));
-    cell.appendChild(dn);
+    const ppl=byDay[d]||[],o=sky[d],col=(lead+d-1)%7,row=Math.floor((lead+d-1)/7);
+    const isToday=isNowMonth&&d===TODAY_D,mine=bday&&bday.m===m+1&&bday.d===d;
+    const cell=el("button",{class:"cell tile"+(ppl.length?" has":" none")+(isToday?" today":"")+(mine?" mine":"")+(col===0||col===6?" we":"")+(o.lunar==="Full Moon"?" fullmoon":""),
+      "aria-label":MONTHS[m]+" "+d+", "+o.weekday+". "+(ppl.length?ppl.length+(ppl.length===1?" birthday":" birthdays")+", led by "+ppl[0].name+". ":"")+o.moon.name+(o.moonName?", the "+o.moonName:"")+(o.season?". "+o.season:"")});
+    cell.style.setProperty("--cd",((row+col)*0.035).toFixed(3)+"s");
+    if(ppl.length){const t=ppl.length/mx;cell.style.setProperty("--heat",(0.05+0.2*t).toFixed(3));cell.style.setProperty("--cat",catColor(ppl[0].category));}
+    const hd=el("div",{class:"dnum"});
+    hd.appendChild(el("span",{class:"dn",text:String(d)}));
+    const right=el("span",{class:"dr-r"});
+    if(ppl.length>1)right.appendChild(el("span",{class:"cnt-badge",text:String(ppl.length)}));
+    right.appendChild(moonSVG(o.moon.phase,15));
+    hd.appendChild(right);cell.appendChild(hd);
+    if(o.season||o.moonName||o.lunar==="New Moon"||mine||isToday){
+      const tg=el("div",{class:"ctag-l"+(o.season?" sun":mine?" me":"")});
+      tg.textContent=mine?"\u{1F382} Your birthday":o.season?"☀ "+o.season.replace(/^(March|June|September|December) /,""):o.moonName?o.moonName:(isToday?"Today":"New Moon");
+      if(isToday&&!mine&&(o.season||o.moonName||o.lunar==="New Moon"))tg.textContent="Today · "+tg.textContent;
+      cell.appendChild(tg);}
     if(ppl.length){
-      cell.appendChild(el("div",{class:"clab",text:ppl[0].name}));
-      const dots=el("div",{class:"dots"});[...new Set(ppl.map(p=>p.category))].slice(0,6).forEach(cat=>{const i=el("i");i.style.background=catColor(cat);dots.appendChild(i);});cell.appendChild(dots);
-      if(ppl.length>1)cell.appendChild(el("div",{class:"more",text:"+"+(ppl.length-1)+" more"}));
-      cell.addEventListener("click",()=>openDay(m+1,d,ppl));
-    }
-    grid.appendChild(cell);
+      cell.appendChild(el("div",{class:"c-lead"},[personFace(ppl[0],26),el("span",{class:"clab",text:ppl[0].name})]));
+      const foot=el("div",{class:"c-foot"});
+      const dots=el("span",{class:"dots"});[...new Set(ppl.map(p=>p.category))].slice(0,5).forEach(cat=>{const i=el("i");i.style.background=catColor(cat);dots.appendChild(i);});
+      foot.appendChild(dots);
+      if(ppl.length>1)foot.appendChild(el("span",{class:"more",text:"+"+(ppl.length-1)}));
+      cell.appendChild(foot);}
+    /* 3D tilt that follows the pointer */
+    cell.addEventListener("pointermove",e=>{if(REDUCE||e.pointerType!=="mouse")return;const r=cell.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,yy=(e.clientY-r.top)/r.height;
+      cell.style.setProperty("--rx",((0.5-yy)*14).toFixed(2)+"deg");cell.style.setProperty("--ry",((x-0.5)*16).toFixed(2)+"deg");
+      cell.style.setProperty("--mx",(x*100).toFixed(1)+"%");cell.style.setProperty("--my",(yy*100).toFixed(1)+"%");});
+    cell.addEventListener("pointerleave",()=>{cell.style.removeProperty("--rx");cell.style.removeProperty("--ry");});
+    cell.addEventListener("mouseenter",()=>{if(wide())paintFocus(d,false);});
+    cell.addEventListener("click",()=>{if(grid._swiped)return;if(wide()||!ppl.length)selectDay(d,false);else openDay(m+1,d,ppl);});
+    cell.addEventListener("dblclick",()=>{if(ppl.length)openDay(m+1,d,ppl);});
+    cells[d]=cell;grid.appendChild(cell);}
+  const tail=(7-(lead+dim)%7)%7;for(let i=0;i<tail;i++)grid.appendChild(el("div",{class:"cell empty","aria-hidden":"true"}));
+  grid.addEventListener("mouseleave",()=>{if(wide())paintFocus(sel,true);});
+  /* swipe between months on touch screens */
+  let sx=null,sy=null;grid._swiped=false;
+  grid.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;sx=e.clientX;sy=e.clientY;grid._swiped=false;});
+  grid.addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx,dy=e.clientY-sy;sx=null;
+    if(Math.abs(dx)>60&&Math.abs(dy)<45){grid._swiped=true;stepMonth(dx<0?1:-1);}});
+  stage.appendChild(grid);
+  stage.appendChild(el("div",{class:"cal-legend"},[
+    el("span",{},[moonSVG(0.5,13),document.createTextNode("The Moon each day in "+y+", computed")]),
+    el("span",{},[el("i",{class:"lg-heat"}),document.createTextNode("Tint grows with the number of birthdays")]),
+    el("span",{class:"lg-hint",text:wide()?"Hover to preview a day, click to pin it, double-click to open":"Tap a day to open it · swipe to change month"})]));
+  lay.appendChild(stage);
+  const focus=el("aside",{class:"cal-focus","aria-live":"polite"});
+  lay.appendChild(focus);
+  view.appendChild(lay);
+
+  let sel=state.calSel&&state.calSel<=dim?state.calSel:(isNowMonth?TODAY_D:(+Object.keys(byDay).filter(k=>k!=="0").sort((a,b)=>byDay[b].length-byDay[a].length)[0]||1));
+  function selectDay(d,scroll){sel=d;state.calSel=d;Object.values(cells).forEach(c=>c.classList.remove("sel"));cells[d].classList.add("sel");paintFocus(d,true);
+    if(scroll&&!wide())focus.scrollIntoView({behavior:REDUCE?"auto":"smooth",block:"start"});}
+  function paintFocus(d,pinned){
+    const ppl=byDay[d]||[],o=sky[d];focus.innerHTML="";focus.classList.toggle("preview",!pinned);
+    const z=zodiac(m+1,d);
+    const hd=el("div",{class:"cf-head"});
+    hd.appendChild(el("div",{class:"cf-wd",text:o.weekday+" in "+y+(isNowMonth&&d===TODAY_D?" · today":"")}));
+    hd.appendChild(el("h2",{text:MONTHS[m]+" "+d}));
+    if(z)hd.appendChild(el("div",{class:"cf-z",text:z.sym+" "+z.sign+" · "+ZMETA[z.sign].element}));
+    focus.appendChild(hd);
+    const sk=el("div",{class:"cf-sky"});
+    sk.appendChild(moonSVG(o.moon.phase,46));
+    sk.appendChild(el("div",{},[el("b",{text:o.moonName||o.moon.name}),el("span",{text:(o.moonName?o.moon.name+" · ":"")+Math.round(o.moon.illum*100)+"% lit at midday UT"}),
+      el("span",{text:"Sun at "+fmtDeg(o.sun)+" "+o.sun.sign+(o.season?" · "+o.season:"")})]));
+    focus.appendChild(sk);
+    if(o.ingress)focus.appendChild(el("p",{class:"cf-note",text:"The Sun moves from "+o.ingress.from+" into "+o.ingress.to+" at "+o.ingress.utc+" UT on this day"+(o.season?", the "+o.season:"")+"."}));
+    if(bday&&bday.m===m+1&&bday.d===d)focus.appendChild(el("p",{class:"cf-mine",text:"\u{1F382} This is your birthday. These are your birthday twins."}));
+    if(ppl.length){
+      focus.appendChild(el("div",{class:"cf-k",text:ppl.length===1?"1 birthday":ppl.length+" birthdays"}));
+      const ul=el("div",{class:"cf-list"});
+      ppl.slice(0,6).forEach(p=>{const b=el("button",{class:"cf-p",onClick:()=>openPerson(p)});
+        b.appendChild(personFace(p,38));
+        b.appendChild(el("span",{class:"cf-t"},[el("b",{text:p.name}),el("span",{text:(fmtYear(p)||"")+(CATS[p.category]?" · "+CATS[p.category].label:"")}),calAgeNote(p,y)?el("em",{text:calAgeNote(p,y)}):null]));
+        const sw=el("i",{class:"cf-sw"});sw.style.background=catColor(p.category);b.appendChild(sw);
+        ul.appendChild(b);});
+      focus.appendChild(ul);
+      focus.appendChild(el("button",{class:"cf-all",text:ppl.length>6?"See all "+ppl.length+" →":"Open this day →",onClick:()=>openDay(m+1,d,ppl)}));
+    }else focus.appendChild(el("p",{class:"cf-empty",text:"No one in the current view was born on this day. Clear filters to see more, or try a neighbouring day."}));
   }
-  view.appendChild(grid);
+  cells[sel]&&cells[sel].classList.add("sel");
+  paintFocus(sel,true);
+
   if(byDay[0]&&byDay[0].length){
     const nb=el("div",{class:"cal-extra"});
     nb.appendChild(el("div",{class:"fam-label",text:"Born in "+MONTHS[m]+", exact day not recorded"}));
     const wrap=el("div",{class:"chips"});byDay[0].forEach(p=>wrap.appendChild(el("button",{class:"chip",text:p.name,onClick:()=>openPerson(p)})));
     nb.appendChild(wrap);view.appendChild(nb);
   }
-  if(!onMonth.length&&!(byDay[0]&&byDay[0].length))view.appendChild(el("div",{style:"margin-top:18px"},[emptyState("No one in "+MONTHS[m]+" matches the current filters. Try another month or clear filters.")]));
+  if(!onMonth.length)view.appendChild(el("div",{style:"margin-top:18px"},[emptyState("No one in "+MONTHS[m]+" matches the current filters. Try another month or clear filters.")]));
 }
-function stepMonth(d){state.calMonth=(state.calMonth+d+12)%12;render();}
 
 /* ============================================================
    PEOPLE
@@ -6357,60 +6831,274 @@ function renderCollectionDetail(view,id){
 /* ============================================================
    TIMELINE
    ============================================================ */
-function renderTimeline(view){
-  view.innerHTML="";
-  const list=current();
-  const head=el("div",{class:"viewhead"});
-  head.appendChild(el("h1",{text:"Across the eras"}));
-  head.appendChild(el("div",{class:"lede",text:"Every figure placed by birth year. Hover a dot to see who, click to open them — or drag the scrubber to sweep through history."}));
-  view.appendChild(head);
-  /* ---- year scrubber: sweep history, watch the eras light up ---- */
-  const dated=list.filter(p=>p.birthYear!=null);
-  const scrub=el("div",{class:"tl-scrub"});
-  const sIn=el("input",{type:"range",min:"-700",max:"2010",step:"5",value:"1500","aria-label":"Sweep through history by year"});
-  const sOut=el("div",{class:"tls-out"});
-  const sHint=el("div",{class:"tls-hint",text:"Drag to travel through time"});
-  scrub.append(sIn,sOut,sHint);
-  view.appendChild(scrub);
-  let sraf2=0;
-  function doScrub(){
-    sraf2=0;const Y=+sIn.value;
-    view.classList.add("tl-scrubbing");
-    let hits=[];
-    view.querySelectorAll(".tdot").forEach(d=>{
-      const dy=+d.dataset.y,on=Math.abs(dy-Y)<=25;
-      d.classList.toggle("lit",on);
-      if(on)hits.push({n:d.dataset.name,d:Math.abs(dy-Y)});
-    });
-    hits.sort((a,b)=>a.d-b.d);
-    sOut.innerHTML="";
-    sOut.appendChild(el("b",{text:"Around "+fmtYearNum(Y)}));
-    sOut.appendChild(document.createTextNode(" · "+hits.length+" "+(hits.length===1?"life":"lives")+(hits.length?" — "+hits.slice(0,4).map(h=>h.n).join(", ")+(hits.length>4?"…":""):"")));
-  }
-  sIn.addEventListener("input",()=>{if(!sraf2)sraf2=requestAnimationFrame(doScrub);},{passive:true});
-  const ranges={Ancient:[-700,500],Medieval:[500,1400],"Early Modern":[1400,1800],Modern:[1800,1945],Contemporary:[1945,2030]};
-  let any=false;
-  ERAS.forEach(era=>{
-    const ppl=list.filter(p=>p.eraGroup===era&&p.birthYear!=null);if(!ppl.length)return;any=true;
-    const [lo,hi]=ranges[era];
-    const wrap=el("div",{class:"tl-era"});
-    const ys=ppl.map(p=>p.era==="BC"?-Math.abs(p.birthYear):p.birthYear);
-    wrap.appendChild(el("div",{class:"tl-eh"},[el("b",{text:era}),el("span",{text:ppl.length+" figures · "+fmtYearNum(Math.min(...ys))+" to "+fmtYearNum(Math.max(...ys))})]));
-    const track=el("div",{class:"tl-track"});
-    ppl.forEach(p=>{
-      const yv=p.era==="BC"?-Math.abs(p.birthYear):p.birthYear;
-      const x=Math.max(1.2,Math.min(98.8,((yv-lo)/(hi-lo))*100));
-      const node=el("button",{class:"tdot","aria-label":p.name+" born "+fmtYear(p),title:p.name+" · "+fmtYear(p),onClick:()=>openPerson(p)});
-      node.dataset.y=String(yv);node.dataset.name=p.name;
-      node.style.left=x+"%";node.style.background=catColor(p.category);track.appendChild(node);
-    });
-    wrap.appendChild(track);
-    wrap.appendChild(el("div",{class:"tl-axis"},[el("span",{text:fmtYearNum(lo)}),el("span",{text:fmtYearNum(hi)})]));
-    view.appendChild(wrap);
-  });
-  if(!any)view.appendChild(emptyState("No dated figures match these filters."));
-}
+/* ============================================================
+   TIMELINE — a time machine. Pick any year and see who was alive,
+   how old they were, what was happening in the world, and how
+   their lifelines overlapped. Every life is also placed by era.
+   ============================================================ */
+const WORLD_EVENTS=[
+  [-776,"The first recorded Olympic Games"],[-509,"Rome becomes a republic, by tradition"],[-490,"The Battle of Marathon"],
+  [-447,"Work begins on the Parthenon"],[-221,"Qin Shi Huang unifies China"],[-44,"Julius Caesar is assassinated"],
+  [79,"Vesuvius buries Pompeii"],[476,"The Western Roman Empire falls"],[537,"Hagia Sophia is completed"],
+  [622,"Muhammad's migration to Medina, the Hijra"],[800,"Charlemagne is crowned emperor"],[1066,"The Norman conquest of England"],
+  [1206,"Genghis Khan founds the Mongol Empire"],[1215,"Magna Carta is sealed"],[1347,"The Black Death reaches Europe"],
+  [1453,"Constantinople falls to the Ottomans"],[1455,"Gutenberg prints his Bible (c. 1455)"],[1492,"Columbus reaches the Americas"],
+  [1517,"Luther posts his Ninety-five Theses"],[1543,"Copernicus puts the Sun at the center"],[1609,"Galileo turns a telescope to the sky"],
+  [1687,"Newton publishes the Principia"],[1769,"Watt patents his steam engine"],[1776,"The US Declaration of Independence"],
+  [1789,"The French Revolution begins"],[1804,"Haiti wins its independence"],[1815,"Napoleon is defeated at Waterloo"],
+  [1848,"Revolutions sweep across Europe"],[1859,"Darwin publishes On the Origin of Species"],[1861,"The American Civil War begins"],
+  [1865,"Slavery is abolished in the United States"],[1876,"Bell patents the telephone"],[1903,"The Wright brothers fly"],
+  [1905,"Einstein's miracle year"],[1914,"World War I begins"],[1917,"The Russian Revolution"],
+  [1918,"World War I ends, and a flu pandemic spreads"],[1928,"Fleming discovers penicillin"],[1929,"The Wall Street Crash"],
+  [1939,"World War II begins"],[1945,"World War II ends"],[1947,"India and Pakistan become independent"],
+  [1953,"The structure of DNA is revealed"],[1957,"Sputnik, the first satellite"],[1969,"Humans walk on the Moon"],
+  [1989,"The Berlin Wall falls"],[1991,"The World Wide Web goes public"],[2001,"The September 11 attacks"],
+  [2007,"The iPhone is launched"],[2020,"The COVID-19 pandemic"]];
+/* the slider is piecewise-linear so the crowded modern centuries get room to breathe */
+const TL_SEG=[[-2700,0],[-700,40],[500,150],[1400,290],[1800,530],[CUR_YEAR,1000]];
+function tlPos(y){for(let i=1;i<TL_SEG.length;i++){const [y0,p0]=TL_SEG[i-1],[y1,p1]=TL_SEG[i];
+  if(y<=y1||i===TL_SEG.length-1)return p0+(Math.min(Math.max(y,y0),y1)-y0)/(y1-y0)*(p1-p0);}return 0;}
+function tlYearAt(pos){for(let i=1;i<TL_SEG.length;i++){const [y0,p0]=TL_SEG[i-1],[y1,p1]=TL_SEG[i];
+  if(pos<=p1||i===TL_SEG.length-1){const y=Math.round(y0+(Math.min(Math.max(pos,p0),p1)-p0)/(p1-p0)*(y1-y0));return y===0?1:y;}}return CUR_YEAR;}
+/* years between two signed years — there is no year zero */
+function yrsBetween(a,b){let n=b-a;if(a<0&&b>0)n--;return n;}
+function tlClampYear(y){y=Math.round(y);if(y===0)y=1;return Math.max(-2700,Math.min(CUR_YEAR,y));}
+function aliveIn(pool,Y){return pool.filter(p=>p.birthYear<=Y&&p.endYear!=null&&p.endYear>=Y);}
+function eraOfYear(Y){return Y<500?"Ancient":Y<1400?"Medieval":Y<1800?"Early Modern":Y<1945?"Modern":"Contemporary";}
+function centuryName(Y){if(Y<0){const c=Math.floor((-Y-1)/100)+1;return ordinal(c)+" century BC";}const c=Math.floor((Y-1)/100)+1;return ordinal(c)+" century";}
+/* one floating tooltip for timeline dots and bars */
+function tlTip(){let t=document.getElementById("tltip");
+  if(!t){t=el("div",{id:"tltip","aria-hidden":"true"});document.body.appendChild(t);}return t;}
+function showTlTip(p,node,extra){const t=tlTip();t.innerHTML="";
+  t.appendChild(personFace(p,34));
+  const life=p.deathYear!=null?fmtYearNum(p.birthYear)+" to "+fmtYearNum(p.deathYear):(p.alive?"born "+fmtYearNum(p.birthYear)+" · living":"born "+fmtYearNum(p.birthYear));
+  t.appendChild(el("div",{},[el("b",{text:p.name}),el("span",{text:CATS[p.category].label+" · "+life}),extra?el("em",{text:extra}):null]));
+  t.classList.add("on");const r=node.getBoundingClientRect(),tw=t.offsetWidth,th=t.offsetHeight;
+  let top=r.top-th-10;if(top<8)top=r.bottom+10;
+  t.style.left=Math.min(Math.max(r.left+r.width/2-tw/2,8),window.innerWidth-tw-8)+"px";t.style.top=top+"px";}
+function hideTlTip(){const t=document.getElementById("tltip");if(t)t.classList.remove("on");}
+let _tlPlay=0;
+function stopTlPlay(){if(_tlPlay){clearInterval(_tlPlay);_tlPlay=0;}}
 
+function renderTimeline(view){
+  stopTlPlay();view.innerHTML="";
+  const list=current();
+  const pool=list.filter(p=>p.birthYear!=null);
+  const lives=pool.filter(p=>p.endYear!=null);
+  if(state.tlYear==null){const b=STORE.get("bday",null);state.tlYear=1905;if(b&&b.y&&b.y>1900&&b.y<=CUR_YEAR)state.tlYear=b.y;}
+  if(!state.tlSpan)state.tlSpan=150;
+  const narrow=()=>window.innerWidth<700;
+
+  /* ---------- time machine ---------- */
+  const tm=el("section",{class:"tm","aria-label":"Time machine"});
+  tm.appendChild(starLayer("star-layer",26));
+  const top=el("div",{class:"tm-top"});
+  const yb=el("div",{class:"tm-yearbox"});
+  yb.appendChild(el("p",{class:"eyebrow",text:"Time machine"}));
+  const yearEl=el("div",{class:"tm-year"});
+  const eraEl=el("div",{class:"tm-era"});
+  yb.append(yearEl,eraEl);top.appendChild(yb);
+  const stats=el("div",{class:"tm-stats"});
+  const mkStat=(l)=>{const v=el("b");const s=el("div",{class:"tm-stat"},[v,el("span",{text:l})]);stats.appendChild(s);return v;};
+  const sAlive=mkStat("alive in the almanac"),sBorn=mkStat("born this year"),sDied=mkStat("died this year");
+  top.appendChild(stats);
+  const playBtn=el("button",{class:"tm-play","aria-label":"Play through history"});
+  top.appendChild(playBtn);
+  tm.appendChild(top);
+  const evEl=el("div",{class:"tm-events"});tm.appendChild(evEl);
+  const faces=el("div",{class:"tm-faces"});tm.appendChild(faces);
+  /* slider with a density skyline and event ticks behind it */
+  const sl=el("div",{class:"tm-slider"});
+  const spark=document.createElementNS("http://www.w3.org/2000/svg","svg");spark.setAttribute("class","tm-spark");spark.setAttribute("viewBox","0 0 1000 40");spark.setAttribute("preserveAspectRatio","none");spark.setAttribute("aria-hidden","true");
+  const bins=new Array(100).fill(0);pool.forEach(p=>{const i=Math.min(99,Math.floor(tlPos(p.birthYear)/10));bins[i]++;});
+  const bmx=Math.max(1,...bins);let d="M0 40";bins.forEach((n,i)=>{const h=40-Math.sqrt(n/bmx)*38;d+=" L"+(i*10)+" "+h.toFixed(1)+" L"+(i*10+10)+" "+h.toFixed(1);});d+=" L1000 40 Z";
+  const path=document.createElementNS("http://www.w3.org/2000/svg","path");path.setAttribute("d",d);spark.appendChild(path);
+  sl.appendChild(spark);
+  const ticks=el("div",{class:"tm-ticks","aria-hidden":"true"});
+  WORLD_EVENTS.forEach(([y,t])=>{const k=el("i",{title:fmtYearNum(y)+" · "+t});k.style.left=(tlPos(y)/10)+"%";ticks.appendChild(k);});
+  sl.appendChild(ticks);
+  const range=el("input",{type:"range",min:"0",max:"10000",step:"1","aria-label":"Choose a year"});
+  sl.appendChild(range);
+  const lab=el("div",{class:"tm-labels","aria-hidden":"true"});
+  [[-2700,"2700 BC"],[500,"500"],[1400,"1400"],[1800,"1800"],[CUR_YEAR,String(CUR_YEAR)]].forEach(([y,t])=>{const s=el("span",{text:t});s.style.left=(tlPos(y)/10)+"%";lab.appendChild(s);});
+  sl.appendChild(lab);
+  tm.appendChild(sl);
+  const jumps=el("div",{class:"tm-jumps"});
+  const bday=STORE.get("bday",null);
+  [["Classical Athens",-430],["Rome",-44],["Medieval",1200],["Renaissance",1505],["Enlightenment",1760],["1900",1900],["Moon landing",1969],["Today",CUR_YEAR]]
+    .concat(bday&&bday.y?[["Your birth year",bday.y]]:[])
+    .forEach(([t,y])=>jumps.appendChild(el("button",{class:"tm-jump",text:t,onClick:()=>{stopTlPlay();syncPlay();setYear(y,true);}})));
+  tm.appendChild(jumps);
+  view.appendChild(tm);
+
+  /* ---------- lifelines ---------- */
+  const ll=el("section",{class:"section ll"});
+  const llh=el("div",{class:"ll-head"});
+  const llTitle=el("div",{},[el("h2",{text:"Lifelines"}),el("span",{class:"sub",text:"Each bar runs from birth to death. Drag the chart sideways to travel through time."})]);
+  const zoom=el("div",{class:"ll-zoom",role:"group","aria-label":"Time span shown"});
+  [[60,"60 yrs"],[150,"150 yrs"],[400,"400 yrs"],[1200,"1,200 yrs"]].forEach(([s,t])=>zoom.appendChild(el("button",{text:t,"aria-pressed":state.tlSpan===s?"true":"false",
+    onClick:function(){state.tlSpan=s;zoom.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed","false"));this.setAttribute("aria-pressed","true");drawLines(true);}})));
+  llh.append(llTitle,zoom);ll.appendChild(llh);
+  const stage=el("div",{class:"ll-stage"});
+  const axis=el("div",{class:"ll-axis","aria-hidden":"true"}),pins=el("div",{class:"ll-pins"}),bars=el("div",{class:"ll-bars"});
+  const nowLine=el("div",{class:"ll-now","aria-hidden":"true"},[el("span")]);
+  stage.append(axis,pins,bars,nowLine);ll.appendChild(stage);
+  ll.appendChild(el("div",{class:"ll-legend"},[el("span",{class:"ll-k"},[el("i",{class:"a"}),document.createTextNode("Alive in the chosen year")]),
+    el("span",{class:"ll-k"},[el("i",{class:"b"}),document.createTextNode("Still living")]),el("span",{class:"ll-k"},[el("i",{class:"c"}),document.createTextNode("A world event")])]));
+  view.appendChild(ll);
+
+  /* ---------- every life by era: stacked dots ---------- */
+  const sw=el("section",{class:"section"});
+  sw.appendChild(secHead("Every life, by era","Each dot is one person, stacked by birth year. The ones glowing were alive in the year you picked."));
+  const swHost=el("div",{class:"tl-swarms"});sw.appendChild(swHost);view.appendChild(sw);
+  const tf=timeFactsSection();if(tf)view.appendChild(tf);
+  if(!pool.length){view.appendChild(emptyState("No dated figures match these filters."));}
+
+  const barNodes=new Map(),faceNodes=new Map();let dotNodes=[];
+  let Y=state.tlYear;
+
+  function syncPlay(){playBtn.classList.toggle("on",!!_tlPlay);playBtn.innerHTML=_tlPlay?"&#10074;&#10074;":"&#9654;";playBtn.setAttribute("aria-label",_tlPlay?"Pause":"Play through history");}
+  function setYear(y,smooth){Y=tlClampYear(y);state.tlYear=Y;range.value=String(Math.round(tlPos(Y)*10));range.setAttribute("aria-valuetext",fmtYearNum(Y));paintHero();drawLines(smooth);litDots();}
+  function paintHero(){
+    yearEl.innerHTML="";
+    yearEl.appendChild(el("span",{text:Y<0?String(-Y):String(Y)}));
+    if(Y<0)yearEl.appendChild(el("small",{text:"BC"}));
+    eraEl.textContent=centuryName(Y)+" · "+eraOfYear(Y)+" era"+(Y===CUR_YEAR?" · now":(Y>0?" · "+yrsBetween(Y,CUR_YEAR)+" years ago":""));
+    const alive=aliveIn(lives,Y);
+    sAlive.textContent=alive.length.toLocaleString();
+    sBorn.textContent=String(pool.filter(p=>p.birthYear===Y).length);
+    sDied.textContent=String(lives.filter(p=>p.deathYear===Y).length);
+    /* nearest world events on either side */
+    evEl.innerHTML="";
+    const past=WORLD_EVENTS.filter(e=>e[0]<=Y&&Y-e[0]<=40).pop(),next=WORLD_EVENTS.find(e=>e[0]>Y&&e[0]-Y<=40);
+    if(past)evEl.appendChild(el("div",{class:"tm-ev"},[el("span",{class:"tm-evk",text:past[0]===Y?"This year":yrsBetween(past[0],Y)+(yrsBetween(past[0],Y)===1?" year ago":" years ago")}),el("span",{text:past[1]})]));
+    if(next)evEl.appendChild(el("div",{class:"tm-ev next"},[el("span",{class:"tm-evk",text:"In "+yrsBetween(Y,next[0])+(yrsBetween(Y,next[0])===1?" year":" years")}),el("span",{text:next[1]})]));
+    if(!past&&!next)evEl.appendChild(el("div",{class:"tm-ev quiet"},[el("span",{class:"tm-evk",text:"A quiet stretch"}),el("span",{text:"No landmark event in our list within 40 years"})]));
+    /* the most famous people alive that year, reusing nodes so portraits don't reload */
+    const top=featuredOf(alive,narrow()?10:14);
+    const keep=new Set(top.map(p=>p.id));
+    faceNodes.forEach((n,id)=>{if(!keep.has(id)){n.remove();faceNodes.delete(id);}});
+    top.forEach((p,i)=>{let n=faceNodes.get(p.id);
+      if(!n){n=el("button",{class:"tm-face",onClick:()=>openPerson(p)},[personFace(p,46),el("b",{text:p.name.replace(/^(Sir|Saint|St\.|Dr\.)\s+/,"")}),el("span")]);faceNodes.set(p.id,n);}
+      const a=yrsBetween(p.birthYear,Y);
+      n.lastChild.textContent=a===0?"born this year":(p.deathYear===Y?"dies this year, "+a:"age "+a);
+      n.setAttribute("aria-label",p.name+", "+n.lastChild.textContent);
+      if(faces.children[i]!==n)faces.insertBefore(n,faces.children[i]||null);});
+    if(!top.length){if(!faces.querySelector(".tm-none"))faces.appendChild(el("div",{class:"tm-none",text:"No one in the almanac was alive in this year. Try another."}));}
+    else{const x=faces.querySelector(".tm-none");if(x)x.remove();}
+  }
+  function drawLines(smooth){
+    const W=stage.clientWidth;if(!W)return;
+    stage.classList.toggle("smooth",!!smooth&&!REDUCE);
+    const S=state.tlSpan;let lo=Y-S/2,hi=Y+S/2;
+    const maxHi=CUR_YEAR+S*0.06;if(hi>maxHi){lo-=hi-maxHi;hi=maxHi;}
+    if(lo<-2750){hi+=-2750-lo;lo=-2750;}
+    const px=y=>(y-lo)/(hi-lo)*W;
+    /* axis ticks at a readable interval */
+    const step=[1,2,5,10,20,25,50,100,200,250,500,1000].find(s=>(hi-lo)/s<=W/95)||1000;
+    axis.innerHTML="";
+    for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step){if(t===0)continue;const k=el("span",{text:fmtYearNum(t)});k.style.left=px(t)+"px";axis.appendChild(k);}
+    pins.innerHTML="";
+    WORLD_EVENTS.forEach(([y,t])=>{if(y<lo||y>hi)return;const pn=el("i",{class:"ll-pin",tabindex:"0","aria-label":fmtYearNum(y)+": "+t});pn.style.left=px(y)+"px";
+      pn.addEventListener("mouseenter",()=>showPin(pn,y,t));pn.addEventListener("focus",()=>showPin(pn,y,t));pn.addEventListener("mouseleave",hideTlTip);pn.addEventListener("blur",hideTlTip);pins.appendChild(pn);});
+    nowLine.style.left=px(Y)+"px";nowLine.firstChild.textContent=fmtYearNum(Y);
+    /* pick who to show: mostly people alive in Y, then the most famous others in view */
+    const K=narrow()?16:34,inWin=lives.filter(p=>p.birthYear<=hi&&p.endYear>=lo);
+    const aliveY=featuredOf(inWin.filter(p=>p.birthYear<=Y&&p.endYear>=Y),Math.round(K*0.6));
+    const ids=new Set(aliveY.map(p=>p.id));
+    const others=featuredOf(inWin.filter(p=>!ids.has(p.id)),K-aliveY.length);
+    const chosen=aliveY.concat(others).sort((a,b)=>a.birthYear-b.birthYear);
+    const lanes=[],maxLanes=narrow()?12:16,LH=27,placed=new Set();
+    chosen.forEach(p=>{
+      const x0=Math.max(px(p.birthYear),-2),x1=Math.min(px(p.endYear+(p.alive?0:1)),W+2),bw=Math.max(x1-x0,4);
+      const lw=p.name.length*6.4+16,inside=bw>=lw,flip=!inside&&x0+bw+6+lw>W,start=flip?x0-6-lw:x0,occ=inside||flip?x0+bw:x0+bw+6+lw;
+      let lane=lanes.findIndex(e=>e+8<=start);if(lane<0){if(lanes.length>=maxLanes)return;lane=lanes.length;lanes.push(0);}
+      lanes[lane]=occ;placed.add(p.id);
+      let b=barNodes.get(p.id);
+      if(!b){b=el("button",{class:"ll-bar"},[el("span",{class:"ll-name"})]);b.style.setProperty("--cat",catColor(p.category));
+        b.firstChild.textContent=p.name;
+        b.addEventListener("click",e=>{if(stage._dragged){e.preventDefault();return;}openPerson(p);});
+        b.addEventListener("mouseenter",()=>showTlTip(p,b,barNote(p)));b.addEventListener("mouseleave",hideTlTip);
+        b.addEventListener("focus",()=>showTlTip(p,b,barNote(p)));b.addEventListener("blur",hideTlTip);
+        b.classList.add("enter");bars.appendChild(b);barNodes.set(p.id,b);requestAnimationFrame(()=>b.classList.remove("enter"));}
+      b.style.transform="translate("+x0.toFixed(1)+"px,"+(lane*LH)+"px)";b.style.width=bw.toFixed(1)+"px";
+      b.classList.toggle("out",!inside);b.classList.toggle("flip",flip);b.classList.toggle("living",!!p.alive);
+      b.classList.toggle("now",p.birthYear<=Y&&p.endYear>=Y);
+      b.setAttribute("aria-label",p.name+", "+fmtYearNum(p.birthYear)+(p.deathYear!=null?" to "+fmtYearNum(p.deathYear):", living"));});
+    barNodes.forEach((b,id)=>{if(!placed.has(id)){b.remove();barNodes.delete(id);}});
+    bars.style.height=Math.max(lanes.length,3)*LH+"px";
+    stage._px=W/(hi-lo);
+  }
+  function barNote(p){if(p.birthYear<=Y&&p.endYear>=Y){const a=yrsBetween(p.birthYear,Y);return "In "+fmtYearNum(Y)+": "+(a===0?"born that year":"age "+a);}
+    return p.birthYear>Y?"Born "+yrsBetween(Y,p.birthYear)+" years after "+fmtYearNum(Y):"Died "+yrsBetween(p.endYear,Y)+" years before "+fmtYearNum(Y);}
+  function showPin(pn,y,t){const tip=tlTip();tip.innerHTML="";tip.appendChild(el("div",{},[el("b",{text:fmtYearNum(y)}),el("span",{text:t})]));tip.classList.add("on");
+    const r=pn.getBoundingClientRect();tip.style.left=Math.min(Math.max(r.left-tip.offsetWidth/2,8),window.innerWidth-tip.offsetWidth-8)+"px";tip.style.top=(r.top-tip.offsetHeight-8)+"px";}
+  /* drag the chart to travel */
+  stage.addEventListener("pointerdown",e=>{if(e.button!==0)return;stopTlPlay();syncPlay();const x0=e.clientX,y0=Y;stage._dragged=false;
+    const mv=ev=>{const dx=ev.clientX-x0;if(Math.abs(dx)>4){stage._dragged=true;stage.classList.add("dragging");hideTlTip();}
+      if(stage._dragged&&stage._px)setYear(y0-dx/stage._px,false);};
+    const up=()=>{window.removeEventListener("pointermove",mv);window.removeEventListener("pointerup",up);stage.classList.remove("dragging");setTimeout(()=>{stage._dragged=false;},0);};
+    window.addEventListener("pointermove",mv);window.addEventListener("pointerup",up);});
+  stage.addEventListener("keydown",e=>{if(e.key==="ArrowLeft"||e.key==="ArrowRight"){e.preventDefault();setYear(Y+(e.key==="ArrowLeft"?-1:1)*Math.max(1,Math.round(state.tlSpan/30)),true);}});
+  stage.tabIndex=0;stage.setAttribute("aria-label","Lifelines chart. Use the left and right arrow keys to travel through time.");
+
+  /* stacked dot chart per era */
+  function drawSwarms(){
+    swHost.innerHTML="";dotNodes=[];
+    const ranges={Ancient:[-2700,500],Medieval:[500,1400],"Early Modern":[1400,1800],Modern:[1800,1945],Contemporary:[1945,CUR_YEAR]};
+    const W0=swHost.clientWidth;if(!W0)return;
+    ERAS.forEach(era=>{
+      const ppl=pool.filter(p=>p.eraGroup===era);if(!ppl.length)return;
+      let [lo,hi]=ranges[era];
+      if(era==="Ancient"){lo=Math.min(-700,...ppl.map(p=>p.birthYear))-20;}
+      const box=el("div",{class:"tl-era"});
+      const ys=ppl.map(p=>p.birthYear);
+      box.appendChild(el("div",{class:"tl-eh"},[el("b",{text:era}),el("span",{text:ppl.length.toLocaleString()+(ppl.length===1?" life":" lives")+" · born "+fmtYearNum(Math.min(...ys))+" to "+fmtYearNum(Math.max(...ys))})]));
+      const W=W0-2;let sz=12,cols,stack,mx;
+      const minSz=W<600?4:6;
+      for(;sz>=minSz;sz--){cols=Math.max(1,Math.floor(W/(sz+1)));stack=new Array(cols).fill(0);
+        ppl.forEach(p=>{const c=Math.min(cols-1,Math.max(0,Math.floor((p.birthYear-lo)/(hi-lo)*cols)));stack[c]++;});
+        mx=Math.max(...stack);if(mx*(sz+1)<=200)break;}
+      sz=Math.max(sz,minSz);
+      const track=el("div",{class:"tl-swarm"});track.style.height=(mx*(sz+1)+14)+"px";
+      const fill=new Array(cols).fill(0);
+      ppl.slice().sort((a,b)=>rankScore(b)-rankScore(a)).forEach(p=>{
+        const c=Math.min(cols-1,Math.max(0,Math.floor((p.birthYear-lo)/(hi-lo)*cols)));const r=fill[c]++;
+        const dt=el("button",{class:"sdot","aria-label":p.name+", born "+fmtYear(p)});
+        dt.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+(c*(W/cols)+(W/cols-sz)/2).toFixed(1)+"px;bottom:"+(7+r*(sz+1))+"px;background:"+catColor(p.category);
+        dt._p=p;dt.addEventListener("click",()=>openPerson(p));
+        dt.addEventListener("mouseenter",()=>showTlTip(p,dt,dotNote(p)));dt.addEventListener("mouseleave",hideTlTip);
+        dt.addEventListener("focus",()=>showTlTip(p,dt,dotNote(p)));dt.addEventListener("blur",hideTlTip);
+        track.appendChild(dt);dotNodes.push(dt);});
+      WORLD_EVENTS.forEach(([y,t])=>{if(y<lo||y>=hi)return;const k=el("i",{class:"sw-ev",title:fmtYearNum(y)+" · "+t});k.style.left=((y-lo)/(hi-lo)*100)+"%";track.appendChild(k);});
+      track.addEventListener("dblclick",e=>{if(e.target!==track)return;const r=track.getBoundingClientRect();setYear(lo+(e.clientX-r.left)/r.width*(hi-lo),true);window.scrollTo({top:0,behavior:REDUCE?"auto":"smooth"});});
+      box.appendChild(track);
+      const ax=el("div",{class:"tl-axis sw-axis"});
+      const st=[10,20,25,50,100,200,250,500,1000].find(v=>(hi-lo)/v<=Math.max(3,Math.floor(W/110)))||1000;
+      for(let t=Math.ceil(lo/st)*st;t<=hi;t+=st){const q=(t-lo)/(hi-lo)*100;if(t===0||q<3||q>97)continue;const k=el("span",{text:fmtYearNum(t)});k.style.left=q+"%";ax.appendChild(k);}
+      box.appendChild(ax);swHost.appendChild(box);});
+    litDots();
+  }
+  function dotNote(p){const a=p.birthYear<=Y&&p.endYear!=null&&p.endYear>=Y;return a?"Alive in "+fmtYearNum(Y)+", age "+yrsBetween(p.birthYear,Y):null;}
+  function litDots(){dotNodes.forEach(d=>{const p=d._p;d.classList.toggle("lit",p.birthYear<=Y&&p.endYear!=null&&p.endYear>=Y);});}
+
+  range.addEventListener("input",()=>{stopTlPlay();syncPlay();if(range._raf)return;range._raf=requestAnimationFrame(()=>{range._raf=0;setYear(tlYearAt(+range.value/10),false);});});
+  range.addEventListener("keydown",e=>{const k={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-10,PageUp:10}[e.key];
+    if(k){e.preventDefault();stopTlPlay();syncPlay();setYear(Y+k,false);}});
+  playBtn.addEventListener("click",()=>{
+    if(_tlPlay){stopTlPlay();syncPlay();return;}
+    if(Y>=CUR_YEAR)setYear(-800,false);
+    _tlPlay=setInterval(()=>{
+      if(!stage.isConnected){stopTlPlay();return;}
+      const step=Y<0?20:Y<1000?10:Y<1600?5:Y<1850?2:1;
+      if(Y>=CUR_YEAR){stopTlPlay();syncPlay();return;}
+      setYear(Math.min(CUR_YEAR,Y+step),true);},REDUCE?400:170);
+    syncPlay();});
+  syncPlay();
+  requestAnimationFrame(()=>{setYear(Y,false);drawSwarms();});
+  window._tlRelayout=()=>{if(state.view!=="timeline"||!stage.isConnected)return;drawLines(false);drawSwarms();paintHero();};
+}
+window.addEventListener("resize",()=>{clearTimeout(window._tlRT);window._tlRT=setTimeout(()=>{if(window._tlRelayout)window._tlRelayout();},160);},{passive:true});
 /* ============================================================
    PATTERNS (interactive charts)
    ============================================================ */
@@ -6421,26 +7109,334 @@ function renderPatterns(view){
   head.appendChild(starLayer("star-layer",30));
   head.appendChild(el("p",{class:"eyebrow",text:"Birthday gravity"}));
   head.appendChild(el("h1",{text:"Cosmic Patterns"}));
-  head.appendChild(el("div",{class:"lede",text:"Every day has a gravity. Some dates pull more history toward them. See how "+list.length+" lives in view cluster across time, sign, field and place — tap any bar to follow the pull."}));
+  head.appendChild(el("div",{class:"lede",text:"What "+list.length.toLocaleString()+" real lives reveal about birthdays, lifespans and the shape of history. Every chart is live: filter the almanac and they recompute, tap anything to follow it."}));
   view.appendChild(head);
   if(!list.length){view.appendChild(emptyState());return;}
-  /* interactive showpiece */
+  view.appendChild(patInsights(list));
+  /* the year as a clock, then the heat map */
+  view.appendChild(patSec("The shape of the year","Every day of the year, measured by the birthdays it holds"));
+  view.appendChild(chartClock(list));
   view.appendChild(chartHeatmap(list));
+  /* honest statistics */
+  view.appendChild(patSec("Myth or math?","Real statistical tests on the almanac's birth dates. Each asks one question: is this pattern bigger than chance would produce?"));
+  const st=el("div",{class:"chart-grid stat-grid"});
+  st.appendChild(testMonth(list));st.appendChild(testWeekday(list));st.appendChild(testMoon(list));st.appendChild(testSign(list));
+  view.appendChild(st);
+  /* the long view */
+  view.appendChild(patSec("The long view","How the people history remembers have changed over the centuries"));
+  const lv=el("div",{class:"chart-grid wide2"});
+  lv.appendChild(chartLifespan(list));lv.appendChild(chartWomenShare(list));
+  view.appendChild(lv);
+  view.appendChild(chartFieldsByEra(list));
+  const ex=el("div",{class:"chart-grid wide2"});
+  ex.appendChild(chartExtremes(list,"long"));ex.appendChild(chartExtremes(list,"short"));
+  view.appendChild(ex);
+  /* breakdowns */
+  view.appendChild(patSec("Every breakdown","Sign, field, place and period. Tap a bar to filter the almanac to it"));
   const grid=el("div",{class:"chart-grid"});
+  grid.appendChild(chartElement(list));
+  grid.appendChild(chartModality(list));
+  grid.appendChild(chartGender(list));
   grid.appendChild(chartMonth(list));
   grid.appendChild(chartZodiac(list));
-  grid.appendChild(chartElement(list));
   grid.appendChild(chartCategory(list));
-  grid.appendChild(chartCentury(list));
-  grid.appendChild(chartDecade(list));
-  grid.appendChild(chartEra(list));
-  grid.appendChild(chartModality(list));
   grid.appendChild(chartRegion(list));
   grid.appendChild(chartCountries(list));
-  grid.appendChild(chartGender(list));
+  grid.appendChild(chartEra(list));
   grid.appendChild(chartStatus(list));
   grid.appendChild(chartCrowded(list));
   view.appendChild(grid);
+  const cols=el("div",{class:"chart-grid wide2"});
+  cols.appendChild(chartCentury(list));cols.appendChild(chartDecade(list));
+  view.appendChild(cols);
+}
+function patSec(title,sub){return el("div",{class:"pat-sec"},[el("h2",{text:title}),sub?el("p",{text:sub}):null]);}
+/* ---------- headline numbers ---------- */
+function median(a){if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y),h=s.length>>1;return s.length%2?s[h]:(s[h-1]+s[h])/2;}
+function patInsights(list){
+  const row=el("div",{class:"insights"});
+  const tile=(ic,v,l,s,go)=>{const t=el(go?"button":"div",{class:"ins"+(go?" go":"")},[el("span",{class:"ins-ic",text:ic}),el("b",{text:v}),el("span",{class:"ins-l",text:l}),s?el("span",{class:"ins-s",text:s}):null]);if(go)t.addEventListener("click",go);row.appendChild(t);};
+  const countries=new Set(list.map(p=>p.country).filter(c=>c&&c!=="Unknown"));
+  tile("\u{1F30D}",list.length.toLocaleString(),"lives in view","from "+countries.size+" countries and civilizations",null);
+  const g=list.filter(p=>p.sex==="female"||p.sex==="male"),f=g.filter(p=>p.sex==="female").length;
+  if(g.length)tile("\u{2640}\u{FE0F}",Math.round(f/g.length*100)+"%","are women",f.toLocaleString()+" of "+g.length.toLocaleString()+" with a recorded gender",()=>goWithFilter(x=>x.gender="female","people"));
+  const yrs=list.filter(p=>p.birthYear!=null).map(p=>p.birthYear),md=median(yrs);
+  if(md!=null)tile("\u{23F3}",fmtYearNum(Math.round(md)),"median birth year","half of these lives began after it",null);
+  const ends=list.map(p=>({p,a:ageAtDeath(p)})).filter(x=>x.a&&x.a.n>=0);
+  if(ends.length){const avg=ends.reduce((s,x)=>s+x.a.n,0)/ends.length;
+    tile("\u{1F56F}\u{FE0F}",Math.round(avg)+" yrs","average lifespan","across "+ends.length.toLocaleString()+" completed lives",null);
+    const L=ends.filter(x=>x.p.birthYear>=1500).sort((a,b)=>b.a.n-a.a.n||rankScore(b.p)-rankScore(a.p))[0];
+    if(L)tile("\u{1F3C6}",L.a.n+" yrs","longest life here",L.p.name,()=>openPerson(L.p));}
+  const living=list.filter(p=>p.alive&&ageToday(p)!=null);
+  if(living.length){const O=living.slice().sort((a,b)=>ageToday(b)-ageToday(a)||rankScore(b)-rankScore(a))[0];
+    tile("\u{1F382}",String(ageToday(O)),"oldest living person here",O.name,()=>openPerson(O));}
+  return row;
+}
+/* ---------- the birthday clock: 366 spokes, one per day ---------- */
+function chartClock(list){
+  const ch=el("div",{class:"chart clock-chart"});
+  const S=440,C=S/2,R0=104,R1=196,NS="http://www.w3.org/2000/svg";
+  const counts={};let mx=1;
+  list.forEach(p=>{if(p.month&&p.day){const k=p.month+"-"+p.day;counts[k]=(counts[k]||0)+1;if(counts[k]>mx)mx=counts[k];}});
+  const days=[];for(let m=1;m<=12;m++)for(let d=1;d<=DIM[m-1];d++)days.push([m,d]);
+  const ang=i=>(i+0.5)/days.length*Math.PI*2-Math.PI/2;
+  const pt=(r,a)=>[(C+r*Math.cos(a)).toFixed(2),(C+r*Math.sin(a)).toFixed(2)];
+  let svg='<svg viewBox="0 0 '+S+' '+S+'" class="clock-svg" role="img" aria-label="Radial chart of birthdays for every day of the year">';
+  svg+='<circle cx="'+C+'" cy="'+C+'" r="'+R1+'" class="ck-ring"/><circle cx="'+C+'" cy="'+C+'" r="'+R0+'" class="ck-core"/>';
+  [0.25,0.5,0.75].forEach(f=>{svg+='<circle cx="'+C+'" cy="'+C+'" r="'+(R0+(R1-R0)*f)+'" class="ck-grid"/>';});
+  /* zodiac band just inside the spokes */
+  ZODIAC.forEach(z=>{const i0=days.findIndex(x=>x[0]===z.from[0]&&x[1]===z.from[1]);const a=ang(i0)-Math.PI/days.length;const [x,y]=pt(R0-4,a),[x2,y2]=pt(R0-20,a);
+    svg+='<line x1="'+x+'" y1="'+y+'" x2="'+x2+'" y2="'+y2+'" class="ck-zsep"/>';
+    const len=days.findIndex(x=>x[0]===z.to[0]&&x[1]===z.to[1]);const mid=ang(((i0+(((len-i0+days.length)%days.length)/2))|0)%days.length);
+    const [gx,gy]=pt(R0-13,mid);svg+='<text x="'+gx+'" y="'+gy+'" class="ck-z" style="fill:'+elementColor(ZMETA[z.sign].element)+'">'+z.sym+'</text>';});
+  days.forEach(([m,d],i)=>{const n=counts[m+"-"+d]||0,a=ang(i);const z=zodiac(m,d);
+    const [x1,y1]=pt(R0+2,a),[x2,y2]=pt(R0+2+(R1-R0-2)*(n/mx),a);
+    if(n)svg+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" class="ck-sp" data-i="'+i+'" style="stroke:'+elementColor(ZMETA[z.sign].element)+'"/>';});
+  for(let m=0;m<12;m++){const i0=days.findIndex(x=>x[0]===m+1&&x[1]===1),a=ang(i0)-Math.PI/days.length;
+    const [x1,y1]=pt(R0,a),[x2,y2]=pt(R1+6,a);svg+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" class="ck-msep"/>';
+    const am=ang(i0+DIM[m]/2);const [lx,ly]=pt(R1+18,am);svg+='<text x="'+lx+'" y="'+ly+'" class="ck-m">'+MS[m].toUpperCase()+'</text>';}
+  svg+='<line class="ck-hand" x1="'+C+'" y1="'+C+'" x2="'+C+'" y2="'+(C-R1)+'" style="opacity:0"/></svg>';
+  const wrap=el("div",{class:"clock-wrap"});
+  const box=el("div",{class:"clock-box",html:svg});
+  const center=el("div",{class:"clock-center"});
+  box.appendChild(center);wrap.appendChild(box);
+  /* side: the headline and top ten days */
+  const side=el("div",{class:"clock-side"});
+  side.appendChild(el("h3",{text:"The birthday clock"}));
+  side.appendChild(el("div",{class:"cap",text:"All 366 days around a dial. Each spoke's length is the number of birthdays that day, colored by the element of its zodiac sign. Move around the dial to read it; click to open a day."}));
+  const top=days.map(([m,d])=>({m,d,n:counts[m+"-"+d]||0})).sort((a,b)=>b.n-a.n).slice(0,8);
+  side.appendChild(el("div",{class:"fam-label",text:"The busiest days"}));
+  const tl=el("div",{class:"ck-top"});
+  top.forEach((t,i)=>{const ppl=list.filter(p=>p.month===t.m&&p.day===t.d).sort((a,b)=>rankScore(b)-rankScore(a));
+    const b=el("button",{class:"ck-tr",onClick:()=>openDay(t.m,t.d,ppl)},[el("span",{class:"ck-rk",text:String(i+1)}),el("b",{text:MS[t.m-1]+" "+t.d}),
+      el("span",{class:"ck-nm",text:ppl.slice(0,2).map(p=>p.name).join(", ")}),el("span",{class:"ck-n",text:"×"+t.n})]);
+    b.addEventListener("mouseenter",()=>focusDay(days.findIndex(x=>x[0]===t.m&&x[1]===t.d)));b.addEventListener("mouseleave",()=>focusDay(-1));
+    tl.appendChild(b);});
+  side.appendChild(tl);
+  side.appendChild(el("div",{class:"ck-legend"},ELEMENTS.map(e=>{const s=el("span");const i=el("i");i.style.background=elementColor(e.key);s.append(i,document.createTextNode(e.key));return s;})));
+  wrap.appendChild(side);ch.appendChild(wrap);
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  function idle(){center.innerHTML="";center.append(el("b",{text:total.toLocaleString()}),el("span",{text:"dated birthdays"}),el("em",{text:"about "+(total/365.25).toFixed(1)+" a day"}));}
+  function focusDay(i){
+    const svgEl=box.querySelector("svg"),hand=svgEl.querySelector(".ck-hand");
+    svgEl.querySelectorAll(".ck-sp.on").forEach(x=>x.classList.remove("on"));
+    if(i<0){hand.style.opacity="0";svgEl.classList.remove("focus");idle();return;}
+    const [m,d]=days[i],n=counts[m+"-"+d]||0,a=ang(i);const [hx,hy]=pt(R1,a);
+    hand.setAttribute("x2",hx);hand.setAttribute("y2",hy);hand.style.opacity="1";svgEl.classList.add("focus");
+    const sp=svgEl.querySelector('.ck-sp[data-i="'+i+'"]');if(sp)sp.classList.add("on");
+    const ppl=list.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+    center.innerHTML="";center.append(el("em",{text:(zodiac(m,d)||{}).sym+" "+(zodiac(m,d)||{}).sign}),el("b",{text:MONTHS[m-1]+" "+d}),
+      el("span",{text:n?n+(n===1?" birthday":" birthdays"):"no birthdays in view"}),n?el("small",{text:ppl.slice(0,3).map(p=>p.name).join(" · ")}):null);}
+  function idxAt(e){const r=box.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2,dist=Math.hypot(x,y)/(r.width/S);
+    if(dist<R0-24||dist>R1+30)return -1;let a=Math.atan2(y,x)+Math.PI/2;if(a<0)a+=Math.PI*2;return Math.min(days.length-1,Math.floor(a/(Math.PI*2)*days.length));}
+  box.addEventListener("pointermove",e=>focusDay(idxAt(e)));
+  box.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")focusDay(idxAt(e));});
+  box.addEventListener("pointerleave",()=>focusDay(-1));
+  box.addEventListener("click",e=>{const i=idxAt(e);if(i<0)return;const [m,d]=days[i];const ppl=list.filter(p=>p.month===m&&p.day===d);if(ppl.length)openDay(m,d,ppl);});
+  idle();
+  return ch;
+}
+/* ---------- statistics: chi-square goodness of fit ---------- */
+function lnGamma(z){const g=[676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  if(z<0.5)return Math.log(Math.PI/Math.sin(Math.PI*z))-lnGamma(1-z);z-=1;let x=0.99999999999980993;for(let i=0;i<8;i++)x+=g[i]/(z+i+1);const t=z+7.5;
+  return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);}
+/* upper-tail probability of a chi-square statistic x with k degrees of freedom */
+function chiSqP(x,k){const a=k/2,z=x/2;if(x<=0)return 1;
+  if(z<a+1){let s=1/a,t=s;for(let n=1;n<500;n++){t*=z/(a+n);s+=t;if(t<s*1e-12)break;}return Math.max(0,1-s*Math.exp(-z+a*Math.log(z)-lnGamma(a)));}
+  let b=z+1-a,c=1e300,d=1/b,h=d;for(let i=1;i<500;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<1e-300)d=1e-300;c=b+an/c;if(Math.abs(c)<1e-300)c=1e-300;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<1e-12)break;}
+  return Math.min(1,Math.exp(-z+a*Math.log(z)-lnGamma(a))*h);}
+function fmtP(p){return p<0.001?"p < 0.001":p>0.99?"p = "+Math.min(p,0.999).toFixed(3):"p = "+(p<0.01?p.toFixed(3):p.toFixed(2));}
+/* observed-vs-expected bars with a verdict */
+function statChart(title,q,labels,obs,expShare,note){
+  const ch=el("div",{class:"chart stat"});
+  ch.appendChild(el("div",{class:"stat-q",text:q}));
+  ch.appendChild(el("h3",{text:title}));
+  const N=obs.reduce((a,b)=>a+b,0);
+  if(N<30){ch.appendChild(el("div",{class:"cap",text:"Too few dated births in this view for a fair test. Clear some filters to run it."}));return ch;}
+  const exp=expShare.map(s=>s*N);
+  let chi=0;obs.forEach((o,i)=>{if(exp[i]>0)chi+=(o-exp[i])**2/exp[i];});
+  const p=chiSqP(chi,labels.length-1);
+  const ratios=obs.map((o,i)=>exp[i]?o/exp[i]:0);const mxr=Math.max(1.25,...ratios);
+  const bars=el("div",{class:"oe"});
+  labels.forEach((l,i)=>{const r=ratios[i],row=el("div",{class:"oe-row"});
+    row.appendChild(el("span",{class:"oe-l",text:l}));
+    const tr=el("div",{class:"oe-t"});const f=el("i",{class:"oe-f"+(r>=1?" up":" dn")});f.style.width=(r/mxr*100).toFixed(1)+"%";
+    const ex=el("b",{class:"oe-x"});ex.style.left=(1/mxr*100).toFixed(1)+"%";tr.append(f,ex);row.appendChild(tr);
+    const dv=Math.round((r-1)*100);row.appendChild(el("span",{class:"oe-v"+(dv>0?" up":dv<0?" dn":""),text:(dv>0?"+":"")+dv+"%"}));
+    row.title=l+": "+obs[i]+" births, "+exp[i].toFixed(1)+" expected by chance";
+    bars.appendChild(row);});
+  ch.appendChild(bars);
+  ch.appendChild(el("div",{class:"oe-key"},[el("span",{},[el("b",{class:"oe-x k"}),document.createTextNode("what pure chance predicts")]),el("span",{text:"N = "+N.toLocaleString()})]));
+  const sig=p<0.05;const hi=ratios.indexOf(Math.max(...ratios)),lo=ratios.indexOf(Math.min(...ratios));
+  const v=el("div",{class:"verdict "+(sig?"sig":"ns")});
+  v.appendChild(el("div",{class:"vd-h",text:sig?"More than chance":"Just chance"}));
+  v.appendChild(el("p",{html:(sig?"A spread this uneven would turn up by luck less than 1 time in 20 (<b>"+fmtP(p)+"</b>). ":"Differences this size are what luck alone produces (<b>"+fmtP(p)+"</b>). ")+
+    "Busiest: <b>"+labels[hi]+"</b> ("+(ratios[hi]>=1?"+":"")+Math.round((ratios[hi]-1)*100)+"%); quietest: <b>"+labels[lo]+"</b> ("+Math.round((ratios[lo]-1)*100)+"%)."+(note?" "+note(sig):"")+(p>0.95?" If anything, the spread is more even than luck usually makes it, a hint that the collection was assembled to cover the whole year.":"")}));
+  ch.appendChild(v);
+  return ch;
+}
+function testMonth(list){
+  const obs=Array(12).fill(0);list.forEach(p=>{if(p.month)obs[p.month-1]++;});
+  const len=[31,28.2425,31,30,31,30,31,31,30,31,30,31],T=365.2425;
+  return statChart("Are some months luckier?","Birth month vs. month length",MS,obs,len.map(x=>x/T),
+    sig=>sig?"Real-world births have seasonal peaks too, and famous people are not a random sample of births.":"Longer months simply have more birthdays, so each month is compared with its own length.");}
+function birthJD(p){return (p.dateStatus==="exact"&&p.month&&p.day&&p.era!=="BC"&&p.birthYear>=1000)?SKY.jdn(p.birthYear,p.month,p.day,p.cal):null;}
+function testWeekday(list){
+  const obs=Array(7).fill(0);list.forEach(p=>{const J=birthJD(p);if(J!=null)obs[(J+1)%7]++;});
+  return statChart("Is there a lucky day of the week?","Weekday of birth, computed from each date",["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],obs,Array(7).fill(1/7),
+    sig=>sig?"In recent decades, scheduled inductions and C-sections have made weekend births genuinely rarer, which can show up in modern lives.":"Each weekday is equally likely, and that is what the dates show.");}
+function testMoon(list){
+  const obs=Array(8).fill(0);list.forEach(p=>{const J=birthJD(p);if(J==null)return;const ph=SKY.moonAt(J).phase;obs[Math.floor(((ph+1/16)%1)*8)]++;});
+  return statChart("Does the full moon bring more births?","Moon phase on each birth date",["New","Wax. cres.","First qtr","Wax. gib.","Full","Wan. gib.","Last qtr","Wan. cres."],obs,Array(8).fill(1/8),
+    sig=>sig?"Worth a closer look, though large studies of millions of hospital births have found no lunar effect.":"This matches large studies of millions of hospital births, which find no lunar effect either.");}
+function testSign(list){
+  const share={};ZODIAC.forEach(z=>share[z.sign]=0);
+  for(let m=1;m<=12;m++)for(let d=1;d<=DIM[m-1];d++){const z=zodiac(m,d);share[z.sign]+=(m===2&&d===29)?0.2425:1;}
+  const zc=zodiacCounts(list),order=ZODIAC_ORDER;
+  return statChart("Do some signs produce more greatness?","Sun sign vs. the days each sign covers",order.map(s=>signSym(s)+" "+s.slice(0,3)),order.map(s=>zc[s]),order.map(s=>share[s]/365.2425),
+    sig=>sig?"The pattern follows the months: signs are just date ranges, so seasonal birth peaks show up as sign peaks.":"Signs cover between 29 and 32 days, and each is compared with its own span.");}
+/* ---------- the long view ---------- */
+function centuryKey(y){return y<0?-(Math.floor((-y-1)/100)+1):Math.floor((y-1)/100)+1;}
+function centuryShort(c){return c<0?(-c)+ordinalSuf(-c)+" BC":c+ordinalSuf(c);}
+function ordinalSuf(n){return ordinal(n).replace(String(n),"");}
+function centuryWords(l){return l.includes(" BC")?l.replace(" BC"," century BC"):l+" century";}
+function columnChart(items,opts){
+  opts=opts||{};const wrap=el("div",{class:"cols"+(items.length>20?" dense":"")});
+  const mx=Math.max(opts.max||0,...items.map(x=>x.v));
+  items.forEach((it,i)=>{const c=el(it.go?"button":"div",{class:"col","aria-label":it.label+": "+(opts.fmt?opts.fmt(it.v):it.v)});
+    const bar=el("i",{class:"col-b"});const h=mx?it.v/mx*100:0;bar.style.height=REDUCE?h+"%":"0%";if(!REDUCE)requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.height=h+"%";}));
+    if(opts.color)bar.style.background=typeof opts.color==="function"?opts.color(it):opts.color;
+    const show=!opts.every||i%opts.every===0||i===items.length-1;
+    c.append(el("span",{class:"col-v",text:opts.fmt?opts.fmt(it.v):String(it.v)}),el("span",{class:"col-bw"},[bar]),el("span",{class:"col-l",text:show?it.label:""}));
+    c.addEventListener("mouseenter",()=>showColTip(c,it,opts));c.addEventListener("mouseleave",hideBarTip);
+    c.addEventListener("focus",()=>showColTip(c,it,opts));c.addEventListener("blur",hideBarTip);
+    if(it.go)c.addEventListener("click",it.go);
+    wrap.appendChild(c);});
+  return wrap;}
+function showColTip(c,it,opts){const t=chartTip();t.querySelector(".ctt-v").textContent=opts.fmt?opts.fmt(it.v):String(it.v);t.querySelector(".ctt-l").textContent=it.label;t.querySelector(".ctt-s").textContent=it.sub||"";
+  t.classList.add("on");const r=c.getBoundingClientRect(),tw=t.offsetWidth||150;
+  t.style.left=Math.min(Math.max(r.left+r.width/2-tw/2,8),window.innerWidth-tw-8)+"px";t.style.top=Math.max(8,r.top-t.offsetHeight-6)+"px";}
+function chartLifespan(list){
+  const ch=chartCard("How long did they live?","Average age at death by century of birth, for completed lives.");
+  const by={};list.forEach(p=>{const a=ageAtDeath(p);if(!a||a.n<0)return;const c=centuryKey(p.birthYear);(by[c]=by[c]||[]).push(a.n);});
+  const cs=Object.keys(by).map(Number).filter(c=>by[c].length>=4).sort((a,b)=>a-b);
+  if(!cs.length){ch.appendChild(el("div",{class:"cap",text:"Not enough completed lives in this view."}));return ch;}
+  const items=cs.map(c=>({label:centuryShort(c),v:Math.round(by[c].reduce((a,b)=>a+b,0)/by[c].length),sub:by[c].length+" lives · median "+Math.round(median(by[c]))}));
+  ch.appendChild(columnChart(items,{fmt:v=>String(v),color:"linear-gradient(180deg,var(--c-economists),color-mix(in srgb,var(--c-economists) 55%,var(--card)))",every:items.length>12?2:1}));
+  const hi=items.reduce((a,b)=>b.v>a.v?b:a),lo=items.reduce((a,b)=>b.v<a.v?b:a);
+  ch.appendChild(summary("People born in the <b>"+centuryWords(hi.label)+"</b> lived longest here, <b>"+hi.v+"</b> years on average; those born in the <b>"+centuryWords(lo.label)+"</b> the shortest, <b>"+lo.v+"</b>. These are people famous enough to be remembered, so most lived to adulthood. That makes the averages far higher than historical life expectancy at birth, which infant deaths pulled down."));
+  return ch;
+}
+function chartWomenShare(list){
+  const ch=chartCard("Where are the women?","Share of women among figures born in each century. The top of the chart is 50%, an equal share.");
+  const by={};list.forEach(p=>{if(p.birthYear==null||(p.sex!=="female"&&p.sex!=="male"))return;const c=centuryKey(p.birthYear);const o=by[c]=by[c]||{f:0,n:0};o.n++;if(p.sex==="female")o.f++;});
+  const cs=Object.keys(by).map(Number).filter(c=>by[c].n>=8).sort((a,b)=>a-b);
+  if(!cs.length){ch.appendChild(el("div",{class:"cap",text:"Not enough dated figures in this view."}));return ch;}
+  const items=cs.map(c=>({label:centuryShort(c),v:Math.round(by[c].f/by[c].n*100),sub:by[c].f+" women of "+by[c].n}));
+  ch.appendChild(columnChart(items,{fmt:v=>v+"%",max:50,color:"linear-gradient(180deg,var(--c-music),color-mix(in srgb,var(--c-music) 55%,var(--card)))",every:items.length>12?2:1}));
+  const last=items[items.length-1],first=items[0];
+  ch.appendChild(summary("From <b>"+first.v+"%</b> among those born in the "+centuryWords(first.label)+" to <b>"+last.v+"%</b> in the "+centuryWords(last.label)+". The record reflects who was allowed to lead, publish and compete, not who had talent."));
+  return ch;
+}
+function chartFieldsByEra(list){
+  const ch=el("div",{class:"chart fields-era"});
+  ch.appendChild(el("h3",{text:"What history remembers, era by era"}));
+  ch.appendChild(el("div",{class:"cap",text:"The mix of fields among people born in each era. Hover a band for the share; click to filter."}));
+  const fams=FAMILIES.filter(f=>f.key!=="personal");
+  const famColor={know:"var(--c-science)",power:"var(--c-leaders)",thought:"var(--c-philosophy)",arts:"var(--c-music)",life:"var(--c-sports)"};
+  const famOf={};fams.forEach(f=>f.cats.forEach(c=>famOf[c]=f.key));
+  const box=el("div",{class:"fe-rows"});
+  ERAS.forEach(era=>{const ppl=list.filter(p=>p.eraGroup===era);if(!ppl.length)return;
+    const cc={};ppl.forEach(p=>{const k=famOf[p.category];if(k)cc[k]=(cc[k]||0)+1;});const tot=Object.values(cc).reduce((a,b)=>a+b,0)||1;
+    const row=el("div",{class:"fe-row"});row.appendChild(el("div",{class:"fe-l"},[el("b",{text:era}),el("span",{text:ppl.length.toLocaleString()})]));
+    const bar=el("div",{class:"fe-bar"});
+    fams.forEach(f=>{const n=cc[f.key]||0;if(!n)return;const pc=n/tot*100;
+      const seg=el("button",{class:"fe-seg","aria-label":era+": "+f.label+" "+Math.round(pc)+"%",onClick:()=>goWithFilter(x=>{x.eras.add(era);f.cats.forEach(c=>x.cats.add(c));},"people")});
+      seg.style.flex=String(pc);seg.style.background=famColor[f.key];if(pc>=9)seg.textContent=Math.round(pc)+"%";
+      seg.addEventListener("mouseenter",()=>showColTip(seg,{label:f.label+" · "+era,sub:n+" of "+tot+" people"},{fmt:()=>Math.round(pc)+"%"}));
+      seg.addEventListener("mouseleave",hideBarTip);bar.appendChild(seg);});
+    row.appendChild(bar);box.appendChild(row);});
+  ch.appendChild(box);
+  ch.appendChild(el("div",{class:"fe-key"},fams.map(f=>{const s=el("span");const i=el("i");i.style.background=famColor[f.key];s.append(i,document.createTextNode(f.label));return s;})));
+  return ch;
+}
+function chartExtremes(list,kind){
+  const ends=list.filter(p=>p.birthYear>=1500).map(p=>({p,a:ageAtDeath(p)})).filter(x=>x.a&&x.a.n>=0);
+  const ch=chartCard(kind==="long"?"The longest lives":"Gone too soon",kind==="long"?"The oldest ages at death among people born since 1500.":"The youngest ages at death among people born since 1500.");
+  const pick=ends.slice().sort((a,b)=>kind==="long"?b.a.n-a.a.n||rankScore(b.p)-rankScore(a.p):a.a.n-b.a.n||rankScore(b.p)-rankScore(a.p)).slice(0,6);
+  if(!pick.length){ch.appendChild(el("div",{class:"cap",text:"No completed lives in this view."}));return ch;}
+  const mx=Math.max(...pick.map(x=>x.a.n),1);
+  pick.forEach(({p,a})=>{const b=el("button",{class:"xrow",onClick:()=>openPerson(p)});b.appendChild(personFace(p,34));
+    b.appendChild(el("span",{class:"x-t"},[el("b",{text:p.name}),el("span",{text:fmtYearNum(p.birthYear)+" to "+fmtYearNum(p.deathYear)+" · "+CATS[p.category].label})]));
+    const bw=el("span",{class:"x-bar"});const f=el("i");f.style.width=(a.n/(kind==="long"?mx:100)*100)+"%";f.style.background=catColor(p.category);bw.appendChild(f);b.appendChild(bw);
+    b.appendChild(el("span",{class:"x-n",text:(a.exact?"":"~")+a.n}));ch.appendChild(b);});
+  return ch;
+}
+/* ---------- donuts ---------- */
+function donut(items,center){
+  const tot=items.reduce((a,b)=>a+b.n,0)||1,R=54,Cc=2*Math.PI*R;let off=0;
+  let s='<svg viewBox="0 0 140 140" class="donut-svg" aria-hidden="true"><circle cx="70" cy="70" r="'+R+'" class="dn-bg"/>';
+  items.forEach(it=>{const len=it.n/tot*Cc;s+='<circle cx="70" cy="70" r="'+R+'" class="dn-seg" style="stroke:'+it.color+';stroke-dasharray:'+Math.max(0,len-2).toFixed(2)+' '+(Cc-Math.max(0,len-2)).toFixed(2)+';stroke-dashoffset:'+(-off).toFixed(2)+'"/>';off+=len;});
+  s+='</svg>';
+  const w=el("div",{class:"donut"});const box=el("div",{class:"dn-box",html:s});box.appendChild(el("div",{class:"dn-c"},[el("b",{text:center[0]}),el("span",{text:center[1]})]));w.appendChild(box);
+  const lg=el("div",{class:"dn-lg"});
+  items.forEach(it=>{const r=el(it.go?"button":"div",{class:"dn-row"},[el("i"),el("span",{text:it.label}),el("b",{text:it.n.toLocaleString()}),el("em",{text:Math.round(it.n/tot*100)+"%"})]);
+    r.firstChild.style.background=it.color;if(it.go)r.addEventListener("click",it.go);lg.appendChild(r);});
+  w.appendChild(lg);return w;}
+function chartElement(list){
+  const ch=chartCard("Births by element","Fire, Earth, Air and Water: the four families of signs.");
+  const items=ELEMENTS.map(e=>({label:e.key,n:list.filter(p=>p.zElement===e.key).length,color:elementColor(e.key),go:()=>setView("zodiac")}));
+  const top=items.slice().sort((a,b)=>b.n-a.n)[0];
+  ch.appendChild(donut(items,[top.label,"leads"]));
+  ch.appendChild(summary("<b>"+top.label+"</b> signs are the most common element in view (<b>"+top.n+"</b>). Each element spans three signs and about a quarter of the year, so near-equal shares are expected."));
+  return ch;
+}
+function chartModality(list){
+  const ch=chartCard("Births by quality","Cardinal signs start seasons, Fixed hold them, Mutable change them.");
+  const cc={Cardinal:0,Fixed:0,Mutable:0};list.forEach(p=>{if(p.zsign)cc[ZMETA[p.zsign].modality]++;});
+  const col={Cardinal:"var(--c-politics)",Fixed:"var(--c-philosophy)",Mutable:"var(--c-culture)"};
+  const items=Object.keys(cc).map(k=>({label:k,n:cc[k],color:col[k]}));const top=items.slice().sort((a,b)=>b.n-a.n)[0];
+  ch.appendChild(donut(items,[top.label,"leads"]));
+  ch.appendChild(summary("<b>"+top.label+"</b> signs lead this view, with <b>"+top.n+"</b> figures."));
+  return ch;
+}
+function chartGender(list){
+  const ch=chartCard("Recorded gender balance","A reflection of who history recorded, and who it overlooked.");
+  const cc={male:0,female:0};list.forEach(p=>{if(p.sex==="male")cc.male++;else if(p.sex==="female")cc.female++;});
+  const items=[{label:"Men",n:cc.male,color:"var(--c-presidents)",go:()=>goWithFilter(f=>f.gender="male","people")},{label:"Women",n:cc.female,color:"var(--c-music)",go:()=>goWithFilter(f=>f.gender="female","people")}];
+  const tot=cc.male+cc.female;
+  ch.appendChild(donut(items,[Math.round(cc.female/Math.max(1,tot)*100)+"%","women"]));
+  ch.appendChild(summary("Women make up <b>"+Math.round(cc.female/Math.max(1,tot)*100)+"%</b> of figures in view. See the long view above for how that share has grown."));
+  return ch;
+}
+function chartStatus(list){
+  const ch=chartCard("Date confidence","How precisely each birth date is known.");
+  const cc=countBy(list,"dateStatus");
+  const items=[{label:"Exact",n:cc.exact||0,color:"var(--ok)"},{label:"Estimated",n:cc.estimated||0,color:"var(--warn)"},{label:"Unknown",n:cc.unknown||0,color:"var(--faint)"}];
+  ch.appendChild(donut(items,[Math.round((cc.exact||0)/list.length*100)+"%","exact"]));
+  ch.appendChild(summary("<b>"+(cc.exact||0).toLocaleString()+"</b> of "+list.length.toLocaleString()+" birth dates are known to the day. Ancient dates are often traditions rather than records."));
+  return ch;
+}
+function chartDecade(list){
+  const ch=chartCard("Births by decade","From 1700 onward. Tap a column to filter to its century.");
+  const cc={};list.forEach(p=>{if(p.birthYear!=null&&p.era!=="BC"&&p.birthYear>=1700){const dec=Math.floor(p.birthYear/10)*10;cc[dec]=(cc[dec]||0)+1;}});
+  const decs=Object.keys(cc).map(Number).sort((a,b)=>a-b);
+  if(!decs.length){ch.appendChild(el("div",{class:"cap",text:"No figures born after 1700 in this view."}));return ch;}
+  const items=[];for(let d=decs[0];d<=decs[decs.length-1];d+=10)items.push({label:d+"s",v:cc[d]||0,sub:"born "+d+" to "+(d+9)});
+  ch.appendChild(columnChart(items,{every:5,color:"linear-gradient(180deg,var(--c-explorers),color-mix(in srgb,var(--c-explorers) 50%,var(--card)))"}));
+  const top=items.slice().sort((a,b)=>b.v-a.v)[0];
+  ch.appendChild(summary("The <b>"+top.label+"</b> are the most represented decade (<b>"+top.v+"</b>). Recent decades thin out because fame takes time to build."));
+  return ch;
+}
+function chartCentury(list){
+  const ch=chartCard("Births by century","Tap a century to filter the almanac.");
+  const order=centuryOrder(list);
+  if(!order.length)return ch;
+  const items=order.map(([lab,n])=>({label:lab.replace(" century","").replace("Ancient (BCE)","BCE"),v:n,go:()=>goWithFilter(f=>f.centuries.add(lab),"people")}));
+  ch.appendChild(columnChart(items,{every:items.length>14?2:1,color:"linear-gradient(180deg,var(--navy-3),color-mix(in srgb,var(--navy-3) 50%,var(--card)))"}));
+  const top=order.slice().sort((a,b)=>b[1]-a[1])[0];
+  ch.appendChild(summary("The <b>"+top[0]+"</b> dominates this view with <b>"+top[1]+"</b> figures."));
+  return ch;
 }
 /* ---- interactive birthday heat map ---- */
 function heatColor(t){const h=44-13*t,s=(55+26*t),l=91-48*t;return "hsl("+h+" "+s.toFixed(0)+"% "+l.toFixed(0)+"%)";}
@@ -6504,49 +7500,12 @@ function chartHeatmap(list){
   paint(null);
   return ch;
 }
-function chartElement(list){
-  const ch=chartCard("Births by element","Fire, Earth, Air & Water. Click to explore a sign.");
-  const cc={};ELEMENTS.forEach(e=>cc[e.key]=list.filter(p=>p.zElement===e.key).length);
-  const mx=Math.max(1,...Object.values(cc));
-  ELEMENTS.forEach(e=>ch.appendChild(barRow(e.key,cc[e.key],mx,elementColor(e.key),()=>{setView("zodiac");})));
-  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
-  ch.appendChild(summary("<b>"+top[0]+"</b> signs are the most common element in view (<b>"+top[1]+"</b>)."));
-  return ch;
-}
-function chartModality(list){
-  const ch=chartCard("Births by quality","Cardinal initiates, Fixed sustains, Mutable adapts.");
-  const order=["Cardinal","Fixed","Mutable"];const cc={Cardinal:0,Fixed:0,Mutable:0};
-  list.forEach(p=>{if(p.zsign)cc[ZMETA[p.zsign].modality]++;});
-  const mx=Math.max(1,...Object.values(cc));
-  order.forEach(k=>ch.appendChild(barRow(k,cc[k],mx,"var(--c-philosophy)",null)));
-  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
-  ch.appendChild(summary("<b>"+top[0]+"</b> signs lead this view, with <b>"+top[1]+"</b> figures."));
-  return ch;
-}
-function chartDecade(list){
-  const ch=chartCard("Births by decade","From 1700 onward — the modern explosion of record.");
-  const cc={};list.forEach(p=>{if(p.birthYear!=null&&p.era!=="BC"&&p.birthYear>=1700){const dec=Math.floor(p.birthYear/10)*10;cc[dec]=(cc[dec]||0)+1;}});
-  const decs=Object.keys(cc).map(Number).sort((a,b)=>a-b);const mx=Math.max(1,...Object.values(cc));
-  decs.forEach(dec=>ch.appendChild(barRow(dec+"s",cc[dec],mx,"var(--c-economists)",null)));
-  const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
-  if(top)ch.appendChild(summary("The <b>"+top[0]+"s</b> are the most represented decade (<b>"+top[1]+"</b>)."));
-  return ch;
-}
 function chartCountries(list){
   const ch=chartCard("Top countries & civilizations","Click a place to filter the almanac.");
   const cc={};list.forEach(p=>{if(p.country&&p.country!=="Unknown")cc[p.country]=(cc[p.country]||0)+1;});
   const ent=Object.entries(cc).sort((a,b)=>b[1]-a[1]).slice(0,12);const mx=Math.max(1,...ent.map(e=>e[1]));
   ent.forEach(([k,n])=>ch.appendChild(barRow(k,n,mx,"var(--c-jurists)",()=>{goWithFilter(f=>f.country=k,"people");})));
   if(ent.length)ch.appendChild(summary("<b>"+ent[0][0]+"</b> contributes the most figures in view (<b>"+ent[0][1]+"</b>)."));
-  return ch;
-}
-function chartGender(list){
-  const ch=chartCard("Recorded gender balance","A reflection of who history has recorded — and who it overlooked.");
-  const cc={male:0,female:0};list.forEach(p=>{if(p.sex==="male")cc.male++;else if(p.sex==="female")cc.female++;});
-  const mx=Math.max(1,cc.male,cc.female);const tot=cc.male+cc.female;
-  ch.appendChild(barRow("Men",cc.male,mx,"var(--c-presidents)",()=>{goWithFilter(f=>f.gender="male","people");}));
-  ch.appendChild(barRow("Women",cc.female,mx,"var(--c-music)",()=>{goWithFilter(f=>f.gender="female","people");}));
-  ch.appendChild(summary("Women make up <b>"+Math.round(cc.female/Math.max(1,tot)*100)+"%</b> of figures in view — the historical record skews heavily male."));
   return ch;
 }
 function chartCard(title,cap){const ch=el("div",{class:"chart"});ch.appendChild(el("h3",{text:title}));if(cap)ch.appendChild(el("div",{class:"cap",text:cap}));return ch;}
@@ -6611,13 +7570,6 @@ function chartCategory(list){
   if(ent.length)ch.appendChild(summary("<b>"+CATS[ent[0][0]].label+"</b> is the largest field in view ("+ent[0][1]+")."));
   return ch;
 }
-function chartCentury(list){
-  const ch=chartCard("Births by century","Click a century to filter.");
-  const order=centuryOrder(list);const mx=Math.max(1,...order.map(e=>e[1]));
-  order.forEach(([lab,n])=>ch.appendChild(barRow(lab.replace(" century","").replace("Ancient (BCE)","BCE"),n,mx,"var(--navy-3)",()=>{goWithFilter(f=>f.centuries.add(lab),"people");})));
-  if(order.length){const top=order.slice().sort((a,b)=>b[1]-a[1])[0];ch.appendChild(summary("The <b>"+top[0]+"</b> dominates this view with <b>"+top[1]+"</b> figures."));}
-  return ch;
-}
 function chartEra(list){
   const ch=chartCard("Births by era",null);
   const cc=countBy(list,"eraGroup");const mx=Math.max(1,...ERAS.map(e=>cc[e]||0));
@@ -6631,14 +7583,6 @@ function chartRegion(list){
   const cc=countBy(list,"region");const ent=Object.entries(cc).sort((a,b)=>b[1]-a[1]);const mx=Math.max(1,...ent.map(e=>e[1]));
   ent.forEach(([k,n])=>ch.appendChild(barRow(k,n,mx,"var(--c-explorers)",()=>{goWithFilter(f=>f.regions.add(k),"people");})));
   if(ent.length)ch.appendChild(summary("<b>"+ent[0][0]+"</b> contributes the most figures in view (<b>"+ent[0][1]+"</b>)."));
-  return ch;
-}
-function chartStatus(list){
-  const ch=chartCard("Date confidence","Exact, estimated or unknown birth dates.");
-  const cc=countBy(list,"dateStatus");const order=["exact","estimated","unknown"];const mx=Math.max(1,...order.map(s=>cc[s]||0));
-  order.forEach(s=>ch.appendChild(barRow(s[0].toUpperCase()+s.slice(1),cc[s]||0,mx,s==="exact"?"var(--ok)":s==="estimated"?"var(--warn)":"var(--faint)",null)));
-  const ex=cc.exact||0,tot=list.length;
-  ch.appendChild(summary("<b>"+Math.round(ex/tot*100)+"%</b> of figures in view have an exact birth date ("+ex+" of "+tot+")."));
   return ch;
 }
 function chartCrowded(list){
@@ -7054,6 +7998,15 @@ function runTests(){
   a("Life: no one dies before they are born",PEOPLE.every(p=>p.deathYear==null||p.birthYear==null||p.deathYear>=p.birthYear));
   a("Life: nobody alive is over 120",PEOPLE.every(p=>!p.alive||CUR_YEAR-p.birthYear<=120));
   a("Data: exactly one 'just added' batch of 500",PEOPLE.filter(p=>p.isNew).length===500);
+  /* calendar sky, time machine and statistics */
+  a("Calendar: 18 Sep 2024 was the Harvest Moon",(monthSky(2024,9)[18]||{}).moonName==="Harvest Moon");
+  a("Calendar: 31 Aug 2023 was a Blue Moon",(monthSky(2023,8)[31]||{}).moonName==="Blue Moon");
+  a("Calendar: September equinox 2026 falls on the 23rd",(monthSky(2026,9)[23]||{}).season==="September equinox");
+  a("Calendar: December solstice 2025 falls on the 21st",(monthSky(2025,12)[21]||{}).season==="December solstice");
+  a("Time machine: no year zero between 1 BC and AD 1",yrsBetween(-1,1)===1&&tlClampYear(0)===1);
+  a("Time machine: slider maps years both ways",[-2000,-44,800,1492,1905,CUR_YEAR].every(y=>tlYearAt(tlPos(y))===y));
+  a("Time machine: Einstein was alive in 1905",aliveIn(HISTORICAL,1905).some(p=>p.id==="albert-einstein"));
+  a("Stats: chi-square 5% critical value, 11 degrees of freedom",Math.abs(chiSqP(19.675,11)-0.05)<0.0005);
   return t;
 }
 function renderDev(){
