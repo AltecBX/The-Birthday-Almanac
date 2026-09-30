@@ -2723,6 +2723,30 @@ html[data-theme="dark"] .rmd-ch.on{background:var(--card-3);color:var(--ink);bor
 .rmd-note{margin:10px 0 0;font-size:12px;color:var(--faint);line-height:1.5}
 .mtool.gcal{text-decoration:none}
 .cm-acts{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ===== filtered-view banner ===== */
+.fbanner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-4px 0 22px;padding:14px 18px;border-radius:var(--radius-lg);border:1px solid var(--gold);background:color-mix(in srgb,var(--gold) 14%,var(--card));box-shadow:var(--shadow-md)}
+.fb-ic{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:var(--gold);color:#1b1406}
+.fb-t{flex:1 1 260px;min-width:0}.fb-t b{display:block;font-size:15px;color:var(--ink)}.fb-t span{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.fb-go{flex:none}
+/* chart grids: explicit columns, and a lone last card stretches so rows never end in a hole */
+.chart-grid:not(.wide2):not(.stat-grid){grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(min-width:1121px){.chart-grid:not(.wide2):not(.stat-grid)>:last-child:nth-child(3n+2){grid-column:span 2}.chart-grid:not(.wide2):not(.stat-grid)>:last-child:nth-child(3n+1){grid-column:1/-1}}
+@media(max-width:1120px){.chart-grid:not(.wide2):not(.stat-grid){grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid:not(.wide2):not(.stat-grid)>:last-child:nth-child(2n+1){grid-column:1/-1}}
+@media(max-width:980px){.chart-grid:not(.wide2):not(.stat-grid){grid-template-columns:1fr}}
+/* ===== the celestial globe ===== */
+.globe3d{background:radial-gradient(900px 420px at 50% 55%,#13234a,#060b18 75%)!important;border:1px solid rgba(230,206,142,.18)}
+.gl-now{position:absolute;left:16px;top:14px;z-index:3;display:flex;align-items:center;gap:9px;max-width:calc(100% - 32px);font-size:13px;color:#DCE2F5;background:rgba(6,11,24,.55);border:1px solid rgba(230,206,142,.2);border-radius:999px;padding:6px 14px 6px 8px;backdrop-filter:blur(4px)}
+.gl-now b{color:#FFD678}
+.gl-sun{flex:none;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#fff4d2,#ffd678 45%,rgba(255,190,90,0) 72%);box-shadow:0 0 12px rgba(255,214,120,.8)}
+.gl-toggles{position:absolute;right:12px;bottom:10px;z-index:3;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:calc(100% - 24px)}
+.gl-tg{border:1px solid rgba(230,206,142,.25);background:rgba(6,11,24,.6);color:rgba(232,224,206,.6);font:inherit;font-size:11.5px;font-weight:600;border-radius:999px;padding:5px 11px;cursor:pointer;min-height:32px}
+.gl-tg.on{color:#F3ECDD;border-color:rgba(230,206,142,.55);background:rgba(230,206,142,.14)}
+.skydome-tip .gl-tk{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#AEB9E8;margin-bottom:3px}
+.skydome-tip b{display:block;font-family:var(--serif);font-size:18px;color:#FBF4E6!important;margin-bottom:2px}
+.skydome-tip .gl-tn{color:#FFD678;margin-top:4px}.skydome-tip .gl-tg2{color:#8fe6c8;font-weight:600;margin-top:6px}
+.globe3d .skydome-tip{transition:opacity .15s;max-width:260px}
+@media(max-width:640px){.gl-now{font-size:11.5px;top:10px;left:10px}.globe3d .skydome-hint{display:none}.gl-toggles{position:static;justify-content:center;max-width:none;padding:10px 10px 12px}.gl-tg{font-size:11px;padding:4px 9px}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -9668,111 +9692,150 @@ function topCatOf(list){const c=countBy(list,"category");const e=Object.entries(
 /* ---- interactive 3D constellation dome ---- */
 let _domeRAF=0;
 function constellationDome(){
+  /* THE CELESTIAL GLOBE — the real zodiac constellations (catalogue stars at
+     their true ecliptic positions, true colours and brightness) on a sphere
+     around the Earth, the zodiac band 8 degrees either side of the ecliptic
+     cut into the twelve signs, the celestial equator crossing it at the
+     equinoxes, and today's Sun, Moon and planets where they really are.
+     The near side is drawn as the sky looks from Earth (not mirror-reversed). */
   if(_domeRAF){cancelAnimationFrame(_domeRAF);_domeRAF=0;}
-  const wrap=el("div",{class:"skydome"});
-  const canvas=el("canvas",{class:"skydome-canvas","aria-label":"Rotating map of the twelve zodiac constellations"});
+  const wrap=el("div",{class:"skydome globe3d"});
+  const canvas=el("canvas",{class:"skydome-canvas",role:"img","aria-label":"A turning 3D celestial globe of the twelve zodiac constellations, with today's Sun, Moon and planets"});
   const tip=el("div",{class:"skydome-tip"});
-  const cap=el("div",{class:"skydome-cap",text:"The Ecliptic"});
-  const hint=el("div",{class:"skydome-hint",text:"Drag to rotate · tap a sign to explore"});
-  wrap.appendChild(canvas);wrap.appendChild(tip);wrap.appendChild(cap);wrap.appendChild(hint);
-  const ctx=canvas.getContext("2d");
-  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  const dpr=Math.min(window.devicePixelRatio||1,2);
-  let W=0,H=0,bg=[];
-  let spin=Math.PI/2,vel=0,dragging=false,moved=0,lastX=0,hover=-1,pointer=null;
-  function resize(){
-    const r=wrap.getBoundingClientRect();if(!r.width)return;
-    W=r.width;H=W<560?320:Math.min(460,Math.round(W*0.46));
-    canvas.style.height=H+"px";canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    bg=[];const n=Math.round(W*H/2600);
-    for(let i=0;i<n;i++)bg.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,a:Math.random()*0.5+0.15,p:Math.random()*6.28});
+  const hint=el("div",{class:"skydome-hint",text:"Drag to turn and tilt · tap a sign to explore"});
+  const now=el("div",{class:"gl-now"});
+  const tg=el("div",{class:"gl-toggles",role:"group","aria-label":"Show on the globe"});
+  wrap.append(canvas,tip,hint,now,tg);
+  const show={lines:true,band:true,equator:true,planets:true};
+  [["lines","Figures"],["band","Zodiac band"],["equator","Equator"],["planets","Sun, Moon & planets"]].forEach(([k,l])=>{
+    const b=el("button",{class:"gl-tg on","aria-pressed":"true",onClick:()=>{show[k]=!show[k];b.classList.toggle("on",show[k]);b.setAttribute("aria-pressed",show[k]?"true":"false");if(REDUCE)draw(0);}},[document.createTextNode(l)]);tg.appendChild(b);});
+  const ctx=canvas.getContext("2d");const dpr=Math.min(window.devicePixelRatio||1,2);
+  const R=Math.PI/180,EPS=23.4393*R;
+  let W=0,H=0,spin=0,tilt=18*R,vel=0,drag=null,moved=0,pointer=null,hover=-1,ready=false;
+  let D=null; /* scene data, built on first frame (the sky engine loads later in the page) */
+  function build(){
+    const jd=SKY.jdOfDate(new Date()),prec=precessionAt(jd);
+    const S=SKYBG.stars(),eq2ecl=SKYBG.eq2ecl,bv=SKYBG.bvRGB;
+    const bg=[];for(let i=0;i<S.n;i++){if(S.mag[i]>4.9)continue;bg.push([S.lam[i],S.bet[i],S.mag[i],bv(S.bv[i])]);}
+    const figs={};Object.keys(SKYBG_FIG.l).forEach(id=>{
+      const lines=SKYBG_FIG.l[id].map(line=>line.map(pt=>{const e=eq2ecl(pt[0]*R,pt[1]*R);
+        /* brightness of the catalogue star at this vertex */
+        let m=4.5,c=[255,244,226],best=0.5*R;for(let i=0;i<S.n;i++){const d=Math.abs(S.lam[i]-e[0])+Math.abs(S.bet[i]-e[1]);if(d<best){best=d;m=S.mag[i];c=bv(S.bv[i]);}}
+        return [e[0],e[1],m,c];}));
+      const cc=SKYBG_FIG.c[id],ce=eq2ecl(cc[0]*R,cc[1]*R);figs[SKYBG_NAMES[id]]={lines,c:ce};});
+    const sunL=(SKY.sunLon(jd)-prec)*R,mo=SKY.moonAt(jd);
+    const bodies=[{name:"Sun",lam:sunL,bet:0,col:[255,214,120],r:9},{name:"Moon",lam:(mo.lon-prec)*R,bet:0,col:[236,232,214],r:6,phase:mo.phase}];
+    ["Mercury","Venus","Mars","Jupiter","Saturn"].forEach(n=>{const g=PLANETS.geo(n,jd);bodies.push({name:n,lam:g.lon*R,bet:g.lat*R,col:{Mercury:[210,200,180],Venus:[255,248,225],Mars:[255,150,110],Jupiter:[245,225,190],Saturn:[235,210,150]}[n],r:n==="Venus"||n==="Jupiter"?4.2:3.4,mag:PLANETS.mag(n,g)});});
+    const season=SKY.signOf(SKY.sunLon(jd)),con=sunConstellation(jd);
+    D={bg,figs,bodies,prec:prec*R,season,con};
+    const cn=CONST_SIGN[con]||con;
+    now.innerHTML="";now.append(el("span",{class:"gl-sun"}),el("span",{html:"Today the Sun is in <b>"+season+"</b> by sign, in front of <b>"+esc(cn)+"</b>'s stars"}));
   }
-  function layout(){
-    const narrow=W<560;
-    const cx=W/2,cy=H*0.49,a=W*(narrow?0.35:0.40),b=H*0.30,span=Math.min(W,H)*(narrow?0.075:0.085);
-    const arr=[];
-    for(let i=0;i<12;i++){
-      const th=spin+i*(Math.PI/6);
-      const depth=(Math.sin(th)+1)/2;            // 1 = front/near, 0 = back/far
-      arr.push({i:i,sign:ZODIAC_ORDER[i],ex:cx+a*Math.cos(th),ey:cy+b*Math.sin(th),
-        scale:span*(0.5+0.62*depth),depth:depth});
-    }
-    arr.sort((p,q)=>p.depth-q.depth);            // painter's: far first
-    return arr;
-  }
-  function frame(t){
-    if(!document.body.contains(canvas)){_domeRAF=0;return;}  // detached → stop
-    t=t||0;
-    if(!dragging){const idle=reduce?0:0.00045;spin+=idle+vel;vel*=0.92;if(Math.abs(vel)<0.00001)vel=0;}
-    const items=layout();
+  /* sprites: a soft star glow per colour, drawn once */
+  const sprites=new Map();
+  function sprite(c){const k=c.join(",");if(sprites.has(k))return sprites.get(k);const s=document.createElement("canvas");s.width=s.height=32;const x=s.getContext("2d");
+    const g=x.createRadialGradient(16,16,0,16,16,16);g.addColorStop(0,"rgba(255,255,255,1)");g.addColorStop(0.18,"rgba("+k+",0.95)");g.addColorStop(0.45,"rgba("+k+",0.28)");g.addColorStop(1,"rgba("+k+",0)");
+    x.fillStyle=g;x.fillRect(0,0,32,32);sprites.set(k,s);return s;}
+  function resize(){const r=wrap.getBoundingClientRect();if(!r.width)return;W=r.width;H=W<560?Math.round(W*0.95):Math.min(580,Math.round(W*0.5));
+    canvas.style.height=H+"px";canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+  /* ecliptic (lam,bet) on a sphere of radius r -> screen, with perspective. x is mirrored so the near side reads as the real sky */
+  function P(lam,bet,r){const cb=Math.cos(bet);let x=cb*Math.cos(lam),y=cb*Math.sin(lam),z=Math.sin(bet);
+    const cs=Math.cos(spin),ss=Math.sin(spin),x1=x*cs-y*ss,y1=x*ss+y*cs;
+    const ce=Math.cos(tilt),se=Math.sin(tilt),sx=-x1,sy=y1*se+z*ce,sz=-y1*ce+z*se;
+    const K=Math.min(W*(W<560?0.4:0.36),H*0.6)*(r||1),f=4.2/(4.2-sz*(r||1));return {x:W/2+sx*K*f,y:H*0.45-sy*K*f,z:sz,f};}
+  function Pv(x,y,z){/* raw vector (ecliptic frame) */const cs=Math.cos(spin),ss=Math.sin(spin),x1=x*cs-y*ss,y1=x*ss+y*cs,ce=Math.cos(tilt),se=Math.sin(tilt);
+    const sx=-x1,sy=y1*se+z*ce,sz=-y1*ce+z*se,K=Math.min(W*(W<560?0.4:0.36),H*0.6),f=4.2/(4.2-sz);return {x:W/2+sx*K*f,y:H*0.45-sy*K*f,z:sz,f};}
+  const signAt=i=>ZODIAC_ORDER[i],ELC={Fire:[192,86,58],Earth:[110,123,61],Air:[63,127,166],Water:[74,111,176]};
+  function draw(t){
+    if(!D||!W)return;
     ctx.clearRect(0,0,W,H);
-    // background star field + soft milky band
-    const mb=ctx.createLinearGradient(0,H*0.30,0,H*0.80);
-    mb.addColorStop(0,"rgba(120,150,210,0)");mb.addColorStop(0.5,"rgba(120,150,210,0.05)");mb.addColorStop(1,"rgba(120,150,210,0)");
-    ctx.fillStyle=mb;ctx.fillRect(0,H*0.30,W,H*0.50);
-    for(const s of bg){const tw=0.6+0.4*Math.sin(t*0.001+s.p);ctx.globalAlpha=s.a*tw;ctx.fillStyle="#dfe7ff";ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.2832);ctx.fill();}
+    /* backdrop */
+    const g0=ctx.createRadialGradient(W/2,H*0.45,0,W/2,H*0.45,Math.max(W,H)*0.7);g0.addColorStop(0,"rgba(40,62,110,.35)");g0.addColorStop(1,"rgba(4,8,18,0)");ctx.fillStyle=g0;ctx.fillRect(0,0,W,H);
+    const K=Math.min(W*(W<560?0.4:0.36),H*0.6);
+    /* 1 — background stars: the rest of the sky on the same sphere, far side fainter */
+    for(const s of D.bg){const p=P(s[0],s[1]);const a=(0.22+0.55*(p.z+1)/2)*Math.max(0.15,Math.min(1,(5.2-s[2])/4));const sz=Math.max(1.2,(5.4-s[2])*1.25)*p.f;
+      ctx.globalAlpha=a;ctx.drawImage(sprite(s[3]),p.x-sz,p.y-sz,sz*2,sz*2);}
     ctx.globalAlpha=1;
-    // faint ecliptic guide ellipse
-    ctx.save();ctx.strokeStyle="rgba(230,206,142,0.10)";ctx.lineWidth=1;ctx.beginPath();
-    ctx.ellipse(W/2,H*0.49,W*0.40,H*0.30,0,0,6.2832);ctx.stroke();ctx.restore();
-    // hit test (front-most under pointer)
-    hover=-1;
-    if(pointer&&!dragging){let best=1e9;for(const c of items){const dx=pointer.x-c.ex,dy=pointer.y-c.ey,d=dx*dx+dy*dy,rr=(c.scale*1.5)*(c.scale*1.5);if(d<rr&&d<best){best=d;hover=c.i;}}}
-    canvas.style.cursor=hover>=0?"pointer":"grab";
-    // draw constellations
-    for(const c of items){
-      const data=CONSTELLATIONS[c.sign];const on=c.i===hover;
-      const base=0.34+0.62*c.depth;
-      const pts=data.stars.map(s=>[c.ex+s[0]*c.scale,c.ey+s[1]*c.scale,s[2]]);
-      // lines
-      ctx.lineWidth=on?1.6:1;ctx.strokeStyle=on?"rgba(245,232,200,"+(0.55+0.3*c.depth)+")":"rgba(225,205,150,"+(0.16*base)+")";
-      ctx.beginPath();for(const ln of data.lines){ctx.moveTo(pts[ln[0]][0],pts[ln[0]][1]);ctx.lineTo(pts[ln[1]][0],pts[ln[1]][1]);}ctx.stroke();
-      // stars
-      for(let k=0;k<pts.length;k++){
-        const p=pts[k];const tw=0.78+0.22*Math.sin(t*0.0018+k*1.7+c.i);
-        const rad=(1.1+p[2]*1.5)*(0.6+0.5*c.depth)*(on?1.25:1);
-        const al=Math.min(1,base*tw*(on?1.5:1));
-        const g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],rad*3.4);
-        g.addColorStop(0,"rgba(255,250,235,"+al+")");g.addColorStop(0.35,"rgba(255,240,200,"+(al*0.6)+")");
-        g.addColorStop(1,"rgba(255,225,150,0)");
-        ctx.fillStyle=g;ctx.beginPath();ctx.arc(p[0],p[1],rad*3.4,0,6.2832);ctx.fill();
-        ctx.fillStyle="rgba(255,253,245,"+al+")";ctx.beginPath();ctx.arc(p[0],p[1],rad*0.62,0,6.2832);ctx.fill();
-      }
-      // bright-star names (hovered constellation only, wide screens)
-      if(on&&W>=560&&STAR_NAMES[c.sign]){
-        ctx.font='500 '+(c.scale*0.2+7).toFixed(0)+'px IBM Plex Mono, monospace';
-        ctx.fillStyle="rgba(230,206,142,0.92)";ctx.textAlign="left";
-        for(const idx in STAR_NAMES[c.sign]){const p=pts[idx];if(!p)continue;
-          ctx.fillText(STAR_NAMES[c.sign][idx],p[0]+c.scale*0.18,p[1]-c.scale*0.16);}
-      }
-      // label
-      const narrow=W<560;const ly=c.ey+c.scale*1.18;
-      ctx.globalAlpha=on?1:0.35+0.5*c.depth;
-      ctx.fillStyle=on?"#F6E8C0":"rgba(232,222,200,0.92)";
-      const fs=Math.max(9,c.scale*(narrow?0.24:0.32)+(narrow?5:8));
-      ctx.font='600 '+fs.toFixed(0)+'px IBM Plex Mono, monospace';
-      let lx=c.ex,al="center";
-      if(c.ex>W-92){al="right";lx=Math.min(c.ex+c.scale*0.45,W-8);}
-      else if(c.ex<92){al="left";lx=Math.max(c.ex-c.scale*0.45,8);}
-      ctx.textAlign=al;ctx.fillText(signSym(c.sign)+"  "+c.sign,lx,ly);
-      ctx.globalAlpha=1;
-    }
-    // tooltip follows hovered constellation
-    if(hover>=0){const c=items.find(x=>x.i===hover);const m=ZMETA[c.sign];
-      tip.innerHTML="<b>"+esc(c.sign)+"</b> · "+esc(m.sub)+" — "+signPeople(c.sign).length+" figures";
-      tip.style.left=c.ex+"px";tip.style.top=(c.ey-c.scale*0.9)+"px";tip.style.opacity="1";}
-    else tip.style.opacity="0";
-    _domeRAF=requestAnimationFrame(frame);
+    /* 2 — the zodiac band and the celestial equator, far half first */
+    const quads=[];
+    if(show.band)for(let i=0;i<12;i++){const col=ELC[ZMETA[signAt(i)].element];const hot=i===hover,now=signAt(i)===D.season;
+      for(let k=0;k<6;k++){const l0=((i*30+k*5)*R)-D.prec,l1=l0+5*R,b=8*R;
+        const a=P(l0,-b),bq=P(l1,-b),c=P(l1,b),d=P(l0,b);quads.push({z:(a.z+c.z)/2,pts:[a,bq,c,d],col,hot,now,edge:k===0});}}
+    quads.sort((p,q)=>p.z-q.z);
+    const drawQuads=front=>{for(const q of quads){if((q.z>0)!==front)continue;const depth=(q.z+1)/2;
+      ctx.beginPath();q.pts.forEach((p,j)=>j?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();
+      ctx.fillStyle="rgba("+q.col.join(",")+","+((q.hot?0.42:q.now?0.3:0.13)*(0.45+0.55*depth)).toFixed(3)+")";ctx.fill();
+      if(q.edge){ctx.strokeStyle="rgba(230,206,142,"+(0.18+0.35*depth).toFixed(3)+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(q.pts[0].x,q.pts[0].y);ctx.lineTo(q.pts[3].x,q.pts[3].y);ctx.stroke();}}};
+    const ring=(fn,front,style,wid,dash)=>{ctx.save();ctx.strokeStyle=style;ctx.lineWidth=wid;if(dash)ctx.setLineDash(dash);let prev=null;
+      for(let k=0;k<=180;k++){const p=fn(k/180*2*Math.PI);if(prev&&((p.z+prev.z)/2>0)===front){ctx.beginPath();ctx.moveTo(prev.x,prev.y);ctx.lineTo(p.x,p.y);ctx.stroke();}prev=p;}ctx.restore();};
+    const eqf=u=>Pv(Math.cos(u),Math.sin(u)*Math.cos(EPS),Math.sin(u)*Math.sin(EPS)),eclf=u=>P(u,0);
+    drawQuads(false);
+    if(show.equator)ring(eqf,false,"rgba(143,230,200,.16)",1,[4,5]);
+    ring(eclf,false,"rgba(230,206,142,.25)",1);
+    /* 3 — far-side figures, then the Earth, then near-side figures */
+    const figDraw=front=>{
+      Object.entries(D.figs).forEach(([sign,f])=>{const cz=P(f.c[0],f.c[1]).z;if((cz>0)!==front)return;const i=ZODIAC_ORDER.indexOf(sign),on=i===hover,depth=(cz+1)/2;
+        if(show.lines){ctx.lineWidth=on?1.8:1.1;ctx.strokeStyle="rgba(230,206,142,"+(on?0.85:(0.14+0.4*depth)).toFixed(3)+")";
+          f.lines.forEach(line=>{ctx.beginPath();line.forEach((v,j)=>{const p=P(v[0],v[1]);j?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);});ctx.stroke();});}
+        f.lines.forEach(line=>line.forEach(v=>{const p=P(v[0],v[1]);const sz=Math.max(2,(5.6-v[2])*(on?2.3:1.9))*p.f*(0.7+0.4*depth);
+          ctx.globalAlpha=Math.min(1,(0.45+0.6*depth)*(on?1.3:1));ctx.drawImage(sprite(v[3]),p.x-sz,p.y-sz,sz*2,sz*2);}));ctx.globalAlpha=1;});};
+    figDraw(false);
+    /* the Earth, lit from the Sun */
+    const E=K*0.13,sun=D.bodies[0],sp=P(sun.lam,0),ex=W/2,ey=H*0.45;
+    const ang=Math.atan2(sp.y-ey,sp.x-ex);
+    const eg=ctx.createRadialGradient(ex+Math.cos(ang)*E*0.45,ey+Math.sin(ang)*E*0.45,E*0.1,ex,ey,E*1.05);eg.addColorStop(0,"#9fd0ff");eg.addColorStop(0.45,"#2f6fb2");eg.addColorStop(1,"#08172e");
+    const halo=ctx.createRadialGradient(ex,ey,E*0.9,ex,ey,E*1.9);halo.addColorStop(0,"rgba(120,180,255,.28)");halo.addColorStop(1,"rgba(120,180,255,0)");ctx.fillStyle=halo;ctx.beginPath();ctx.arc(ex,ey,E*1.9,0,6.2832);ctx.fill();
+    ctx.fillStyle=eg;ctx.beginPath();ctx.arc(ex,ey,E,0,6.2832);ctx.fill();
+    ctx.font="600 "+Math.max(9,K*0.028).toFixed(0)+"px 'IBM Plex Mono',ui-monospace,monospace";ctx.textAlign="center";ctx.fillStyle="rgba(200,225,255,.7)";ctx.fillText("EARTH",ex,ey+E+Math.max(12,K*0.045));
+    /* sightline to the Sun */
+    if(show.planets){ctx.save();ctx.setLineDash([3,4]);ctx.strokeStyle="rgba(255,214,120,.45)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ex+Math.cos(ang)*E,ey+Math.sin(ang)*E);ctx.lineTo(sp.x,sp.y);ctx.stroke();ctx.restore();}
+    drawQuads(true);
+    if(show.equator)ring(eqf,true,"rgba(143,230,200,.42)",1.2,[5,5]);
+    ring(eclf,true,"rgba(230,206,142,.6)",1.3);
+    figDraw(true);
+    /* equinox markers where the rings cross */
+    if(show.equator&&W>=560)[[0,"♈︎ March equinox"],[Math.PI,"♎︎ September equinox"]].forEach(([l,txt])=>{const p=P(l-D.prec,0);if(p.z<-0.2)return;
+      ctx.fillStyle="rgba(143,230,200,.85)";ctx.beginPath();ctx.arc(p.x,p.y,3,0,6.2832);ctx.fill();ctx.font="600 "+Math.max(9,K*0.026).toFixed(0)+"px 'IBM Plex Mono',monospace";ctx.textAlign="left";ctx.fillStyle="rgba(143,230,200,"+(0.35+0.5*(p.z+1)/2).toFixed(2)+")";ctx.fillText(txt,p.x+7,p.y-7);});
+    /* 4 — sign names on the band, constellation names above their stars */
+    for(let i=0;i<12;i++){const s=signAt(i),p=P((i*30+15)*R-D.prec,-11*R),depth=(p.z+1)/2,on=i===hover,now=s===D.season;
+      const fs=Math.max(10,K*(on?0.058:0.045)*p.f);ctx.textAlign="center";ctx.globalAlpha=Math.min(1,0.25+0.85*depth+(on?0.3:0));
+      ctx.font=fs.toFixed(0)+"px 'Segoe UI Symbol','Apple Symbols','Noto Sans Symbols 2',serif";ctx.fillStyle=now?"#FFD678":"#EBD9A8";ctx.fillText(signSym(s),p.x,p.y);
+      ctx.font="600 "+(fs*0.52).toFixed(0)+"px Fraunces,Georgia,serif";ctx.fillStyle=now?"#FFE3A0":"#F3ECDD";ctx.fillText(s,p.x,p.y+fs*0.72);
+      if(now&&depth>0.35){ctx.font="600 "+Math.max(8,fs*0.28).toFixed(0)+"px 'IBM Plex Mono',monospace";ctx.fillStyle="rgba(255,214,120,.9)";ctx.fillText("SUN'S SIGN NOW",p.x,p.y+fs*1.12);}}
+    ctx.globalAlpha=1;
+    /* 5 — the Sun, Moon and planets */
+    if(show.planets){const bs=D.bodies.map(b=>({b,p:P(b.lam,b.bet)})).sort((a,b)=>a.p.z-b.p.z);
+      const sc=Math.max(0.5,Math.min(1.2,K/300));
+      bs.forEach(({b,p})=>{const depth=(p.z+1)/2,r=b.r*p.f*(0.75+0.35*depth)*sc;ctx.globalAlpha=0.45+0.55*depth;
+        if(b.name==="Sun"){const gg=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r*4.5);gg.addColorStop(0,"rgba(255,244,210,1)");gg.addColorStop(0.25,"rgba(255,214,120,.9)");gg.addColorStop(1,"rgba(255,190,90,0)");ctx.fillStyle=gg;ctx.beginPath();ctx.arc(p.x,p.y,r*4.5,0,6.2832);ctx.fill();}
+        else if(b.name==="Moon"){ctx.fillStyle="rgba(70,76,94,.95)";ctx.beginPath();ctx.arc(p.x,p.y,r,0,6.2832);ctx.fill();const sd=b.phase<0.5?-1:1,e=Math.cos(b.phase*2*Math.PI);
+          ctx.fillStyle="#F1ECDC";ctx.beginPath();for(let q=0;q<=20;q++){const u=q/20*Math.PI;ctx.lineTo(p.x+sd*r*Math.sin(u),p.y-r*Math.cos(u));}for(let q=20;q>=0;q--){const u=q/20*Math.PI;ctx.lineTo(p.x+sd*e*r*Math.sin(u),p.y-r*Math.cos(u));}ctx.fill();}
+        else{ctx.drawImage(sprite(b.col),p.x-r*2.6,p.y-r*2.6,r*5.2,r*5.2);}
+        if(W<560&&b.name!=="Sun"&&b.name!=="Moon")return;ctx.font="600 "+Math.max(9,K*0.026).toFixed(0)+"px 'IBM Plex Mono',monospace";ctx.textAlign="left";ctx.fillStyle="rgba("+b.col.join(",")+",.9)";const lt=(BODY_GLYPH[b.name]||"")+" "+b.name.toUpperCase();ctx.fillText(lt,Math.max(6,Math.min(p.x+r+5,W-ctx.measureText(lt).width-6)),Math.max(12,p.y-r-2));});
+      ctx.globalAlpha=1;}
   }
-  function pos(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
-  canvas.addEventListener("pointerdown",e=>{dragging=true;moved=0;lastX=e.clientX;vel=0;canvas.setPointerCapture(e.pointerId);});
-  canvas.addEventListener("pointermove",e=>{pointer=pos(e);if(dragging){const dx=e.clientX-lastX;lastX=e.clientX;moved+=Math.abs(dx);spin+=dx*0.006;vel=dx*0.006;}});
-  function endDrag(e){if(!dragging)return;dragging=false;if(moved<5){const p=pos(e);let best=1e9,sel=-1;const items=layout();for(const c of items){const dx=p.x-c.ex,dy=p.y-c.ey,d=dx*dx+dy*dy,rr=(c.scale*1.6)*(c.scale*1.6);if(d<rr&&d<best){best=d;sel=c.i;}}if(sel>=0){state.zSign=ZODIAC_ORDER[sel];state.view="zodiac";window.scrollTo({top:0});render();}}}
-  canvas.addEventListener("pointerup",endDrag);
-  canvas.addEventListener("pointercancel",()=>{dragging=false;});
-  canvas.addEventListener("pointerleave",()=>{pointer=null;});
-  if(window.ResizeObserver){const ro=new ResizeObserver(()=>resize());ro.observe(wrap);}
+  /* hit test: the sign whose band centre or figure centre is nearest the pointer, front-most */
+  function pick(x,y){let best=-1,bd=1e9;for(let i=0;i<12;i++){const s=signAt(i),f=D.figs[s];
+      for(const p of [P((i*30+15)*R-D.prec,0),f?P(f.c[0],f.c[1]):null]){if(!p||p.z<-0.35)continue;const d=Math.hypot(p.x-x,p.y-y)-p.z*12;if(d<bd){bd=d;best=i;}}}
+    return bd<Math.max(46,W*0.05)?best:-1;}
+  function showTip(i,x,y){if(i<0){tip.style.opacity="0";return;}const s=signAt(i),m=ZMETA[s],n=signPeople(s).length,isNow=s===D.season,cn=CONST_SIGN[D.con]||D.con;
+    tip.innerHTML="";tip.append(el("div",{class:"gl-tk",text:m.element+" · "+m.modality+" · ruled by "+m.planet}),el("b",{text:signSym(s)+" "+s}),el("div",{text:m.range+" · "+n+" famous "+signPlural(s).toLowerCase()}),
+      ...(isNow?[el("div",{class:"gl-tn",text:"The Sun is in "+s+" now (in front of "+cn+"'s stars)"})]:[]),el("div",{class:"gl-tg2",text:"Tap to explore →"}));
+    const tw=tip.offsetWidth||200;tip.style.left=Math.min(Math.max(8,x+14),W-tw-8)+"px";tip.style.top=Math.max(8,y-20)+"px";tip.style.opacity="1";}
+  canvas.addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,s:spin,t:tilt,lx:e.clientX,lt:performance.now()};moved=0;vel=0;try{canvas.setPointerCapture(e.pointerId);}catch(_){}});
+  canvas.addEventListener("pointermove",e=>{const r=canvas.getBoundingClientRect();pointer={x:e.clientX-r.left,y:e.clientY-r.top};
+    if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));spin=drag.s+dx*0.006;tilt=Math.max(4*R,Math.min(62*R,drag.t+dy*0.004));
+      const nowT=performance.now();vel=(e.clientX-drag.lx)*0.006/Math.max(1,nowT-drag.lt)*16;drag.lx=e.clientX;drag.lt=nowT;tip.style.opacity="0";if(REDUCE)draw(0);}
+    else if(D){hover=pick(pointer.x,pointer.y);canvas.style.cursor=hover>=0?"pointer":"grab";showTip(hover,pointer.x,pointer.y);if(REDUCE)draw(0);}});
+  const end=e=>{if(!drag)return;const was=moved;drag=null;if(was<6&&D){const r=canvas.getBoundingClientRect();const i=pick(e.clientX-r.left,e.clientY-r.top);if(i>=0){state.zSign=signAt(i);window.scrollTo({top:0});render();}}};
+  canvas.addEventListener("pointerup",end);canvas.addEventListener("pointercancel",()=>{drag=null;});
+  canvas.addEventListener("pointerleave",()=>{pointer=null;hover=-1;tip.style.opacity="0";if(REDUCE)draw(0);});
+  function frame(t){if(!canvas.isConnected){_domeRAF=0;return;}
+    if(!D){try{build();}catch(e){_domeRAF=requestAnimationFrame(frame);return;}resize();/* start with today's Sun on the near side, a little to the left */spin=-Math.PI/2-D.bodies[0].lam+0.55;}
+    const vr=canvas.getBoundingClientRect(),onScreen=vr.bottom>0&&vr.top<window.innerHeight;
+    if(onScreen){if(!drag&&!REDUCE){spin+=0.0011+vel;vel*=0.94;if(Math.abs(vel)<1e-5)vel=0;}draw(t);}
+    if(!REDUCE)_domeRAF=requestAnimationFrame(frame);}
+  window.addEventListener("resize",()=>{if(canvas.isConnected){resize();if(REDUCE)draw(0);}},{passive:true});
   requestAnimationFrame(()=>{resize();_domeRAF=requestAnimationFrame(frame);});
   return wrap;
 }
@@ -10665,6 +10728,13 @@ window.addEventListener("resize",()=>{clearTimeout(window._tlRT);window._tlRT=se
 /* ============================================================
    PATTERNS (interactive charts)
    ============================================================ */
+/* a clear "you are looking at a filtered view" banner for the chart pages */
+function filterBanner(list){const af=activeFilters(),q=(state.search||"").trim();if(!af.length&&!q)return null;
+  const parts=af.map(a=>a.label);if(q)parts.unshift("“"+q+"”");
+  const b=el("div",{class:"fbanner",role:"status"},[el("span",{class:"fb-ic",text:"\u29E9"}),
+    el("div",{class:"fb-t"},[el("b",{text:"Filtered view: "+list.length.toLocaleString()+" of "+HISTORICAL.length.toLocaleString()+" people"}),el("span",{text:parts.join(" · ")+(state.f.thisWeek&&state.f.thisMonth?" (together these leave only the days in both)":"")})]),
+    el("button",{class:"btn btn-gold fb-go",onClick:()=>{state.f=freshFilters();state.search="";const si=document.getElementById("search");if(si)si.value="";const sw=document.getElementById("searchWrap");if(sw)sw.classList.remove("has");render();}},[document.createTextNode("Show everyone")])]);
+  return b;}
 function renderPatterns(view){
   view.innerHTML="";
   const list=current();
@@ -10674,6 +10744,7 @@ function renderPatterns(view){
   head.appendChild(el("h1",{text:"Cosmic Patterns"}));
   head.appendChild(el("div",{class:"lede",text:"What "+list.length.toLocaleString()+" real lives reveal about birthdays, lifespans and the shape of history. Every chart is live: filter the almanac and they recompute, tap anything to follow it."}));
   view.appendChild(head);
+  {const fb=filterBanner(list);if(fb)view.appendChild(fb);}
   if(!list.length){view.appendChild(emptyState());return;}
   view.appendChild(patInsights(list));
   /* the year as a clock, then the heat map */
@@ -10767,7 +10838,7 @@ function chartClock(list){
   const side=el("div",{class:"clock-side"});
   side.appendChild(el("h3",{text:"The birthday clock"}));
   side.appendChild(el("div",{class:"cap",text:"All 366 days around a dial. Each spoke's length is the number of birthdays that day, colored by the element of its zodiac sign. Move around the dial to read it; click to open a day."}));
-  const top=days.map(([m,d])=>({m,d,n:counts[m+"-"+d]||0})).sort((a,b)=>b.n-a.n).slice(0,8);
+  const top=days.map(([m,d])=>({m,d,n:counts[m+"-"+d]||0})).filter(t=>t.n>0).sort((a,b)=>b.n-a.n).slice(0,8);
   side.appendChild(el("div",{class:"fam-label",text:"The busiest days"}));
   const tl=el("div",{class:"ck-top"});
   top.forEach((t,i)=>{const ppl=list.filter(p=>p.month===t.m&&p.day===t.d).sort((a,b)=>rankScore(b)-rankScore(a));
@@ -10779,7 +10850,8 @@ function chartClock(list){
   side.appendChild(el("div",{class:"ck-legend"},ELEMENTS.map(e=>{const s=el("span");const i=el("i");i.style.background=elementColor(e.key);s.append(i,document.createTextNode(e.key));return s;})));
   wrap.appendChild(side);ch.appendChild(wrap);
   const total=Object.values(counts).reduce((a,b)=>a+b,0);
-  function idle(){center.innerHTML="";center.append(el("b",{text:total.toLocaleString()}),el("span",{text:"dated birthdays"}),el("em",{text:"about "+(total/365.25).toFixed(1)+" a day"}));}
+  const usedDays=Object.values(counts).filter(v=>v>0).length;
+  function idle(){center.innerHTML="";center.append(el("b",{text:total.toLocaleString()}),el("span",{text:total===1?"dated birthday":"dated birthdays"}),el("em",{text:total>=365?"about "+(total/365.25).toFixed(1)+" a day":"on "+usedDays+" day"+(usedDays===1?"":"s")+" of the year"}));}
   function focusDay(i){
     const svgEl=box.querySelector("svg"),hand=svgEl.querySelector(".ck-hand");
     svgEl.querySelectorAll(".ck-sp.on").forEach(x=>x.classList.remove("on"));
@@ -10996,7 +11068,7 @@ function chartCentury(list){
   const order=centuryOrder(list);
   if(!order.length)return ch;
   const items=order.map(([lab,n])=>({label:lab.replace(" century","").replace("Ancient (BCE)","BCE"),v:n,go:()=>goWithFilter(f=>f.centuries.add(lab),"people")}));
-  ch.appendChild(columnChart(items,{every:items.length>14?2:1,color:"linear-gradient(180deg,var(--navy-3),color-mix(in srgb,var(--navy-3) 50%,var(--card)))"}));
+  ch.appendChild(columnChart(items,{every:items.length>14?2:1,color:"linear-gradient(180deg,var(--gold),color-mix(in srgb,var(--gold) 45%,var(--card)))"}));
   const top=order.slice().sort((a,b)=>b[1]-a[1])[0];
   ch.appendChild(summary("The <b>"+top[0]+"</b> dominates this view with <b>"+top[1]+"</b> figures."));
   return ch;
@@ -11399,8 +11471,8 @@ function renderSubbar(){
   const f=state.f;
   const chips=[
     {label:"Exact only",on:f.status.exact&&!f.status.estimated&&!f.status.unknown,toggle:()=>{const ex=f.status.exact&&!f.status.estimated&&!f.status.unknown;f.status=ex?{exact:true,estimated:true,unknown:true}:{exact:true,estimated:false,unknown:false};}},
-    {label:"This month",on:f.thisMonth,toggle:()=>f.thisMonth=!f.thisMonth},
-    {label:"This week",on:f.thisWeek,toggle:()=>f.thisWeek=!f.thisWeek},
+    {label:"This month",on:f.thisMonth,toggle:()=>{f.thisMonth=!f.thisMonth;if(f.thisMonth)f.thisWeek=false;}},
+    {label:"This week",on:f.thisWeek,toggle:()=>{f.thisWeek=!f.thisWeek;if(f.thisWeek)f.thisMonth=false;}},
     {label:"Ancient world",on:f.eras.has("Ancient"),toggle:()=>{f.eras.has("Ancient")?f.eras.delete("Ancient"):f.eras.add("Ancient");}},
     {label:"Modern era",on:f.eras.has("Contemporary"),toggle:()=>{f.eras.has("Contemporary")?f.eras.delete("Contemporary"):f.eras.add("Contemporary");}},
     {label:"High confidence",on:f.highConf,toggle:()=>f.highConf=!f.highConf},
@@ -12171,7 +12243,7 @@ const SKYBG=(function(){
   function start(){try{render();}catch(e){console.warn("sky",e);return;}
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",onResize,{passive:true});
     new MutationObserver(()=>{const t=document.documentElement.dataset.theme==="dark"?"dark":"light";if(t!==lastTheme)render();}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});}
-  return {start,render,paint,poster,info:()=>view};
+  return {start,render,paint,poster,info:()=>view,stars:()=>{decode();return S;},eq2ecl,bvRGB};
 })();
 /* ============================================================
    THE SKY THE NIGHT YOU WERE BORN — the real sky for any date from
