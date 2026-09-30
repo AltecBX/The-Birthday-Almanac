@@ -2504,6 +2504,30 @@ html[data-theme="dark"] .hlb-row.fire .hlb-t i,html[data-theme="dark"] .hlb-row.
   .hm-card{padding:16px 12px}.hm-ring{width:92px;height:92px}.hm-ring>b{font-size:22px}.hm-s{min-width:60px}.hm-s b{font-size:30px}
 }
 @media(prefers-reduced-motion:reduce){.scard,.hlb-t i,.hm-fg{transition:none}.sc-msg.on .sc-real{animation:none}.scard:not(.flipped):hover{transform:none}}
+/* ===== the sky the night you were born ===== */
+.modal:has(.bsky){max-width:680px;background:#070d18;border-color:#1b2640}
+.bsky{position:relative;padding:22px 24px 20px;color:#EDE7D8;background:radial-gradient(700px 260px at 50% -80px,rgba(108,140,205,.18),transparent 70%),#070d18}
+.bsky .eyebrow{color:#E6CE8E;margin:0 0 4px}
+.bsky h2{font-size:clamp(24px,4vw,32px);color:#FBF4E6;padding-right:40px}
+.bsky-sub{margin:4px 0 0;color:#C9C2B2;font-size:14px}
+.bsky-back{border:0;background:none;color:#8fe6c8;font:inherit;font-size:13px;font-weight:600;padding:0 0 10px;cursor:pointer}
+.bsky-fig{margin:16px 0 0}
+.bsky-cv{position:relative;aspect-ratio:1080/1350;max-width:520px;margin:0 auto;border-radius:14px;overflow:hidden;background:#04070f;box-shadow:0 22px 50px -22px rgba(0,0,0,.85),0 0 0 1px rgba(230,206,142,.14)}
+.bsky-cv canvas{display:block;width:100%;height:100%;transition:opacity .3s}
+.bsky-cv.busy canvas{opacity:.35}
+.bsky-wait{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:#AEB9E8}
+.bsky-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:16px}
+.bsky-f{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
+.bsky-ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(230,206,142,.12);color:#E6CE8E;font-size:15px}
+.bsky-k{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#AEB9E8}
+.bsky-v{font-size:13.5px;color:#F3ECDD;line-height:1.35;margin-top:2px}
+.bsky-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}
+.bsky .btn-line{color:#F3ECDD;border-color:rgba(255,255,255,.22);background:transparent}
+.bsky-dl{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#C9C2B2;margin-left:auto}
+.bsky-date{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#F3ECDD;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;color-scheme:dark;min-height:40px}
+.bsky-note{margin:14px 0 0;font-size:11.5px;line-height:1.55;color:#8E98B8}
+.sky-see{margin-top:12px}
+@media(max-width:560px){.bsky{padding:18px 14px}.bsky-facts{grid-template-columns:1fr}.bsky-dl{margin-left:0;width:100%}.bsky-date{flex:1}.bsky-acts .btn{flex:1 1 auto}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -6983,6 +7007,7 @@ function buildBirthdayTool(){
     }
     const acts=el("div",{class:"btr-acts reveal-up"});
     acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=z.sign;state.view="zodiac";window.scrollTo({top:0});render();}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
+    if(y)acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>openBirthSky({y,m,d,who:"The night you were born"})},[document.createTextNode("✦  See the sky the night you were born")]));
     if(twins.length)acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>openDay(m,d,twins)},[document.createTextNode("Open "+MONTHS[m-1]+" "+d)]));
     result.appendChild(acts);
   }
@@ -7133,7 +7158,7 @@ function renderPortal(view){
 
   /* the real sky on the day you were born, and the world you were born into */
   if(y&&y>=1000){
-    view.appendChild(el("div",{class:"section"},[skyPanel(y,m,d,null,z.sign,"The sky the day you were born · "+MONTHS[m-1]+" "+d+", "+y)]));
+    view.appendChild(el("div",{class:"section"},[skyPanel(y,m,d,null,z.sign,"The sky the day you were born · "+MONTHS[m-1]+" "+d+", "+y,{who:"The night you were born"})]));
     const elders=featuredOf(HISTORICAL.filter(p=>!p.isPersonal&&p.birthYear!=null&&p.birthYear<y&&p.endYear!=null&&p.endYear>=y&&(p.deathYear==null||p.deathYear>y)),10);
     const peers=featuredOf(HISTORICAL.filter(p=>!p.isPersonal&&p.birthYear===y),10);
     if(elders.length||peers.length){const ws=el("section",{class:"section worldbox"});
@@ -7269,7 +7294,7 @@ const WEEKDAY_RHYME={Monday:"Monday's child is fair of face",Tuesday:"Tuesday's 
 function skyEligible(p){return p&&p.dateStatus==="exact"&&p.month&&p.day&&p.era!=="BC"&&p.birthYear>=1000;}
 const fmtDeg=x=>x.d+"°"+String(x.m).padStart(2,"0")+"′";
 /* "The sky on …" — weekday, Moon, Sun position and Moon sign for a real calendar day */
-function skyPanel(y,m,d,cal,tableSign,title){
+function skyPanel(y,m,d,cal,tableSign,title,opt){
   const s=SKY.day(y,m,d,cal);
   const box=el("section",{class:"skybox","aria-label":title});
   box.appendChild(el("div",{class:"sky-k",text:title}));
@@ -7289,6 +7314,7 @@ function skyPanel(y,m,d,cal,tableSign,title){
   else if(tableSign&&s.sunSign&&tableSign!==s.sunSign)notes.push("Horoscope tables list this date under "+tableSign+", but on this day in "+y+" the Sun was actually in "+s.sunSign+".");
   if(!s.moonSign)notes.push("The Moon changes sign about every two and a half days. It moved into "+s.moonIngress.to+" during this day, so the Moon sign also depends on the hour of birth.");
   notes.forEach(n=>box.appendChild(el("p",{class:"sky-note",text:n})));
+  box.appendChild(el("button",{class:"btn btn-gold sky-see",onClick:()=>openBirthSky({y,m,d,cal,...(opt||{})})},[document.createTextNode("✦  See the sky that night")]));
   box.appendChild(el("div",{class:"sky-foot",text:"Computed from the date with standard astronomical algorithms (Meeus) · times in UT"}));
   return box;}
 /* lifetimes: who shared the world with whom */
@@ -10430,7 +10456,7 @@ function buildPersonModal(p){
   if(p.calendarNote)body.appendChild(el("div",{class:"mnote",text:p.calendarNote}));
   if(p.sourceUrl)body.appendChild(el("div",{class:"msrc"},[el("a",{href:p.sourceUrl,target:"_blank",rel:"noopener",text:"Source: "+(p.sourceName||"reference")+" ↗"})]));
 
-  if(skyEligible(p))body.appendChild(skyPanel(p.birthYear,p.month,p.day,p.cal,p.zsign,"The sky on "+MONTHS[p.month-1]+" "+p.day+", "+p.birthYear));
+  if(skyEligible(p))body.appendChild(skyPanel(p.birthYear,p.month,p.day,p.cal,p.zsign,"The sky on "+MONTHS[p.month-1]+" "+p.day+", "+p.birthYear,{who:"The night "+p.name+" was born",back:()=>openPerson(p),backLabel:p.name}));
   else if(p.birthYear!=null&&!p.isPersonal)body.appendChild(el("p",{class:"sky-note muted",text:p.dateStatus==="exact"?"This birth is too long ago to pin to a calendar day, so the sky isn't computed for it.":"The exact birth date isn't known, so the sky on that day can't be computed."}));
   const wp=worldPanel(p);if(wp)body.appendChild(wp);
 
@@ -11125,21 +11151,14 @@ const SKYBG=(function(){
     const a=hash(xi,yi),b=hash(xi+1,yi),c=hash(xi,yi+1),d=hash(xi+1,yi+1);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
   function fbm(x,y){return vnoise(x,y)*0.55+vnoise(x*2.1+17,y*2.1+5)*0.28+vnoise(x*4.3+3,y*4.3+41)*0.17;}
 
-  let host=null,pan=null,cv=null,glints=null,view=null,R=0,H0=0,W0=0,lastTheme="";
-  function build(){
-    host=el("div",{id:"skybg","aria-hidden":"true"});pan=el("div",{class:"sky-pan"});cv=el("canvas");glints=el("div",{class:"sky-glints"});
-    pan.append(cv,glints);host.appendChild(pan);document.body.insertBefore(host,document.body.firstChild);}
-  function render(){
-    decode();if(!host)build();
-    const dark=document.documentElement.dataset.theme==="dark";lastTheme=dark?"dark":"light";
-    const vw=window.innerWidth,vh=Math.max(window.innerHeight,document.documentElement.clientHeight);
-    R=REDUCE?0:Math.round(Math.min(900,vw*0.55));const W=vw+R,H=vh+120;W0=vw;H0=vh;
-    const dpr=Math.min(window.devicePixelRatio||1,2,Math.sqrt(7e6/(W*H)));
-    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cv.style.width=W+"px";cv.style.height=H+"px";pan.style.width=W+"px";pan.style.height=H+"px";
-    const x=cv.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,W,H);
-    /* tonight: the ecliptic point due south at local midnight is opposite the Sun */
-    const jd=SKY.jdOfDate(new Date()),sunL=SKY.sunLon(jd)*D2R,lam0=sunL+Math.PI;
-    const ppd=Math.max(6,Math.min(13.5,vw/150)),k=ppd/D2R,cx=R+vw/2,cy=H*0.46;
+  /* paint the real sky for any moment onto a 2D context.
+     o: {W,H,jd,dark,ppd,cx,cy,seed,scale,lines,rich}. Stars are J2000; the Sun, Moon
+     and the sign divisions are of-date, so precession is taken off them to set them
+     among the stars as they stood that night. Returns what it placed. */
+  function paint(x,o){
+    decode();
+    const W=o.W,H=o.H,jd=o.jd,dark=o.dark!==false,ppd=o.ppd,cx=o.cx,cy=o.cy,U=o.scale||1,k=ppd/D2R;
+    const prec=precessionAt(jd),sunL=(SKY.sunLon(jd)-prec)*D2R,lam0=sunL+Math.PI;
     const proj=(l,b)=>{let d=l-lam0;d=Math.atan2(Math.sin(d),Math.cos(d));const cb=Math.cos(b),cc=cb*Math.cos(d);if(cc<-0.3)return null;
       const f=2/(1+cc);return [cx-k*f*cb*Math.sin(d),cy-k*f*Math.sin(b)];};
     const unproj=(px,py)=>{const X=(cx-px)/k,Y=(cy-py)/k,r=Math.hypot(X,Y);if(r<1e-9)return [lam0,0];const c=2*Math.atan(r/2),sc=Math.sin(c);
@@ -11153,69 +11172,122 @@ const SKYBG=(function(){
     /* 2 — the Milky Way */
     const sc=6,mw=Math.ceil(W/sc),mh=Math.ceil(H/sc),img=new ImageData(mw,mh),dd=img.data,lv=new Float32Array(mw*mh);
     for(let j=0;j<mh;j++)for(let i=0;i<mw;i++){const e=unproj(i*sc+sc/2,j*sc+sc/2),q=ecl2eq(e[0],e[1]),v=mwAt(q[0],q[1]);lv[j*mw+i]=v;
-      if(v<0.02){if(dark){/* faint airglow mottling so the sky is never a flat fill */const n=fbm(i*sc/220+9,j*sc/220+3),o=(j*mw+i)*4;dd[o]=92;dd[o+1]=108;dd[o+2]=168;dd[o+3]=Math.max(0,(n-0.42))*60;}continue;}
-      const t=Math.min(1,v/4.2),n=fbm(i*sc/38,j*sc/38),o=(j*mw+i)*4;
-      if(dark){const w=Math.pow(t,1.25);dd[o]=150+w*88;dd[o+1]=162+w*62;dd[o+2]=208-w*6;dd[o+3]=Math.min(255,255*t*0.34*(0.45+1.05*n));}
-      else{dd[o]=168;dd[o+1]=132;dd[o+2]=70;dd[o+3]=Math.min(255,255*t*0.085*(0.5+n));}}
+      if(v<0.02){if(dark){/* faint airglow mottling so the sky is never a flat fill */const n=fbm(i*sc/220+9,j*sc/220+3),o2=(j*mw+i)*4;dd[o2]=92;dd[o2+1]=108;dd[o2+2]=168;dd[o2+3]=Math.max(0,(n-0.42))*60;}continue;}
+      const t=Math.min(1,v/4.2),n=fbm(i*sc/38,j*sc/38),o2=(j*mw+i)*4;
+      if(dark){const w=Math.pow(t,1.25);dd[o2]=150+w*88;dd[o2+1]=162+w*62;dd[o2+2]=208-w*6;dd[o2+3]=Math.min(255,255*t*(o.rich?0.42:0.34)*(0.45+1.05*n));}
+      else{dd[o2]=168;dd[o2+1]=132;dd[o2+2]=70;dd[o2+3]=Math.min(255,255*t*0.085*(0.5+n));}}
     const off=document.createElement("canvas");off.width=mw;off.height=mh;off.getContext("2d").putImageData(img,0,0);
-    x.save();x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";if("filter" in x)x.filter="blur("+(dark?3:2.2)+"px)";x.drawImage(off,0,0,W,H);x.restore();
+    x.save();x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";if("filter" in x)x.filter="blur("+(dark?3:2.2)*U+"px)";x.drawImage(off,0,0,W,H);x.restore();
     const lvAt=(px,py)=>{const i=Math.min(mw-1,Math.max(0,px/sc|0)),j=Math.min(mh-1,Math.max(0,py/sc|0));return lv[j*mw+i];};
-    const rnd=rng(20260930);
+    const rnd=rng(o.seed||20260930);
     /* 3 — the unresolved crowd: faint stars, far denser along the Milky Way */
-    if(dark){const N=Math.round(W*H/95);
+    if(dark){const N=Math.round(W*H/(o.rich?70:95));
       for(let i=0;i<N;i++){const px=rnd()*W,py=rnd()*H,l=lvAt(px,py);if(rnd()>0.3+0.7*Math.min(1,l/2.4))continue;
         const a=0.07+Math.pow(rnd(),2.2)*0.5*(0.6+0.4*Math.min(1,l/3)),h=rnd();
         x.fillStyle=h<0.3?"rgba(200,215,255,"+a+")":h<0.8?"rgba(248,244,236,"+a+")":"rgba(255,222,182,"+a+")";
-        const s=rnd()<0.08?1.2:0.75;x.fillRect(px,py,s,s);}}
-    /* 4 — the ecliptic, divided into the twelve signs (atlas style) */
-    x.save();x.strokeStyle=dark?"rgba(230,206,142,.13)":"rgba(168,126,46,.26)";x.fillStyle=dark?"rgba(230,206,142,.26)":"rgba(168,126,46,.5)";x.lineWidth=1;
-    x.setLineDash([2,5]);x.beginPath();x.moveTo(0,cy);x.lineTo(W,cy);x.stroke();x.setLineDash([]);
-    for(let dg=0;dg<360;dg+=5){const p=proj(dg*D2R,0);if(!vis(p,20))continue;const big=dg%30===0,t=big?7:dg%10===0?3.5:1.8;
+        const s=(rnd()<0.08?1.2:0.75)*U;x.fillRect(px,py,s,s);}}
+    /* 4 — the ecliptic, divided into the twelve signs of that date (atlas style) */
+    const precR=prec*D2R;
+    x.save();x.strokeStyle=dark?"rgba(230,206,142,.13)":"rgba(168,126,46,.26)";x.fillStyle=dark?"rgba(230,206,142,.26)":"rgba(168,126,46,.5)";x.lineWidth=U;
+    x.setLineDash([2*U,5*U]);x.beginPath();x.moveTo(0,cy);x.lineTo(W,cy);x.stroke();x.setLineDash([]);
+    for(let dg=0;dg<360;dg+=5){const p=proj(dg*D2R-precR,0);if(!vis(p,20))continue;const t=(dg%30===0?7:dg%10===0?3.5:1.8)*U;
       x.beginPath();x.moveTo(p[0],cy-t);x.lineTo(p[0],cy+t);x.stroke();}
-    x.font="13px 'Segoe UI Symbol','Apple Symbols','Noto Sans Symbols 2',serif";x.textAlign="center";x.textBaseline="middle";
-    ZODIAC_ORDER.forEach((s,i)=>{const p=proj((i*30+15)*D2R,0);if(vis(p,20))x.fillText(signSym(s),p[0],cy-14);});
+    x.font=(13*U)+"px 'Segoe UI Symbol','Apple Symbols','Noto Sans Symbols 2',serif";x.textAlign="center";x.textBaseline="middle";
+    ZODIAC_ORDER.forEach((s,i)=>{const p=proj((i*30+15)*D2R-precR,0);if(vis(p,20))x.fillText(signSym(s),p[0],cy-14*U);});
     x.restore();
     /* 5 — the zodiac constellations: lines that stop short of their stars */
-    x.save();x.lineWidth=dark?1:0.9;x.strokeStyle=dark?"rgba(230,206,142,.17)":"rgba(168,126,46,.3)";
-    Object.keys(SKYBG_FIG.l).forEach(id=>{SKYBG_FIG.l[id].forEach(line=>{let prev=null;line.forEach(pt=>{const e=eq2ecl(pt[0]*D2R,pt[1]*D2R),p=proj(e[0],e[1]);
-      if(prev&&p){const dx=p[0]-prev[0],dy=p[1]-prev[1],L=Math.hypot(dx,dy),g=Math.min(6,L/3);if(L>1&&L<W*0.5){x.beginPath();x.moveTo(prev[0]+dx/L*g,prev[1]+dy/L*g);x.lineTo(p[0]-dx/L*g,p[1]-dy/L*g);x.stroke();}}prev=p;});});
-      const c=SKYBG_FIG.c[id];if(c){const e=eq2ecl(c[0]*D2R,c[1]*D2R),p=proj(e[0],e[1]);if(vis(p,40)){
-        x.font=dark?"600 10px 'IBM Plex Mono',ui-monospace,monospace":"italic 13px Fraunces,Georgia,serif";x.textAlign="center";x.fillStyle=dark?"rgba(230,206,142,.36)":"rgba(168,126,46,.58)";
-        const nm=SKYBG_NAMES[id];x.fillText(dark?nm.toUpperCase().split("").join(" "):nm,p[0],p[1]+ppd*2.2);}}});
-    x.restore();
+    if(o.lines!==false){x.save();x.lineWidth=(dark?1:0.9)*U;x.strokeStyle=dark?"rgba(230,206,142,"+(o.rich?.24:.17)+")":"rgba(168,126,46,.3)";
+      Object.keys(SKYBG_FIG.l).forEach(id=>{SKYBG_FIG.l[id].forEach(line=>{let prev=null;line.forEach(pt=>{const e=eq2ecl(pt[0]*D2R,pt[1]*D2R),p=proj(e[0],e[1]);
+        if(prev&&p){const dx=p[0]-prev[0],dy=p[1]-prev[1],L=Math.hypot(dx,dy),g=Math.min(6*U,L/3);if(L>1&&L<W*0.5){x.beginPath();x.moveTo(prev[0]+dx/L*g,prev[1]+dy/L*g);x.lineTo(p[0]-dx/L*g,p[1]-dy/L*g);x.stroke();}}prev=p;});});
+        const c=SKYBG_FIG.c[id];if(c){const e=eq2ecl(c[0]*D2R,c[1]*D2R),p=proj(e[0],e[1]);if(vis(p,40)){
+          x.font=dark?"600 "+(10*U)+"px 'IBM Plex Mono',ui-monospace,monospace":"italic "+(13*U)+"px Fraunces,Georgia,serif";x.textAlign="center";x.fillStyle=dark?"rgba(230,206,142,"+(o.rich?.5:.36)+")":"rgba(168,126,46,.58)";
+          const nm=SKYBG_NAMES[id];x.fillText(dark?nm.toUpperCase().split("").join(" "):nm,p[0],p[1]+ppd*2.2);}}});
+      x.restore();}
     /* 6 — the real stars */
-    glints.innerHTML="";const tw=[];
+    const bright=[];
     for(let i=S.n-1;i>=0;i--){const p=proj(S.lam[i],S.bet[i]);if(!vis(p,12))continue;const m=S.mag[i],c=bvRGB(S.bv[i]);
-      if(dark){const r=Math.max(0.5,0.55+(6.2-m)*0.34),a=m>4.6?0.5+(6-m)*0.3:1;
+      if(dark){const r=Math.max(0.5,0.55+(6.2-m)*0.34)*U,a=m>4.6?0.5+(6-m)*0.3:1;
         if(m<3.4){const gr=r*(4+(3.4-m)*1.2),g=x.createRadialGradient(p[0],p[1],0,p[0],p[1],gr);
           g.addColorStop(0,"rgba("+c[0]+","+c[1]+","+c[2]+","+(0.12+(3.4-m)*0.07).toFixed(3)+")");g.addColorStop(0.35,"rgba("+c[0]+","+c[1]+","+c[2]+","+(0.03+(3.4-m)*0.02).toFixed(3)+")");g.addColorStop(1,"rgba("+c[0]+","+c[1]+","+c[2]+",0)");
           x.fillStyle=g;x.fillRect(p[0]-gr,p[1]-gr,gr*2,gr*2);}
-        if(m<1.1){x.strokeStyle="rgba("+c[0]+","+c[1]+","+c[2]+",.22)";x.lineWidth=0.7;const L=r*(7+(1.1-m)*3);
+        if(m<1.1){x.strokeStyle="rgba("+c[0]+","+c[1]+","+c[2]+",.22)";x.lineWidth=0.7*U;const L=r*(7+(1.1-m)*3);
           x.beginPath();x.moveTo(p[0]-L,p[1]);x.lineTo(p[0]+L,p[1]);x.moveTo(p[0],p[1]-L);x.lineTo(p[0],p[1]+L);x.stroke();}
         const wr=Math.round(c[0]*0.55+255*0.45),wg=Math.round(c[1]*0.55+255*0.45),wb=Math.round(c[2]*0.55+255*0.45);
         x.fillStyle="rgba("+wr+","+wg+","+wb+","+Math.min(1,a).toFixed(3)+")";x.beginPath();x.arc(p[0],p[1],r,0,6.2832);x.fill();
-        if(m<2.4&&tw.length<28)tw.push([p[0],p[1],r,c]);}
-      else{const r=Math.max(0.45,0.4+(6-m)*0.36);x.fillStyle="rgba(44,54,72,"+(m>4.5?0.32:0.52)+")";x.beginPath();x.arc(p[0],p[1],r,0,6.2832);x.fill();
-        if(m<1.6){x.strokeStyle="rgba(44,54,72,.35)";x.lineWidth=0.7;x.beginPath();x.arc(p[0],p[1],r+2.2,0,6.2832);x.stroke();}}}
-    /* 7 — the Moon, where it really is tonight, in its real phase */
-    const mo=SKY.moonAt(jd),mp=proj(mo.lon*D2R,0),moonTxt=mo.name;let moonIn=false;
-    if(vis(mp,30)){moonIn=true;const r=Math.max(4.5,0.26*ppd*1.5),X=mp[0],Y=mp[1]-ppd*0.4;
+        if(m<2.4&&bright.length<28)bright.push([p[0],p[1],r,c]);}
+      else{const r=Math.max(0.45,0.4+(6-m)*0.36)*U;x.fillStyle="rgba(44,54,72,"+(m>4.5?0.32:0.52)+")";x.beginPath();x.arc(p[0],p[1],r,0,6.2832);x.fill();
+        if(m<1.6){x.strokeStyle="rgba(44,54,72,.35)";x.lineWidth=0.7*U;x.beginPath();x.arc(p[0],p[1],r+2.2*U,0,6.2832);x.stroke();}}}
+    /* 7 — the Moon, where it really was, in its real phase */
+    const mo=SKY.moonAt(jd),mp=proj((mo.lon-prec)*D2R,0);let moonIn=false;
+    if(vis(mp,30)){moonIn=true;const r=Math.max(4.5*U,0.26*ppd*(o.moonScale||1.5)),X=mp[0],Y=mp[1]-ppd*0.4;
       if(dark){const g=x.createRadialGradient(X,Y,r*0.8,X,Y,r*9);g.addColorStop(0,"rgba(236,232,214,"+(0.1+0.2*mo.illum).toFixed(3)+")");g.addColorStop(1,"rgba(236,232,214,0)");x.fillStyle=g;x.fillRect(X-r*9,Y-r*9,r*18,r*18);}
       x.fillStyle=dark?"rgba(60,66,84,.9)":"rgba(44,54,72,.12)";x.beginPath();x.arc(X,Y,r,0,6.2832);x.fill();
       /* lit part: limb on the sunward side (west when waxing), terminator an ellipse */
       const sd=mo.phase<0.5?1:-1,e=Math.cos(mo.phase*2*Math.PI);x.fillStyle=dark?"#F1ECDC":"rgba(44,54,72,.55)";x.beginPath();
       for(let q=0;q<=24;q++){const t=q/24*Math.PI;x.lineTo(X+sd*r*Math.sin(t),Y-r*Math.cos(t));}
       for(let q=24;q>=0;q--){const t=q/24*Math.PI;x.lineTo(X+sd*e*r*Math.sin(t),Y-r*Math.cos(t));}x.closePath();x.fill();
-      x.font="10px 'IBM Plex Mono',ui-monospace,monospace";x.textAlign="center";x.fillStyle=dark?"rgba(236,232,214,.42)":"rgba(44,54,72,.5)";x.fillText("MOON",X,Y+r+11);}
-    /* 8 — the brightest stars scintillate */
-    if(dark&&!REDUCE)tw.forEach((t,i)=>{const g=el("i");g.style.left=t[0].toFixed(1)+"px";g.style.top=t[1].toFixed(1)+"px";const s=Math.round(t[2]*7);
+      x.font=(10*U)+"px 'IBM Plex Mono',ui-monospace,monospace";x.textAlign="center";x.fillStyle=dark?"rgba(236,232,214,.42)":"rgba(44,54,72,.5)";x.fillText("MOON",X,Y+r+11*U);}
+    /* the zodiac constellation nearest the centre of the view */
+    let centre=null,bd=1e9;Object.keys(SKYBG_FIG.c).forEach(id=>{const c=SKYBG_FIG.c[id],p=proj(...eq2ecl(c[0]*D2R,c[1]*D2R));if(p){const d=Math.hypot(p[0]-cx,p[1]-cy);if(d<bd){bd=d;centre=SKYBG_NAMES[id];}}});
+    return {proj,lam0:lam0/D2R,prec,moon:mo,moonIn,bright,centre,sunLon:SKY.sunLon(jd)};
+  }
+
+  let host=null,pan=null,cv=null,glints=null,view=null,R=0,H0=0,W0=0,lastTheme="";
+  function build(){
+    host=el("div",{id:"skybg","aria-hidden":"true"});pan=el("div",{class:"sky-pan"});cv=el("canvas");glints=el("div",{class:"sky-glints"});
+    pan.append(cv,glints);host.appendChild(pan);document.body.insertBefore(host,document.body.firstChild);}
+  function render(){
+    decode();if(!host)build();
+    const dark=document.documentElement.dataset.theme==="dark";lastTheme=dark?"dark":"light";
+    const vw=window.innerWidth,vh=Math.max(window.innerHeight,document.documentElement.clientHeight);
+    R=REDUCE?0:Math.round(Math.min(900,vw*0.55));const W=vw+R,H=vh+120;W0=vw;H0=vh;
+    const dpr=Math.min(window.devicePixelRatio||1,2,Math.sqrt(7e6/(W*H)));
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cv.style.width=W+"px";cv.style.height=H+"px";pan.style.width=W+"px";pan.style.height=H+"px";
+    const x=cv.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,W,H);
+    /* tonight: the ecliptic point due south at local midnight is opposite the Sun */
+    const ppd=Math.max(6,Math.min(13.5,vw/150));
+    const r=paint(x,{W,H,jd:SKY.jdOfDate(new Date()),dark,ppd,cx:R+vw/2,cy:H*0.46});
+    /* the brightest stars scintillate */
+    glints.innerHTML="";
+    if(dark&&!REDUCE)r.bright.forEach((t,i)=>{const g=el("i");g.style.left=t[0].toFixed(1)+"px";g.style.top=t[1].toFixed(1)+"px";const s=Math.round(t[2]*7);
       g.style.width=g.style.height=s+"px";g.style.setProperty("--c","rgb("+t[3].join(",")+")");g.style.animationDuration=(2.4+((i*37)%23)/10)+"s";g.style.animationDelay=(-((i*53)%40)/10)+"s";glints.appendChild(g);});
-    view={lam0:lam0/D2R,ppd,moonIn,moonTxt,moonPhase:mo.phase,W,H,R,glints:glints.children.length};
+    view={lam0:r.lam0,ppd,moonIn:r.moonIn,moonTxt:r.moon.name,moonPhase:r.moon.phase,W,H,R,glints:glints.children.length,centre:r.centre};
     const cap=document.getElementById("sfSky");
-    if(cap){const cName=SKYBG_NAMES[Object.keys(SKYBG_FIG.c).sort((a,b)=>{const pa=proj(...eq2ecl(SKYBG_FIG.c[a][0]*D2R,SKYBG_FIG.c[a][1]*D2R)),pb=proj(...eq2ecl(SKYBG_FIG.c[b][0]*D2R,SKYBG_FIG.c[b][1]*D2R));
-        const da=pa?Math.hypot(pa[0]-cx,pa[1]-cy):1e9,db=pb?Math.hypot(pb[0]-cx,pb[1]-cy):1e9;return da-db;})[0]];
-      cap.textContent="The sky behind these pages is tonight's real sky, centred on "+cName+": "+S.n.toLocaleString()+" stars at their true positions and colours"+(moonIn?", with the Moon ("+moonTxt.toLowerCase()+") where it really is":"")+"."+(REDUCE?"":" Scroll and the heavens turn.");}
+    if(cap)cap.textContent="The sky behind these pages is tonight's real sky, centred on "+r.centre+": "+S.n.toLocaleString()+" stars at their true positions and colours"+(r.moonIn?", with the Moon ("+r.moon.name.toLowerCase()+") where it really is":"")+"."+(REDUCE?"":" Scroll and the heavens turn.");
     place();}
+  /* a 1080x1350 keepsake: the sky on a given day, with the zodiac band beneath */
+  function poster(o){
+    const W=1080,H=1350,cv2=document.createElement("canvas");cv2.width=W;cv2.height=H;const x=cv2.getContext("2d");
+    const bg=x.createLinearGradient(0,0,0,H);bg.addColorStop(0,"#0b1426");bg.addColorStop(.55,"#070d1a");bg.addColorStop(1,"#04070f");x.fillStyle=bg;x.fillRect(0,0,W,H);
+    const r=paint(x,{W,H:1000,jd:o.jd,dark:true,ppd:11.5,cx:W/2,cy:470,scale:1.75,seed:Math.round(o.jd),lines:o.lines,rich:true,moonScale:2.4});
+    /* the southern horizon: a faint glow, then rolling hills in silhouette */
+    const glow=x.createLinearGradient(0,760,0,930);glow.addColorStop(0,"rgba(70,92,150,0)");glow.addColorStop(1,"rgba(70,92,150,.22)");x.fillStyle=glow;x.fillRect(0,760,W,170);
+    const ridge=X=>905+34*(fbm(X/260+2,1.7)-0.5)*2+10*(fbm(X/55+9,4.1)-0.5)*2+3*(fbm(X/12,7.3)-0.5);
+    x.fillStyle="#03060d";x.beginPath();x.moveTo(0,H);for(let X=0;X<=W;X+=4)x.lineTo(X,ridge(X));x.lineTo(W,H);x.closePath();x.fill();
+    x.strokeStyle="rgba(120,140,190,.18)";x.lineWidth=1.2;x.beginPath();for(let X=0;X<=W;X+=4){const Y=ridge(X);if(X)x.lineTo(X,Y);else x.moveTo(X,Y);}x.stroke();
+    x.strokeStyle="rgba(230,206,142,.35)";x.lineWidth=2;x.strokeRect(28,28,W-56,H-56);
+    x.textAlign="left";x.textBaseline="alphabetic";x.font="600 19px 'IBM Plex Mono',ui-monospace,monospace";x.fillStyle="rgba(230,206,142,.72)";
+    x.fillText("DUE SOUTH AT MIDNIGHT · CENTRED ON "+(r.centre||"").toUpperCase(),60,78);
+    x.textAlign="center";x.font="600 21px 'IBM Plex Mono',ui-monospace,monospace";x.fillStyle="rgba(230,206,142,.85)";
+    x.fillText((o.kicker||"THE SKY ON THE NIGHT OF").toUpperCase().split("").join(" "),W/2,1000);
+    x.font="600 70px Fraunces,Georgia,serif";x.fillStyle="#FBF4E6";x.fillText(o.title,W/2,1078);
+    if(o.sub){x.font="28px Inter,system-ui,sans-serif";x.fillStyle="#C9C2B2";x.fillText(o.sub,W/2,1124);}
+    /* the zodiac band: the twelve signs, with the Sun and Moon where they stood */
+    const bx=110,bw=W-220,by=1172,bh=58,sunSign=SKY.signOf(r.sunLon),moSign=SKY.signOf(r.moon.lon);
+    x.strokeStyle="rgba(230,206,142,.35)";x.lineWidth=1.5;x.strokeRect(bx,by,bw,bh);
+    x.font="24px 'Segoe UI Symbol','Apple Symbols','Noto Sans Symbols 2',serif";x.textBaseline="middle";
+    ZODIAC_ORDER.forEach((s,i)=>{const sx=bx+bw*i/12;if(i){x.beginPath();x.moveTo(sx,by);x.lineTo(sx,by+bh);x.stroke();}
+      const hot=s===sunSign||s===moSign;if(hot){x.fillStyle="rgba(230,206,142,.12)";x.fillRect(sx,by,bw/12,bh);}
+      x.fillStyle=hot?"#E6CE8E":"rgba(230,206,142,.45)";x.fillText(signSym(s),sx+bw/24,by+bh/2+1);});
+    const mark=(lon,glyph,col,up)=>{const mx=bx+bw*(((lon%360)+360)%360)/360,my=up?by-16:by+bh+16;
+      x.fillStyle=col;x.beginPath();x.moveTo(mx,up?by-2:by+bh+2);x.lineTo(mx-6,up?by-10:by+bh+10);x.lineTo(mx+6,up?by-10:by+bh+10);x.closePath();x.fill();
+      x.font="600 22px 'Segoe UI Symbol','Apple Symbols',serif";x.fillText(glyph,mx,my+(up?-6:6));};
+    mark(r.sunLon,"☉︎","#F4D27A",true);mark(r.moon.lon,"☾︎","#E8E4D6",false);
+    x.textBaseline="alphabetic";x.font="600 19px 'IBM Plex Mono',ui-monospace,monospace";x.fillStyle="rgba(236,232,214,.8)";
+    x.fillText(("SUN IN "+sunSign+"  ·  MOON IN "+moSign+", "+r.moon.name).toUpperCase(),W/2,1285);
+    x.font="600 16px 'IBM Plex Mono',ui-monospace,monospace";x.fillStyle="rgba(230,206,142,.6)";x.fillText("THE BIRTHDAY ALMANAC",W/2,1316);
+    return {canvas:cv2,info:{...r,sunSign,moonSign:moSign}};
+  }
   let ticking=false;
   function place(){ticking=false;if(!pan)return;const y=window.scrollY||0;const d=Math.min(R,y*0.075),v=Math.min(110,y*0.012);
     pan.style.transform="translate3d("+(-R+d).toFixed(1)+"px,"+(-v).toFixed(1)+"px,0)";}
@@ -11226,8 +11298,62 @@ const SKYBG=(function(){
   function start(){try{render();}catch(e){console.warn("sky",e);return;}
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",onResize,{passive:true});
     new MutationObserver(()=>{const t=document.documentElement.dataset.theme==="dark"?"dark":"light";if(t!==lastTheme)render();}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});}
-  return {start,render,info:()=>view};
+  return {start,render,paint,poster,info:()=>view};
 })();
+/* ============================================================
+   THE SKY THE NIGHT YOU WERE BORN — the real sky for any date from
+   1000 to 2100, drawn as a keepsake poster you can save or share.
+   o: {y,m,d,cal,who,kicker,back}
+   ============================================================ */
+function openBirthSky(o){
+  let y=o.y,m=o.m,d=o.d,cal=o.cal||(y<1582||(y===1582&&(m<10||(m===10&&d<15)))?"J":null),lines=true,cur=null;
+  openModal(()=>{
+    const box=el("div",{class:"bsky"});
+    box.appendChild(el("button",{class:"mclose","aria-label":"Close",html:"&times;",onClick:closeModal}));
+    if(o.back)box.appendChild(el("button",{class:"bsky-back",onClick:o.back},[document.createTextNode("← "+(o.backLabel||"Back"))]));
+    const head=el("div",{class:"bsky-head"});
+    const kick=el("div",{class:"eyebrow"}),h2=el("h2",{id:"modalTitle"}),sub=el("p",{class:"bsky-sub"});
+    head.append(kick,h2,sub);box.appendChild(head);
+    const fig=el("figure",{class:"bsky-fig"});const holder=el("div",{class:"bsky-cv"},[el("span",{class:"bsky-wait",text:"Drawing the sky…"})]);
+    fig.appendChild(holder);box.appendChild(fig);
+    const facts=el("div",{class:"bsky-facts"});box.appendChild(facts);
+    const acts=el("div",{class:"bsky-acts"});
+    const save=el("button",{class:"btn btn-gold",onClick:()=>{if(cur)shareCanvas(cur,"sky-"+y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0")+".png","Saved: the sky of "+MONTHS[m-1]+" "+d+", "+y+" ✦");}},[document.createTextNode("⬇︎  Save the image")]);
+    const tog=el("button",{class:"btn btn-line","aria-pressed":"true",onClick:()=>{lines=!lines;tog.setAttribute("aria-pressed",lines?"true":"false");tog.lastChild.textContent=lines?"Hide constellation lines":"Show constellation lines";draw();}},[document.createTextNode("Hide constellation lines")]);
+    const di=el("input",{type:"date",class:"bsky-date","aria-label":"Choose another date",min:"1000-01-01",max:"2100-12-31"});
+    di.value=String(y).padStart(4,"0")+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+    di.addEventListener("change",()=>{const v=di.value.split("-").map(Number);if(v.length!==3||!v[0]||v[0]<1000||v[0]>2100)return;
+      y=v[0];m=v[1];d=v[2];cal=(y<1582||(y===1582&&(m<10||(m===10&&d<15))))?"J":null;o.who=null;o.kicker=null;draw();});
+    acts.append(save,tog,el("label",{class:"bsky-dl"},[el("span",{text:"Try any date"}),di]));
+    box.appendChild(acts);
+    box.appendChild(el("p",{class:"bsky-note",text:"Every star here is real: 5,044 stars to magnitude 6 from the Yale Bright Star Catalogue, in their true colours, with the Milky Way from survey maps. The view faces due south at midnight, centred on the part of the zodiac opposite the Sun, and the Sun, Moon and signs are set among the stars as they stood that year (precession included). Dates before 15 October 1582 are Julian."}));
+    function draw(){
+      const title=MONTHS[m-1]+" "+d+", "+y;h2.textContent=title;kick.textContent=o.kicker||"The sky on the night of";
+      sub.textContent=o.who||"";sub.hidden=!o.who;
+      holder.classList.add("busy");
+      setTimeout(()=>{const jd=SKY.jdn(y,m,d,cal);const P=SKYBG.poster({jd,title,sub:o.who||"",kicker:o.kicker,lines});cur=P.canvas;
+        P.canvas.setAttribute("role","img");P.canvas.setAttribute("aria-label","The night sky of "+title+", centred on "+P.info.centre+", with the Moon "+(P.info.moonIn?"in view":"out of view"));
+        holder.innerHTML="";holder.appendChild(P.canvas);holder.classList.remove("busy");
+        const s=SKY.day(y,m,d,cal),i=P.info,con=sunConstellation(jd);
+        facts.innerHTML="";
+        const f=(ic,k,v)=>facts.appendChild(el("div",{class:"bsky-f"},[el("span",{class:"bsky-ic",text:ic}),el("div",{},[el("div",{class:"bsky-k",text:k}),el("div",{class:"bsky-v",text:v})])]));
+        f("☉︎","The Sun",i.sunSign+" · in front of "+(CONST_SIGN[con]||con)+((CONST_SIGN[con]||con).endsWith("s")?"'":"'s")+" stars");
+        f("☾︎","The Moon",i.moon.name+", "+Math.round(i.moon.illum*100)+"% lit, in "+i.moonSign);
+        f("✦","Overhead at midnight",i.centre+(i.moonIn?" · the Moon was up among these stars":""));
+        f("\u{1F4C5}","That day",s.weekday+(s.greg?" · Gregorian "+MONTHS[s.greg.m-1]+" "+s.greg.d:""));
+      },REDUCE?0:30);}
+    draw();
+    return box;});
+}
+/* save or share a canvas as a PNG */
+function shareCanvas(cv,name,msg){
+  cv.toBlob(b=>{if(!b){toast("Couldn't create the image");return;}
+    const file=new File([b],name,{type:"image/png"});
+    if(navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"The Birthday Almanac"}).catch(()=>{});return;}
+    const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),4000);toast(msg||"Saved ✦");},"image/png");
+}
+
 (window.requestIdleCallback||function(f){return setTimeout(f,60);})(()=>SKYBG.start(),{timeout:900});
 
 /* shooting stars — meteors occasionally streak edge-to-edge across the night sky */
