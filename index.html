@@ -12237,7 +12237,8 @@ function shareCanvas(cv,name,msg){
 (function(){
   const build=document.documentElement.dataset.build;
   if(build&&"serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1")){
-    window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(reg=>{
+    const go=f=>document.readyState==="complete"?setTimeout(f,0):window.addEventListener("load",f);
+    go(()=>{navigator.serviceWorker.register("sw.js").then(reg=>{
       if(!navigator.serviceWorker.controller)reg.addEventListener("updatefound",()=>{const w=reg.installing;if(w)w.addEventListener("statechange",()=>{if(w.state==="activated"&&!STORE.get("offlineToast",false)){STORE.set("offlineToast",true);toast("Saved for offline: the almanac now works without a connection ✦");}});});
     }).catch(()=>{});});}
   window.addEventListener("offline",()=>toast("You're offline. The almanac still works; portraits you haven't seen yet will wait."));
