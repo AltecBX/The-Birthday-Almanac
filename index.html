@@ -2288,6 +2288,90 @@ html[data-theme="dark"] .tour-b.next{background:#284268;border-color:#35527c}
   .tour-in{padding:14px 14px 16px}
 }
 @media(prefers-reduced-motion:reduce){.tour,.tour-body.in-r,.tour-body.in-l{animation:none}.fan-c{transition:none}}
+/* ===== TODAY ===== */
+.td-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-radius:var(--radius-xl);padding:28px 30px;margin-bottom:10px;color:#F3ECDD;
+  background:radial-gradient(700px 340px at 90% 0%,rgba(120,140,210,.32),transparent 62%),radial-gradient(520px 280px at 0% 120%,rgba(230,206,142,.16),transparent 60%),linear-gradient(160deg,#1b2640,#11182b 55%,#0b1020);
+  box-shadow:0 26px 60px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.td-hero>*:not(.star-layer){position:relative;z-index:1}
+.td-hero .eyebrow{color:#AEB9E8;margin:0 0 2px}
+.td-t{flex:1 1 420px;min-width:0}
+.td-hero h1{font-size:clamp(32px,5.4vw,58px);line-height:1.02;color:#FBF4E6}
+.td-wd{color:var(--gold-soft)}
+.td-sub{color:#C8CFE6;font-size:14px;margin:8px 0 0}
+.td-clock{font-family:var(--mono);font-size:22px;letter-spacing:1px;color:#8fe6c8;margin-top:6px;font-variant-numeric:tabular-nums}
+.td-hero .ppl-stats{margin:12px 0}
+.td-nav{display:flex;gap:7px;flex-wrap:wrap}
+.tm-jump.on{background:rgba(230,206,142,.2);border-color:rgba(230,206,142,.5);color:#FBF4E6}
+.td-vis{display:flex;align-items:center;gap:22px;flex:none}
+.td-ring{position:relative;width:140px;height:140px}
+.td-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.tr-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:10}
+.tr-fg{fill:none;stroke:url(#none);stroke:#E6CE8E;stroke-width:10;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(230,206,142,.5))}
+.tr-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tr-c b{font-family:var(--serif);font-size:30px;color:#FBF4E6;line-height:1}
+.tr-c span{font-size:11.5px;color:#B9C1DD;margin-top:3px}
+.td-moon{filter:drop-shadow(0 0 24px rgba(239,229,204,.35))}
+/* celebrating */
+.td-cakes{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.cake{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border:1px solid var(--hairline);background:linear-gradient(180deg,color-mix(in srgb,var(--cat) 10%,var(--card)),var(--card));
+  border-radius:20px;padding:16px 12px 14px;cursor:pointer;font:inherit;color:inherit;transition:transform .2s var(--spring),box-shadow .2s,border-color .2s;box-shadow:0 2px 0 var(--card),0 4px 0 -1px var(--hairline)}
+.cake:hover,.cake:focus-visible{transform:translateY(-4px) rotate(-1deg);border-color:var(--gold-soft);box-shadow:0 18px 30px -18px rgba(28,42,56,.5);outline:none}
+.cake-age{display:flex;flex-direction:column;align-items:center;line-height:1}
+.cake-age b{font-family:var(--serif);font-size:40px;color:var(--gold-deep)}
+.cake-age b::before{content:"\1F382";font-size:18px;margin-right:4px;vertical-align:14px}
+.cake-age span{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--faint)}
+.cake-nm{font-size:14px;line-height:1.25}
+.cake-f{font-size:11.5px;color:var(--muted)}
+.td-party{margin-top:14px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:300}
+.confetti i{position:fixed;width:8px;height:12px;border-radius:2px;animation:conf 1.7s cubic-bezier(.2,.6,.3,1) forwards}
+@keyframes conf{0%{transform:translate(0,0) rotate(0);opacity:1}70%{opacity:1}100%{transform:translate(var(--x),calc(var(--y) + 520px)) rotate(var(--r));opacity:0}}
+/* through the centuries */
+.td-line{position:relative;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.tdl-track{position:relative;display:flex;gap:6px;min-width:100%;padding:0 4px}
+.tdl-track::before{content:"";position:absolute;left:0;right:0;top:132px;height:2px;background:linear-gradient(90deg,var(--gold-soft),var(--gold),var(--gold-soft));border-radius:2px}
+.tdl-it{flex:none;width:112px;position:relative;display:grid;grid-template-rows:auto;justify-items:center;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit;height:264px;border-radius:14px;transition:background .15s}
+.tdl-it:hover,.tdl-it:focus-visible{background:var(--card-2);outline:none}
+.tdl-it .tdl-y{position:absolute;top:140px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gold-deep)}
+.tdl-dot{position:absolute;top:126px;width:14px;height:14px;border-radius:50%;background:var(--cat);box-shadow:0 0 0 3px var(--card),0 0 0 4px var(--gold-soft)}
+.tdl-it .pc-face{position:absolute;top:8px}
+.tdl-nm{position:absolute;top:54px;left:4px;right:4px;font-size:12px;font-weight:600;line-height:1.25;text-align:center;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tdl-ago{position:absolute;top:88px;left:2px;right:2px;font-size:10.5px;color:var(--muted);text-align:center}
+.tdl-it.d .pc-face{top:auto;bottom:62px;filter:grayscale(.6)}
+.tdl-it.d .tdl-nm{top:auto;bottom:26px}
+.tdl-it.d .tdl-ago{top:auto;bottom:8px}
+.tdl-it.d .tdl-y{top:106px}
+.tdl-it.d .tdl-dot{background:var(--card);box-shadow:0 0 0 3px var(--faint)}
+/* sky tiles */
+.td-sky{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:900px){.td-sky{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.td-sky{grid-template-columns:1fr}}
+.td-tile{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--hairline);background:var(--card);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow-sm);font:inherit;color:inherit}
+.td-tile.go{cursor:pointer;transition:transform .18s var(--spring),border-color .2s}
+.td-tile.go:hover{transform:translateY(-2px);border-color:var(--gold-soft)}
+.td-ic{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:22px;color:#FBF4E6;background:linear-gradient(160deg,#27406f,#0e1628)}
+.td-k{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)}
+.td-v{font-family:var(--serif);font-size:18px;color:var(--ink);line-height:1.2;margin-top:1px}
+.td-s{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}
+.td-fact{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+/* week ahead */
+.td-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.td-day{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--hairline);background:var(--card);border-radius:16px;padding:12px 12px 12px;cursor:pointer;font:inherit;color:inherit;min-width:0;
+  transition:transform .18s var(--spring),border-color .2s,box-shadow .2s;box-shadow:0 2px 0 var(--card),0 4px 0 -1px var(--hairline)}
+.td-day:hover,.td-day:focus-visible{transform:translateY(-3px);border-color:var(--gold-soft);box-shadow:0 16px 28px -18px rgba(28,42,56,.5);outline:none}
+.tdd-h b{display:block;font-family:var(--serif);font-size:18px}
+.tdd-h span{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.tdd-faces{display:flex;min-height:34px}
+.tdd-faces .pc-face{margin-right:-8px;box-shadow:0 0 0 2px var(--card)}
+.tdd-nm{font-size:11.5px;color:var(--ink-2);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tdd-n{margin-top:auto;font-family:var(--mono);font-size:10.5px;color:var(--gold-deep)}
+@media(max-width:1000px){.td-week{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}}
+@media(max-width:700px){
+  .td-hero{padding:22px 18px;border-radius:var(--radius-lg)}
+  .td-vis{width:100%;justify-content:center}.td-ring{width:112px;height:112px}.tr-c b{font-size:24px}
+  .td-cakes{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.cake:hover{transform:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -7239,51 +7323,136 @@ function moonPhaseCard(){
   requestAnimationFrame(()=>drawMoon(cv,p));
   return card;
 }
+/* ============================================================
+   TODAY — a living daily briefing for any day: who was born and who
+   died on this date across the centuries, who is celebrating, the real
+   sky, and the week ahead. Step back and forward a day at a time.
+   ============================================================ */
+function briefDate(off){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+off);return d;}
+function dayOfYearOf(dt){return Math.round((midnight(dt)-new Date(dt.getFullYear(),0,1))/DAY_MS)+1;}
+function bornOn(m,d){return HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));}
+function diedOn(m,d){return HISTORICAL.filter(p=>p.deathMonth===m&&p.deathDay===d&&p.deathYear!=null).sort((a,b)=>rankScore(b)-rankScore(a));}
+/* the next time the Moon reaches a phase, and the Sun's next change of sign */
+function nextLunar(y,m,d,target){let J=SKY.jdn(y,m,d);let prev=SKY.moonAt(J-0.5).phase;
+  for(let k=0;k<32;k++){const cur=SKY.moonAt(J+k+0.5).phase;const hit=target===0?cur<prev:(prev<target&&cur>=target);if(hit){const g=SKY.gregOf(J+k);return {days:k,date:new Date(g.y,g.m-1,g.d)};}prev=cur;}return null;}
+function nextIngress(y,m,d){for(let k=0;k<35;k++){const dt=new Date(y,m-1,d+k);const s=SKY.day(dt.getFullYear(),dt.getMonth()+1,dt.getDate());if(s.sunIngress)return {days:k,date:dt,to:s.sunIngress.to};}return null;}
+function confetti(from){
+  if(REDUCE)return;const r=from.getBoundingClientRect();const box=el("div",{class:"confetti","aria-hidden":"true"});
+  const cols=["#E6CE8E","#C2407A","#3B6EA5","#2E7D6B","#C2701C","#8fe6c8"];
+  for(let i=0;i<46;i++){const s=el("i");s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+r.height/2)+"px";s.style.background=cols[i%cols.length];
+    s.style.setProperty("--x",(Math.random()*2-1)*260+"px");s.style.setProperty("--y",(-120-Math.random()*260)+"px");s.style.setProperty("--r",(Math.random()*720-360)+"deg");s.style.animationDelay=(Math.random()*0.12)+"s";box.appendChild(s);}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),1900);}
+let _clock=0;
 function renderToday(view){
-  view.innerHTML="";
-  const head=el("div",{class:"viewhead cosmic"});
-  head.appendChild(starLayer("star-layer",30));
-  head.appendChild(el("p",{class:"eyebrow",text:"Your daily briefing"}));
-  head.appendChild(el("h1",{text:MONTHS[TODAY_M-1]+" "+TODAY_D}));
-  head.appendChild(el("div",{class:"lede",text:"What the almanac holds for today — who shares this date, the sign the Sun is in, a pattern worth chasing, and a fact for the day."}));
-  view.appendChild(head);
+  view.innerHTML="";if(_clock){clearInterval(_clock);_clock=0;}
+  const off=state.tOff||0,dt=briefDate(off),m=dt.getMonth()+1,d=dt.getDate(),y=dt.getFullYear(),isToday=off===0;
+  const wd=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dt.getDay()];
+  const born=bornOn(m,d),died=diedOn(m,d),sky=SKY.day(y,m,d),z=zodiac(m,d);
+  /* ---------- hero ---------- */
+  const hero=el("section",{class:"td-hero"});hero.appendChild(starLayer("star-layer",28));
+  const ht=el("div",{class:"td-t"});
+  ht.appendChild(el("p",{class:"eyebrow",text:isToday?"Your daily briefing":off===1?"Tomorrow's briefing":off===-1?"Yesterday's briefing":"Briefing for"}));
+  ht.appendChild(el("h1",{},[el("span",{class:"td-wd",text:wd+", "}),document.createTextNode(MONTHS[m-1]+" "+d)]));
+  const doy=dayOfYearOf(dt),len=(y%4===0&&(y%100!==0||y%400===0))?366:365;
+  ht.appendChild(el("p",{class:"td-sub",text:"Day "+doy+" of "+len+(y!==CUR_YEAR?" in "+y:"")+" · "+(len-doy)+" days left in the year"}));
+  const clock=el("div",{class:"td-clock","aria-live":"off"});
+  if(isToday){const tick=()=>{if(!clock.isConnected){clearInterval(_clock);_clock=0;return;}const n=new Date();
+      clock.textContent=n.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"});};tick();_clock=setInterval(tick,1000);ht.appendChild(clock);}
+  const chips=el("div",{class:"ppl-stats"});
+  [[String(born.length),born.length===1?"birthday":"birthdays"],[String(died.length),"remembered"],[z?z.sym+" "+z.sign:"—","sun sign"],[sky.moon.name,Math.round(sky.moon.illum*100)+"% lit"]]
+    .forEach(([v,l])=>chips.appendChild(el("span",{class:"ppl-st"},[el("b",{text:v}),el("em",{text:l})])));
+  ht.appendChild(chips);
+  const nav=el("div",{class:"td-nav"});
+  nav.appendChild(el("button",{class:"tm-jump",text:"‹ Previous day",onClick:()=>{state.tOff=off-1;render();}}));
+  if(!isToday)nav.appendChild(el("button",{class:"tm-jump on",text:"Back to today",onClick:()=>{state.tOff=0;render();}}));
+  nav.appendChild(el("button",{class:"tm-jump",text:"Next day ›",onClick:()=>{state.tOff=off+1;render();}}));
+  nav.appendChild(el("button",{class:"tm-jump",text:"\u{1F4E4} Share this day",onClick:()=>doShare(MONTHS[m-1]+" "+d+": "+born.length+" famous birthdays"+(born.length?", including "+born.slice(0,3).map(p=>p.name).join(", "):"")+". From The Birthday Almanac.",location.origin+location.pathname+"#/day/"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0"))}));
+  ht.appendChild(nav);hero.appendChild(ht);
+  /* year ring + real moon */
+  const vis=el("div",{class:"td-vis"});
+  const pct=doy/len,R=58,Cc=2*Math.PI*R;
+  vis.appendChild(el("div",{class:"td-ring",html:'<svg viewBox="0 0 140 140" aria-hidden="true"><circle cx="70" cy="70" r="'+R+'" class="tr-bg"/><circle cx="70" cy="70" r="'+R+'" class="tr-fg" style="stroke-dasharray:'+(Cc*pct).toFixed(1)+' '+Cc.toFixed(1)+'"/></svg>'},
+    [el("div",{class:"tr-c"},[el("b",{text:Math.round(pct*100)+"%"}),el("span",{text:"of "+y})])]));
+  const mc=el("canvas",{class:"moon-cv td-moon","aria-hidden":"true"});mc.dataset.size="112";vis.appendChild(mc);requestAnimationFrame(()=>drawMoon(mc,sky.moon.phase));
+  hero.appendChild(vis);view.appendChild(hero);
 
+  /* ---------- celebrating ---------- */
+  const living=born.filter(p=>p.alive&&p.birthYear!=null);
+  if(living.length){
+    const sec=el("section",{class:"section"});
+    const verb=isToday?"today":"on "+MONTHS[m-1]+" "+d;
+    sec.appendChild(secHead(isToday?"Happy birthday!":"Birthdays "+verb,living.length+(living.length===1?" living person":" living people")+" celebrating "+verb));
+    const row=el("div",{class:"td-cakes"});
+    living.slice(0,12).forEach(p=>{const age=y-p.birthYear;const c=el("button",{class:"cake",onClick:()=>openPerson(p)});c.style.setProperty("--cat",catColor(p.category));
+      c.appendChild(el("div",{class:"cake-age"},[el("b",{text:String(age)}),el("span",{text:isToday?"today":off>0?"turning":"turned"})]));
+      c.appendChild(personFace(p,52));c.appendChild(el("b",{class:"cake-nm",text:p.name}));c.appendChild(el("span",{class:"cake-f",text:CATS[p.category].label}));
+      row.appendChild(c);});
+    sec.appendChild(row);
+    if(isToday)sec.appendChild(el("button",{class:"btn btn-gold td-party",text:"\u{1F389} Celebrate with them",onClick:function(){confetti(this);}}));
+    view.appendChild(sec);}
+
+  /* ---------- this date through the centuries ---------- */
+  const events=born.filter(p=>p.birthYear!=null).map(p=>({p,y:p.birthYear,k:"b"})).concat(died.map(p=>({p,y:p.deathYear,k:"d"}))).sort((a,b)=>a.y-b.y);
+  if(events.length){
+    const sec=el("section",{class:"section"});
+    sec.appendChild(secHead(MONTHS[m-1]+" "+d+" through the centuries","Births above the line, deaths below, oldest first. Tap anyone to open them"));
+    const line=el("div",{class:"td-line"});
+    const track=el("div",{class:"tdl-track"});line.appendChild(track);
+    events.forEach(e=>{const it=el("button",{class:"tdl-it "+e.k,onClick:()=>openPerson(e.p),"aria-label":(e.k==="b"?"Born: ":"Died: ")+e.p.name+", "+fmtYearNum(e.y)});
+      it.style.setProperty("--cat",catColor(e.p.category));
+      it.append(el("span",{class:"tdl-y",text:fmtYearNum(e.y)}),el("span",{class:"tdl-dot"}),personFace(e.p,40),el("span",{class:"tdl-nm",text:e.p.name}),
+        el("span",{class:"tdl-ago",text:(e.k==="b"?"born ":"died ")+(y-e.y>0?yrsBetween(e.y,y)+" years ago":"this year")}));
+      track.appendChild(it);});
+    sec.appendChild(line);view.appendChild(sec);}
+
+  /* ---------- the sky that day ---------- */
+  const skySec=el("section",{class:"section"});
+  skySec.appendChild(secHead("The sky "+(isToday?"today":"on "+MONTHS[m-1]+" "+d+", "+y),"Computed for "+(isToday?"this date":"that date")+", not copied from a table"));
+  const sg=el("div",{class:"td-sky"});
+  const nf=nextLunar(y,m,d,0.5),nn=nextLunar(y,m,d,0),ing=nextIngress(y,m,d);
+  const con=sunConstellation(SKY.jdn(y,m,d));
+  const tile=(ic,k,v,s,go)=>{const t=el(go?"button":"div",{class:"td-tile"+(go?" go":"")},[el("span",{class:"td-ic",text:ic}),el("div",{},[el("div",{class:"td-k",text:k}),el("div",{class:"td-v",text:v}),s?el("div",{class:"td-s",text:s}):null])]);if(go)t.addEventListener("click",go);sg.appendChild(t);};
+  tile("☉","The Sun",fmtDeg(sky.sunNoon)+" "+sky.sunNoon.sign,"in front of the stars of "+con,()=>{state.view="zodiac";state.zSign=sky.sunNoon.sign;window.scrollTo({top:0});render();});
+  tile("☽","The Moon",sky.moonSign?"In "+sky.moonSign:"Entering "+sky.moonIngress.to,sky.moon.name+" · "+Math.round(sky.moon.illum*100)+"% lit");
+  if(nf)tile("○","Next full moon",nf.days===0?"Tonight":nf.days===1?"Tomorrow":"In "+nf.days+" days",MONTHS[nf.date.getMonth()]+" "+nf.date.getDate()+" · open in the calendar",()=>{state.view="calendar";state.calMonth=nf.date.getMonth();state.calYear=nf.date.getFullYear();state.calSel=nf.date.getDate();window.scrollTo({top:0});render();});
+  if(nn)tile("●","Next new moon",nn.days===0?"Today":nn.days===1?"Tomorrow":"In "+nn.days+" days",MONTHS[nn.date.getMonth()]+" "+nn.date.getDate());
+  if(ing)tile(signSym(ing.to),"Next sign change",ing.days===0?"Today: "+ing.to:"In "+ing.days+" days",ing.days===0?"the Sun enters "+ing.to:"the Sun enters "+ing.to+" on "+MONTHS[ing.date.getMonth()]+" "+ing.date.getDate());
+  tile("⌚","Day of the week",wd,WEEKDAY_RHYME[wd]);
+  skySec.appendChild(sg);view.appendChild(skySec);
+
+  /* ---------- the daily cards (quiz and fact stay tied to today) ---------- */
   const sec=el("section",{class:"section"});
   const grid=el("div",{class:"brief-grid"});
-  grid.appendChild(onThisDayCard());
-  grid.appendChild(todaySignCard());
-  grid.appendChild(moonPhaseCard());
-  grid.appendChild(skyNowCard());
   grid.appendChild(patternOfDayCard());
-  const hs=savedHSign();
-  if(hs){const hh=horoscopeFor(hs,"today");
-    const hcard=el("div",{class:"spot-card click",onClick:()=>openHoroscope(hs)});
-    hcard.appendChild(el("div",{class:"lab",text:"Your horoscope · "+hs+" "+signSym(hs)}));
-    hcard.appendChild(el("div",{class:"big",text:hh.mood+" · lucky "+hh.lucky}));
-    hcard.appendChild(el("div",{class:"meta",text:"Tap for today's full reading →"}));
-    grid.appendChild(hcard);}
-  sec.appendChild(grid);view.appendChild(sec);
-
-  view.appendChild(el("section",{class:"section"},[dailyQuizCard()]));
-
   const f=triviaOfDay();
-  const fcard=el("div",{class:"today-fact"});
-  fcard.appendChild(el("div",{class:"tf-k",text:"Fact of the day · "+f.t}));
-  fcard.appendChild(el("p",{text:f.b}));
-  view.appendChild(el("section",{class:"section"},[fcard]));
+  const fcard=el("div",{class:"spot-card"});fcard.appendChild(el("div",{class:"lab",text:"Fact of the day · "+f.t}));fcard.appendChild(el("div",{class:"meta td-fact",text:f.b}));grid.appendChild(fcard);
+  const hs=savedHSign();
+  if(hs){const hh=horoscopeFor(hs,"today");const hcard=el("div",{class:"spot-card click",onClick:()=>openHoroscope(hs)});
+    hcard.appendChild(el("div",{class:"lab",text:"Your horoscope · "+hs+" "+signSym(hs)}));hcard.appendChild(el("div",{class:"big",text:hh.mood+" · lucky "+hh.lucky}));
+    hcard.appendChild(el("div",{class:"meta",text:"Tap for today's full reading →"}));grid.appendChild(hcard);}
+  else{const hcard=el("div",{class:"spot-card click",onClick:()=>setView("horoscope")});hcard.appendChild(el("div",{class:"lab",text:"Your horoscope"}));
+    hcard.appendChild(el("div",{class:"big",text:"Pick your sign"}));hcard.appendChild(el("div",{class:"meta",text:"Get a reading every day →"}));grid.appendChild(hcard);}
+  sec.appendChild(grid);view.appendChild(sec);
+  if(isToday)view.appendChild(el("section",{class:"section"},[dailyQuizCard()]));
 
-  const todayPpl=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D).sort((a,b)=>rankScore(b)-rankScore(a));
-  const remSec=rememberedSection();if(remSec)view.appendChild(remSec);
-  if(todayPpl.length){const s=el("section",{class:"section"});
-    s.appendChild(secHead("Famous birthdays today",todayPpl.length+" born on "+MONTHS[TODAY_M-1]+" "+TODAY_D,"Open day →",()=>openDay(TODAY_M,TODAY_D,todayPpl)));
-    s.appendChild(scroller(todayPpl.slice(0,14)));view.appendChild(s);}
+  /* ---------- every birthday on this date ---------- */
+  if(born.length){const s=el("section",{class:"section"});
+    s.appendChild(secHead("Everyone born on "+MONTHS[m-1]+" "+d,born.length+(born.length===1?" person":" people")+" in the almanac","Open day →",()=>openDay(m,d,born)));
+    s.appendChild(scroller(born.slice(0,16)));view.appendChild(s);}
 
-  const weekers=HISTORICAL.filter(inThisWeek).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b)||rankScore(b)-rankScore(a));
-  if(weekers.length){const s=el("section",{class:"section"});
-    s.appendChild(secHead("Coming up this week","The next seven days","See all →",()=>goWithFilter(f=>f.thisWeek=true,"people")));
-    s.appendChild(scroller(weekers.slice(0,14)));view.appendChild(s);}
+  /* ---------- the week ahead, day by day ---------- */
+  const week=el("section",{class:"section"});
+  week.appendChild(secHead("The week ahead","The next seven days of birthdays","See all →",()=>goWithFilter(f=>f.thisWeek=true,"people")));
+  const wk=el("div",{class:"td-week"});
+  for(let k=1;k<=7;k++){const dd=briefDate(off+k),mm=dd.getMonth()+1,dy=dd.getDate(),ppl=bornOn(mm,dy);
+    const t=el("button",{class:"td-day",onClick:()=>{state.tOff=off+k;window.scrollTo({top:0,behavior:REDUCE?"auto":"smooth"});render();},"aria-label":MONTHS[mm-1]+" "+dy+", "+ppl.length+" birthdays"});
+    t.appendChild(el("div",{class:"tdd-h"},[el("b",{text:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dd.getDay()]}),el("span",{text:MS[mm-1]+" "+dy})]));
+    const fs=el("div",{class:"tdd-faces"});ppl.slice(0,3).forEach(p=>fs.appendChild(personFace(p,34)));t.appendChild(fs);
+    t.appendChild(el("div",{class:"tdd-nm",text:ppl.slice(0,2).map(p=>p.name).join(", ")||"No birthdays yet"}));
+    t.appendChild(el("div",{class:"tdd-n",text:ppl.length+(ppl.length===1?" birthday":" birthdays")}));wk.appendChild(t);}
+  week.appendChild(wk);view.appendChild(week);
 
-  const seed=todayPpl[0]||weekers[0];
+  const seed=born[0];
   if(seed){const cta=el("div",{class:"section portal-acts"});
     cta.appendChild(el("button",{class:"btn btn-gold",onClick:()=>enterRabbitHole(seed)},[document.createTextNode("\u{1F300}  Fall down a rabbit hole from "+seed.name.split(" ")[0]+" →")]));
     view.appendChild(cta);}
@@ -10322,7 +10491,7 @@ function updateTitle(){
   else if(v!=="discover")t=(VIEW_BY_KEY[v]||{}).label+" · "+base;
   document.title=t;
 }
-function setView(v){state.view=v;state.zSign=null;state.collectionId=null;state.hSign=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
+function setView(v){if(v==="today")state.tOff=0;state.view=v;state.zSign=null;state.collectionId=null;state.hSign=null;state.peopleLimit=80;closeSheet();closeMore();window.scrollTo({top:0,behavior:"auto"});render();}
 function render(){
   syncNav();renderSubbar();hideBarTip();
   const view=document.getElementById("view");
