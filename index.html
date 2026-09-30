@@ -7361,12 +7361,20 @@ const PLANETS=(function(){
     if(body==="Node")return norm(125.04452-1934.136261*T+0.0020708*T*T);
     const p=helio(body,T),e=helio("Earth",T);
     return norm(Math.atan2(p[1]-e[1],p[0]-e[0])/R+precessionAt(jd));}
+  /* geocentric J2000 ecliptic position with the distances needed for brightness */
+  function geo(body,jd){const T=(jd-2451545)/36525,p=helio(body,T),e=helio("Earth",T),x=p[0]-e[0],y=p[1]-e[1],z=p[2]-e[2];
+    return {jd,lon:norm(Math.atan2(y,x)/R),lat:Math.atan2(z,Math.hypot(x,y))/R,delta:Math.hypot(x,y,z),r:Math.hypot(p[0],p[1],p[2]),R:Math.hypot(e[0],e[1],e[2])};}
+  /* apparent magnitude (Astronomical Almanac style), phase angle included */
+  function mag(body,g){const i=Math.acos(Math.max(-1,Math.min(1,(g.r*g.r+g.delta*g.delta-g.R*g.R)/(2*g.r*g.delta))))/R,L=5*Math.log10(g.r*g.delta);
+    switch(body){case "Mercury":return -0.42+L+0.038*i-0.000273*i*i+0.000002*i*i*i;case "Venus":return -4.40+L+0.0009*i+0.000239*i*i-0.00000065*i*i*i;
+      case "Mars":return -1.52+L+0.016*i;case "Jupiter":return -9.40+L+0.005*i;case "Saturn":{/* the rings brighten Saturn with their tilt toward us (Meeus 45) */const T=(g.jd-2451545)/36525,inc=(28.075216-0.012998*T)*R,Om=(169.508470+1.394681*T)*R,lam=(g.lon+precessionAt(g.jd))*R,bet=g.lat*R;
+        const B=Math.asin(Math.sin(inc)*Math.cos(bet)*Math.sin(lam-Om)-Math.cos(inc)*Math.sin(bet)),sb=Math.abs(Math.sin(B));return -8.68+L-2.60*sb+1.25*sb*sb;}case "Uranus":return -7.19+L;case "Neptune":return -6.87+L;}return 9;}
   function gmst(jd){const T=(jd-2451545)/36525;return norm(280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T-T*T*T/38710000);}
   /* Ascendant and Midheaven for a UT Julian Day and a place (degrees, east positive) */
   function angles(jd,lat,lon){const T=(jd-2451545)/36525,eps=(23.439291-0.0130042*T)*R,ramc=(gmst(jd)+lon)*R,phi=lat*R;
     return {asc:norm(Math.atan2(Math.cos(ramc),-(Math.sin(eps)*Math.tan(phi)+Math.cos(eps)*Math.sin(ramc)))/R),
             mc:norm(Math.atan2(Math.sin(ramc),Math.cos(ramc)*Math.cos(eps))/R)};}
-  return {lonOf,angles,gmst};
+  return {lonOf,angles,gmst,geo,mag};
 })();
 const CHART_BODIES=[["Sun","☉︎"],["Moon","☽︎"],["Mercury","☿︎"],["Venus","♀︎"],["Mars","♂︎"],["Jupiter","♃︎"],
   ["Saturn","♄︎"],["Uranus","♅︎"],["Neptune","♆︎"],["Pluto","♇︎"],["Node","☊︎"]];
@@ -11582,6 +11590,16 @@ const SKYBG=(function(){
         if(m<2.4&&bright.length<28)bright.push([p[0],p[1],r,c]);}
       else{const r=Math.max(0.45,0.4+(6-m)*0.36)*U;x.fillStyle="rgba(44,54,72,"+(m>4.5?0.32:0.52)+")";x.beginPath();x.arc(p[0],p[1],r,0,6.2832);x.fill();
         if(m<1.6){x.strokeStyle="rgba(44,54,72,.35)";x.lineWidth=0.7*U;x.beginPath();x.arc(p[0],p[1],r+2.2*U,0,6.2832);x.stroke();}}}
+    /* 6b — the planets: steady (they don't twinkle), at their real brightness and colour */
+    const PCOL={Mercury:[236,226,206],Venus:[255,250,236],Mars:[255,176,132],Jupiter:[252,240,214],Saturn:[246,226,170],Uranus:[190,232,236]};
+    const planets=[];
+    ["Mercury","Venus","Mars","Jupiter","Saturn","Uranus"].forEach(n=>{const g=PLANETS.geo(n,jd),p=proj(g.lon*D2R,g.lat*D2R);if(!vis(p,20))return;const m=PLANETS.mag(n,g);if(m>6.2)return;
+      planets.push({name:n,mag:m,x:p[0],y:p[1]});const c=PCOL[n],r=Math.min(4.6,Math.max(1.1,1.3+(1.6-m)*0.62))*U;
+      if(dark){const gr=r*(m<0?9:6),g2=x.createRadialGradient(p[0],p[1],0,p[0],p[1],gr);g2.addColorStop(0,"rgba("+c.join(",")+","+(m<0?.42:.3)+")");g2.addColorStop(.3,"rgba("+c.join(",")+","+(m<0?.12:.07)+")");g2.addColorStop(1,"rgba("+c.join(",")+",0)");
+        x.fillStyle=g2;x.fillRect(p[0]-gr,p[1]-gr,gr*2,gr*2);x.fillStyle="rgb("+c.join(",")+")";x.beginPath();x.arc(p[0],p[1],r,0,6.2832);x.fill();}
+      else{x.fillStyle="rgba(44,54,72,.62)";x.beginPath();x.arc(p[0],p[1],r*0.85,0,6.2832);x.fill();x.strokeStyle="rgba(168,126,46,.7)";x.lineWidth=U;x.beginPath();x.arc(p[0],p[1],r*0.85+2.5*U,0,6.2832);x.stroke();}
+      x.font="600 "+(9.5*U)+"px 'IBM Plex Mono',ui-monospace,monospace";x.textAlign="left";x.textBaseline="middle";x.fillStyle=dark?"rgba("+c.join(",")+",.62)":"rgba(168,126,46,.75)";
+      x.fillText(BODY_GLYPH[n]+" "+n.toUpperCase(),p[0]+r+5*U,p[1]-r-3*U);});
     /* 7 — the Moon, where it really was, in its real phase */
     const mo=SKY.moonAt(jd),mp=proj((mo.lon-prec)*D2R,0);let moonIn=false;
     if(vis(mp,30)){moonIn=true;const r=Math.max(4.5*U,0.26*ppd*(o.moonScale||1.5)),X=mp[0],Y=mp[1]-ppd*0.4;
@@ -11594,7 +11612,7 @@ const SKYBG=(function(){
       x.font=(10*U)+"px 'IBM Plex Mono',ui-monospace,monospace";x.textAlign="center";x.fillStyle=dark?"rgba(236,232,214,.42)":"rgba(44,54,72,.5)";x.fillText("MOON",X,Y+r+11*U);}
     /* the zodiac constellation nearest the centre of the view */
     let centre=null,bd=1e9;Object.keys(SKYBG_FIG.c).forEach(id=>{const c=SKYBG_FIG.c[id],p=proj(...eq2ecl(c[0]*D2R,c[1]*D2R));if(p){const d=Math.hypot(p[0]-cx,p[1]-cy);if(d<bd){bd=d;centre=SKYBG_NAMES[id];}}});
-    return {proj,lam0:lam0/D2R,prec,moon:mo,moonIn,bright,centre,sunLon:SKY.sunLon(jd)};
+    return {proj,lam0:lam0/D2R,prec,moon:mo,moonIn,bright,centre,planets,sunLon:SKY.sunLon(jd)};
   }
 
   let host=null,pan=null,cv=null,glints=null,view=null,R=0,H0=0,W0=0,lastTheme="";
@@ -11618,7 +11636,10 @@ const SKYBG=(function(){
       g.style.width=g.style.height=s+"px";g.style.setProperty("--c","rgb("+t[3].join(",")+")");g.style.animationDuration=(2.4+((i*37)%23)/10)+"s";g.style.animationDelay=(-((i*53)%40)/10)+"s";glints.appendChild(g);});
     view={lam0:r.lam0,ppd,moonIn:r.moonIn,moonTxt:r.moon.name,moonPhase:r.moon.phase,W,H,R,glints:glints.children.length,centre:r.centre};
     const cap=document.getElementById("sfSky");
-    if(cap)cap.textContent="The sky behind these pages is tonight's real sky, centred on "+r.centre+": "+S.n.toLocaleString()+" stars at their true positions and colours"+(r.moonIn?", with the Moon ("+r.moon.name.toLowerCase()+") where it really is":"")+"."+(REDUCE?"":" Scroll and the heavens turn.");
+    const extra=[];if(r.moonIn)extra.push("the Moon ("+r.moon.name.toLowerCase()+")");r.planets.forEach(q=>extra.push(q.name));
+    const listed=extra.length>1?extra.slice(0,-1).join(", ")+" and "+extra[extra.length-1]:extra[0];
+    view.planets=r.planets.map(q=>q.name);
+    if(cap)cap.textContent="The sky behind these pages is tonight's real sky, centred on "+r.centre+": "+S.n.toLocaleString()+" stars at their true positions and colours"+(listed?", with "+listed+" where "+(extra.length>1?"they really are":"it really is"):"")+"."+(REDUCE?"":" Scroll and the heavens turn.");
     place();}
   /* a 1080x1350 keepsake: the sky on a given day, with the zodiac band beneath */
   function poster(o){
@@ -11705,6 +11726,7 @@ function openBirthSky(o){
         f("☉︎","The Sun",i.sunSign+" · in front of "+(CONST_SIGN[con]||con)+((CONST_SIGN[con]||con).endsWith("s")?"'":"'s")+" stars");
         f("☾︎","The Moon",i.moon.name+", "+Math.round(i.moon.illum*100)+"% lit, in "+i.moonSign);
         f("✦","Overhead at midnight",i.centre+(i.moonIn?" · the Moon was up among these stars":""));
+        if(i.planets.length)f("\u2643\uFE0E","Planets in view",i.planets.map(q=>q.name+" ("+(q.mag<0?"brilliant":q.mag<1.5?"bright":q.mag<4?"visible":"faint")+")").join(", "));
         f("\u{1F4C5}","That day",s.weekday+(s.greg?" · Gregorian "+MONTHS[s.greg.m-1]+" "+s.greg.d:""));
       },REDUCE?0:30);}
     draw();
