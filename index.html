@@ -2372,6 +2372,119 @@ html[data-theme="dark"] .tour-b.next{background:#284268;border-color:#35527c}
   .td-cakes{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(prefers-reduced-motion:reduce){.cake:hover{transform:none}}
+/* ===== HOROSCOPE EXTRAS ===== */
+.hs-hero canvas{display:block;margin:8px auto 0}
+.h-me .ch2-k,.sc-msg .ch2-k,.hm-card .ch2-k{color:var(--gold-deep)}
+/* your reading / find your sign */
+.h-me{display:flex;align-items:center;gap:18px;margin:-4px 0 26px;padding:18px 22px;border:1px solid var(--gold-soft);border-radius:var(--radius-lg);
+  background:radial-gradient(420px 200px at 0% 0%,rgba(230,206,142,.22),transparent 70%),var(--gold-wash);box-shadow:var(--shadow-sm)}
+.hme-g{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:32px;color:#FBF4E6;
+  background:radial-gradient(circle at 35% 30%,#2c4474,#0e1628);box-shadow:0 0 0 3px var(--card),0 0 0 4px var(--gold-soft),0 10px 24px -10px rgba(14,22,40,.6)}
+.hme-t{flex:1;min-width:0}
+.hme-r{margin:4px 0 0;font-family:var(--serif);font-size:17px;line-height:1.5;color:var(--ink)}
+.hme-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.hme-chips .hs-swatch{width:11px;height:11px;vertical-align:-1px;border-width:1px}
+.h-me>.btn{flex:none}
+.hme-row{grid-template-columns:1.3fr .7fr auto;margin-top:10px;max-width:520px}
+.hme-row select{border-color:var(--hairline);background:var(--card);color:var(--ink)}
+.hme-row option{color:inherit}
+/* star card */
+.sc-wrap{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.scard{position:relative;flex:none;width:170px;height:250px;border:0;padding:0;background:none;cursor:pointer;perspective:900px;transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.3,1.4,.5,1)}
+.scard.flipped{transform:rotateY(180deg);cursor:default}
+.scard:not(.flipped):hover{transform:translateY(-6px) rotate(-2deg)}
+.scard:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:18px}
+.sc-face{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 22px 40px -22px rgba(14,22,40,.7),inset 0 0 0 1px rgba(230,206,142,.45),inset 0 0 0 7px rgba(14,22,40,.0),inset 0 0 0 8px rgba(230,206,142,.3)}
+.sc-back{color:#E6CE8E;background:repeating-linear-gradient(45deg,rgba(230,206,142,.07) 0 6px,transparent 6px 12px),radial-gradient(circle at 50% 40%,#2c4474,#0b1020 75%)}
+.sc-orn{font-size:46px;line-height:1;text-shadow:0 0 18px rgba(230,206,142,.7)}
+.sc-bt{font-family:var(--serif);font-size:13px;letter-spacing:.5px;color:#F3ECDD}
+.sc-tap{font-family:var(--mono);font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:#AEB9E8}
+.sc-front{transform:rotateY(180deg);color:#2a2012;background:radial-gradient(circle at 50% 35%,#FFF8E6,#F0DDAE 70%,#E0C27E)}
+.sc-num{font-family:var(--serif);font-size:15px;letter-spacing:2px;color:#8a6a2c}
+.sc-ic{font-size:58px;line-height:1;filter:drop-shadow(0 6px 10px rgba(80,56,20,.3))}
+.sc-t{font-family:var(--serif);font-size:19px;color:#2a2012;text-align:center;padding:0 10px}
+.sc-msg{flex:1 1 280px;min-width:0;max-width:520px}
+.sc-real{display:none}
+.sc-msg.on .sc-pre{display:none}
+.sc-msg.on .sc-real{display:block;animation:scIn .45s var(--ease) both}
+@keyframes scIn{from{opacity:0;transform:translateY(8px)}}
+.sc-pre p{color:var(--muted);font-style:italic}
+.hw-core em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--gold-deep)}
+.sc-msg p{margin:6px 0 8px;font-family:var(--serif);font-size:clamp(18px,2.4vw,22px);line-height:1.5;color:var(--ink)}
+.sc-note{font-size:12px;color:var(--faint)}
+/* sky note on sign pages */
+.hs-note{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:-6px 0 18px;font-size:13px;color:var(--muted);text-align:center}
+.hs-note b{color:var(--ink)}
+.hs-streak{font-weight:700;color:var(--gold-deep);background:var(--gold-wash);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 11px}
+.hs-why{border:0;background:none;padding:6px 2px;font:inherit;font-weight:600;color:var(--gold-deep);cursor:pointer}
+.hs-why:hover{text-decoration:underline}
+/* the week */
+.hs-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.hw-day{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--hairline);background:var(--card);border-radius:16px;padding:12px 6px 10px;cursor:pointer;font:inherit;color:inherit;min-width:0;
+  transition:transform .18s var(--spring),border-color .2s,box-shadow .2s;box-shadow:var(--shadow-sm)}
+.hw-day:hover{transform:translateY(-3px);border-color:var(--gold-soft)}
+.hw-day.on{border-color:var(--gold);background:var(--gold-wash);box-shadow:0 0 0 1px var(--gold),0 14px 26px -18px rgba(28,42,56,.55)}
+.hwd-d{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint)}
+.hw-day.on .hwd-d{color:var(--gold-deep)}
+.hwd-b{position:relative;width:16px;height:76px;border-radius:999px;background:var(--card-3);overflow:hidden;display:flex;align-items:flex-end}
+.hwd-b i{display:block;width:100%;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.hw-day>b{font-family:var(--serif);font-size:15px;color:var(--ink)}
+.hwd-m{font-size:11px;color:var(--muted);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-wdetail{margin:14px 0 0;font-size:14.5px;line-height:1.6;color:var(--ink-2);min-height:46px}
+.hs-wdetail b{color:var(--gold-deep)}
+/* leaderboard */
+.hlb{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:12px;box-shadow:var(--shadow-sm)}
+.hlb-row{display:grid;grid-template-columns:34px 34px 96px minmax(0,1fr) 112px 44px;align-items:center;gap:10px;border:0;background:none;border-radius:12px;padding:6px 8px;cursor:pointer;font:inherit;color:inherit;text-align:left;transition:background .15s}
+.hlb-row:hover,.hlb-row:focus-visible{background:var(--card-2);outline:none}
+.hlb-r{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--faint);text-align:center}
+.hlb-g{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:17px;color:var(--gold-deep);background:var(--card-2);border:1px solid var(--hairline)}
+.hlb-n{font-weight:600;font-size:14px}
+.hlb-t{height:10px;border-radius:999px;background:var(--card-3);overflow:hidden}
+.hlb-t i{display:block;height:100%;border-radius:999px;transition:width .9s var(--ease);background:var(--gold)}
+.hlb-row.fire .hlb-t i{background:linear-gradient(90deg,#e8a07d,var(--el-fire))}
+.hlb-row.earth .hlb-t i{background:linear-gradient(90deg,#b7c07d,var(--el-earth))}
+.hlb-row.air .hlb-t i{background:linear-gradient(90deg,#97c3de,var(--el-air))}
+.hlb-row.water .hlb-t i{background:linear-gradient(90deg,#9cb2dc,var(--el-water))}
+.hlb-m{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hlb-v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right}
+/* matcher */
+.hm-card{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;background:radial-gradient(600px 260px at 50% 0%,var(--gold-wash),transparent 70%),var(--card);border:1px solid var(--hairline);border-radius:var(--radius-xl);padding:20px 22px;box-shadow:var(--shadow-md)}
+.hm-pick{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.hm-pick .hs-pick{width:40px;height:40px;font-size:17px}
+.hm-res{text-align:center}
+.hm-sides{display:flex;align-items:center;justify-content:center;gap:clamp(12px,4vw,34px)}
+.hm-s{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:14px;min-width:78px}
+.hm-s b{font-size:36px;color:var(--gold-deep);line-height:1}
+.hm-ring{position:relative;width:110px;height:110px}
+.hm-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.hm-ring .tr-bg{stroke:var(--card-3)}
+.hm-fg{fill:none;stroke:var(--gold);stroke-width:10;stroke-linecap:round;transition:stroke-dasharray .8s var(--ease);filter:drop-shadow(0 0 5px rgba(230,206,142,.55))}
+.hm-ring>b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:var(--ink)}
+.hm-text{max-width:620px;margin:12px auto 4px;font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+.hm-foot{margin:0;font-size:12px;color:var(--faint)}
+/* celebrating this week (light surface) */
+.hs-faces .zw-face{color:var(--ink-2);width:72px}
+.hs-faces .zw-face:hover,.hs-faces .zw-face:focus-visible{background:var(--card-2)}
+.hs-faces .zw-face em{font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--gold-deep)}
+/* wheel: current season and your sign */
+.hw-sign.season{border-color:var(--gold);color:#FBF4E6;background:radial-gradient(circle at 35% 30%,#2c4474,#0e1628);box-shadow:0 0 0 3px var(--gold-wash),0 0 22px rgba(230,206,142,.6)}
+.hw-sign.mine::after{content:"";position:absolute;right:1px;top:1px;width:11px;height:11px;border-radius:50%;background:#2E9C7A;box-shadow:0 0 0 2px var(--card)}
+@media(prefers-reduced-motion:no-preference){.hw-sign.season{animation:hwGlow 3s ease-in-out infinite}
+  @keyframes hwGlow{50%{box-shadow:0 0 0 3px var(--gold-wash),0 0 34px rgba(230,206,142,.9)}}}
+html[data-theme="dark"] .sc-front{filter:brightness(.94)}
+html[data-theme="dark"] .hlb-row.fire .hlb-t i,html[data-theme="dark"] .hlb-row.earth .hlb-t i,html[data-theme="dark"] .hlb-row.air .hlb-t i,html[data-theme="dark"] .hlb-row.water .hlb-t i{filter:brightness(1.15)}
+@media(max-width:760px){
+  .hs-week{grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+  .hw-day{padding:10px 2px 8px;border-radius:12px}.hwd-m{display:none}.hwd-b{height:60px;width:12px}.hw-day>b{font-size:12.5px}.hwd-d{font-size:9.5px;letter-spacing:.3px}
+  .hlb-row{grid-template-columns:26px 30px minmax(0,78px) minmax(0,1fr) 40px;gap:8px;padding:6px 4px}.hlb-m{display:none}.hlb-g{width:28px;height:28px;font-size:15px}
+  .h-me{flex-wrap:wrap;padding:16px}.h-me>.btn{width:100%}.hme-g{width:52px;height:52px;font-size:26px}
+  .hme-row{grid-template-columns:1fr 1fr}.hme-row .btn{grid-column:1/-1}
+  .sc-wrap{justify-content:center;gap:18px}.sc-msg{text-align:center}
+  .hm-card{padding:16px 12px}.hm-ring{width:92px;height:92px}.hm-ring>b{font-size:22px}.hm-s{min-width:60px}.hm-s b{font-size:30px}
+}
+@media(prefers-reduced-motion:reduce){.scard,.hlb-t i,.hm-fg{transition:none}.sc-msg.on .sc-real{animation:none}.scard:not(.flipped):hover{transform:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -7787,9 +7900,9 @@ const H_MONTH_CLOSE=[
 /* element flavor injected into readings so signs never sound interchangeable */
 const H_EL_FLAVOR={Fire:"Lead with the bold version",Earth:"Trust the practical read",Air:"Talk it into focus",Water:"Trust the felt sense"};
 
-function horoscopeFor(sign,mode){
+function horoscopeFor(sign,mode,keyOverride){
   const meta=ZMETA[sign];
-  const key=mode==="week"?weekKey():mode==="month"?monthKey():dayKey();
+  const key=keyOverride||(mode==="week"?weekKey():mode==="month"?monthKey():dayKey());
   const r=hrng(hseed(sign+"|"+key+"|"+mode));
   const out={sign,mode,meta};
   if(mode==="week"){
@@ -7850,6 +7963,117 @@ function savedHSign(){
 /* ============================================================
    HOROSCOPE VIEWS — landing wheel + per-sign daily experience
    ============================================================ */
+/* ============================================================
+   HOROSCOPE EXTRAS — a daily star card, a streak, a 7-day outlook,
+   today's leaderboard and a two-sign matcher. For reflection and
+   delight: readings are written by the almanac, not the planets.
+   ============================================================ */
+const STAR_DECK=[
+  ["The Lantern","\u{1F3EE}","Light the next step, not the whole road. One clear move is enough today."],
+  ["The Bridge","\u{1F309}","A gap you have been staring at is smaller than it looks. Someone is already halfway across."],
+  ["The Open Door","\u{1F6AA}","An invitation arrives sideways. Say yes to the small version of it."],
+  ["The Compass","\u{1F9ED}","You already know the direction. Today asks only that you face it."],
+  ["The Tide","\u{1F30A}","What went out is coming back in. Let timing do some of the work."],
+  ["The Spark","✨","A small idea wants to be said out loud before it grows shy."],
+  ["The Harvest","\u{1F33E}","Something you planted a while ago is ready. Notice it and gather it."],
+  ["The Mirror","\u{1FA9E}","The quality you admire in someone today is one you share."],
+  ["The Key","\u{1F511}","The answer is practical and a little boring. That is how you know it is right."],
+  ["The North Star","⭐","Return to the reason you started. The detours can wait."],
+  ["The Garden","\u{1F331}","Tend one thing slowly. Growth today is quiet but real."],
+  ["The Crossroads","\u{1F6E4}\u{FE0F}","Two good options, not a right and a wrong. Pick the one you would enjoy explaining."],
+  ["The Anchor","⚓","Hold steady while others hurry. Your calm is useful to them."],
+  ["The Feather","\u{1FAB6}","Go lightly. The heavier answer is not the truer one."],
+  ["The Ember","\u{1F525}","Keep something warm for later: an idea, a friendship, a plan."],
+  ["The Summit","⛰\u{FE0F}","The last stretch looks steep from below and ordinary from above."],
+  ["The Threshold","\u{1F320}","A beginning is disguised as an ending. Step through without looking back too long."],
+  ["The Orbit","\u{1FA90}","What seems to be going in circles is coming around to you again, closer."],
+  ["The Seed","\u{1F330}","Plant something today whose flowers you will not see this week."],
+  ["The Bell","\u{1F514}","A reminder is also a gift. Answer the one you have been ignoring."],
+  ["The Map","\u{1F5FA}\u{FE0F}","Write down where you are. It will surprise you how far you have come."],
+  ["The Moonrise","\u{1F315}","Feelings you set aside ask for a few quiet minutes tonight."]];
+function yesterdayKey(){const n=new Date();const y=new Date(n.getFullYear(),n.getMonth(),n.getDate()-1);return y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();}
+/* count consecutive days with a reading */
+function bumpStreak(){const t=dayKey();const s=STORE.get("hstreak",{last:null,n:0});
+  if(s.last===t)return s.n;const n=s.last===yesterdayKey()?s.n+1:1;STORE.set("hstreak",{last:t,n});return n;}
+function streakNow(){const s=STORE.get("hstreak",{last:null,n:0});return (s.last===dayKey()||s.last===yesterdayKey())?s.n:0;}
+/* the daily star card: one draw a day, kept face up once drawn */
+function starCardSection(sign){
+  const key=dayKey(),seed=hseed("deck|"+(sign||"any")+"|"+key),idx=seed%STAR_DECK.length,c=STAR_DECK[idx];
+  const drawn=STORE.get("hcard",{})[key+"|"+(sign||"any")]===true;
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Today's star card",(sign?sign+"'s":"Your")+" card for "+MONTHS[TODAY_M-1]+" "+TODAY_D+". One draw a day; tap to turn it over"));
+  const wrap=el("div",{class:"sc-wrap"});
+  const card=el("button",{class:"scard"+(drawn?" flipped":""),"aria-label":drawn?c[0]+": "+c[2]:"Turn over today's star card"});
+  const back=el("div",{class:"sc-face sc-back"},[el("span",{class:"sc-orn",text:"✦"}),el("span",{class:"sc-bt",text:"The Birthday Almanac"}),el("span",{class:"sc-tap",text:"tap to reveal"})]);
+  const front=el("div",{class:"sc-face sc-front"},[el("span",{class:"sc-num",text:["0","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI"][idx]}),el("span",{class:"sc-ic",text:c[1]}),el("b",{class:"sc-t",text:c[0]})]);
+  card.append(back,front);
+  const msg=el("div",{class:"sc-msg"+(drawn?" on":"")},[
+    el("div",{class:"sc-pre"},[el("div",{class:"ch2-k",text:"Face down"}),el("p",{text:"Twenty-two cards, one for today. Turn yours over to see what it asks of you."})]),
+    el("div",{class:"sc-real"},[el("div",{class:"ch2-k",text:c[0]}),el("p",{text:c[2]}),el("span",{class:"sc-note",text:"A new card appears at midnight."})])]);
+  card.addEventListener("click",()=>{if(card.classList.contains("flipped"))return;card.classList.add("flipped");const st=STORE.get("hcard",{});st[key+"|"+(sign||"any")]=true;
+    const keep={};Object.keys(st).filter(k=>k.startsWith(key)).forEach(k=>keep[k]=true);STORE.set("hcard",keep);
+    card.setAttribute("aria-label",c[0]+": "+c[2]);setTimeout(()=>msg.classList.add("on"),REDUCE?0:450);});
+  wrap.append(card,msg);sec.appendChild(wrap);return sec;
+}
+/* next seven days, generated like the daily reading */
+function outlookSection(sign){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Your week at a glance","Mood and cosmic intensity for "+signPlural(sign)+" over the next seven days"));
+  const row=el("div",{class:"hs-week"});const detail=el("p",{class:"hs-wdetail"});
+  for(let k=0;k<7;k++){const dt=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k);const key=dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate();
+    const h=horoscopeFor(sign,"today",key);
+    const b=el("button",{class:"hw-day"+(k===0?" on":""),"aria-label":(k===0?"Today":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dt.getDay()])+": "+h.mood+", intensity "+h.meter+"%"});
+    const bar=el("i");bar.style.height=h.meter+"%";bar.style.background=h.color[1];
+    b.append(el("span",{class:"hwd-d",text:k===0?"Today":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dt.getDay()]}),el("span",{class:"hwd-b"},[bar]),el("b",{text:h.meter+"%"}),el("span",{class:"hwd-m",text:h.mood}));
+    b.addEventListener("click",()=>{row.querySelectorAll(".hw-day").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+      detail.innerHTML="";detail.append(el("b",{text:(k===0?"Today":MONTHS[dt.getMonth()]+" "+dt.getDate())+": "}),document.createTextNode(h.reading.split(" — ")[0]+". Lucky number "+h.lucky+", colour "+h.color[0].toLowerCase()+", best time "+h.time+"."));});
+    row.appendChild(b);if(k===0)b.click();}
+  sec.append(row,detail);return sec;
+}
+/* all twelve signs ranked by today's intensity */
+function leaderboardSection(){
+  const rows=ZODIAC_ORDER.map(s=>({s,h:horoscopeFor(s,"today")})).sort((a,b)=>b.h.meter-a.h.meter||a.s.localeCompare(b.s));
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Today's cosmic leaderboard","All twelve signs ranked by the intensity of today's reading. It reshuffles at midnight"));
+  const box=el("div",{class:"hlb"});
+  rows.forEach((r,i)=>{const m=ZMETA[r.s];const b=el("button",{class:"hlb-row "+m.element.toLowerCase(),onClick:()=>openHoroscope(r.s)});
+    const f=el("i");const w=((r.h.meter-40)/60*100);if(REDUCE)f.style.width=w+"%";else{f.style.width="0%";setTimeout(()=>{f.style.width=w+"%";},60+i*45);}
+    b.append(el("span",{class:"hlb-r",text:i<3?["\u{1F947}","\u{1F948}","\u{1F949}"][i]:String(i+1)}),el("span",{class:"hlb-g",text:signSym(r.s)}),el("span",{class:"hlb-n",text:r.s}),
+      el("span",{class:"hlb-t"},[f]),el("span",{class:"hlb-m",text:r.h.mood}),el("b",{class:"hlb-v",text:r.h.meter+"%"}));box.appendChild(b);});
+  sec.appendChild(box);return sec;
+}
+/* pick any two signs */
+function matcherSection(){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Sign matcher","Pick any two signs to see how the almanac pairs them"));
+  const card=el("div",{class:"hm-card"});
+  let a=savedHSign()||"Libra",b=ZODIAC_ORDER[(ZODIAC_ORDER.indexOf(a)+4)%12];
+  const pick=(side)=>{const row=el("div",{class:"hm-pick",role:"group","aria-label":side==="a"?"First sign":"Second sign"});
+    ZODIAC_ORDER.forEach(s=>row.appendChild(el("button",{class:"hs-pick","data-s":s,"aria-label":s,onClick:()=>{if(side==="a")a=s;else b=s;paint();}},[document.createTextNode(signSym(s))])));return row;};
+  const pa=pick("a"),pb=pick("b");
+  const res=el("div",{class:"hm-res"});
+  card.append(pa,res,pb);sec.appendChild(card);
+  function paint(){[[pa,a],[pb,b]].forEach(([row,s])=>row.querySelectorAll(".hs-pick").forEach(x=>{const on=x.dataset.s===s;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on?"true":"false");}));
+    const cb=compatBlurb(a,b),R=46,C=2*Math.PI*R;res.innerHTML="";
+    res.appendChild(el("div",{class:"hm-sides"},[el("span",{class:"hm-s"},[el("b",{text:signSym(a)}),document.createTextNode(a)]),
+      el("div",{class:"hm-ring",html:'<svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="'+R+'" class="tr-bg"/><circle cx="55" cy="55" r="'+R+'" class="hm-fg" style="stroke-dasharray:'+(C*cb.score/100).toFixed(1)+' '+C.toFixed(1)+'"/></svg>'},[el("b",{text:cb.score+"%"})]),
+      el("span",{class:"hm-s"},[el("b",{text:signSym(b)}),document.createTextNode(b)])]));
+    res.appendChild(el("p",{class:"hm-text",text:cb.text}));
+    const twins=HISTORICAL.filter(p=>p.zsign===a).length,t2=HISTORICAL.filter(p=>p.zsign===b).length;
+    res.appendChild(el("p",{class:"hm-foot",text:ZMETA[a].element+" meets "+ZMETA[b].element+" · "+twins+" "+signPlural(a)+" and "+t2+" "+signPlural(b)+" in the almanac"}));}
+  paint();return sec;
+}
+/* who shares the sign and celebrates this week */
+function signWeekFaces(sign){
+  const ppl=HISTORICAL.filter(p=>p.zsign===sign&&inThisWeek(p)).sort((a,b)=>daysUntilBirthday(a)-daysUntilBirthday(b)||rankScore(b)-rankScore(a));
+  if(!ppl.length)return null;
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead(signPlural(sign)+" celebrating this week",ppl.length+" in the almanac have a birthday in the next seven days"));
+  const row=el("div",{class:"zw-faces hs-faces"});
+  ppl.slice(0,12).forEach(p=>{const d=daysUntilBirthday(p);row.appendChild(el("button",{class:"zw-face",onClick:()=>openPerson(p),"aria-label":p.name},[personFace(p,48),el("span",{text:p.name.split(" ").slice(-1)[0]}),el("em",{text:d===0?"today":d===1?"tomorrow":"in "+d+" days"})]));});
+  sec.appendChild(row);return sec;
+}
+
 function openHoroscope(sign){state.hSign=sign;state.view="horoscope";window.scrollTo({top:0,behavior:"auto"});render();}
 function renderHoroscope(view){
   view.innerHTML="";
@@ -7862,21 +8086,39 @@ function renderHoroscope(view){
   head.appendChild(el("div",{class:"lede",text:"Twelve signs, refreshed each midnight — readings for love, work, energy and luck, written in the almanac's voice. For reflection and delight, not prophecy."}));
   view.appendChild(head);
   view.appendChild(realSkyStrip(null));
-  if(saved){
-    const wb=el("button",{class:"h-welcome",onClick:()=>openHoroscope(saved)});
-    wb.appendChild(el("span",{class:"hw-g",text:signSym(saved)}));
-    wb.appendChild(el("span",{html:"Welcome back — the stars kept your place. <b>Read today's "+saved+" horoscope →</b>"}));
-    view.appendChild(wb);
-  }
+  /* ---- personal: your reading, or find your sign ---- */
+  const me=el("section",{class:"h-me"});
+  if(saved){const h=horoscopeFor(saved,"today"),st=streakNow();
+    me.appendChild(el("span",{class:"hme-g",text:signSym(saved)}));
+    const t=el("div",{class:"hme-t"});
+    t.appendChild(el("div",{class:"ch2-k",text:"Your "+saved+" reading · "+MONTHS[TODAY_M-1]+" "+TODAY_D+(st>1?" · \u{1F525} "+st+"-day streak":"")}));
+    t.appendChild(el("p",{class:"hme-r",text:h.reading.split(" — ")[0]+"."}));
+    t.appendChild(el("div",{class:"hme-chips"},[el("span",{class:"sp-chip",text:"Mood: "+h.mood}),el("span",{class:"sp-chip",text:"Lucky number "+h.lucky}),el("span",{class:"sp-chip"},[el("i",{class:"hs-swatch",style:"background:"+h.color[1]}),document.createTextNode(" "+h.color[0])])]));
+    me.appendChild(t);
+    me.appendChild(el("button",{class:"btn btn-gold",text:"Read it all →",onClick:()=>openHoroscope(saved)}));
+  }else{
+    me.appendChild(el("span",{class:"hme-g",text:"✦"}));
+    const t=el("div",{class:"hme-t"});
+    t.appendChild(el("div",{class:"ch2-k",text:"Find your sign"}));
+    t.appendChild(el("p",{class:"hme-r",text:"Enter your birthday and the almanac will keep your sign and greet you with it every day."}));
+    const row=el("div",{class:"zw-row hme-row"});
+    const sm=el("select",{"aria-label":"Birth month"});MONTHS.forEach((mn,i)=>sm.appendChild(el("option",{value:String(i+1),text:mn})));
+    const sd=el("select",{"aria-label":"Birth day"});for(let d=1;d<=31;d++)sd.appendChild(el("option",{value:String(d),text:String(d)}));
+    row.append(sm,sd,el("button",{class:"btn btn-gold",text:"Show my reading →",onClick:()=>{const mm=+sm.value,dd=Math.min(+sd.value,DIM[mm-1]);const z=zodiac(mm,dd);if(!z)return;
+      STORE.set("hsign",z.sign);if(!STORE.get("bday",null))STORE.set("bday",{m:mm,d:dd,y:null});if(window._syncPortalGlyph)window._syncPortalGlyph();openHoroscope(z.sign);}}));
+    t.appendChild(row);me.appendChild(t);}
+  view.appendChild(me);
+  view.appendChild(starCardSection(saved));
   /* the wheel: a slowly turning ring of glyphs */
   const wheelWrap=el("div",{class:"hwheel-wrap"});
   const wheel=el("div",{class:"hwheel","aria-label":"Choose your zodiac sign",role:"group"});
+  const season=SKY.at().sun.sign;
   ZODIAC_ORDER.forEach((s,i)=>{
-    const b=el("button",{class:"hw-sign","aria-label":s+" horoscope",style:"--wa:"+(i*30)+"deg",onClick:()=>openHoroscope(s)});
+    const b=el("button",{class:"hw-sign"+(s===season?" season":"")+(s===saved?" mine":""),"aria-label":s+" horoscope"+(s===season?", the current season":"")+(s===saved?", your sign":""),style:"--wa:"+(i*30)+"deg",onClick:()=>openHoroscope(s)});
     b.appendChild(el("span",{text:signSym(s)}));
     wheel.appendChild(b);
   });
-  wheel.appendChild(el("div",{class:"hw-core","aria-hidden":"true"},[el("span",{text:"✦"}),el("i",{text:"pick your sign"})]));
+  wheel.appendChild(el("div",{class:"hw-core","aria-hidden":"true"},[el("span",{text:"✦"}),el("i",{text:"pick your sign"}),el("em",{text:season+" season"})]));
   wheelWrap.appendChild(wheel);view.appendChild(wheelWrap);
   /* the twelve cards */
   const grid=el("div",{class:"hgrid"});
@@ -7891,6 +8133,8 @@ function renderHoroscope(view){
     grid.appendChild(c);
   });
   view.appendChild(el("section",{class:"section"},[grid]));
+  view.appendChild(leaderboardSection());
+  view.appendChild(matcherSection());
 }
 function renderHoroscopeSign(view,sign){
   const m=ZMETA[sign];
@@ -7932,6 +8176,13 @@ function renderHoroscopeSign(view,sign){
     if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.5)openHoroscope(dx<0?next:prev);tx0=null;},{passive:true});
 
   view.appendChild(realSkyStrip(sign));
+  const streak=bumpStreak();
+  const con=sunConstellation(SKY.jdOfDate(new Date()));
+  const note=el("div",{class:"hs-note"});
+  if(streak>1)note.appendChild(el("span",{class:"hs-streak",text:"\u{1F525} "+streak+"-day reading streak"}));
+  note.appendChild(el("span",{html:"The Sun is really in front of <b>"+esc(con)+"</b>'s stars today. "}));
+  note.appendChild(el("button",{class:"hs-why",text:"Why? →",onClick:()=>setView("zodiac")}));
+  view.appendChild(note);
   /* tabs */
   const tabs=el("div",{class:"hs-tabs",role:"tablist","aria-label":"Reading window"});
   [["today","Today"],["week","This week"],["month","This month"]].forEach(t=>{
@@ -7989,6 +8240,9 @@ function renderHoroscopeSign(view,sign){
   });
   view.appendChild(secs);
 
+  view.appendChild(outlookSection(sign));
+  view.appendChild(starCardSection(sign));
+  const swf=signWeekFaces(sign);if(swf)view.appendChild(swf);
   /* compatibility */
   const comp=el("section",{class:"section hs-reveal d4"});
   comp.appendChild(secHead("Compatibility","Today's kindred sign, or pick anyone"));
@@ -8009,17 +8263,17 @@ function renderHoroscopeSign(view,sign){
   if(REDUCE)cf.style.width=cb.score+"%";else requestAnimationFrame(()=>requestAnimationFrame(()=>cf.style.width=cb.score+"%"));
   cwrap.appendChild(el("p",{class:"hss-body",text:cb.text}));
   const cacts=el("div",{class:"portal-acts",style:"margin-top:10px"});
-  cacts.appendChild(el("button",{class:"btn btn-ghost btn-sm",onClick:()=>{state.zSign=other;setView("zodiac");}},[document.createTextNode("Famous "+signPlural(other)+" →")]));
+  cacts.appendChild(el("button",{class:"btn btn-line btn-sm",onClick:()=>{state.view="zodiac";state.zSign=other;window.scrollTo({top:0});render();}},[document.createTextNode("Famous "+signPlural(other)+" →")]));
   cwrap.appendChild(cacts);
   comp.appendChild(cwrap);
   view.appendChild(comp);
 
   /* share + cross-links */
   const acts=el("div",{class:"section portal-acts hs-reveal d5"});
-  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.zSign=sign;setView("zodiac");}},[document.createTextNode("Famous "+signPlural(sign)+" →")]));
+  acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{state.view="zodiac";state.zSign=sign;window.scrollTo({top:0});render();}},[document.createTextNode("Famous "+signPlural(sign)+" →")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>doShare(sign+" "+signSym(sign)+" · "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric"})+" — "+h.reading+" (Mood: "+h.mood+" · Lucky number: "+h.lucky+")",location.origin+location.pathname+"#/horoscope/"+sign.toLowerCase())},[document.createTextNode("\u{1F4E4}  Share this reading")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>saveStarCard({glyph:signSym(sign),title:sign+" · "+h.mood,sub:h.reading.split(". ")[0]+"."})},[document.createTextNode("\u{1F5BC}\u{FE0F}  Star card")]));
-  acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>setView("patterns")},[document.createTextNode("Cosmic patterns")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>setView("patterns")},[document.createTextNode("Cosmic patterns")]));
   view.appendChild(acts);
 }
 
