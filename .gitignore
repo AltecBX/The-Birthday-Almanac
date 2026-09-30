@@ -9,3 +9,6 @@ Thumbs.db
 *.log
 node_modules/
 .cache/
+
+# Built site (tools/build.mjs)
+_site/

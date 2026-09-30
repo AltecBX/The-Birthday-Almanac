@@ -4,8 +4,18 @@ An interactive museum of influential birthdays. Explore **549 consequential live
 across 21 fields and four millennia — by birthday, month, zodiac sign, field, era,
 century, country, and civilization.
 
-The entire app is a single, self-contained `index.html`: no build step, no
-dependencies, no tracking. Open it in a browser and it runs.
+The entire app is a single, self-contained `index.html`: no dependencies, no
+tracking. Open it in a browser and it runs.
+
+For the web, `tools/build.mjs` (run by the deploy workflow, plain Node, no
+packages) splits that file into a small page, a content-hashed app script and a
+data file parsed with `JSON.parse`, and adds a service worker. Visitors get a
+faster first load, near-instant return visits, and an almanac that keeps working
+offline and can be installed as an app. To preview the deployed version locally:
+
+```sh
+node tools/build.mjs _site && python3 -m http.server -d _site 8000
+```
 
 ## Sections
 
