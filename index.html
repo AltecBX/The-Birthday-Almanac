@@ -2167,6 +2167,127 @@ html[data-theme="dark"] .shift-n.oph b{color:#8fe6c8}
   .shift-n b{font-size:36px}
   .sd-strip{height:120px}.sd-day{min-width:14px}.sd-d{display:none}
 }
+/* ===== COLLECTIONS ===== */
+.coll-hero2{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;align-items:center;border-radius:var(--radius-xl);padding:28px 30px;margin-bottom:16px;color:#F3ECDD;
+  background:radial-gradient(700px 340px at 90% 0%,rgba(120,140,210,.3),transparent 62%),radial-gradient(520px 280px at 0% 120%,rgba(230,206,142,.16),transparent 60%),linear-gradient(160deg,#1b2640,#11182b 55%,#0b1020);
+  box-shadow:0 26px 60px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.coll-hero2>*:not(.star-layer),.cd-hero>*:not(.star-layer){position:relative;z-index:1}
+.coll-hero2 .eyebrow{color:#AEB9E8;margin:0 0 2px}
+.coll-hero2 h1{font-size:clamp(34px,5.5vw,56px);color:#FBF4E6;line-height:1.02}
+.ch2-lede{color:#C8CFE6;font-size:14.5px;line-height:1.55;margin:8px 0 0;max-width:560px}
+.ch2-today{margin-top:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px 16px}
+.ch2-k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold-soft)}
+.ch2-today h2{font-size:24px;color:#FBF4E6;margin:4px 0 4px}
+.ch2-today p{font-size:13px;color:#C8CFE6;margin:0 0 12px}
+.ch2-acts{display:flex;gap:8px;flex-wrap:wrap}
+.ch2-fan{position:relative;height:280px;perspective:1200px}
+.fan-c{position:absolute;left:50%;top:50%;width:150px;aspect-ratio:4/5;border-radius:16px;overflow:hidden;display:grid;place-items:center;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--cat) 60%,#1b2640),#0e1628);box-shadow:0 20px 40px -14px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.1);
+  transform:translate(-50%,-50%) translateX(calc(var(--i)*74px)) rotate(calc(var(--i)*7deg)) translateY(calc(var(--i)*var(--i)*6px));transition:transform .45s var(--spring)}
+.ch2-fan:hover .fan-c{transform:translate(-50%,-50%) translateX(calc(var(--i)*96px)) rotate(calc(var(--i)*9deg)) translateY(calc(var(--i)*var(--i)*8px - 6px))}
+.fan-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;opacity:0;transition:opacity .45s}
+.fan-c.has img{opacity:1}
+.fan-m{font-family:var(--serif);font-size:48px;color:rgba(255,255,255,.85)}
+.fan-n{position:absolute;inset:auto 0 0 0;padding:18px 8px 7px;font-size:11px;font-weight:600;color:#fff;background:linear-gradient(0deg,rgba(6,10,20,.85),transparent);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coll-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.coll-q{flex:1 1 220px;min-width:0;border:1px solid var(--hairline);background:var(--card);color:var(--ink);font:inherit;font-size:14px;padding:10px 14px;border-radius:999px}
+.coll-q:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-wash)}
+.coll-jumps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.coll-jumps::-webkit-scrollbar{display:none}
+.coll-mine{display:flex;align-items:center;gap:16px;background:var(--card);border:1px dashed var(--gold-soft);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;flex-wrap:wrap}
+.coll-mine .mosaic{width:84px;flex:none;border-radius:14px}
+.cm-star{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:30px;color:var(--gold);background:var(--gold-wash);flex:none}
+.cm-t{flex:1 1 220px;min-width:0}
+.cm-t h3{font-size:18px;margin:2px 0}
+.cm-t p{font-size:13px;color:var(--muted);margin:0}
+.coll-mine .ch2-k{color:var(--gold-deep)}
+.shelf{margin:22px 0 6px;scroll-margin-top:120px}
+.shelf-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.shelf-h h2{font-size:22px}
+.shelf-h span{font-size:13px;color:var(--muted)}
+.shelf-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,236px);gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 2px 14px;margin:0 -2px;perspective:1400px}
+.shelf-row.wrap{grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));overflow:visible}
+.ccover{scroll-snap-align:start;display:flex;flex-direction:column;text-align:left;border:1px solid var(--hairline);background:var(--card);border-radius:18px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer;
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .2s var(--ease),box-shadow .2s,border-color .2s;
+  box-shadow:0 1px 0 var(--card),0 3px 0 -1px var(--hairline),0 12px 24px -16px rgba(28,42,56,.45)}
+.ccover:hover,.ccover:focus-visible{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-4px);border-color:var(--gold-soft);
+  box-shadow:0 2px 0 var(--card),0 5px 0 -1px var(--gold-soft),0 26px 40px -20px rgba(28,42,56,.55);outline:none}
+.cc-art{position:relative}
+.cc-art::after{content:"";position:absolute;inset:40% 0 0 0;background:linear-gradient(0deg,rgba(6,10,20,.7),transparent);pointer-events:none}
+.cc-ic{position:absolute;left:10px;bottom:9px;z-index:1;font-size:26px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+.cc-n{position:absolute;right:10px;bottom:11px;z-index:1;font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.45);padding:3px 8px;border-radius:999px}
+.cc-b{display:flex;flex-direction:column;gap:4px;padding:11px 13px 13px;flex:1}
+.cc-t{font-family:var(--serif);font-size:17px;line-height:1.2;color:var(--ink)}
+.cc-d{font-size:12px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-span{margin-top:auto;padding-top:4px;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.coll-grid .ccover{height:100%}
+/* portrait mosaic */
+.mosaic{display:grid;gap:2px;background:#0e1628;overflow:hidden}
+.mosaic.m4{grid-template-columns:1fr 1fr;aspect-ratio:1/1}
+.mosaic.m8{grid-template-columns:repeat(4,1fr);aspect-ratio:2/1}
+.mo-t{position:relative;display:grid;place-items:center;aspect-ratio:1;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--cat) 60%,#1b2640),#0e1628)}
+.mosaic.m8 .mo-t{aspect-ratio:auto}
+.mo-t img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;opacity:0;transition:opacity .45s}
+.mo-t.has img{opacity:1}
+.mo-m{font-family:var(--serif);font-size:26px;color:rgba(255,255,255,.8)}
+.coll-none{text-align:center;padding:20px}
+/* detail hero */
+.cd-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center;border-radius:var(--radius-xl);padding:20px;margin-bottom:14px;color:#F3ECDD;
+  background:linear-gradient(160deg,#1b2640,#11182b 55%,#0b1020);box-shadow:0 26px 60px -30px rgba(9,14,26,.6)}
+.cd-hero .mosaic{border-radius:16px;box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+.cd-hero h1{font-size:clamp(30px,4.6vw,48px);color:#FBF4E6;line-height:1.05;margin:4px 0}
+.cd-t .ppl-stats{margin:14px 0}
+.cd-places{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.cd-places .ch2-k{color:var(--gold-deep);margin-right:4px}
+.cd-mh{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.cd-mh h2{font-size:22px}
+/* lifetimes */
+.clt{position:relative;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:30px 14px 12px;box-shadow:var(--shadow-sm);overflow:hidden}
+.clt-axis{position:absolute;left:14px;right:14px;top:8px;height:14px}
+.clt-axis span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap}
+.clt-axis span::after{content:"";position:absolute;left:50%;top:15px;width:1px;height:3000px;background:var(--hairline-2)}
+.clt-row{position:relative;display:block;width:100%;height:22px;border:0;background:none;padding:0;cursor:pointer;border-radius:6px}
+.clt-row:hover{background:var(--card-2)}
+.clt-row:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.clt-bar{position:absolute;top:6px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--cat),color-mix(in srgb,var(--cat) 65%,#fff))}
+.clt-bar.living{-webkit-mask-image:linear-gradient(90deg,#000 70%,rgba(0,0,0,.3));mask-image:linear-gradient(90deg,#000 70%,rgba(0,0,0,.3))}
+.clt-nm{position:absolute;top:3px;font-size:11px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.clt-nm.flip{left:auto}
+.clt-nm.inside{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.45);top:4px;font-size:10.5px}
+.clt-bar{opacity:.9}
+.clt-row:has(.inside) .clt-bar{top:4px;height:14px}
+/* story mode */
+.tour{position:fixed;inset:0;z-index:200;background:rgba(5,9,18,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:grid;place-items:center;padding:16px;animation:tourIn .22s var(--ease)}
+.tour.out{opacity:0;transition:opacity .2s}
+@keyframes tourIn{from{opacity:0}}
+.tour-in{width:min(920px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--card);border-radius:24px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);padding:16px 20px 18px;position:relative}
+.tour-in::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--cat),var(--gold))}
+.tour-top{display:flex;align-items:center;gap:12px;margin-top:4px}
+.tour-c{flex:1;min-width:0;font-weight:700;font-size:13.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tour-count{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tour-x{width:34px;height:34px;border-radius:50%;border:1px solid var(--hairline);background:var(--card-2);font-size:20px;line-height:1;cursor:pointer;color:var(--ink-2)}
+.tour-prog{height:4px;border-radius:999px;background:var(--card-3);margin:10px 0 14px;overflow:hidden}
+.tour-prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .35s var(--ease)}
+.tour-body{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:center;touch-action:pan-y}
+.tour-body.in-r{animation:tourR .4s var(--ease)}.tour-body.in-l{animation:tourL .4s var(--ease)}
+@keyframes tourR{from{opacity:0;transform:translateX(30px)}}@keyframes tourL{from{opacity:0;transform:translateX(-30px)}}
+.tour-img{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(160deg,color-mix(in srgb,var(--cat) 55%,#1b2640),#0e1628);box-shadow:0 18px 36px -18px rgba(0,0,0,.5)}
+.tour-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;opacity:0;transition:opacity .45s}
+.tour-img.has img{opacity:1}
+.tour-tx h2{font-size:clamp(26px,3.6vw,38px);line-height:1.1;margin:8px 0 4px}
+.tour-link{font-size:12.5px;color:var(--gold-deep);font-style:italic;margin:0 0 12px}
+.tour-nav{display:flex;gap:8px;justify-content:space-between;margin-top:16px}
+.tour-b{border:1px solid var(--hairline);background:var(--card-2);color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:999px;cursor:pointer}
+.tour-b:hover{border-color:var(--gold-soft)}
+.tour-b.next{background:var(--navy);color:#F3ECDD;border-color:var(--navy)}
+html[data-theme="dark"] .tour-b.next{background:#284268;border-color:#35527c}
+@media(max-width:900px){
+  .coll-hero2,.cd-hero{grid-template-columns:1fr;padding:20px 16px;border-radius:var(--radius-lg)}
+  .ch2-fan{height:220px}.fan-c{width:118px;transform:translate(-50%,-50%) translateX(calc(var(--i)*52px)) rotate(calc(var(--i)*7deg)) translateY(calc(var(--i)*var(--i)*5px))}
+  .tour-body{grid-template-columns:1fr;gap:14px}.tour-img{aspect-ratio:16/11}
+  .tour-in{padding:14px 14px 16px}
+}
+@media(prefers-reduced-motion:reduce){.tour,.tour-body.in-r,.tour-body.in-l{animation:none}.fan-c{transition:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -8684,59 +8805,233 @@ function signExactChart(){
    COLLECTIONS
    ============================================================ */
 function collectionPeople(id){return HISTORICAL.filter(p=>(p.collections||[]).includes(id));}
+/* themed shelves; anything not listed lands on the last shelf */
+const COLL_SHELVES=[
+  ["The greatest","The top of every list",["top-25-most-influential","top-nobel","top-book-authors","top-directors","top-singers","top-opera","top-fashion","top-billionaires"]],
+  ["Minds and makers","Science, invention and the future",["greatest-minds-in-science","world-changing-inventors","technology-and-internet","ai-pioneers","explorers-of-the-cosmos","philosophers-and-thinkers"]],
+  ["Power and conscience","Who ruled, who fought, who spoke up",["most-powerful-leaders","presidents-and-prime-ministers","military-commanders","civil-rights-trailblazers","religion-and-spiritual-leaders","women-who-changed-history"]],
+  ["Culture","Art, music, film and money",["artists-who-changed-culture","music-icons","movie-legends","business-titans"]],
+  ["Sporting legends","Champions of every game",["legendary-athletes","top-soccer","top-basketball","top-boxers","top-tennis","top-baseball","top-football","top-olympians"]],
+  ["Journeys through time","Explorers and eras",["explorers-and-adventurers","ancient-world","renaissance-figures"]]];
+/* a mosaic of portraits for a collection cover */
+function portraitMosaic(ppl,n,w){
+  const m=el("div",{class:"mosaic m"+n,"aria-hidden":"true"});
+  const pick=ppl.filter(p=>p.img||p.imageUrl).slice(0,n);ppl.forEach(p=>{if(pick.length<n&&!pick.includes(p))pick.push(p);});
+  pick.forEach(p=>{const t=el("span",{class:"mo-t"});t.style.setProperty("--cat",catColor(p.category));
+    t.appendChild(el("span",{class:"mo-m",text:p.name.replace(/^(Sir|Saint|St\.|Dr\.|Pope|King|Queen)\s+/,"")[0]}));
+    const src=p.imageUrl||(p.img?commonsThumb(p.img,w||120):null);
+    if(src){const i=el("img",{alt:"",loading:"lazy",decoding:"async",referrerpolicy:"no-referrer"});i.onload=()=>t.classList.add("has");i.onerror=()=>i.remove();i.src=src;t.appendChild(i);}
+    m.appendChild(t);});
+  return m;}
+function openCollection(id){state.collectionId=id;state.view="collections";window.scrollTo({top:0});render();}
 function renderCollections(view){
   view.innerHTML="";
   if(state.collectionId){return renderCollectionDetail(view,state.collectionId);}
-  const head=el("div",{class:"viewhead"});
-  head.appendChild(el("p",{class:"eyebrow",text:"Curated journeys"}));
-  head.appendChild(el("h1",{text:"Collections"}));
-  head.appendChild(el("div",{class:"lede",text:"Hand-shaped tours through the almanac — from the greatest minds in science to movie legends and the ancient world. Pick one and fall down the rabbit hole."}));
-  view.appendChild(head);
-  const grid=el("div",{class:"cardgrid coll-grid"});
-  COLLECTION_DEFS.forEach(c=>grid.appendChild(collectionCard(c)));
-  view.appendChild(grid);
+  const all=COLLECTION_DEFS.map(c=>({c,ppl:featuredOf(collectionPeople(c.id),9999)}));
+  const byId={};all.forEach(x=>byId[x.c.id]=x);
+  const uniq=new Set();all.forEach(x=>x.ppl.forEach(p=>uniq.add(p.id)));
+  /* ---------- hero with the collection of the day ---------- */
+  const r=hrng(hseed("coll|"+dayKey()));const today=all.filter(x=>x.ppl.length>=8)[Math.floor(r()*all.filter(x=>x.ppl.length>=8).length)];
+  const hero=el("section",{class:"coll-hero2"});hero.appendChild(starLayer("star-layer",22));
+  const ht=el("div",{class:"ch2-t"});
+  ht.appendChild(el("p",{class:"eyebrow",text:"Curated journeys"}));
+  ht.appendChild(el("h1",{text:"Collections"}));
+  ht.appendChild(el("p",{class:"ch2-lede",text:COLLECTION_DEFS.length+" hand-shaped tours through "+uniq.size.toLocaleString()+" lives. Pick one, take the guided tour, and fall down the rabbit hole."}));
+  const tod=el("div",{class:"ch2-today"});
+  tod.appendChild(el("div",{class:"ch2-k",text:"Collection of the day"}));
+  tod.appendChild(el("h2",{},[el("span",{text:today.c.icon+" "}),document.createTextNode(today.c.title)]));
+  tod.appendChild(el("p",{text:today.c.desc}));
+  const acts=el("div",{class:"ch2-acts"});
+  acts.appendChild(el("button",{class:"btn btn-gold",text:"▶ Start the tour",onClick:()=>startTour(today.c,today.ppl,0)}));
+  acts.appendChild(el("button",{class:"btn btn-ghost",text:"Open collection",onClick:()=>openCollection(today.c.id)}));
+  tod.appendChild(acts);ht.appendChild(tod);hero.appendChild(ht);
+  /* a fan of faces */
+  const fan=el("div",{class:"ch2-fan","aria-hidden":"true"});
+  const faces=today.ppl.filter(p=>p.img||p.imageUrl).slice(0,5);(faces.length<5?today.ppl.slice(0,5):faces).forEach((p,i,arr)=>{
+    const card=el("div",{class:"fan-c"});card.style.setProperty("--i",String(i-(arr.length-1)/2));card.style.setProperty("--cat",catColor(p.category));
+    card.appendChild(el("span",{class:"fan-m",text:p.name[0]}));
+    const src=p.imageUrl||(p.img?commonsThumb(p.img,330):null);
+    if(src){const im=el("img",{alt:"",loading:"lazy",decoding:"async",referrerpolicy:"no-referrer"});im.onload=()=>card.classList.add("has");im.onerror=()=>im.remove();im.src=src;card.appendChild(im);}
+    card.appendChild(el("span",{class:"fan-n",text:p.name}));fan.appendChild(card);});
+  hero.appendChild(fan);view.appendChild(hero);
+  /* ---------- search + shelf chips ---------- */
+  const bar=el("div",{class:"coll-bar"});
+  const q=el("input",{type:"search",class:"coll-q",placeholder:"Find a collection…","aria-label":"Find a collection"});
+  bar.appendChild(q);
+  const jumps=el("div",{class:"coll-jumps"});
+  COLL_SHELVES.forEach(([t])=>jumps.appendChild(el("button",{class:"lens",text:t,onClick:()=>{const s=view.querySelector('.shelf[data-s="'+CSS.escape(t)+'"]');if(s)s.scrollIntoView({behavior:REDUCE?"auto":"smooth",block:"start"});}})));
+  bar.appendChild(jumps);view.appendChild(bar);
+  /* ---------- your own collection ---------- */
+  const favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(Boolean);
+  const mine=el("section",{class:"coll-mine"});
+  if(favs.length){
+    mine.appendChild(portraitMosaic(favs,4));
+    mine.appendChild(el("div",{class:"cm-t"},[el("div",{class:"ch2-k",text:"Your collection"}),el("h3",{text:"Saved people"}),
+      el("p",{text:favs.length+(favs.length===1?" person":" people")+" you've starred. Tour them like any other collection."})]));
+    mine.appendChild(el("button",{class:"btn btn-gold",text:"▶ Tour my saved people",onClick:()=>startTour({title:"Your saved people",icon:"★",desc:"The people you've starred"},favs,0)}));
+  }else{
+    mine.appendChild(el("div",{class:"cm-star",text:"☆"}));
+    mine.appendChild(el("div",{class:"cm-t"},[el("div",{class:"ch2-k",text:"Your collection"}),el("h3",{text:"Start your own"}),
+      el("p",{text:"Tap ☆ Save on anyone's profile and they'll gather here as your own collection, ready to tour."})]));}
+  view.appendChild(mine);
+  /* ---------- shelves ---------- */
+  const placed=new Set();const shelves=[];
+  COLL_SHELVES.forEach(([t,sub,ids])=>{const items=ids.map(i=>byId[i]).filter(Boolean);items.forEach(x=>placed.add(x.c.id));shelves.push([t,sub,items]);});
+  const rest=all.filter(x=>!placed.has(x.c.id));if(rest.length)shelves.push(["More collections","",rest]);
+  const host=el("div",{class:"shelves"});view.appendChild(host);
+  shelves.forEach(([t,sub,items])=>{if(!items.length)return;
+    const s=el("section",{class:"shelf","data-s":t});
+    s.appendChild(el("div",{class:"shelf-h"},[el("h2",{text:t}),sub?el("span",{text:sub}):null]));
+    const row=el("div",{class:"shelf-row"});items.forEach(x=>row.appendChild(collCover(x.c,x.ppl)));s.appendChild(row);host.appendChild(s);});
+  const none=el("p",{class:"coll-none muted",text:"No collection matches that search."});none.style.display="none";view.appendChild(none);
+  q.addEventListener("input",()=>{const v=q.value.trim().toLowerCase();let shown=0;
+    host.querySelectorAll(".shelf").forEach(s=>{let k=0;s.querySelectorAll(".ccover").forEach(c=>{const hit=!v||c.dataset.q.includes(v);c.style.display=hit?"":"none";if(hit)k++;});s.style.display=k?"":"none";shown+=k;});
+    none.style.display=shown?"none":"";});
 }
-function collectionCard(c){
-  const ppl=collectionPeople(c.id);
-  const card=el("button",{class:"collcard glow-card","aria-label":"Open "+c.title,onClick:()=>{state.collectionId=c.id;state.view="collections";window.scrollTo({top:0});render();}});
-  const top=el("div",{class:"coll-top"});
-  top.appendChild(el("div",{class:"coll-ic",text:c.icon}));
-  top.appendChild(el("div",{class:"coll-n",text:ppl.length+" people"}));
-  card.appendChild(top);
-  card.appendChild(el("div",{class:"coll-title",text:c.title}));
-  card.appendChild(el("div",{class:"coll-desc",text:c.desc}));
-  const feat=featuredOf(ppl,3).map(p=>p.name);
-  if(feat.length)card.appendChild(el("div",{class:"coll-feat",html:"Featuring "+feat.map(n=>"<b>"+esc(n)+"</b>").join(", ")}));
-  const zc=zodiacCounts(ppl);const tz=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
-  const mc=monthCounts(ppl);const pm=Math.max(...mc)?MONTHS[mc.indexOf(Math.max(...mc))]:"—";
-  const tags=el("div",{class:"coll-tags"});
-  if(tz&&tz[1])tags.appendChild(el("span",{class:"coll-tag",text:signSym(tz[0])+" "+tz[0]}));
-  tags.appendChild(el("span",{class:"coll-tag",text:"Peak: "+pm}));
-  card.appendChild(tags);
-  card.appendChild(el("div",{class:"cc-go",text:"Open collection →"}));
+function collCover(c,ppl){
+  const card=el("button",{class:"ccover","aria-label":"Open "+c.title+", "+ppl.length+" people",onClick:()=>openCollection(c.id)});
+  card.dataset.q=(c.title+" "+c.desc+" "+ppl.slice(0,12).map(p=>p.name).join(" ")).toLowerCase();
+  const art=el("div",{class:"cc-art"});art.appendChild(portraitMosaic(ppl,4));
+  art.appendChild(el("span",{class:"cc-ic",text:c.icon}));
+  art.appendChild(el("span",{class:"cc-n",text:ppl.length.toLocaleString()}));
+  card.appendChild(art);
+  const b=el("div",{class:"cc-b"});
+  b.appendChild(el("b",{class:"cc-t",text:c.title}));
+  b.appendChild(el("span",{class:"cc-d",text:c.desc}));
+  const ys=ppl.filter(p=>p.birthYear!=null).map(p=>p.birthYear);
+  if(ys.length)b.appendChild(el("span",{class:"cc-span",text:"Born "+fmtYearNum(Math.min(...ys))+" to "+fmtYearNum(Math.max(...ys))}));
+  card.appendChild(b);
+  card.addEventListener("pointermove",e=>{if(REDUCE||e.pointerType!=="mouse")return;const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    card.style.setProperty("--rx",((0.5-y)*8).toFixed(2)+"deg");card.style.setProperty("--ry",((x-0.5)*10).toFixed(2)+"deg");});
+  card.addEventListener("pointerleave",()=>{card.style.removeProperty("--rx");card.style.removeProperty("--ry");});
   return card;
 }
+/* keep the old card name working for other views (Discover's featured collections) */
+function collectionCard(c){return collCover(c,featuredOf(collectionPeople(c.id),9999));}
+
+/* ---------- detail ---------- */
 function renderCollectionDetail(view,id){
-  const c=COLLECTION_BY_ID[id];const ppl=collectionPeople(id);
+  const c=COLLECTION_BY_ID[id];if(!c){state.collectionId=null;return renderCollections(view);}
+  const ppl=featuredOf(collectionPeople(id),9999);
   view.appendChild(el("button",{class:"backlink",onClick:()=>{state.collectionId=null;render();}},[document.createTextNode("← All collections")]));
-  const hero=el("div",{class:"coll-hero"});
-  hero.appendChild(el("div",{class:"ch-ic",text:c.icon}));
-  hero.appendChild(el("h1",{text:c.title}));
-  hero.appendChild(el("div",{class:"lede",text:c.desc}));
-  const dated=ppl.filter(p=>p.birthYear!=null);
-  const oldest=dated.slice().sort((a,b)=>yearSortKey(a)-yearSortKey(b))[0];
-  const newest=dated.slice().sort((a,b)=>yearSortKey(b)-yearSortKey(a))[0];
-  const zc=zodiacCounts(ppl);const tz=Object.entries(zc).sort((a,b)=>b[1]-a[1])[0];
-  const mc=monthCounts(ppl);
-  const strip=el("div",{class:"statstrip",style:"margin:20px 0"});
-  [[ppl.length,"People"],[tz&&tz[1]?tz[0]:"—","Top sign"],[oldest?fmtYear(oldest):"—","Oldest"],[newest?fmtYear(newest):"—","Newest"]]
-    .forEach(s=>strip.appendChild(el("div",{class:"stat"},[el("div",{class:"v",text:String(s[0])}),el("div",{class:"l",text:s[1]})])));
-  hero.appendChild(strip);
-  hero.appendChild(el("button",{class:"btn btn-solid",onClick:()=>{goWithFilter(f=>f.curated.add(id),"people");}},[document.createTextNode("Open in People (filter & sort) →")]));
-  view.appendChild(hero);
-  const grid=el("div",{class:"cardgrid"});
-  featuredOf(ppl,60).forEach(p=>grid.appendChild(personCard(p)));
-  view.appendChild(grid);
+  const hero=el("section",{class:"cd-hero"});hero.appendChild(starLayer("star-layer",18));
+  hero.appendChild(portraitMosaic(ppl,8,330));
+  const ht=el("div",{class:"cd-t"});
+  ht.appendChild(el("div",{class:"ch2-k",text:c.icon+"  Collection"}));
+  ht.appendChild(el("h1",{text:c.title}));
+  ht.appendChild(el("p",{class:"ch2-lede",text:c.desc}));
+  const ys=ppl.filter(p=>p.birthYear!=null).map(p=>p.birthYear);
+  const nC=new Set(ppl.map(placeOf).filter(Boolean)).size,nW=ppl.filter(p=>p.sex==="female").length;
+  const tz=Object.entries(zodiacCounts(ppl)).sort((a,b)=>b[1]-a[1])[0];
+  const st=el("div",{class:"ppl-stats"});
+  [[ppl.length.toLocaleString(),ppl.length===1?"life":"lives"],ys.length?[fmtYearNum(Math.min(...ys))+"–"+fmtYearNum(Math.max(...ys)),"born"]:null,[String(nC),nC===1?"country":"countries"],[String(nW),"women"],tz&&tz[1]?[signSym(tz[0])+" "+tz[0],"top sign"]:null]
+    .filter(Boolean).forEach(([v,l])=>st.appendChild(el("span",{class:"ppl-st"},[el("b",{text:v}),el("em",{text:l})])));
+  ht.appendChild(st);
+  const acts=el("div",{class:"ch2-acts"});
+  acts.appendChild(el("button",{class:"btn btn-gold",text:"▶ Start the guided tour",onClick:()=>startTour(c,ppl,0)}));
+  acts.appendChild(el("button",{class:"btn btn-ghost",text:"Filter & sort in People →",onClick:()=>goWithFilter(f=>f.curated.add(id),"people")}));
+  ht.appendChild(acts);hero.appendChild(ht);view.appendChild(hero);
+  /* where they come from */
+  const pc={};ppl.forEach(p=>{const k=placeOf(p);if(k)pc[k]=(pc[k]||0)+1;});
+  const topC=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  if(topC.length>1){const row=el("div",{class:"cd-places"});row.appendChild(el("span",{class:"ch2-k",text:"From"}));
+    topC.forEach(([k,n])=>row.appendChild(el("span",{class:"sp-chip",text:k+" "+n})));view.appendChild(row);}
+  /* lifetimes */
+  const lives=ppl.filter(p=>p.birthYear!=null&&p.endYear!=null);
+  if(lives.length>=3)view.appendChild(collLifetimes(c,lives.slice(0,40)));
+  /* members */
+  const sec=el("section",{class:"section"});
+  const sorts=[["rank","Influence"],["old","Oldest first"],["young","Youngest first"],["name","A to Z"],["birthday","Birthday soon"]];
+  if(!state.cSort)state.cSort="rank";
+  const head=el("div",{class:"cd-mh"});head.appendChild(el("h2",{text:"Everyone in this collection"}));
+  const seg=el("div",{class:"ll-zoom",role:"group","aria-label":"Sort members"});
+  sorts.forEach(([k,l])=>seg.appendChild(el("button",{text:l,"aria-pressed":state.cSort===k?"true":"false",onClick:()=>{state.cSort=k;paint();seg.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.textContent===l?"true":"false"));}})));
+  head.appendChild(seg);sec.appendChild(head);
+  const grid=el("div",{class:"ppl-gallery"});sec.appendChild(grid);
+  const more=el("button",{class:"loadmore"});sec.appendChild(more);
+  let shown=0,list=ppl;
+  function sorted(){const a=ppl.slice();const k=state.cSort;
+    if(k==="old")a.sort((x,y)=>yearSortKey(x)-yearSortKey(y));else if(k==="young")a.sort((x,y)=>yearSortKey(y)-yearSortKey(x));
+    else if(k==="name")a.sort((x,y)=>x.name.localeCompare(y.name));else if(k==="birthday")a.sort((x,y)=>daysUntilBirthday(x)-daysUntilBirthday(y));return a;}
+  function grow(n){const t=Math.min(list.length,shown+n);for(;shown<t;shown++)grid.appendChild(galleryCard(list[shown]));
+    more.style.display=shown<list.length?"":"none";more.textContent="Show more ("+(list.length-shown)+" remaining)";}
+  function paint(){grid.innerHTML="";shown=0;list=sorted();grow(48);}
+  more.addEventListener("click",()=>grow(96));paint();view.appendChild(sec);
+  /* related collections by shared members */
+  const ids=new Set(ppl.map(p=>p.id));
+  const rel=COLLECTION_DEFS.filter(x=>x.id!==id).map(x=>{const q=collectionPeople(x.id);return {x,q,n:q.filter(p=>ids.has(p.id)).length};})
+    .filter(r=>r.n>0).sort((a,b)=>b.n/Math.sqrt(b.q.length)-a.n/Math.sqrt(a.q.length)).slice(0,4);
+  if(rel.length){const rs=el("section",{class:"section"});rs.appendChild(secHead("If you liked this","Collections that share the most people with this one"));
+    const row=el("div",{class:"shelf-row wrap"});rel.forEach(r=>row.appendChild(collCover(r.x,featuredOf(r.q,9999))));rs.appendChild(row);view.appendChild(rs);}
+}
+/* who was alive at the same time, inside one collection */
+function collLifetimes(c,lives){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Their lifetimes","Birth to death for the most influential members, so you can see who lived at the same time"));
+  const sorted=lives.slice().sort((a,b)=>a.birthYear-b.birthYear);
+  const lo=Math.min(...sorted.map(p=>p.birthYear)),hi=Math.max(...sorted.map(p=>p.endYear));const span=Math.max(1,hi-lo);
+  const box=el("div",{class:"clt"});
+  const step=[1,2,5,10,20,25,50,100,200,250,500,1000].find(s=>span/s<=8)||1000;
+  const axis=el("div",{class:"clt-axis","aria-hidden":"true"});
+  for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step){if(t===0)continue;const k=el("span",{text:fmtYearNum(t)});k.style.left=((t-lo)/span*100)+"%";axis.appendChild(k);}
+  box.appendChild(axis);
+  sorted.forEach(p=>{const row=el("button",{class:"clt-row",onClick:()=>openPerson(p),"aria-label":p.name+", "+fmtYearNum(p.birthYear)+(p.deathYear!=null?" to "+fmtYearNum(p.deathYear):", living")});
+    const bar=el("span",{class:"clt-bar"+(p.alive?" living":"")});bar.style.left=((p.birthYear-lo)/span*100)+"%";bar.style.width=Math.max(0.8,(p.endYear-p.birthYear)/span*100)+"%";bar.style.setProperty("--cat",catColor(p.category));
+    const nm=el("span",{class:"clt-nm",text:p.name});const left=(p.birthYear-lo)/span,right=(p.endYear-lo)/span;
+    if(right<0.78)nm.style.left="calc("+(right*100)+"% + 6px)";
+    else if(left>0.24){nm.classList.add("flip");nm.style.right="calc("+(100-left*100)+"% + 6px)";}
+    else{nm.classList.add("inside");nm.style.left="calc("+(left*100)+"% + 8px)";}
+    row.append(bar,nm);box.appendChild(row);});
+  sec.appendChild(box);return sec;
+}
+/* ---------- story mode: a guided tour, one life at a time ---------- */
+function startTour(c,ppl,start){
+  if(!ppl.length)return;let i=start||0,auto=null;
+  const ov=el("div",{class:"tour",role:"dialog","aria-modal":"true","aria-label":"Guided tour: "+c.title});
+  const inner=el("div",{class:"tour-in"});ov.appendChild(inner);
+  document.body.appendChild(ov);document.body.style.overflow="hidden";
+  const prevFocus=document.activeElement;
+  function close(){if(auto)clearInterval(auto);document.removeEventListener("keydown",key);ov.classList.add("out");setTimeout(()=>ov.remove(),REDUCE?0:220);document.body.style.overflow="";if(prevFocus&&prevFocus.focus)prevFocus.focus();}
+  function go(d){i=(i+d+ppl.length)%ppl.length;paint(d);}
+  function key(e){if(e.key==="Escape")close();else if(e.key==="ArrowRight")go(1);else if(e.key==="ArrowLeft")go(-1);else if(e.key===" "&&e.target===document.body){e.preventDefault();toggle();}}
+  function toggle(){if(auto){clearInterval(auto);auto=null;}else auto=setInterval(()=>go(1),6000);paint(0);}
+  function paint(d){
+    const p=ppl[i];inner.innerHTML="";inner.style.setProperty("--cat",catColor(p.category));
+    const top=el("div",{class:"tour-top"});
+    top.appendChild(el("div",{class:"tour-c"},[el("span",{text:c.icon}),document.createTextNode(" "+c.title)]));
+    top.appendChild(el("div",{class:"tour-count",text:(i+1)+" / "+ppl.length}));
+    top.appendChild(el("button",{class:"tour-x","aria-label":"Close tour",html:"&times;",onClick:close}));
+    inner.appendChild(top);
+    const prog=el("div",{class:"tour-prog"});const f=el("i");f.style.width=((i+1)/ppl.length*100)+"%";prog.appendChild(f);inner.appendChild(prog);
+    const body=el("div",{class:"tour-body"+(d>0?" in-r":d<0?" in-l":"")});
+    const img=el("div",{class:"tour-img"});img.appendChild(el("span",{class:"sp-mono",text:p.name.replace(/^(Sir|Saint|St\.|Dr\.|Pope|King|Queen)\s+/,"")[0]}));
+    const src=p.imageUrl||(p.img?commonsThumb(p.img,330):null);
+    if(src){const im=el("img",{alt:"Portrait of "+p.name,decoding:"async",referrerpolicy:"no-referrer"});im.onload=()=>img.classList.add("has");im.onerror=()=>im.remove();im.src=src;img.appendChild(im);}
+    body.appendChild(img);
+    const tx=el("div",{class:"tour-tx"});
+    const tag=el("span",{class:"ctag",text:CATS[p.category].label});tag.style.background=catColor(p.category);tx.appendChild(tag);
+    tx.appendChild(el("h2",{text:p.name}));
+    tx.appendChild(el("div",{class:"sp-d",text:[fmtDate(p),p.zsign?p.zsym+" "+p.zsign:null,p.country&&p.country!=="Unknown"?p.country:null].filter(Boolean).join("  ·  ")}));
+    const ll=lifeLine(p);if(ll)tx.appendChild(el("div",{class:"sp-life",text:ll}));
+    tx.appendChild(el("p",{class:"sp-bio",text:p.shortDescription||""}));
+    if(p.bio&&p.bio!==p.shortDescription)tx.appendChild(el("p",{class:"sp-bio2",text:p.bio}));
+    /* a thread to the previous stop */
+    if(i>0){const q=ppl[i-1];const ov2=overlaps(p,q);if(ov2>0)tx.appendChild(el("p",{class:"tour-link",text:"Shared "+ov2+(ov2===1?" year":" years")+" on Earth with "+q.name+", the previous stop."}));
+      else if(p.birthYear!=null&&q.birthYear!=null)tx.appendChild(el("p",{class:"tour-link",text:"Born "+Math.abs(yrsBetween(q.birthYear,p.birthYear))+" years "+(p.birthYear>=q.birthYear?"after":"before")+" "+q.name+"."}));}
+    tx.appendChild(el("button",{class:"btn btn-line",text:"Open full profile",onClick:()=>{close();openPerson(p);}}));
+    body.appendChild(tx);inner.appendChild(body);
+    const nav=el("div",{class:"tour-nav"});
+    nav.appendChild(el("button",{class:"tour-b",text:"← Previous",onClick:()=>go(-1)}));
+    nav.appendChild(el("button",{class:"tour-b play",text:auto?"❚❚ Pause":"▶ Autoplay",onClick:toggle}));
+    nav.appendChild(el("button",{class:"tour-b next",text:"Next →",onClick:()=>go(1)}));
+    inner.appendChild(nav);
+    /* swipe on touch */
+    let sx=null;body.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")sx=e.clientX;});
+    body.addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>50)go(dx<0?1:-1);});
+    const nx=ppl[(i+1)%ppl.length];if(nx.img){const pre=new Image();pre.referrerPolicy="no-referrer";pre.src=commonsThumb(nx.img,330);}
+    const nb=nav.querySelector(".next");if(nb)nb.focus({preventScroll:true});}
+  ov.addEventListener("mousedown",e=>{if(e.target===ov)close();});
+  document.addEventListener("keydown",key);paint(0);
 }
 
 /* ============================================================
