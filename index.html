@@ -2039,6 +2039,134 @@ html[data-theme="dark"] .lens.on{background:#284268;border-color:#35527c}
 }
 @media(max-width:480px){.ppl-mode button{padding:7px 10px;font-size:12.5px}.ppl-list .prow .pc-face{display:none}}
 @media(prefers-reduced-motion:reduce){.ppl-spot.swap{animation:none}}
+/* ===== ZODIAC: live wheel ===== */
+.zw-wrap{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);gap:26px;align-items:start;border-radius:var(--radius-xl);padding:22px 24px;color:#F3ECDD;position:relative;overflow:hidden;
+  background:radial-gradient(640px 380px at 22% 45%,rgba(90,130,220,.22),transparent 65%),radial-gradient(520px 300px at 100% 0%,rgba(230,206,142,.12),transparent 60%),linear-gradient(160deg,#141f38,#0c1426 60%,#080e1c);
+  box-shadow:0 30px 70px -30px rgba(9,14,26,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.zw-left{min-width:0}
+.zw-box{position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto}
+.zw-svg{width:100%;height:100%;display:block;overflow:visible}
+.zw-core{fill:rgba(8,12,24,.75);stroke:rgba(174,185,232,.25)}
+.zw-seg{stroke:rgba(10,16,30,.9);stroke-width:1.5;cursor:pointer;transition:filter .15s,opacity .15s;opacity:.78}
+.zw-seg.fire{fill:#8a3b28}.zw-seg.earth{fill:#4f5a2b}.zw-seg.air{fill:#2d5c79}.zw-seg.water{fill:#34507f}
+.zw-seg:hover,.zw-seg:focus{opacity:1;filter:brightness(1.35);outline:none}
+.zw-gly{fill:#FBF4E6;font-size:19px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.zw-sn{fill:rgba(251,244,230,.7);font-family:var(--mono);font-size:8.5px;letter-spacing:.8px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.zw-con{fill:rgba(174,185,232,.1);stroke:rgba(10,16,30,.9);stroke-width:1.2;transition:fill .15s}
+.zw-con.alt{fill:rgba(174,185,232,.18)}
+.zw-con.oph{fill:rgba(143,230,200,.35)}
+.zw-con:hover{fill:rgba(230,206,142,.4)}
+.zw-cg{fill:#DCE2F5;font-size:12px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.zw-sun circle{fill:#F3C04F;stroke:#fff3cf;stroke-width:2;filter:drop-shadow(0 0 8px rgba(243,192,79,.8))}
+.zw-sun text{fill:#5a3a05;font-size:16px;text-anchor:middle;dominant-baseline:central}
+.zw-moon circle{fill:#E8E4D8;stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 0 6px rgba(232,228,216,.6))}
+.zw-moon text{fill:#2b3550;font-size:14px;text-anchor:middle;dominant-baseline:central}
+.zw-you circle{fill:#8fe6c8;stroke:#fff;stroke-width:2;filter:drop-shadow(0 0 8px rgba(143,230,200,.7))}
+.zw-you text{fill:#0b3a2c;font-size:12px;text-anchor:middle;dominant-baseline:central}
+.zw-sun-ray{stroke:rgba(243,192,79,.55);stroke-width:1.5;stroke-dasharray:3 4}
+.zw-moon-ray{stroke:rgba(232,228,216,.35);stroke-width:1;stroke-dasharray:2 4}
+.zw-you-ray{stroke:rgba(143,230,200,.6);stroke-width:1.5;stroke-dasharray:3 4}
+.zw-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40%;text-align:center;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px}
+.zw-center em{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:#AEB9E8}
+.zw-center b{font-family:var(--serif);font-size:clamp(18px,3vw,26px);color:#FBF4E6;line-height:1.1}
+.zw-center span{font-size:11.5px;color:#C8CFE6;line-height:1.35}
+.zw-drift{margin-top:10px}
+.zw-dk{font-size:12px;color:#AEB9E8;margin-bottom:4px}
+.zw-drift input{width:100%;accent-color:#8fe6c8}
+.zw-dout{font-size:12.5px;color:#DCE2F5;min-height:18px}
+.zw-dout b{color:#8fe6c8;font-family:var(--mono)}
+.zw-side{min-width:0;display:flex;flex-direction:column;gap:16px}
+.zw-k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:#AEB9E8;margin-bottom:6px}
+.zw-line{font-size:14px;line-height:1.55;color:#DCE2F5;margin:0}
+.zw-line b{color:#FBF4E6}
+.zw-row{display:grid;grid-template-columns:1.4fr .8fr 1.2fr;gap:8px}
+.zw-row select,.zw-row input{width:100%;min-width:0;appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#F3ECDD;font:inherit;font-size:13.5px;padding:9px 11px;border-radius:11px}
+.zw-row option{color:#1E2A38}
+.zw-row input::placeholder{color:#8E98B8}
+.zw-mine{margin-top:8px;border:0;background:none;color:#8fe6c8;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:0}
+.zw-res{margin-top:12px;display:flex;flex-direction:column;gap:9px}
+.zw-rs{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 12px}
+.zw-rs.sky{border-color:rgba(143,230,200,.35);background:rgba(143,230,200,.07)}
+.zw-rs.sky.same{border-color:rgba(230,206,142,.4);background:rgba(230,206,142,.08)}
+.zw-rg{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:21px;background:rgba(255,255,255,.08);color:#FBF4E6}
+.zw-rs b{display:block;font-size:14.5px;color:#FBF4E6}
+.zw-rs span{display:block;font-size:12px;color:#C8CFE6;line-height:1.4}
+.zw-rs .zw-rg{display:grid;font-size:21px;color:#FBF4E6;line-height:1}
+.zw-note{font-size:12.5px;color:#C8CFE6;margin:0;line-height:1.5}
+.zw-faces{display:flex;gap:8px;flex-wrap:wrap}
+.zw-face{display:flex;flex-direction:column;align-items:center;gap:3px;width:62px;border:0;background:none;color:#DCE2F5;font:inherit;cursor:pointer;padding:3px;border-radius:10px;transition:.15s}
+.zw-face:hover,.zw-face:focus-visible{background:rgba(255,255,255,.08);outline:none;transform:translateY(-2px)}
+.zw-face span{font-size:10.5px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zw-all{border:0;background:none;color:#8fe6c8;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:4px 0}
+.zw-go{align-self:flex-start}
+/* ===== the sky has shifted ===== */
+.shift{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-xl);padding:22px 24px;box-shadow:var(--shadow-md)}
+.shift.small{grid-template-columns:1fr;gap:10px}
+.shift-nums{display:flex;flex-direction:column;gap:12px}
+.shift-n{display:flex;align-items:baseline;gap:12px}
+.shift-n b{font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold-deep);flex:none}
+.shift-n.oph b{color:#2E9C7A}
+html[data-theme="dark"] .shift-n.oph b{color:#8fe6c8}
+.shift-n span{font-size:14px;color:var(--ink-2);line-height:1.4}
+.shift-why{font-size:13px;color:var(--muted);line-height:1.6;margin:0}
+.shift-bars{display:flex;flex-direction:column;gap:4px}
+.sb-row{display:grid;grid-template-columns:120px 1fr 44px;gap:10px;align-items:center;border:0;background:none;font:inherit;color:inherit;text-align:left;padding:4px 6px;border-radius:9px;cursor:pointer;transition:background .15s}
+.sb-row:hover,.sb-row:focus-visible{background:var(--card-2);outline:none}
+.sb-l{font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.sb-t{height:10px;border-radius:999px;background:var(--card-3);overflow:hidden}
+.sb-t i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-soft),var(--gold))}
+.sb-row.oph .sb-t i{background:linear-gradient(90deg,#9ff0d4,#2E9C7A)}
+.sb-row.match .sb-t i{background:linear-gradient(90deg,var(--c-science),var(--c-space))}
+.sb-n{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
+.shift-oph{grid-column:1/-1;border-top:1px solid var(--hairline-2);padding-top:12px}
+.shift-oph .zw-k{color:#2E9C7A}
+.shift-oph .zw-face{color:var(--ink-2)}
+.shift-oph .zw-face:hover{background:var(--card-2)}
+/* ===== name that sign ===== */
+.zq-stage{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.zq-who{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:180px}
+.zq-who .pc-face{box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--gold-soft),0 12px 26px rgba(0,0,0,.22)}
+.zq-who .pc-face .pc-mono{font-size:36px}
+.zq-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.zq-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--hairline);background:linear-gradient(180deg,var(--card-2),var(--card));border-radius:16px;padding:12px 14px;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;
+  transition:transform .2s var(--spring),border-color .2s,box-shadow .2s;box-shadow:0 2px 0 var(--card),0 4px 0 -1px var(--hairline)}
+.zq-opt:not(:disabled):hover{transform:translateY(-3px);border-color:var(--gold-soft)}
+.zq-g{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:19px;color:#fff}
+.zq-opt.fire .zq-g{background:var(--el-fire)}.zq-opt.earth .zq-g{background:var(--el-earth)}.zq-opt.air .zq-g{background:var(--el-air)}.zq-opt.water .zq-g{background:var(--el-water)}
+.zq-opt.right{border-color:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 35%,transparent)}
+.zq-opt.wrong{border-color:var(--bad);animation:wfShake .4s}
+.zq-opt:disabled{cursor:default}
+.zq-hint{border:0;background:none;color:var(--gold-deep);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+/* ===== sign cards: faces ===== */
+.z-faces{display:flex;margin-top:10px}
+.z-faces .pc-face{box-shadow:0 0 0 2px var(--card);margin-right:-8px}
+.el-group .zgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* ===== sign page: every day ===== */
+.sd-strip{display:flex;align-items:stretch;gap:3px;height:150px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:12px 12px 8px;box-shadow:var(--shadow-sm);overflow-x:auto}
+.sd-day{flex:1;min-width:16px;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit;border-radius:6px}
+.sd-day:hover .sd-b i,.sd-day:focus-visible .sd-b i{filter:brightness(1.2)}
+.sd-day:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.sd-n{font-family:var(--mono);font-size:9.5px;color:var(--faint)}
+.sd-b{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.sd-b i{display:block;width:80%;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,var(--gold),var(--gold-soft))}
+.sd-strip.fire .sd-b i{background:linear-gradient(180deg,var(--el-fire),color-mix(in srgb,var(--el-fire) 45%,var(--card)))}
+.sd-strip.earth .sd-b i{background:linear-gradient(180deg,var(--el-earth),color-mix(in srgb,var(--el-earth) 45%,var(--card)))}
+.sd-strip.air .sd-b i{background:linear-gradient(180deg,var(--el-air),color-mix(in srgb,var(--el-air) 45%,var(--card)))}
+.sd-strip.water .sd-b i{background:linear-gradient(180deg,var(--el-water),color-mix(in srgb,var(--el-water) 45%,var(--card)))}
+.sd-d{font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap}
+@media(max-width:900px){
+  .zw-wrap{grid-template-columns:1fr;padding:16px 14px 18px;border-radius:var(--radius-lg)}
+  .shift{grid-template-columns:1fr;padding:18px 16px}
+  .el-group .zgrid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+}
+@media(max-width:620px){
+  .zq-stage{grid-template-columns:1fr;gap:14px}.zq-who{min-width:0}
+  .zq-opts{gap:8px}.zq-opt{padding:10px;font-size:14px}
+  .zw-row{grid-template-columns:1fr 1fr}.zw-row input{grid-column:1/-1}
+  .sb-row{grid-template-columns:104px 1fr 40px}
+  .shift-n b{font-size:36px}
+  .sd-strip{height:120px}.sd-day{min-width:14px}.sd-d{display:none}
+}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -8171,6 +8299,233 @@ function constellationDome(){
   requestAnimationFrame(()=>{resize();_domeRAF=requestAnimationFrame(frame);});
   return wrap;
 }
+/* ============================================================
+   THE SKY HAS SHIFTED — the 13 constellations the Sun really crosses.
+   Boundaries are where the IAU constellation borders meet the ecliptic
+   (J2000 ecliptic longitude, degrees); precession moves them about
+   1.4 degrees a century against the fixed signs.
+   ============================================================ */
+const IAU_ECLIPTIC=[["Pisces",351.6],["Aries",28.7],["Taurus",53.4],["Gemini",90.1],["Cancer",118.0],["Leo",138.0],["Virgo",173.9],
+  ["Libra",217.8],["Scorpius",241.0],["Ophiuchus",247.7],["Sagittarius",266.3],["Capricornus",299.7],["Aquarius",327.9]];
+const PRECESSION=1.3969713; // degrees per Julian century
+const CONST_GLYPH={Pisces:"♓",Aries:"♈",Taurus:"♉",Gemini:"♊",Cancer:"♋",Leo:"♌",Virgo:"♍",Libra:"♎",Scorpius:"♏",Ophiuchus:"⛎\uFE0E",Sagittarius:"♐",Capricornus:"♑",Aquarius:"♒"};
+const CONST_SIGN={Capricornus:"Capricorn",Scorpius:"Scorpio"};
+/* how far the stars have slid against the signs (the Lahiri ayanamsa: 23.85 degrees in 2000) */
+function ayanamsa(year){return 23.85+PRECESSION*(year-2000)/100;}
+function precessionAt(jd){return PRECESSION*(jd-2451545)/36525;}
+/* which constellation's stars the Sun stood in front of, for a Julian Day */
+function sunConstellation(jd){
+  const l=((SKY.sunLon(jd)-precessionAt(jd))%360+360)%360;
+  for(let i=0;i<IAU_ECLIPTIC.length;i++){const a=IAU_ECLIPTIC[i][1],b=IAU_ECLIPTIC[(i+1)%IAU_ECLIPTIC.length][1];
+    if(a<b?(l>=a&&l<b):(l>=a||l<b))return IAU_ECLIPTIC[i][0];}
+  return null;}
+function trueSkyOf(p){if(!skyEligible(p))return null;if(p._sky===undefined)p._sky=sunConstellation(SKY.jdn(p.birthYear,p.month,p.day,p.cal));return p._sky;}
+function signMatchesSky(sign,con){return (CONST_SIGN[con]||con)===sign;}
+let _shift=null;
+function skyShiftStats(){
+  if(_shift)return _shift;
+  const pool=HISTORICAL.filter(p=>!p.isPersonal&&skyEligible(p)&&p.zsign);const by={};let diff=0;
+  pool.forEach(p=>{const c=trueSkyOf(p);(by[c]=by[c]||[]).push(p);if(!signMatchesSky(p.zsign,c))diff++;});
+  Object.values(by).forEach(a=>a.sort((x,y)=>rankScore(y)-rankScore(x)));
+  return (_shift={pool,by,diff});}
+/* degrees on the wheel: Aries 0 at the left, running counter-clockwise like a birth chart */
+function wheelXY(c,r,lon){const a=lon*Math.PI/180;return [c-r*Math.cos(a),c+r*Math.sin(a)];}
+function arcPath(c,r0,r1,l0,l1){const big=((l1-l0+360)%360)>180?1:0;const [x0,y0]=wheelXY(c,r1,l0),[x1,y1]=wheelXY(c,r1,l1),[x2,y2]=wheelXY(c,r0,l1),[x3,y3]=wheelXY(c,r0,l0);
+  return "M"+x0.toFixed(2)+" "+y0.toFixed(2)+" A"+r1+" "+r1+" 0 "+big+" 0 "+x1.toFixed(2)+" "+y1.toFixed(2)+" L"+x2.toFixed(2)+" "+y2.toFixed(2)+" A"+r0+" "+r0+" 0 "+big+" 1 "+x3.toFixed(2)+" "+y3.toFixed(2)+" Z";}
+
+/* ---------- the live wheel + birthday checker ---------- */
+function zodiacWheelSection(){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("The zodiac wheel, live","The Sun and Moon right now, against the twelve signs and the thirteen constellations behind them"));
+  const wrap=el("div",{class:"zw-wrap"});sec.appendChild(wrap);
+  const S=500,C=S/2,NS="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(NS,"svg");svg.setAttribute("viewBox","0 0 "+S+" "+S);svg.setAttribute("class","zw-svg");svg.setAttribute("role","img");
+  svg.setAttribute("aria-label","Zodiac wheel showing the twelve signs, the thirteen constellations of the ecliptic, and the Sun and Moon today");
+  const box=el("div",{class:"zw-box"});box.appendChild(svg);
+  const center=el("div",{class:"zw-center"});box.appendChild(center);
+  const left=el("div",{class:"zw-left"});left.appendChild(box);
+  /* the drift slider rotates the constellations against the signs */
+  const drift=el("div",{class:"zw-drift"});
+  const dIn=el("input",{type:"range",min:"-3000",max:"3000",step:"10",value:String(CUR_YEAR),"aria-label":"Year for the positions of the constellations"});
+  const dOut=el("div",{class:"zw-dout"});drift.append(el("div",{class:"zw-dk",text:"Slide through the centuries and watch the stars drift past the signs"}),dIn,dOut);
+  left.appendChild(drift);wrap.appendChild(left);
+  const side=el("div",{class:"zw-side"});wrap.appendChild(side);
+  const G=s=>{const g=document.createElementNS(NS,"g");if(s)g.setAttribute("class",s);svg.appendChild(g);return g;};
+  const mk=(tag,attrs,parent,text)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;parent.appendChild(e);return e;};
+  const gSigns=G("zw-signs"),gCon=G("zw-cons"),gMark=G("zw-marks");
+  mk("circle",{cx:C,cy:C,r:146,class:"zw-core"},gSigns);
+  /* twelve signs, 30 degrees each */
+  ZODIAC_ORDER.forEach((s,i)=>{const l0=i*30,l1=l0+30,el_=ZMETA[s].element;
+    const path=mk("path",{d:arcPath(C,150,196,l0,l1),class:"zw-seg "+el_.toLowerCase(),"data-sign":s,tabindex:"0",role:"button","aria-label":s+", "+ZMETA[s].range},gSigns);
+    const [gx,gy]=wheelXY(C,180,l0+15);mk("text",{x:gx,y:gy,class:"zw-gly"},gSigns,signSym(s));
+    const [nx,ny]=wheelXY(C,160,l0+15);mk("text",{x:nx,y:ny,class:"zw-sn"},gSigns,s.slice(0,3).toUpperCase());
+    path.addEventListener("mouseenter",()=>focusSign(s));path.addEventListener("focus",()=>focusSign(s));
+    path.addEventListener("mouseleave",()=>paintCenter());path.addEventListener("blur",()=>paintCenter());
+    path.addEventListener("click",()=>{state.zSign=s;window.scrollTo({top:0});render();});
+    path.addEventListener("keydown",e=>kbd(e,()=>{state.zSign=s;window.scrollTo({top:0});render();}));});
+  let year=CUR_YEAR,mark=null;const now=new Date(),nowSky=SKY.at(now),jdNow=SKY.jdOfDate(now);
+  function drawCons(){
+    gCon.innerHTML="";const off=PRECESSION*(year-2000)/100;
+    IAU_ECLIPTIC.forEach(([n,l],i)=>{const nx=IAU_ECLIPTIC[(i+1)%IAU_ECLIPTIC.length][1];const l0=l+off,l1=nx+off+(nx<l?360:0);
+      const p=mk("path",{d:arcPath(C,202,232,l0,l1),class:"zw-con"+(n==="Ophiuchus"?" oph":"")+(i%2?" alt":"")},gCon);
+      p.addEventListener("mouseenter",()=>focusCon(n,l0,l1));p.addEventListener("mouseleave",()=>paintCenter());
+      const mid=(l0+l1)/2,[tx,ty]=wheelXY(C,217,mid);mk("text",{x:tx,y:ty,class:"zw-cg"},gCon,CONST_GLYPH[n]);});
+    const sh=ayanamsa(year);
+    dOut.innerHTML="";dOut.append(el("b",{text:fmtYearNum(year===0?1:year)}),document.createTextNode(Math.abs(sh)<1.5?" · the signs and the stars line up":" · the stars have drifted "+Math.abs(sh).toFixed(0)+"° "+(sh>0?"past":"short of")+" the signs, about "+Math.round(Math.abs(sh)/0.9856)+" days"));}
+  function drawMarks(){
+    gMark.innerHTML="";
+    const sun=SKY.sunLon(jdNow),moon=SKY.moonLon(jdNow);
+    [[sun,"☉","zw-sun","The Sun today"],[moon,"☽","zw-moon","The Moon today"]].forEach(([l,g,c,t])=>{const [x,y]=wheelXY(C,120,l);const [x2,y2]=wheelXY(C,236,l);
+      mk("line",{x1:C,y1:C,x2:x2,y2:y2,class:c+"-ray"},gMark);const gg=mk("g",{class:c},gMark);mk("circle",{cx:x,cy:y,r:15},gg);mk("text",{x:x,y:y},gg,g);mk("title",{},gg,t);});
+    if(mark){const [x,y]=wheelXY(C,120,mark.lon);const [x2,y2]=wheelXY(C,236,mark.lon);
+      mk("line",{x1:C,y1:C,x2:x2,y2:y2,class:"zw-you-ray"},gMark);const gg=mk("g",{class:"zw-you"},gMark);mk("circle",{cx:x,cy:y,r:13},gg);mk("text",{x:x,y:y},gg,"★");mk("title",{},gg,"Your birthday");}}
+  function paintCenter(){center.innerHTML="";
+    if(mark){center.append(el("em",{text:"Your birthday"}),el("b",{text:mark.sign}),el("span",{text:"Sun in the stars of "+mark.con}));return;}
+    center.append(el("em",{text:"Today"}),el("b",{text:nowSky.sun.sign}),el("span",{text:"☉ "+nowSky.sun.d+"° · ☽ "+nowSky.moonSign}));}
+  function focusSign(s){center.innerHTML="";const n=signPeople(s).length;center.append(el("em",{text:ZMETA[s].range}),el("b",{text:signSym(s)+" "+s}),el("span",{text:n.toLocaleString()+" people · tap to explore"}));}
+  function focusCon(n,l0,l1){center.innerHTML="";const span=((l1-l0)+360)%360;center.append(el("em",{text:"Constellation"}),el("b",{text:CONST_GLYPH[n]+" "+n}),el("span",{text:Math.round(span/0.9856)+" days of the Sun's year"+(n==="Ophiuchus"?" · the 13th sign":"")}));}
+  dIn.addEventListener("input",()=>{year=Math.round(+dIn.value);drawCons();});
+  /* ---- side panel: today, then any birthday ---- */
+  const today=el("div",{class:"zw-today"});
+  const conNow=sunConstellation(jdNow);
+  today.appendChild(el("div",{class:"zw-k",text:"Right now"}));
+  today.appendChild(el("p",{class:"zw-line",html:"The Sun is at <b>"+nowSky.sun.d+"°"+String(nowSky.sun.m).padStart(2,"0")+"′ "+esc(nowSky.sun.sign)+"</b>, but it stands in front of the stars of <b>"+esc(conNow)+"</b>. The Moon is in <b>"+esc(nowSky.moonSign)+"</b>, "+esc(nowSky.moon.name.toLowerCase())+" and "+Math.round(nowSky.moon.illum*100)+"% lit."}));
+  side.appendChild(today);
+  const form=el("div",{class:"zw-form"});
+  form.appendChild(el("div",{class:"zw-k",text:"Check any birthday"}));
+  const row=el("div",{class:"zw-row"});
+  const selM=el("select",{"aria-label":"Month"});MONTHS.forEach((m,i)=>selM.appendChild(el("option",{value:String(i+1),text:m})));
+  const selD=el("select",{"aria-label":"Day"});for(let d=1;d<=31;d++)selD.appendChild(el("option",{value:String(d),text:String(d)}));
+  const inY=el("input",{type:"number",min:"1000",max:"2100",placeholder:"Year (optional)","aria-label":"Year, optional"});
+  row.append(selM,selD,inY);form.appendChild(row);
+  const bd=STORE.get("bday",null);
+  if(bd&&bd.m)form.appendChild(el("button",{class:"zw-mine",text:"\u{1F382} Use my saved birthday",onClick:()=>{selM.value=String(bd.m);selD.value=String(bd.d);inY.value=bd.y||"";check();}}));
+  const out=el("div",{class:"zw-out","aria-live":"polite"});form.appendChild(out);
+  side.appendChild(form);
+  function check(){
+    const m=+selM.value,d=Math.min(+selD.value,DIM[m-1]),yv=parseInt(inY.value,10),y=(yv>=1000&&yv<=2100)?yv:null;selD.value=String(d);
+    const yy=y||CUR_YEAR,jd=SKY.jdn(yy,m,d),lon=SKY.sunLon(jd),z=zodiac(m,d);
+    if(y){year=y;dIn.value=String(y);drawCons();}
+    const con=sunConstellation(jd);mark={lon,sign:z?z.sign:SKY.signOf(lon),con};drawMarks();paintCenter();
+    out.innerHTML="";
+    const card=el("div",{class:"zw-res"});
+    card.appendChild(el("div",{class:"zw-rs"},[el("span",{class:"zw-rg",text:z?z.sym:""}),el("div",{},[el("b",{text:(z?z.sign:"")+" by the calendar"}),el("span",{text:z?ZMETA[z.sign].range+" · "+ZMETA[z.sign].element:""})])]));
+    const same=z&&signMatchesSky(z.sign,con);
+    card.appendChild(el("div",{class:"zw-rs sky"+(same?" same":"")},[el("span",{class:"zw-rg",text:CONST_GLYPH[con]}),el("div",{},[el("b",{text:con+" in the sky"}),
+      el("span",{text:same?"The Sun really was in your sign's constellation.":con==="Ophiuchus"?"Born under Ophiuchus, the serpent-bearer: the 13th constellation astrology skips.":"The stars have drifted about 24° since the zodiac was fixed, so the Sun sat one constellation over."})])]));
+    if(y){const s=SKY.day(y,m,d);card.appendChild(el("p",{class:"zw-note",text:"On "+MONTHS[m-1]+" "+d+", "+y+" (a "+s.weekday+"), the Moon was "+(s.moonSign?"in "+s.moonSign:"moving from "+s.moonIngress.from+" into "+s.moonIngress.to)+", "+s.moon.name.toLowerCase()+"."}));}
+    else card.appendChild(el("p",{class:"zw-note",text:"Add a year to see the Moon that day and the exact drift for that century."}));
+    const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
+    if(twins.length){const tw=el("div",{class:"zw-twins"});tw.appendChild(el("div",{class:"zw-k",text:twins.length+(twins.length===1?" birthday twin":" birthday twins")}));
+      const fr=el("div",{class:"zw-faces"});twins.slice(0,8).forEach(p=>fr.appendChild(el("button",{class:"zw-face",title:p.name,"aria-label":p.name,onClick:()=>openPerson(p)},[personFace(p,40),el("span",{text:p.name.split(" ").slice(-1)[0]})])));
+      tw.appendChild(fr);if(twins.length>8)tw.appendChild(el("button",{class:"zw-all",text:"See all "+twins.length+" →",onClick:()=>openDay(m,d,twins)}));card.appendChild(tw);}
+    if(z)card.appendChild(el("button",{class:"btn btn-gold zw-go",text:"Explore "+signPlural(z.sign)+" →",onClick:()=>{state.zSign=z.sign;window.scrollTo({top:0});render();}}));
+    out.appendChild(card);}
+  [selM,selD].forEach(s=>s.addEventListener("change",check));inY.addEventListener("change",check);
+  if(bd&&bd.m){selM.value=String(bd.m);selD.value=String(bd.d);if(bd.y)inY.value=String(bd.y);}else{selM.value=String(TODAY_M);selD.value=String(TODAY_D);}
+  drawCons();drawMarks();paintCenter();
+  if(bd&&bd.m)check();else out.appendChild(el("p",{class:"zw-note",text:"Pick a birthday to see its sign next to the constellation the Sun was really in."}));
+  return sec;
+}
+
+/* ---------- how many signs no longer match the sky ---------- */
+function skyShiftSection(){
+  const st=skyShiftStats();if(!st.pool.length)return null;
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("The sky has shifted","Computed for every exact birth date in the almanac from the year 1000 on"));
+  const card=el("div",{class:"shift"});sec.appendChild(card);
+  const pc=Math.round(st.diff/st.pool.length*100),oph=st.by.Ophiuchus||[];
+  const nums=el("div",{class:"shift-nums"});
+  nums.appendChild(el("div",{class:"shift-n"},[el("b",{text:pc+"%"}),el("span",{text:"of "+st.pool.length.toLocaleString()+" people were born with the Sun in a different constellation than their sign"})]));
+  nums.appendChild(el("div",{class:"shift-n oph"},[el("b",{text:String(oph.length)}),el("span",{text:"were born under Ophiuchus, the constellation astrology leaves out"})]));
+  nums.appendChild(el("p",{class:"shift-why",text:"Astrology's signs are fixed to the seasons: Aries always starts at the March equinox. The stars behind them slowly slide, about one degree every 72 years, because Earth's axis wobbles. When the zodiac was set down some two thousand years ago, sign and constellation roughly matched. Today they sit almost a whole sign apart, and the Sun also spends about 18 days a year in Ophiuchus."}));
+  card.appendChild(nums);
+  /* who the sky claims, constellation by constellation */
+  const bars=el("div",{class:"shift-bars"});const mx=Math.max(...Object.values(st.by).map(a=>a.length));
+  IAU_ECLIPTIC.map(x=>x[0]).forEach(n=>{const a=st.by[n]||[];const b=el("button",{class:"sb-row"+(n==="Ophiuchus"?" oph":""),onClick:()=>{if(a.length)openPeopleList(CONST_GLYPH[n]+" Born under "+n,a.length+" with the Sun in "+n,a);}});
+    const f=el("i");f.style.width=(a.length/mx*100)+"%";
+    b.append(el("span",{class:"sb-l",text:CONST_GLYPH[n]+" "+n}),el("span",{class:"sb-t"},[f]),el("span",{class:"sb-n",text:String(a.length)}));bars.appendChild(b);});
+  card.appendChild(bars);
+  if(oph.length){const of=el("div",{class:"shift-oph"});of.appendChild(el("div",{class:"zw-k",text:"Famous Ophiuchans"}));
+    const fr=el("div",{class:"zw-faces"});oph.slice(0,10).forEach(p=>fr.appendChild(el("button",{class:"zw-face",title:p.name+", "+p.zsign+" by the calendar","aria-label":p.name,onClick:()=>openPerson(p)},[personFace(p,44),el("span",{text:p.name.split(" ").slice(-1)[0]})])));
+    of.appendChild(fr);card.appendChild(of);}
+  return sec;
+}
+
+/* ---------- Name that sign ---------- */
+function nameThatSignSection(){
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Name that sign","A famous face and four signs. Know their birthday? Build a streak"));
+  const card=el("div",{class:"wf zq"});sec.appendChild(card);
+  const pool=featuredOf(HISTORICAL.filter(p=>!p.isPersonal&&p.dateStatus==="exact"&&p.month&&p.day&&p.zsign),700);
+  let streak=0,best=STORE.get("zq_best",0),played=STORE.get("zq_n",0),right=STORE.get("zq_c",0),cur=null,done=false;const recent=[];
+  const head=el("div",{class:"wf-head"}),stats=el("div",{class:"wf-stats"});head.append(el("div",{class:"wf-lvl",html:"<b>Zodiac quiz</b> · signs by birthday"}),stats);card.appendChild(head);
+  const stage=el("div",{class:"zq-stage"});card.appendChild(stage);
+  const foot=el("div",{class:"wf-foot","aria-live":"polite"});card.appendChild(foot);
+  function paintStats(){stats.innerHTML="";[["Streak",streak],["Best",best],["Accuracy",played?Math.round(right/played*100)+"%":"—"]].forEach(([k,v])=>stats.appendChild(el("span",{class:"wf-st"},[el("b",{text:String(v)}),el("em",{text:k})])));}
+  function round(){
+    done=false;stage.innerHTML="";foot.innerHTML="";paintStats();
+    let p;for(let t=0;t<50;t++){p=pool[Math.floor(Math.random()*pool.length)];if(!recent.includes(p.id))break;}
+    recent.push(p.id);while(recent.length>60)recent.shift();cur=p;
+    const i=ZODIAC_ORDER.indexOf(p.zsign);
+    const opts=new Set([p.zsign,ZODIAC_ORDER[(i+1)%12],ZODIAC_ORDER[(i+11)%12]]);
+    while(opts.size<4)opts.add(ZODIAC_ORDER[Math.floor(Math.random()*12)]);
+    const arr=[...opts].sort(()=>Math.random()-0.5);
+    const who=el("div",{class:"zq-who"});who.append(personFace(p,96),el("b",{class:"wf-name",text:p.name}),el("span",{class:"wf-meta",text:CATS[p.category].label+(fmtYear(p)?" · born "+fmtYear(p):"")}));
+    stage.appendChild(who);
+    const og=el("div",{class:"zq-opts"});
+    arr.forEach(s=>og.appendChild(el("button",{class:"zq-opt "+ZMETA[s].element.toLowerCase(),"data-s":s,onClick:()=>answer(s)},[el("span",{class:"zq-g",text:signSym(s)}),el("span",{text:s})])));
+    stage.appendChild(og);
+    foot.appendChild(el("button",{class:"zq-hint",text:"Need a hint?",onClick:function(){this.replaceWith(el("p",{class:"wf-q",text:"Born in "+MONTHS[p.month-1]+"."}));}}));}
+  function answer(s){if(done)return;done=true;const ok=s===cur.zsign;played++;if(ok){right++;streak++;if(streak>best)best=streak;}else streak=0;
+    STORE.set("zq_best",best);STORE.set("zq_n",played);STORE.set("zq_c",right);
+    stage.querySelectorAll(".zq-opt").forEach(b=>{b.disabled=true;if(b.dataset.s===cur.zsign)b.classList.add("right");else if(b.dataset.s===s)b.classList.add("wrong");});
+    const con=trueSkyOf(cur);
+    foot.innerHTML="";foot.appendChild(el("p",{class:"wf-res "+(ok?"ok":"no"),html:(ok?"<b>Correct!</b> ":"<b>Not quite.</b> ")+esc(cur.name)+" was born on "+MONTHS[cur.month-1]+" "+cur.day+(fmtYear(cur)?", "+fmtYear(cur):"")+": a "+esc(cur.zsign)+
+      (con&&!signMatchesSky(cur.zsign,con)?", though the Sun was really in "+esc(con):"")+"."}));
+    const r=el("div",{class:"wf-btns"});r.appendChild(el("button",{class:"btn btn-gold",text:"Next face →",onClick:round}));
+    r.appendChild(el("button",{class:"btn btn-line",text:"Meet "+cur.name.split(" ")[0],onClick:()=>openPerson(cur)}));foot.appendChild(r);paintStats();r.firstChild.focus({preventScroll:true});}
+  round();return sec;
+}
+
+/* ---------- sign page extras ---------- */
+function signDaysStrip(sign){
+  const z=ZODIAC.find(x=>x.sign===sign);const days=[];let m=z.from[0],d=z.from[1];
+  for(let k=0;k<40;k++){days.push([m,d]);if(m===z.to[0]&&d===z.to[1])break;d++;if(d>DIM[m-1]){d=1;m=m%12+1;}}
+  const counts=days.map(([m,d])=>HISTORICAL.filter(p=>p.month===m&&p.day===d));const mx=Math.max(1,...counts.map(a=>a.length));
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Every day of "+sign,"How many people in the almanac were born on each day of the sign. Tap a day to meet them"));
+  const strip=el("div",{class:"sd-strip "+ZMETA[sign].element.toLowerCase()});
+  days.forEach(([m,d],i)=>{const a=counts[i].sort((x,y)=>rankScore(y)-rankScore(x));
+    const b=el("button",{class:"sd-day",title:MONTHS[m-1]+" "+d+": "+a.length+(a[0]?" · "+a.slice(0,3).map(p=>p.name).join(", "):""),"aria-label":MONTHS[m-1]+" "+d+", "+a.length+" birthdays",onClick:()=>{if(a.length)openDay(m,d,a);}});
+    const bar=el("i");bar.style.height=(6+a.length/mx*84)+"%";b.append(el("span",{class:"sd-n",text:String(a.length)}),el("span",{class:"sd-b"},[bar]),el("span",{class:"sd-d",text:(d===1||i===0?MS[m-1]+" ":"")+d}));strip.appendChild(b);});
+  sec.appendChild(strip);return sec;
+}
+function signSkySection(sign){
+  const ppl=signPeople(sign).filter(p=>skyEligible(p));if(ppl.length<5)return null;
+  const by={};ppl.forEach(p=>{const c=trueSkyOf(p);(by[c]=by[c]||[]).push(p);});
+  const ent=Object.entries(by).sort((a,b)=>b[1].length-a[1].length);
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Where the Sun really was","For "+ppl.length.toLocaleString()+" "+signPlural(sign)+" with an exact birth date, the constellation behind the Sun that day"));
+  const card=el("div",{class:"shift small"});
+  const bars=el("div",{class:"shift-bars"});
+  ent.forEach(([n,a])=>{const b=el("button",{class:"sb-row"+(n==="Ophiuchus"?" oph":"")+(signMatchesSky(sign,n)?" match":""),onClick:()=>openPeopleList(signPlural(sign)+" under "+n,a.length+" people",a)});
+    const f=el("i");f.style.width=(a.length/ppl.length*100)+"%";
+    b.append(el("span",{class:"sb-l",text:CONST_GLYPH[n]+" "+n}),el("span",{class:"sb-t"},[f]),el("span",{class:"sb-n",text:(a.length/ppl.length*100<1?"<1":Math.round(a.length/ppl.length*100))+"%"}));bars.appendChild(b);});
+  card.appendChild(bars);
+  const match=(ent.find(([n])=>signMatchesSky(sign,n))||[null,[]])[1].length;
+  const pctTxt=n=>{const v=n/ppl.length*100;return v>0&&v<1?"under 1%":Math.round(v)+"%";};
+  card.appendChild(el("p",{class:"shift-why",text:match===0?"None of them had the Sun in "+sign+"'s own constellation: the sky has drifted since the signs were set.":
+    (match/ppl.length>0.5?pctTxt(match)+" had the Sun in "+sign+"'s own constellation.":"Only "+match.toLocaleString()+" of "+ppl.length.toLocaleString()+" ("+pctTxt(match)+") had the Sun in "+sign+"'s own constellation; the rest were one constellation over, because the sky has drifted since the signs were set.")}));
+  sec.appendChild(card);return sec;
+}
+function signFacesSection(sign){
+  const ppl=featuredOf(signPeople(sign),48);if(ppl.length<8)return null;
+  const sec=el("section",{class:"section"});
+  sec.appendChild(secHead("Faces of "+sign,"The most influential "+signPlural(sign)+" in the almanac","All "+signPeople(sign).length+" →",()=>goWithFilter(f=>f.zodiac=sign,"people")));
+  const w=el("div",{class:"ppl-wall"});ppl.forEach(p=>w.appendChild(wallTile(p)));sec.appendChild(w);return sec;
+}
+
 function renderZodiac(view){
   view.innerHTML="";
   if(state.zSign){return renderZodiacSign(view,state.zSign);}
@@ -8180,6 +8535,8 @@ function renderZodiac(view){
   head.appendChild(el("h1",{text:"Zodiac Explorer"}));
   head.appendChild(el("div",{class:"lede",text:"Every influential life in the almanac, arranged by sun sign and element. Find who shares your sign, which signs rule each field, and how the cosmos divides history."}));
   view.appendChild(head);
+  /* ---- the live wheel: today's Sun and Moon, and any birthday ---- */
+  view.appendChild(zodiacWheelSection());
   /* ---- the sky: 3D constellation dome ---- */
   const skySec=el("section",{class:"section",style:"margin-top:2px"});
   skySec.appendChild(secHead("The zodiac in the sky","The twelve constellations along the ecliptic — drag the heavens to turn them"));
@@ -8197,6 +8554,10 @@ function renderZodiac(view){
     grp.signs.forEach(s=>grid.appendChild(zodiacCard(s)));
     wrap.appendChild(grid);view.appendChild(wrap);
   });
+  /* ---- the sky has shifted ---- */
+  const sh=skyShiftSection();if(sh)view.appendChild(sh);
+  /* ---- name that sign ---- */
+  view.appendChild(nameThatSignSection());
   /* cosmic patterns */
   const sec=el("section",{class:"section",style:"margin-top:10px"});
   sec.appendChild(secHead("Cosmic patterns","Fun questions the stars can answer"));
@@ -8220,7 +8581,8 @@ function zodiacCard(sign){
   meta.appendChild(el("span",{class:"z-el",text:m.element}));
   meta.appendChild(el("span",{text:m.modality}));
   card.appendChild(meta);
-  const feat=featuredOf(ppl,3).map(p=>p.name);
+  const featP=featuredOf(ppl,3),feat=featP.map(p=>p.name);
+  if(featP.length){const fs=el("div",{class:"z-faces","aria-hidden":"true"});featP.forEach(p=>fs.appendChild(personFace(p,32)));card.appendChild(fs);}
   if(feat.length)card.appendChild(el("div",{class:"z-people",html:feat.map(n=>esc(n)).join(" · ")}));
   card.appendChild(el("div",{class:"z-stat"},[el("b",{text:String(ppl.length)}),document.createTextNode(" people"+(tc?" · top: "+CATS[tc].label:""))]));
   card.appendChild(el("div",{class:"z-go",text:"Explore "+signPlural(sign)+" →"}));
@@ -8265,10 +8627,14 @@ function renderZodiacSign(view,sign){
     el("div",{},[el("div",{class:"za-k",text:"Dates"}),el("div",{class:"za-v",text:m.range})])
   ]));
   view.appendChild(about);
+  /* every day of the sign, and where the Sun really was */
+  view.appendChild(signDaysStrip(sign));
+  const ss=signSkySection(sign);if(ss)view.appendChild(ss);
   /* most famous */
   const fam=featuredOf(ppl,12);
   if(fam.length){const sec=el("section",{class:"section"});sec.appendChild(secHead("Most famous "+signPlural(sign),null));sec.appendChild(scroller(fam));view.appendChild(sec);}
   /* category breakdown */
+  const sf=signFacesSection(sign);if(sf)view.appendChild(sf);
   const cb=el("div",{class:"chart-grid"});
   const catC=chartFromCounts("Fields under "+sign,countBy(ppl,"category"),k=>CATS[k]?CATS[k].label:k,k=>catColor(k),(k)=>{goWithFilter(f=>{f.zodiac=sign;f.cats.add(k);},"people");});
   cb.appendChild(catC);
@@ -9552,6 +9918,9 @@ function runTests(){
   a("Time machine: slider maps years both ways",[-2000,-44,800,1492,1905,CUR_YEAR].every(y=>tlYearAt(tlPos(y))===y));
   a("Time machine: Einstein was alive in 1905",aliveIn(HISTORICAL,1905).some(p=>p.id==="albert-einstein"));
   a("Stats: chi-square 5% critical value, 11 degrees of freedom",Math.abs(chiSqP(19.675,11)-0.05)<0.0005);
+  a("Sky: 5 Dec 2000 the Sun was in Ophiuchus",sunConstellation(SKY.jdn(2000,12,5))==="Ophiuchus");
+  a("Sky: 1 Apr, AD 1 the Sun was still in Aries",sunConstellation(SKY.jdn(1,4,1,"J"))==="Aries");
+  a("Sky: signs and constellations aligned around AD 290",Math.abs(ayanamsa(290))<1.5&&Math.abs(ayanamsa(2026)-24.2)<0.2);
   return t;
 }
 function renderDev(){
