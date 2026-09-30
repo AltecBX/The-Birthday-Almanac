@@ -973,7 +973,7 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
 .fc-go{flex:none;font-weight:700;color:var(--gold-soft)}
 
 /* ===== MODAL TOOLS + COLLECTION BADGES ===== */
-.mtools{display:flex;gap:8px;margin-top:14px}
+.mtools{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .mtool{border:1px solid rgba(230,206,142,.34);background:rgba(255,253,248,.08);color:#F3ECDD;font-weight:600;font-size:12.5px;
   padding:7px 13px;border-radius:999px;transition:.14s}
 .mtool:hover{background:rgba(255,253,248,.16)}
@@ -2699,6 +2699,29 @@ html[data-theme="dark"] .wx-chip.on{background:var(--card-3);color:var(--ink);bo
 .wx-teaser .ch2-k{color:var(--gold-deep);flex-basis:100%}.wx-teaser span{font-size:13.5px;color:var(--ink-2)}.wx-teaser span b{color:var(--ink)}.wx-teaser em{font-style:normal;margin-left:auto;font-weight:700;color:var(--gold-deep);font-size:13.5px}
 @media(max-width:640px){.wx-ev{grid-template-columns:40px minmax(0,1fr) auto;grid-template-areas:"d b a" "d i a";row-gap:2px}.wx-ev .wx-ic{display:none}.wx-date{grid-area:d}.wx-body{grid-area:b}.wx-in{grid-area:i}.wx-add{grid-area:a}
   .wx-tl{--lab:78px}.wx-pn{font-size:12px}.wx-months span:nth-child(even){display:none}}
+/* ===== BIRTHDAY REMINDERS ===== */
+.rmd{position:relative;padding:24px 24px 20px}
+.rmd .eyebrow{margin:0 0 4px}.rmd h2{font-size:28px;padding-right:40px}
+.rmd .mclose{background:var(--card-2);color:var(--ink)}
+.rmd-sub{margin:6px 0 16px;font-size:14px;color:var(--muted);line-height:1.55}
+.rmd-opts{display:flex;flex-direction:column;gap:8px}
+.rmd-opt{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--hairline);border-radius:14px;padding:12px 14px;cursor:pointer;background:var(--card)}
+.rmd-opt:has(input:checked){border-color:var(--gold);background:var(--gold-wash)}
+.rmd-opt.off{opacity:.55;cursor:default}
+.rmd-opt input{width:18px;height:18px;accent-color:var(--gold-deep)}
+.rmd-opt b{display:block;font-size:14.5px;color:var(--ink)}.rmd-opt span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rmd-opt em{font-style:normal;font-family:var(--mono);font-size:13px;color:var(--gold-deep)}
+.rmd-al{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px}.rmd-al>span{font-size:13px;color:var(--muted);margin-right:4px}
+.rmd-ch{border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);border-radius:999px;font:inherit;font-size:13px;font-weight:600;padding:7px 13px;cursor:pointer;min-height:38px}
+.rmd-ch.on{background:var(--navy);color:#FBF7EE;border-color:var(--navy)}
+html[data-theme="dark"] .rmd-ch.on{background:var(--card-3);color:var(--ink);border-color:var(--gold-soft)}
+.rmd-prev{margin-top:16px;display:flex;flex-direction:column;gap:4px}.rmd-prev .ch2-k{color:var(--gold-deep);margin-bottom:4px}
+.rmd-row{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:13.5px;padding:6px 0;border-bottom:1px dashed var(--hairline)}
+.rmd-d{font-family:var(--mono);font-size:12px;color:var(--gold-deep)}.rmd-row b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}.rmd-in{font-size:12px;color:var(--muted)}
+.rmd-go{margin-top:16px;width:100%;justify-content:center;min-height:48px}.rmd-go:disabled{opacity:.5;cursor:not-allowed}
+.rmd-note{margin:10px 0 0;font-size:12px;color:var(--faint);line-height:1.5}
+.mtool.gcal{text-decoration:none}
+.cm-acts{display:flex;flex-wrap:wrap;gap:8px}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -6910,7 +6933,7 @@ function renderDiscover(view){
     sec.appendChild(scroller(recent.slice(0,14)));view.appendChild(sec);}
   const favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(Boolean);
   if(favs.length){const sec=el("section",{class:"section"});
-    sec.appendChild(secHead("Your saved people","Tap the star on any profile to save"));
+    sec.appendChild(secHead("Your saved people","Tap the star on any profile to save","\u{1F514} Birthday reminders",openReminders));
     sec.appendChild(scroller(favs.slice(0,14)));view.appendChild(sec);}
 
   /* ---- BIRTHDAY TRIVIA ---- */
@@ -7363,6 +7386,7 @@ function renderPortal(view){
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>{if(y&&!STORE.get("chart",null))STORE.set("chart",{y,m,d,time:null,city:null});setView("chart");}},[document.createTextNode("☉︎  My birth chart")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>{state.zSign=z.sign;setView("zodiac");}},[document.createTextNode("Follow the "+z.sign+" constellation →")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>sharePortal(z,m,d,y,twins)},[document.createTextNode("\u{1F4E4}  Share my portal")]));
+  acts.appendChild(el("button",{class:"btn btn-line",onClick:openReminders},[document.createTextNode("\u{1F514}  Birthday reminders")]));
   acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>saveStarCard({glyph:z.sym,title:"I'm a "+z.sign,sub:MONTHS[m-1]+" "+d+(y?", "+y:"")+(twins.length?"  ·  birthday twin of "+twins[0].name:"")})},[document.createTextNode("\u{1F5BC}\u{FE0F}  Save my star card")]));
   acts.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>{setView("discover");setTimeout(scrollToFindSign,80);}},[document.createTextNode("Edit my birthday")]));
   view.appendChild(acts);
@@ -8026,6 +8050,55 @@ function weatherTeaser(){try{const now=SKY.jdOfDate(new Date());
   return el("button",{class:"wx-teaser",onClick:()=>setView("weather")},[el("div",{class:"ch2-k",text:"Cosmic weather today"}),
     el("span",{html:"Mercury <b>"+(mr?"retrograde":"direct")+"</b>"}),el("span",{html:"Moon <b>"+esc(mo.name.toLowerCase())+"</b> in "+SKY.signOf(SKY.moonLon(now))}),
     nx?el("span",{html:"Next: <b>"+esc(nx.title)+"</b> "+inDays(nx.jd)}):null,el("em",{text:"Forecast →"})]);}catch(e){return null;}}
+/* ============================================================
+   BIRTHDAY REMINDERS — recurring calendar events for the people you
+   care about, as a standard .ics file (Apple, Google, Outlook) or a
+   Google Calendar link for one person.
+   ============================================================ */
+/* next birthday date; February 29 falls back to February 28 in common years */
+function nextOccurrence(m,d){const t=new Date(),today=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+  for(let y=t.getFullYear();y<t.getFullYear()+3;y++){const dd=(m===2&&d===29)?new Date(y,2,0).getDate():d,dt=new Date(y,m-1,dd);if(dt>=today)return dt;}return today;}
+const bdayRule=(m,d)=>m===2&&d===29?"FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=-1":"FREQ=YEARLY";
+const REMIND_ALARM={morning:"PT9H",before:"-PT15H",none:null};
+function birthdayEvent(p,alarm){const dt=nextOccurrence(p.month,p.day),url=location.origin+location.pathname+"#/person/"+p.id,yr=fmtYear(p);
+  return {allDay:true,date:dt,rrule:bdayRule(p.month,p.day),uid:"bday-"+p.id,alarm:REMIND_ALARM[alarm]||null,
+    title:"\u{1F382} "+p.name+(yr?" · born "+yr:"")+(p.zsign?" · "+p.zsign:""),desc:(p.shortDescription||p.bio||"")+"\n"+url,url};}
+function myBirthdayEvent(bd,alarm){const dt=nextOccurrence(bd.m,bd.d);
+  return {allDay:true,date:dt,rrule:bdayRule(bd.m,bd.d),uid:"bday-me",alarm:REMIND_ALARM[alarm]||null,title:"✨ My birthday",desc:"Your sky, your birthday twins and your chart: "+location.origin+location.pathname+"#/portal"};}
+function googleCalLink(p){const dt=nextOccurrence(p.month,p.day),n=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+1),f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,"0")+String(x.getDate()).padStart(2,"0");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("\u{1F382} "+p.name+(fmtYear(p)?" · born "+fmtYear(p):""))+"&dates="+f(dt)+"/"+f(n)+"&recur="+encodeURIComponent("RRULE:"+bdayRule(p.month,p.day))+"&details="+encodeURIComponent((p.shortDescription||"")+"\n"+location.origin+location.pathname+"#/person/"+p.id);}
+const remindable=p=>p&&p.month&&p.day&&!p.isPersonal;
+function remindOne(p){if(!remindable(p)){toast("This birthday isn't known exactly");return;}
+  downloadICS("birthday-"+p.id+".ics",[birthdayEvent(p,STORE.get("remindAlarm","morning"))],"Open the file to add "+p.name.split(" ")[0]+"'s birthday to your calendar ✦");}
+function openReminders(){
+  const bd=STORE.get("bday",null),favs=getFavs().map(id=>PERSON_BY_ID[id]).filter(remindable),
+    twins=bd&&bd.m?HISTORICAL.filter(p=>p.month===bd.m&&p.day===bd.d&&remindable(p)).sort((a,b)=>rankScore(b)-rankScore(a)).slice(0,20):[];
+  let alarm=STORE.get("remindAlarm","morning");const pick={me:!!(bd&&bd.m),favs:favs.length>0,twins:false};
+  openModal(()=>{const box=el("div",{class:"rmd"});
+    box.appendChild(el("button",{class:"mclose","aria-label":"Close",html:"&times;",onClick:closeModal}));
+    box.appendChild(el("div",{class:"eyebrow",text:"Never miss a birthday"}));box.appendChild(el("h2",{id:"modalTitle",text:"Birthday reminders"}));
+    box.appendChild(el("p",{class:"rmd-sub",text:"Choose who to include and we'll make one calendar file with a yearly event for each birthday. It works with Apple Calendar, Google Calendar and Outlook."}));
+    const opts=el("div",{class:"rmd-opts"}),prev=el("div",{class:"rmd-prev"}),go=el("button",{class:"btn btn-gold rmd-go"});
+    const opt=(k,label,sub,count,disabled)=>{const c=el("input",{type:"checkbox"});c.checked=pick[k];c.disabled=!!disabled;c.addEventListener("change",()=>{pick[k]=c.checked;paint();});
+      return el("label",{class:"rmd-opt"+(disabled?" off":"")},[c,el("div",{},[el("b",{text:label}),el("span",{text:sub})]),el("em",{text:String(count)})]);};
+    opts.append(opt("me","Your birthday",bd&&bd.m?MONTHS[bd.m-1]+" "+bd.d:"Set it with the birthday finder on Discover",bd&&bd.m?1:0,!(bd&&bd.m)),
+      opt("favs","Your saved people",favs.length?favs.slice(0,3).map(p=>p.name).join(", ")+(favs.length>3?" and more":""):"Tap ☆ Save on any profile to add people",favs.length,!favs.length),
+      opt("twins","Your famous birthday twins",twins.length?twins.slice(0,3).map(p=>p.name).join(", ")+(twins.length>3?" and more":""):"People born on your birthday",twins.length,!twins.length));
+    box.appendChild(opts);
+    const al=el("div",{class:"rmd-al",role:"radiogroup","aria-label":"Alert"},[el("span",{text:"Alert me"})]);
+    [["morning","The morning of"],["before","The day before"],["none","No alert"]].forEach(([k,l])=>{const b=el("button",{class:"rmd-ch"+(alarm===k?" on":""),role:"radio","aria-checked":alarm===k?"true":"false",onClick:()=>{alarm=k;STORE.set("remindAlarm",k);al.querySelectorAll(".rmd-ch").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-checked",x===b?"true":"false");});}},[document.createTextNode(l)]);al.appendChild(b);});
+    box.appendChild(al);box.appendChild(prev);box.appendChild(go);
+    box.appendChild(el("p",{class:"rmd-note",text:"On iPhone and Mac the file opens straight into Calendar. In Google Calendar on a computer, use Settings → Import. Nothing leaves your device."}));
+    function chosen(){const seen=new Set(),ev=[],ppl=[];if(pick.me&&bd&&bd.m)ev.push(myBirthdayEvent(bd,alarm));
+      (pick.favs?favs:[]).concat(pick.twins?twins:[]).forEach(p=>{if(seen.has(p.id))return;seen.add(p.id);ppl.push(p);ev.push(birthdayEvent(p,alarm));});return {ev,ppl};}
+    function paint(){const {ev}=chosen();prev.innerHTML="";
+      const up=ev.slice().sort((a,b)=>a.date-b.date).slice(0,5);
+      if(up.length){prev.appendChild(el("div",{class:"ch2-k",text:"Coming up first"}));up.forEach(e=>{const d=e.date,days=Math.round((d-new Date(new Date().toDateString()))/864e5);
+        prev.appendChild(el("div",{class:"rmd-row"},[el("span",{class:"rmd-d",text:MONTHS[d.getMonth()].slice(0,3)+" "+d.getDate()}),el("b",{text:e.title.replace(/^\S+\s/,"").split(" · ")[0]}),el("span",{class:"rmd-in",text:days===0?"today":days===1?"tomorrow":"in "+days+" days"})]));});}
+      go.textContent=ev.length?"\u{1F4C5}  Download "+ev.length+" birthday"+(ev.length===1?"":"s"):"Choose at least one";go.disabled=!ev.length;}
+    go.addEventListener("click",()=>{const {ev}=chosen();if(!ev.length)return;downloadICS("birthday-almanac-birthdays.ics",ev,"Open the file to add "+ev.length+" birthday"+(ev.length===1?"":"s")+" to your calendar ✦");});
+    paint();return box;});
+}
 function openChartFor(p){state.chartPerson=p?p.id:null;state.view="chart";closeModal();window.scrollTo({top:0});render();}
 function moonName(p){return SKY.phaseName(p);}
 
@@ -10149,7 +10222,8 @@ function renderCollections(view){
     mine.appendChild(portraitMosaic(favs,4));
     mine.appendChild(el("div",{class:"cm-t"},[el("div",{class:"ch2-k",text:"Your collection"}),el("h3",{text:"Saved people"}),
       el("p",{text:favs.length+(favs.length===1?" person":" people")+" you've starred. Tour them like any other collection."})]));
-    mine.appendChild(el("button",{class:"btn btn-gold",text:"▶ Tour my saved people",onClick:()=>startTour({title:"Your saved people",icon:"★",desc:"The people you've starred"},favs,0)}));
+    mine.appendChild(el("div",{class:"cm-acts"},[el("button",{class:"btn btn-gold",text:"▶ Tour my saved people",onClick:()=>startTour({title:"Your saved people",icon:"★",desc:"The people you've starred"},favs,0)}),
+      el("button",{class:"btn btn-line",text:"\u{1F514} Birthday reminders",onClick:openReminders})]));
   }else{
     mine.appendChild(el("div",{class:"cm-star",text:"☆"}));
     mine.appendChild(el("div",{class:"cm-t"},[el("div",{class:"ch2-k",text:"Your collection"}),el("h3",{text:"Start your own"}),
@@ -11202,6 +11276,8 @@ function buildPersonModal(p){
     doShare(txt,url);}},[document.createTextNode("\u{1F4E4} Share")]));
   tools.appendChild(el("button",{class:"mtool",onClick:()=>saveStarCard({glyph:p.zsym||"✦",title:p.name,sub:((p.month&&p.day)?("Born "+MONTHS[p.month-1]+" "+p.day+(fmtYear(p)?", "+fmtYear(p):"")):"")+(p.zsign?"  ·  "+p.zsign:"")})},[document.createTextNode("\u{1F5BC}\u{FE0F} Card")]));
   if(skyEligible(p))tools.appendChild(el("button",{class:"mtool",onClick:()=>openChartFor(p)},[document.createTextNode("☉︎ Birth chart")]));
+  if(remindable(p)){tools.appendChild(el("button",{class:"mtool",title:"Download a yearly calendar reminder",onClick:()=>remindOne(p)},[document.createTextNode("\u{1F514} Remind me")]));
+    tools.appendChild(el("a",{class:"mtool gcal",href:googleCalLink(p),target:"_blank",rel:"noopener",title:"Add to Google Calendar"},[document.createTextNode("\u{1F4C5} Google Calendar")]));}
   tools.appendChild(el("button",{class:"mtool",onClick:()=>{state.cmpA=p.id;state.cmpB=null;closeModal();setView("compare");}},[document.createTextNode("\u{2696}\u{FE0F} Compare")]));
   tools.appendChild(el("button",{class:"mtool",onClick:()=>{closeModal();enterRabbitHole(p);}},[document.createTextNode("\u{1F300} Rabbit hole")]));
   top.appendChild(tools);
