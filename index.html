@@ -861,6 +861,7 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
 .site-foot .sf-mark em{font-style:italic;color:var(--gold-deep)}
 .site-foot .sf-sky{max-width:560px;font-size:12px;line-height:1.55;color:var(--muted)}
 .site-foot .sf-sky:empty{display:none}
+.sf-install{border:1px solid var(--gold-soft);background:var(--gold-wash);color:var(--gold-deep);font:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:9px 16px;cursor:pointer;min-height:40px}
 .site-foot .sf-copy{font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--faint)}
 @media(max-width:820px){.site-foot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
 
@@ -6377,15 +6378,16 @@ function buildZodiacMarquee(){
   let x=0,half=0,last=0,hover=false,focus=false,raf=0,drag=null,vel=0,glide=null;
   const SPEED=0.032;
   /* three copies; the middle one is focusable. x stays where the strip is always full */
-  const norm=()=>{if(!half)return;const lo=-(3*half-port.clientWidth);while(x>0)x-=half;while(x<lo)x+=half;};
+  let pw=0;
+  const norm=()=>{if(!half)return;const lo=-(3*half-pw);while(x>0)x-=half;while(x<lo)x+=half;};
   const paint=()=>{norm();track.style.transform="translate3d("+x.toFixed(2)+"px,0,0)";};
   function frame(t){raf=0;const dt=Math.min(48,t-(last||t));last=t;
     if(glide){const k=Math.min(1,(t-glide.t0)/420),ease=1-Math.pow(1-k,3);x=glide.from+(glide.to-glide.from)*ease;if(k>=1)glide=null;}
     else if(!drag){if(Math.abs(vel)>0.01){x+=vel*dt;vel*=Math.pow(0.93,dt/16);}else if(!hover&&!focus&&!REDUCE)x-=SPEED*dt;}
     paint();if(wrap.isConnected)raf=requestAnimationFrame(frame);}
   const kick=()=>{if(!raf){last=0;raf=requestAnimationFrame(frame);}};
-  const measure=()=>{const it=track.querySelectorAll(".zm-item");const first=!half;half=it[12].offsetLeft-it[0].offsetLeft;if(first)x=-half;paint();};
-  const step=dir=>{const w=port.clientWidth*0.6;vel=0;glide={from:x,to:x-dir*w,t0:performance.now()};kick();};
+  const measure=()=>{const it=track.querySelectorAll(".zm-item");const first=!half;half=it[12].offsetLeft-it[0].offsetLeft;pw=port.clientWidth;if(first)x=-half;paint();};
+  const step=dir=>{const w=(pw||port.clientWidth)*0.6;vel=0;glide={from:x,to:x-dir*w,t0:performance.now()};kick();};
   prev.addEventListener("click",()=>step(-1));next.addEventListener("click",()=>step(1));
   wrap.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")hover=true;});
   wrap.addEventListener("pointerleave",()=>{hover=false;kick();});
@@ -11988,10 +11990,10 @@ const SKYBG=(function(){
     for(let i=0;i<SKYBG_MW.length;i++){const c=SKYBG_MW[i];let v,k;
       if(c==="~"){v=0;k=IX[SKYBG_MW[i+1]]*64+IX[SKYBG_MW[i+2]]+1;i+=2;}else{const q=IX[c];v=Math.floor(q/10);k=q%10+1;}
       raw.fill(v,p,p+k);p+=k;}
-    let a=Float32Array.from(raw);
-    for(let pass=0;pass<3;pass++){const o=new Float32Array(W*H);
-      for(let y=0;y<H;y++)for(let x=0;x<W;x++){let s=0,c=0;
-        for(let dy=-1;dy<=1;dy++){const yy=y+dy;if(yy<0||yy>=H)continue;for(let dx=-1;dx<=1;dx++){s+=a[yy*W+(x+dx+W)%W];c++;}}o[y*W+x]=s/c;}a=o;}
+    let a=Float32Array.from(raw);const t=new Float32Array(W*H);
+    for(let pass=0;pass<3;pass++){/* 3x3 box blur, done as a horizontal then a vertical pass */
+      for(let y=0;y<H;y++){const r=y*W;for(let x=0;x<W;x++)t[r+x]=(a[r+(x+W-1)%W]+a[r+x]+a[r+(x+1)%W])/3;}
+      for(let y=0;y<H;y++){const r=y*W,u=y>0?r-W:-1,d=y<H-1?r+W:-1;for(let x=0;x<W;x++){let s=t[r+x],c=1;if(u>=0){s+=t[u+x];c++;}if(d>=0){s+=t[d+x];c++;}a[r+x]=s/c;}}}
     MW=a;}
   function mwAt(ra,dec){/* radians → level 0..5 */
     let x=((ra/D2R)%360+360)%360/0.5,y=(90-dec/D2R)/0.5;y=Math.max(0,Math.min(358.999,y));
@@ -12227,6 +12229,26 @@ function shareCanvas(cv,name,msg){
 }
 
 (window.requestIdleCallback||function(f){return setTimeout(f,60);})(()=>SKYBG.start(),{timeout:900});
+/* ============================================================
+   OFFLINE & INSTALL — the deployed build (tools/build.mjs) marks <html data-build>
+   and ships sw.js; the service worker keeps the app, the people and the portraits
+   you have seen, so the almanac opens instantly and works without a connection.
+   ============================================================ */
+(function(){
+  const build=document.documentElement.dataset.build;
+  if(build&&"serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1")){
+    window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(reg=>{
+      if(!navigator.serviceWorker.controller)reg.addEventListener("updatefound",()=>{const w=reg.installing;if(w)w.addEventListener("statechange",()=>{if(w.state==="activated"&&!STORE.get("offlineToast",false)){STORE.set("offlineToast",true);toast("Saved for offline: the almanac now works without a connection ✦");}});});
+    }).catch(()=>{});});}
+  window.addEventListener("offline",()=>toast("You're offline. The almanac still works; portraits you haven't seen yet will wait."));
+  window.addEventListener("online",()=>toast("Back online ✦"));
+  /* install as an app where the browser offers it */
+  let deferred=null;
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;const f=document.querySelector(".site-foot");if(!f||f.querySelector(".sf-install"))return;
+    const b=el("button",{class:"sf-install",onClick:()=>{if(!deferred)return;deferred.prompt();deferred.userChoice.finally(()=>{deferred=null;b.remove();});}},[document.createTextNode("\u2B07\uFE0E  Install the almanac as an app")]);
+    f.insertBefore(b,f.querySelector(".sf-copy"));});
+  window.addEventListener("appinstalled",()=>{const b=document.querySelector(".sf-install");if(b)b.remove();toast("Installed ✦");});
+})();
 
 /* shooting stars — meteors occasionally streak edge-to-edge across the night sky */
 (function(){
