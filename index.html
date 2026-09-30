@@ -2596,6 +2596,63 @@ html[data-theme="dark"] .hlb-row.fire .hlb-t i,html[data-theme="dark"] .hlb-row.
 @media(max-width:900px){.ch-grid{grid-template-columns:1fr}.ch-wheel{max-width:520px;margin:0 auto;width:100%}}
 @media(max-width:640px){.ch-b3s-row{grid-template-columns:1fr}.ch-bal{grid-template-columns:1fr}.ch-row{grid-template-columns:26px minmax(0,1fr) minmax(0,1.1fr) 62px 28px;gap:6px;padding:7px 4px}
   .cf-f.cf-sm{flex:1 1 90px}.cf-row>.btn{width:100%}.ch-asps{grid-template-columns:1fr}}
+/* ===== DAILY RIDDLE ===== */
+.rd{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-md)}
+.rd-top{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:start}
+.rd-port{position:relative;width:180px;aspect-ratio:4/5;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#2c4474,#0e1628);box-shadow:inset 0 0 0 1px rgba(230,206,142,.3),var(--shadow-md)}
+.rd-port img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(var(--blur)) saturate(.8);transform:scale(1.12);transition:filter .6s var(--ease),transform .6s var(--ease)}
+.rd-port.clear img{filter:none;transform:none}
+.rd-q{font-family:var(--serif);font-size:72px;color:rgba(230,206,142,.8);text-shadow:0 0 30px rgba(230,206,142,.4)}
+.rd-port.has .rd-q{position:relative;z-index:1;opacity:.0}
+.rd-clues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.rd-clue{display:flex;gap:10px;align-items:flex-start;border:1px dashed var(--hairline);border-radius:12px;padding:10px 12px;color:var(--faint)}
+.rd-clue.open{border-style:solid;background:var(--card-2);color:var(--ink)}
+.rd-ci{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--card-3);font-size:14px}
+.rd-clue.open .rd-ci{background:var(--gold-wash)}
+.rd-ck{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)}
+.rd-cv{font-size:13.5px;line-height:1.4;margin-top:1px}
+.rd-guess{margin-top:18px}
+.rd-gl{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.rd-gl b{font-size:13.5px;color:var(--ink-2)}
+.rd-giveup{border:0;background:none;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+.rd-giveup.arm{color:var(--warn);font-weight:600}
+.rd-inw{position:relative}
+.rd-inw input{width:100%;border:1px solid var(--hairline);background:var(--card-2);color:var(--ink);font:inherit;font-size:16px;padding:12px 14px;border-radius:14px;min-height:48px}
+.rd-inw input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+.rd-list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--card);border:1px solid var(--hairline);border-radius:14px;box-shadow:var(--shadow-lg);overflow:hidden}
+.rd-list:empty{display:none}
+.rd-opt{display:flex;justify-content:space-between;gap:10px;width:100%;border:0;background:none;padding:11px 14px;text-align:left;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+.rd-opt span{color:var(--muted);font-size:12px;white-space:nowrap}
+.rd-opt:hover,.rd-opt:focus{background:var(--gold-wash);outline:none}
+.rd-rows{display:flex;flex-direction:column;gap:6px;margin-top:18px}
+.rd-row{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(5,minmax(0,1fr));gap:6px;align-items:stretch}
+.rd-hd span{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);padding:0 4px}
+.rd-n{display:flex;align-items:center;gap:8px;min-width:0}.rd-n b{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rd-c{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:10px;padding:8px 6px;font-size:12px;font-weight:600;line-height:1.25;min-height:42px;color:#fff;animation:rdFlip .45s var(--ease) both}
+.rd-row .rd-c:nth-child(3){animation-delay:.06s}.rd-row .rd-c:nth-child(4){animation-delay:.12s}.rd-row .rd-c:nth-child(5){animation-delay:.18s}.rd-row .rd-c:nth-child(6){animation-delay:.24s}
+@keyframes rdFlip{from{transform:rotateX(90deg);opacity:0}}
+.rd-c.s2,.rd-key .s2{background:#2E8B67}.rd-c.s1,.rd-key .s1{background:#C39A2E}.rd-c.s0,.rd-key .s0{background:#5a6272}
+.rd-arr{font-style:normal;font-weight:700}
+.rd-row.win .rd-n b{color:#2E8B67}
+.rd-key{font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.7}.rd-key i{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin:0 3px 0 8px}
+.rd-res{margin-top:18px;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,#1b2a4a,#0c1426);color:#F3ECDD;border-top:3px solid var(--gold)}
+.rd-res.won{border-top-color:#2E8B67}.rd-res.lost{border-top-color:#C0563A}
+.rd-res .ch2-k{color:#E6CE8E}.rd-res h2{color:#FBF4E6;font-size:28px;margin-top:4px}.rd-res p{color:#C8CFE6;font-size:14px;line-height:1.55;margin:6px 0 0}
+.rd-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.rd-res .btn-line{color:#F3ECDD;border-color:rgba(255,255,255,.25)}
+.rd-next{font-size:13px!important}.rd-cd{font-family:var(--mono);color:#8fe6c8;font-variant-numeric:tabular-nums}
+.rd-foot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--hairline)}
+.rd-stats{display:flex;gap:18px}.rd-st{display:flex;flex-direction:column;align-items:center}.rd-st b{font-family:var(--serif);font-size:26px;color:var(--ink);line-height:1}.rd-st span{font-size:11px;color:var(--muted);margin-top:3px}
+.rd-dist{display:flex;flex-direction:column;gap:4px}.rd-dr{display:grid;grid-template-columns:14px 1fr 26px;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.rd-dt i{display:block;height:14px;border-radius:4px;background:var(--card-3);min-width:6px}.rd-dt i.on{background:#2E8B67}.rd-dr b{color:var(--ink);text-align:right}
+.rd-teaser{display:flex;align-items:center;gap:16px;width:100%;text-align:left;border:1px solid var(--gold-soft);border-radius:var(--radius-lg);padding:14px 18px;margin:0 0 26px;cursor:pointer;font:inherit;color:inherit;
+  background:radial-gradient(420px 160px at 0% 0%,rgba(230,206,142,.22),transparent 70%),var(--card);box-shadow:var(--shadow-sm);transition:transform .2s var(--spring),box-shadow .2s}
+.rd-teaser:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.rd-tq{flex:none;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--serif);font-size:30px;color:#FBF4E6;background:radial-gradient(circle at 35% 30%,#2c4474,#0e1628);box-shadow:0 0 0 3px var(--gold-wash)}
+.rd-tt{flex:1;min-width:0}.rd-tt .ch2-k{color:var(--gold-deep)}.rd-tt b{display:block;font-size:15.5px;color:var(--ink);margin-top:2px}.rd-tt span{font-size:12.5px;color:var(--muted)}
+.rd-tgo{flex:none;font-weight:700;color:var(--gold-deep);font-size:14px}
+@media(max-width:760px){.rd{padding:16px}.rd-top{grid-template-columns:1fr}.rd-port{width:140px;margin:0 auto}.rd-clues{grid-template-columns:1fr}
+  .rd-row{grid-template-columns:repeat(5,minmax(0,1fr));}.rd-row .rd-n{grid-column:1/-1}.rd-hd span:first-child{display:none}.rd-c{font-size:10.5px;padding:6px 3px;min-height:38px}
+  .rd-foot{grid-template-columns:1fr}.rd-stats{justify-content:space-around}.rd-teaser{padding:12px 14px;gap:12px}.rd-tgo{display:none}}
+@media(prefers-reduced-motion:reduce){.rd-c{animation:none}.rd-port img{transition:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -6088,6 +6145,7 @@ const VIEWS=[
   {key:"patterns",label:"Cosmic Patterns",short:"Patterns",icon:"\u{1F4CA}"},
   {key:"portal",label:"My Sky",icon:"✦"},
   {key:"chart",label:"Birth Chart",short:"Chart",icon:"☉︎"},
+  {key:"riddle",label:"Daily Riddle",short:"Riddle",icon:"🧩"},
   {key:"horoscope",label:"Horoscope",icon:"\u{1F52E}"},
   {key:"today",label:"Today",icon:"\u{1F305}"},
   {key:"rabbithole",label:"Rabbit Hole",icon:"\u{1F300}"},
@@ -6096,7 +6154,7 @@ const VIEWS=[
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
 const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
-const MORE_VIEWS=["today","horoscope","portal","chart","rabbithole","compare","collections","categories","timeline","patterns"];
+const MORE_VIEWS=["today","riddle","horoscope","portal","chart","rabbithole","compare","collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
 function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false,justAdded:false,milestone:false,living:""};}
@@ -6687,6 +6745,8 @@ function renderDiscover(view){
   /* kinetic celestial marquee — the heavens, ticking past */
   view.appendChild(buildZodiacMarquee());
 
+  /* today's riddle */
+  {const rt=riddleTeaser();if(rt)view.appendChild(rt);}
   /* what's your sign? */
   view.appendChild(buildBirthdayTool());
 
@@ -7621,6 +7681,141 @@ function saveChartImage(ch,person){
   img.onerror=()=>toast("Couldn't create the image");
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
+/* ============================================================
+   THE DAILY BIRTHDAY RIDDLE — one famous person born today, six guesses.
+   Every guess is scored on field, birth year, region, sign and birthday;
+   each miss unlocks a clue and sharpens the portrait. Streaks, stats and
+   a spoiler-free share grid, all kept in this browser.
+   ============================================================ */
+const RIDDLE_EPOCH=Date.UTC(2026,8,30);
+const RIDDLE_MAX=6;
+function riddleToday(){const n=new Date();return {y:n.getFullYear(),m:n.getMonth()+1,d:n.getDate(),key:dayKey()};}
+function riddleNumber(t){return Math.floor((Date.UTC(t.y,t.m-1,t.d)-RIDDLE_EPOCH)/864e5)+1;}
+function riddleAnswer(t){
+  const pool=HISTORICAL.filter(p=>p.month===t.m&&p.day===t.d&&p.birthYear!=null&&!p.isPersonal&&CATS[p.category]).sort((a,b)=>rankScore(b)-rankScore(a));
+  if(!pool.length)return null;const top=pool.slice(0,Math.max(6,Math.ceil(pool.length*0.4)));
+  return top[hseed("riddle|"+t.y+"-"+t.m+"-"+t.d)%top.length];}
+function riddleState(t){const s=STORE.get("riddle",null);return s&&s.day===t.key?s:{day:t.key,guesses:[],done:false,won:false};}
+function riddleStats(){return STORE.get("riddleStats",{played:0,wins:0,streak:0,max:0,lastWin:null,dist:[0,0,0,0,0,0]});}
+/* how a guess compares with the answer, per attribute: 2 exact, 1 close, 0 miss */
+function riddleCompare(g,a){
+  const field=g.category===a.category?2:((a.secondaryCategories||[]).includes(g.category)||(g.secondaryCategories||[]).includes(a.category)||(CATS[g.category]&&CATS[a.category]&&CATS[g.category].fam===CATS[a.category].fam)?1:0);
+  const gy=g.birthYear,ay=a.birthYear,dy=ay-gy,year=dy===0?2:Math.abs(dy)<=25?1:0;
+  const region=g.country&&g.country===a.country?2:g.region===a.region?1:0;
+  const sign=g.zsign&&g.zsign===a.zsign?2:g.zElement&&g.zElement===a.zElement?1:0;
+  const today=g.month&&g.day&&g.month===a.month&&g.day===a.day?2:g.month&&g.month===a.month?1:0;
+  return {field,year,region,sign,today,dir:dy>0?"later":dy<0?"earlier":""};}
+function riddleClues(a,n){
+  const redact=s=>{let t=s||"";a.name.split(/\s+/).filter(w=>w.length>2).forEach(w=>{t=t.replace(new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi"),"▇▇▇");});return t;};
+  const initials=a.name.split(/\s+/).filter(w=>/^[A-ZÀ-Ý]/.test(w)).map(w=>w[0]+".").join(" ");
+  return [
+    {k:"Born",v:MONTHS[a.month-1]+" "+a.day+(a.centuryLabel?" · "+a.centuryLabel:""),at:0,ic:"\u{1F382}"},
+    {k:"Field",v:CATS[a.category].label,at:1,ic:CATS[a.category].icon},
+    {k:"From",v:(a.country&&a.country!=="Unknown"?a.country:a.region),at:2,ic:"\u{1F30D}"},
+    {k:"Year & sign",v:fmtYear(a)+" · "+(a.zsign||"")+" "+(a.zsym||""),at:3,ic:"✨"},
+    {k:"Known for",v:redact(a.shortDescription||a.bio),at:4,ic:"\u{1F4DC}"},
+    {k:"Initials",v:initials,at:5,ic:"\u{1F520}"}].map(c=>({...c,open:n>=c.at}));}
+function riddleShareText(t,st,a){
+  const sq=v=>v===2?"\u{1F7E9}":v===1?"\u{1F7E8}":"⬛";
+  const rows=st.guesses.map(id=>{const g=PERSON_BY_ID[id];if(!g)return "";const c=riddleCompare(g,a);return [c.field,c.year,c.region,c.sign,c.today].map(sq).join("");});
+  return "The Birthday Almanac · Riddle #"+riddleNumber(t)+" · "+(st.won?st.guesses.length:"X")+"/"+RIDDLE_MAX+"\n"+rows.join("\n");}
+function riddleFinish(t,st){
+  const s=riddleStats();s.played++;
+  if(st.won){s.wins++;const y=new Date(t.y,t.m-1,t.d-1);const yk=y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();s.streak=s.lastWin===yk?s.streak+1:1;s.lastWin=t.key;s.max=Math.max(s.max,s.streak);s.dist[st.guesses.length-1]++;}
+  else s.streak=0;
+  STORE.set("riddleStats",s);}
+function riddleStreakNow(){const s=riddleStats(),t=riddleToday();const y=new Date(t.y,t.m-1,t.d-1),yk=y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();return (s.lastWin===t.key||s.lastWin===yk)?s.streak:0;}
+function riddleCountdown(elm){const tick=()=>{if(!elm.isConnected)return;const n=new Date(),m=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),s=Math.max(0,Math.floor((m-n)/1000));
+  elm.textContent=String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor(s/60)%60).padStart(2,"0")+":"+String(s%60).padStart(2,"0");setTimeout(tick,1000);};tick();}
+/* compact teaser for other pages */
+function riddleTeaser(){
+  const t=riddleToday(),a=riddleAnswer(t);if(!a)return null;const st=riddleState(t),stk=riddleStreakNow();
+  const b=el("button",{class:"rd-teaser",onClick:()=>setView("riddle")},[
+    el("span",{class:"rd-tq",text:st.done?(st.won?"✓":"✕"):"?"}),
+    el("div",{class:"rd-tt"},[el("div",{class:"ch2-k",text:"Daily birthday riddle · #"+riddleNumber(t)}),
+      el("b",{text:st.done?(st.won?"Solved in "+st.guesses.length+". It was "+a.name+".":"Today's answer was "+a.name+"."):st.guesses.length?"You're on guess "+(st.guesses.length+1)+" of "+RIDDLE_MAX+". Keep going":"Guess the famous person born today. Six guesses."}),
+      el("span",{text:(stk>1?"\u{1F525} "+stk+"-day streak · ":"")+(st.done?"A new riddle at midnight":"Clues unlock with every guess")})]),
+    el("span",{class:"rd-tgo",text:st.done?"See it →":"Play →"})]);
+  return b;}
+function renderRiddle(view){
+  view.innerHTML="";const t=riddleToday(),a=riddleAnswer(t);
+  const head=el("div",{class:"viewhead cosmic"});head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Daily birthday riddle · #"+riddleNumber(t)+" · "+MONTHS[t.m-1]+" "+t.d}));
+  head.appendChild(el("h1",{text:"Who was born today?"}));
+  head.appendChild(el("div",{class:"lede",text:"One famous person from the almanac was born on this day. You have six guesses. Each guess shows how close you are, and every miss unlocks a new clue."}));
+  view.appendChild(head);
+  if(!a){view.appendChild(el("p",{text:"No riddle today."}));return;}
+  let st=riddleState(t);
+  const game=el("section",{class:"rd"});view.appendChild(game);
+  function paint(){
+    game.innerHTML="";const n=st.guesses.length,over=st.done;
+    /* portrait: blurred until solved */
+    const top=el("div",{class:"rd-top"});
+    const port=el("div",{class:"rd-port"+(over?" clear":"")},[el("span",{class:"rd-q",text:over?a.name.charAt(0):"?"})]);
+    port.style.setProperty("--blur",over?"0px":Math.max(3,22-n*4)+"px");
+    personImage(a).then(u=>{if(!u||!port.isConnected)return;const im=new Image();im.alt=over?"Portrait of "+a.name:"A blurred portrait";im.referrerPolicy="no-referrer";im.onload=()=>{if(port.isConnected){port.appendChild(im);port.classList.add("has");}};im.src=u;});
+    top.appendChild(port);
+    const clues=el("div",{class:"rd-clues"});
+    riddleClues(a,over?9:n).forEach(c=>clues.appendChild(el("div",{class:"rd-clue"+(c.open?" open":"")},[el("span",{class:"rd-ci",text:c.open?c.ic:"\u{1F512}"}),
+      el("div",{},[el("div",{class:"rd-ck",text:c.k}),el("div",{class:"rd-cv",text:c.open?c.v:"Unlocks after guess "+c.at})])])));
+    top.appendChild(clues);game.appendChild(top);
+    /* guess input */
+    if(!over){
+      const box=el("div",{class:"rd-guess"});
+      const inp=el("input",{type:"text",placeholder:"Type a name…","aria-label":"Your guess",autocomplete:"off",role:"combobox","aria-expanded":"false","aria-controls":"rdList"});
+      const list=el("div",{class:"rd-list",id:"rdList",role:"listbox"});
+      const pick=p=>{if(st.guesses.includes(p.id)){toast("Already guessed");return;}st.guesses.push(p.id);
+        if(p.id===a.id){st.done=true;st.won=true;}else if(st.guesses.length>=RIDDLE_MAX){st.done=true;st.won=false;}
+        STORE.set("riddle",st);if(st.done){riddleFinish(t,st);if(st.won&&typeof confetti==="function"&&!REDUCE)confetti();}paint();
+        const f=game.querySelector(".rd-guess input");if(f)f.focus();};
+      const show=()=>{const q=inp.value.trim().toLowerCase();list.innerHTML="";if(q.length<2){inp.setAttribute("aria-expanded","false");return;}
+        const pre=[],mid=[];HISTORICAL.forEach(p=>{if(p.isPersonal||st.guesses.includes(p.id))return;const nm=p.name.toLowerCase();if(nm.startsWith(q)||nm.split(/\s+/).some(w=>w.startsWith(q)))pre.push(p);else if(nm.includes(q))mid.push(p);});
+        const r=pre.sort((x,y)=>rankScore(y)-rankScore(x)).concat(mid.sort((x,y)=>rankScore(y)-rankScore(x))).slice(0,7);
+        inp.setAttribute("aria-expanded",r.length?"true":"false");
+        r.forEach(p=>list.appendChild(el("button",{type:"button",class:"rd-opt",role:"option",onClick:()=>pick(p)},[el("b",{text:p.name}),el("span",{text:CATS[p.category].label+(fmtYear(p)?" · "+fmtYear(p):"")})])));};
+      inp.addEventListener("input",show);
+      inp.addEventListener("keydown",e=>{if(e.key==="ArrowDown"){const f=list.querySelector("button");if(f){e.preventDefault();f.focus();}}else if(e.key==="Enter"){const f=list.querySelector("button");if(f){e.preventDefault();f.click();}}});
+      list.addEventListener("keydown",e=>{const bs=[...list.querySelectorAll("button")],i=bs.indexOf(document.activeElement);if(e.key==="ArrowDown"&&i<bs.length-1){e.preventDefault();bs[i+1].focus();}if(e.key==="ArrowUp"){e.preventDefault();(i>0?bs[i-1]:inp).focus();}});
+      box.append(el("div",{class:"rd-gl"},[el("b",{text:"Guess "+(n+1)+" of "+RIDDLE_MAX}),el("button",{class:"rd-giveup",onClick:function(){if(!this.classList.contains("arm")){this.classList.add("arm");this.textContent="Tap again to reveal (ends your streak)";setTimeout(()=>{if(this.isConnected){this.classList.remove("arm");this.textContent="Give up";}},4000);return;}
+          st.done=true;st.won=false;STORE.set("riddle",st);riddleFinish(t,st);paint();}},[document.createTextNode("Give up")])]),
+        el("div",{class:"rd-inw"},[inp,list]));
+      game.appendChild(box);}
+    /* guess rows */
+    if(n){const tb=el("div",{class:"rd-rows",role:"table","aria-label":"Your guesses"});
+      tb.appendChild(el("div",{class:"rd-row rd-hd",role:"row"},["Guess","Field","Born","From","Sign","Birthday"].map(h=>el("span",{role:"columnheader",text:h}))));
+      st.guesses.forEach(id=>{const g=PERSON_BY_ID[id];if(!g)return;const c=riddleCompare(g,a),win=g.id===a.id;
+        const cell=(v,txt,extra)=>el("span",{class:"rd-c s"+v,role:"cell"},[document.createTextNode(txt),extra||null]);
+        tb.appendChild(el("div",{class:"rd-row"+(win?" win":""),role:"row"},[
+          el("span",{class:"rd-n",role:"cell"},[personFace(g,28),el("b",{text:g.name})]),
+          cell(c.field,CATS[g.category].label),
+          cell(c.year,fmtYear(g)||"?",c.dir?el("i",{class:"rd-arr",text:c.dir==="later"?" ↑":" ↓","aria-label":c.dir==="later"?"answer born later":"answer born earlier"}):null),
+          cell(c.region,g.country&&g.country!=="Unknown"?g.country:g.region),
+          cell(c.sign,g.zsign?(g.zsym||"")+" "+g.zsign:"Unknown"),
+          cell(c.today,g.month?MONTHS[g.month-1].slice(0,3)+(g.day?" "+g.day:""):"Unknown")]));});
+      game.appendChild(tb);
+      if(!over)game.appendChild(el("p",{class:"rd-key",html:"<i class='s2'></i> match <i class='s1'></i> close: same family of fields, within 25 years, same region, same element, or same month <i class='s0'></i> no match · ↑↓ the answer was born later/earlier"}));}
+    /* result */
+    if(over){const res=el("div",{class:"rd-res "+(st.won?"won":"lost")});
+      res.appendChild(el("div",{class:"ch2-k",text:st.won?"Solved in "+n+" of "+RIDDLE_MAX:"Today's answer"}));
+      res.appendChild(el("h2",{text:a.name}));
+      res.appendChild(el("p",{text:(a.shortDescription||"")+" Born "+MONTHS[a.month-1]+" "+a.day+", "+fmtYear(a)+"."}));
+      const acts=el("div",{class:"rd-acts"});
+      acts.appendChild(el("button",{class:"btn btn-gold",onClick:()=>{const txt=riddleShareText(t,st,a),url=location.origin+location.pathname+"#/riddle";
+        if(navigator.share)navigator.share({title:"Birthday riddle",text:txt,url}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt+"\n"+url).then(()=>toast("Result copied: paste it anywhere ✦"),()=>toast("Couldn't copy"));}},[document.createTextNode("\u{1F4E4}  Share my result")]));
+      acts.appendChild(el("button",{class:"btn btn-line",onClick:()=>openPerson(a)},[document.createTextNode("Meet "+a.name.split(" ")[0]+" →")]));
+      res.appendChild(acts);
+      const cd=el("b",{class:"rd-cd"});res.appendChild(el("p",{class:"rd-next"},[document.createTextNode("Next riddle in "),cd]));
+      game.appendChild(res);riddleCountdown(cd);}
+    /* stats */
+    const s=riddleStats(),stk=riddleStreakNow();
+    const sb=el("div",{class:"rd-stats"});
+    [["Played",s.played],["Win %",s.played?Math.round(s.wins/s.played*100):0],["Streak",stk],["Best",s.max]].forEach(([k,v])=>sb.appendChild(el("div",{class:"rd-st"},[el("b",{text:String(v)}),el("span",{text:k})])));
+    const mx=Math.max(1,...s.dist);const dist=el("div",{class:"rd-dist"});
+    s.dist.forEach((v,i)=>{const bar=el("i");bar.style.width=Math.max(6,v/mx*100)+"%";if(over&&st.won&&n===i+1)bar.classList.add("on");dist.appendChild(el("div",{class:"rd-dr"},[el("span",{text:String(i+1)}),el("div",{class:"rd-dt"},[bar]),el("b",{text:String(v)})]));});
+    game.appendChild(el("div",{class:"rd-foot"},[sb,dist]));
+  }
+  paint();
+}
 function openChartFor(p){state.chartPerson=p?p.id:null;state.view="chart";closeModal();window.scrollTo({top:0});render();}
 function moonName(p){return SKY.phaseName(p);}
 
@@ -7939,6 +8134,7 @@ function renderToday(view){
     [el("div",{class:"tr-c"},[el("b",{text:Math.round(pct*100)+"%"}),el("span",{text:"of "+y})])]));
   const mc=el("canvas",{class:"moon-cv td-moon","aria-hidden":"true"});mc.dataset.size="112";vis.appendChild(mc);requestAnimationFrame(()=>drawMoon(mc,sky.moon.phase));
   hero.appendChild(vis);view.appendChild(hero);
+  if(!off){const rt=riddleTeaser();if(rt){rt.classList.add("td-rd");view.appendChild(rt);}}
 
   /* ---------- celebrating ---------- */
   const living=born.filter(p=>p.alive&&p.birthYear!=null);
@@ -11214,6 +11410,7 @@ function render(){
   else if(state.view==="patterns")renderPatterns(view);
   else if(state.view==="portal")renderPortal(view);
   else if(state.view==="chart")renderChart(view);
+  else if(state.view==="riddle")renderRiddle(view);
   else if(state.view==="horoscope")renderHoroscope(view);
   else if(state.view==="today")renderToday(view);
   else if(state.view==="compare")renderCompare(view);
