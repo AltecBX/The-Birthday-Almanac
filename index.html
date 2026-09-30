@@ -2653,6 +2653,52 @@ html[data-theme="dark"] .hlb-row.fire .hlb-t i,html[data-theme="dark"] .hlb-row.
   .rd-row{grid-template-columns:repeat(5,minmax(0,1fr));}.rd-row .rd-n{grid-column:1/-1}.rd-hd span:first-child{display:none}.rd-c{font-size:10.5px;padding:6px 3px;min-height:38px}
   .rd-foot{grid-template-columns:1fr}.rd-stats{justify-content:space-around}.rd-teaser{padding:12px 14px;gap:12px}.rd-tgo{display:none}}
 @media(prefers-reduced-motion:reduce){.rd-c{animation:none}.rd-port img{transition:none}}
+/* ===== COSMIC WEATHER ===== */
+.wx-now{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.wx-card{position:relative;overflow:hidden;border-radius:18px;padding:16px 16px 14px;color:#F3ECDD;background:radial-gradient(240px 140px at 90% 0%,rgba(120,140,210,.25),transparent 70%),linear-gradient(160deg,#1b2a4a,#0c1426);box-shadow:var(--shadow-md);border:1px solid rgba(230,206,142,.14)}
+.wx-card.hot{background:radial-gradient(240px 140px at 90% 0%,rgba(224,122,95,.35),transparent 70%),linear-gradient(160deg,#3a1e2a,#140c16);border-color:rgba(224,122,95,.4)}
+.wx-g{position:absolute;right:12px;top:10px;font-size:30px;color:rgba(230,206,142,.55);line-height:1}
+.wx-moon{display:block}
+.wx-k{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#AEB9E8}
+.wx-v{font-family:var(--serif);font-size:21px;color:#FBF4E6;margin-top:6px;line-height:1.2;padding-right:40px}
+.wx-s{font-size:12.5px;color:#C8CFE6;margin-top:6px;line-height:1.4}
+.wx-tl{--lab:96px;position:relative;background:var(--card);border:1px solid var(--hairline);border-radius:18px;padding:30px 14px 12px;box-shadow:var(--shadow-sm)}
+.wx-months{position:absolute;left:calc(14px + var(--lab));right:14px;top:8px;height:16px}
+.wx-months span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--faint)}
+.wx-row{display:grid;grid-template-columns:var(--lab) 1fr;align-items:center;gap:0;height:30px}
+.wx-pn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2)}.wx-pn i{font-style:normal;color:var(--gold-deep);width:18px;text-align:center}
+.wx-track{position:relative;height:12px;border-radius:999px;background:var(--card-3)}
+.wx-bar{position:absolute;top:0;height:12px;border:0;padding:0;border-radius:999px;background:linear-gradient(90deg,#8a7bd0,#5d4fa6);cursor:pointer;transition:transform .15s,filter .15s}
+.wx-bar.merc{background:linear-gradient(90deg,#f09a7a,#C0563A)}
+.wx-bar:hover,.wx-bar:focus-visible{transform:scaleY(1.5);filter:brightness(1.15);outline:none}
+.wx-today{position:absolute;top:24px;bottom:8px;width:2px;background:var(--gold);box-shadow:0 0 8px var(--gold);border-radius:2px;pointer-events:none;left:calc(14px + var(--lab) + (100% - 28px - var(--lab)) * var(--p))}
+.wx-tip{margin:10px 0 0;font-size:13px;color:var(--muted)}
+.wx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.wx-chip{border:1px solid var(--hairline);background:var(--card);color:var(--ink-2);font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;cursor:pointer;min-height:38px}
+.wx-chip.on{background:var(--navy);color:#FBF7EE;border-color:var(--navy)}
+html[data-theme="dark"] .wx-chip.on{background:var(--card-3);color:var(--ink);border-color:var(--gold-soft)}
+.wx-list{display:flex;flex-direction:column;gap:6px}
+.wx-ev{display:grid;grid-template-columns:50px 36px minmax(0,1fr) auto auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--hairline);border-radius:14px;padding:10px 12px}
+.wx-ev.eclipse{border-color:var(--gold-soft);background:linear-gradient(90deg,var(--gold-wash),var(--card) 60%)}
+.wx-ev.super .wx-ic{box-shadow:0 0 0 2px var(--gold),0 0 14px rgba(230,206,142,.6)}
+.wx-ev.retro-r .wx-ic{background:rgba(192,86,58,.14);color:#C0563A}
+.wx-date{display:flex;flex-direction:column;align-items:center;line-height:1}.wx-date b{font-family:var(--serif);font-size:22px;color:var(--ink)}.wx-date span{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.wx-ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:var(--card-2);color:var(--gold-deep)}
+.wx-body{min-width:0}.wx-body b{display:block;font-size:14.5px;color:var(--ink)}.wx-body span{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.wx-in{font-family:var(--mono);font-size:11px;color:var(--gold-deep);white-space:nowrap}
+.wx-add{border:1px solid var(--hairline);background:var(--card-2);color:var(--ink-2);border-radius:10px;font:inherit;font-size:12px;padding:6px 9px;cursor:pointer;min-height:36px;white-space:nowrap}
+.wx-add:hover{border-color:var(--gold);color:var(--gold-deep)}
+.wx-all{margin-top:12px}.wx-empty{color:var(--muted);font-size:14px}
+.wx-ecl{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.wx-ec{border-radius:16px;padding:14px 16px;background:var(--card);border:1px solid var(--hairline);box-shadow:var(--shadow-sm);border-top:3px solid #8a7bd0}
+.wx-ec.ST,.wx-ec.SA,.wx-ec.SH,.wx-ec.SP{border-top-color:var(--gold)}.wx-ec.LT{border-top-color:#C0563A}
+.wx-ek{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--faint)}
+.wx-ec b{display:block;font-family:var(--serif);font-size:18px;color:var(--ink);margin-top:3px}.wx-ed{font-size:12.5px;color:var(--gold-deep);margin-top:3px}.wx-ec p{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.wx-teaser{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;width:100%;text-align:left;border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:12px 16px;margin:0 0 22px;cursor:pointer;font:inherit;color:inherit;background:var(--card);box-shadow:var(--shadow-sm);transition:transform .2s var(--spring)}
+.wx-teaser:hover{transform:translateY(-2px);border-color:var(--gold-soft)}
+.wx-teaser .ch2-k{color:var(--gold-deep);flex-basis:100%}.wx-teaser span{font-size:13.5px;color:var(--ink-2)}.wx-teaser span b{color:var(--ink)}.wx-teaser em{font-style:normal;margin-left:auto;font-weight:700;color:var(--gold-deep);font-size:13.5px}
+@media(max-width:640px){.wx-ev{grid-template-columns:40px minmax(0,1fr) auto;grid-template-areas:"d b a" "d i a";row-gap:2px}.wx-ev .wx-ic{display:none}.wx-date{grid-area:d}.wx-body{grid-area:b}.wx-in{grid-area:i}.wx-add{grid-area:a}
+  .wx-tl{--lab:78px}.wx-pn{font-size:12px}.wx-months span:nth-child(even){display:none}}
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
 try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
@@ -6146,6 +6192,7 @@ const VIEWS=[
   {key:"portal",label:"My Sky",icon:"✦"},
   {key:"chart",label:"Birth Chart",short:"Chart",icon:"☉︎"},
   {key:"riddle",label:"Daily Riddle",short:"Riddle",icon:"🧩"},
+  {key:"weather",label:"Cosmic Weather",short:"Weather",icon:"🌒"},
   {key:"horoscope",label:"Horoscope",icon:"\u{1F52E}"},
   {key:"today",label:"Today",icon:"\u{1F305}"},
   {key:"rabbithole",label:"Rabbit Hole",icon:"\u{1F300}"},
@@ -6154,7 +6201,7 @@ const VIEWS=[
 const VIEW_BY_KEY={};VIEWS.forEach(v=>VIEW_BY_KEY[v.key]=v);
 const PRIMARY_NAV=["discover","calendar","zodiac","collections","people","timeline","patterns"];
 const BOTTOM_PRIMARY=["discover","calendar","zodiac","people"];
-const MORE_VIEWS=["today","riddle","horoscope","portal","chart","rabbithole","compare","collections","categories","timeline","patterns"];
+const MORE_VIEWS=["today","riddle","weather","horoscope","portal","chart","rabbithole","compare","collections","categories","timeline","patterns"];
 const DATA_VIEWS=new Set(["calendar","people","timeline","patterns"]);
 function freshFilters(){return {cats:new Set(),eras:new Set(),centuries:new Set(),regions:new Set(),tiers:new Set(),collections:new Set(),curated:new Set(),
   country:"",zodiac:"",gender:"",status:{exact:true,estimated:true,unknown:true},thisMonth:false,thisWeek:false,highConf:false,justAdded:false,milestone:false,living:""};}
@@ -7816,6 +7863,169 @@ function renderRiddle(view){
   }
   paint();
 }
+/* ============================================================
+   COSMIC WEATHER — retrogrades (stations to within hours of a VSOP87
+   reference), planets changing sign, zodiac seasons, equinoxes and
+   solstices, new and full moons (with their traditional names and
+   supermoons, Moon distance to ~50 km), and every eclipse from 1900 to
+   2100 (precomputed with the astronomy-engine library, MIT).
+   ============================================================ */
+const ECLIPSES_RAW="AAz5eSTEOEL,AA5WwLP,AByXYSAByHq,AB3VSLN,ACre3LN,ACwkOSTCxIt,ADpqTLP,ADu0gSADKHy,AEi8tSP,AEn8NLT,AEtRKSP,AFmVLLT,AFrSASP,AGfkfSAEkJt,AGkeNLP,AHdfYSTBAID,AHi61LP,AIWxWLN,AIcFVSAC/Il,AIhGwLN,AJaLcSTCtBb,AJfZ/LN,AKTdULP,AKYh4SABlJT,ALRddLP,ALW3zSTEJFf,AMQGTLT,AMVBPSP,ANJIaSP,ANODMLT,ANTgJSP,AOHQOSTEBIV,AOMoyLP,APFncSACSEC,APKumLP,AQD75STCcBG,AQJFhLN,AQ9IOLN,ARCFeSADzDi,ARHbuLN,AR7HjLN,ASAmASTBJFn,AS5v5LT,AS+o2STFaJf,AT3u2LT,AT9KhSP,AUw/WSTBUJi,AU2QuLT,AVvKgSP,AV0aVLT,AWtsDSTC4A4,AWyuELN,AXrpdSADBJb,AXxFpLN,AYk3WLP,AYqVWSTEBFR,AZjShLP,AZoPQSTB8EY,AahhNLT,Aam39SP,AbamkSP,AbfwgLT,Abk6dSP,AcY4NSAA4CF,AceNdLP,AdXSSSTEhGe,AdcOjLP,AeQeqLN,AeVZRSACEJZ,Aea3rLN,AfOdoLN,AfT48SADVAl,AfYynLN,AgM/HLP,AgSBASTDKDh,AhLJ+LP,AhQY+SAB6Jx,AiEV+SP,AiJbQLT,AiOsgSP,AjCdcSP,AjH2zLT,AjM2iSP,AkA+3SAAEJh,AkF6KLT,Ak/CvSTEaA4,AlEf0LP,Al9haSABsD9,AmCf6LN,Am2nqLN,Am7t1STC9FH,An00wLP,An5+SSADCEG,AozFPLT,Ao4a3SP,ApxfTLT,Ap2b4SP,AqquLSAE1Fz,AqvnwLT,AropTSTAwD4,AruEeLP,Ash7wLN,AsnOxSADNFE,AssQwLN,AtlVYSTCfI5,AtqjLLN,Auen0LP,AujrdSAByFt,AvcmfLP,AviBfSTD5B0,AwbQoLT,AwgLQSP,AxUROSP,AxZMkLT,AxepXSP,AySa+STEFEF,AyXy2LP,AzQv8SACBA8,AzV4JLP,A0PGtSTCgIN,A0UPgLN,A1IRlLN,A1NOKSADnAe,A1SlMLN,A2GR8LN,A2LwmSABKBu,A3E44LT,A3Jx/STFQH8,A4C5fLT,A4IUvSP,A48JESP,A5BZaLT,A5GcLSP,A56UMSP,A5/k9LT,A641ySTC3Ih,A6921LN,A72zVSAC9Fu,A78QDLN,A8wBGLP,A81e3STEDB2,A9ub7LP,A9zZXSTB3Am,A+srXLT,A+yBNSP,A/lwZSP,A/q5kLT,A/wEnSP,BAkB7SAA7J1,BApXwLP,BBibzSTEhDJ,BBnXtLP,BCbo9LN,BCgjeSACKFk,BCmB5LN,BDZnCLN,BDfB9SADWIo,BDj8ELN,BEYJKLP,BEdLmSTDPKr,BFWTfLP,BFbhlSACDGt,BGPgvSP,BGUlTLT,BGZ3QSP,BHNmPSP,BHTAMLT,BHX/MSP,BIMJXSAANF6,BIREiLT,BJKMASTEkI5,BJPo1LP,BKIrgSABoAP,BKNqlLN,BLBwXLN,BLG3ZSTDIBj,BL//TLP,BMFIJSAC8AY,BM+OMLT,BNDkeSTBLE8,BN8piLT,BOBl4SP,BO13tSAFGBm,BO6xPLT,BPzzYSTAiKe,BP5OMLP,BQtGELN,BQyYFSADaBn,BQ3aqLN,BRwfcSTCRFE,BR1shLN,BSpyLLP,BSu04SACACK,BTnvrLP,BTtLSSTDrJW,BUma1LT,BUrVJSP,BVfaFSP,BVkWELT,BVpyrSP,BWdlqSTELLG,BWi8yLP,BXb4gSABuJB,BXhBwLP,BYaReSTClEE,BYfZaLN,BZTa4LN,BZYW3SADaIn,BZduqLN,BaRcZLN,BaW7NSABOJF,BbQByLP,BbU7HSTFAFG,BcOEMLT,BcTfASP,BdHSsSP,BdMh/LT,BdRloSP,BeFeBSP,BeKvsLT,BfD/bSTC0E9,BfI/jLP,BgB9VSAC6B9,BgHaiLN,Bg7KzLP,BhAoSSAEEJu,Bh5lbLN,Bh+jnSTByIA,Bi31bLT,Bi9KUSP,Bj2CwLT,Bj7O5SP,BkvLjSP,Bk0h8LT,BltlaSTEiLB,BlyhBLT,BmrtlSACRBx,BmxL9LN,BnkwiLN,BnqLDSADVFX,BnvFqLN,BojTHLP,BooWHSTDTGp,BphdDLP,BpmqRSACJDo,BqfvTLT,BqlB7SP,BrYvESP,BreJlLT,BrjH6SP,BsXT3SAAWB2,BscO4LT,BtVVQSTEtFw,Btax0LP,BuT1oSABnHw,BuY1RLN,BvM4/LN,BvSA6STDSJS,BwLJ8LP,BwQSGSAC4H4,BxJXDLP,BxOuASTBjBP,ByHz4LT,ByMwASP,BzBBFSP,BzF6nLT,Bz+9lSP,B0EYDLT,B04QQLN,B09hPSADpJf,B1CkdLP,B17pnSTCEBL,B2A1/LN,B208bLP,B25+MSACOJ7,B3y4/LN,B34VKSTDdFl,B4xk8LT,B42e9SP,B5vfpLT,B508DSP,B6owTSTETG4,B6uGoLP,B7nBGSABYFw,B7sLcLP,B8lcMSTCsLM,B8qjPLN,B9ekKLN,B9jfpSADMFd,B9o4NLN,B+cm3LN,B+iFxSABUFK,B/bKqLP,B/gEUSTEvB5,CAZO7LT,CAepOSP,CBScSSP,CBXqiLT,CBcvFSP,CCQn7SP,CCV6dLT,CDPI9STCvBc,CDUINLP,CENHeSAC3JY,CESlGLN,CFGUXLN,CFLxiSAECGd,CGEvELN,CGJt/STBtEI,CHC/WLT,CHITSSP,CIBMHLT,CIGZSSP,CI6VESP,CI/r/LT,CJ4vGSTEkHo,CJ9qeLT,CK23mSACWJR,CK8V5LN,CLv6HLN,CL1UOSADTCE,CL6PaLN,CMuc+LP,CMzgiSTDYCr,CNsmrLP,CNxzDSACLAg,COq5RLT,COwMhSP,CPj37SP,CPpS/LT,CPuQvSP,CQieXSAAeI/,CQnZNLT,CRgeiSTEzCs,CRl60LP,CSe/ySABoEC,CSj/9LN,CTYBiLN,CTdKaSTDaFz,CTib7LN,CUWUoLP,CUbcGSAC2EH,CVUf4LP,CVZ3fSTB0I4,CWS+RLT,CWX6MSP,CXMKVSP,CXRD8LT,CYKH7SP,CYPh/LT,CZIqQSAD4GN,CZNuKLP,CaGz5STB4Ih,CaL/lLN,CbAGiLP,CbFHXSACcGh,Cb+CdLN,CcDfLSTDQBx,Cc8u2LT,CdBonSP,Cd6pYLT,CeAFkSP,Cez62STEcCr,Ce5QULP,CfyJySAA9CP,Cf3VOLT,Cgwm1STC0HG,Cg1s9LN,ChptcLN,ChuofSAC9CO,Ch0BzLN,CinxWLN,CitQRSABbBO,CjmTfLP,CjrNiSTEfJ0,CkkZsLT,CkpzaSP,Cldl0SP,ClizDLT,Cln4kSP,Cmbx7SP,CmhFRLT,CnaSbSTCoJM,CnfQ2LP,CoYRuSAC2Ff,CodvtLN,CpRd4LN,CpW6tSAD/DP,CpbziLN,CqP4zLN,CqU4dSTBoAN,CrOJMLT,CrTcJSP,CsMVmLT,CsRjzSTArBL,CtFecSP,CtK17LT,CuD45STEsEe,CuI0GLT,CvCBhSTCbFj,CvHfrLN,CwAdfSADRJ9,CwFZRLN,Cw5mtLP,Cw+q2STDdKA,Cx3wZLP,Cx877SACMIl,Cy2DHLT,Cy7XASP,Cz0ccLT,Cz5ZrSP,C0toySAAmE7,C0yjfLT,C1rn2STE2K6,C1xD0LP,C2qJ5SABrAT,C2vKnLN,C3jKDLN,C3oT6STDgCW,C3tkgLN,C4hfZLP,C4mmJSAC2AV,C5fopLP,C5lA6STCCFV,C6eIwLT,C6jEfSP,C7XTbSP,C7cNMLT,C8VSZSP,C8asCLT,C9TzHSAEHDA,C9Y3yLP,C+R+TSTBtEk,C+XJULN,C/LQiLP,C/QQcSACqDJ,DAJMELN,DAOpQSTDFJK,DBH4qLT,DBMyNSP,DCFzOLT,DCLPKSP,DC/FUSTEoJt,DDEZ3LP,DD9SkSP,DECfHLT,DE7xYSTC9DD,DFA2kLN,DF02xLN,DF5xeSACuKL,DF/LeLN,DGy7xLN,DG4aqSABkIk,DHxcWLP,DH2W3STEOGZ,DIvkbLT,DI09hSP,DJovUSP,DJt7kLT,DJzCFSP,DKm7/SP,DKsQFLT,DLlb0STCdFt,DLqZfLP,DMjcESAC1Bj,DMo6VLN,DNcnTLN,DNiDwSAD5AD,DNm8nLN,DObCrLN,DOgDDSTBlHf,DPZS8LT,DPek4SAE5E3,DQXfPLT,DQcuZSTAjIZ,DRQnuSP,DRV/uLT,DSPCzSP,DST94LT,DTNLUSTCfB6,DTSpTLN,DULm4SADOGh,DUQjTLP,DVEwULN,DVJ1DSTDiGJ,DWC6LLP,DWIE8SACLFW,DXBM5LT,DXGhYSP,DX/l9LT,DYEivSP,DY4zLSAAtA7,DY9tuLT,DZ2xNSTE3H5,DZ8M2LP,Da1T/SABwH0,Da6VOLN,DbuSjLN,DbzdbSTDkKI,Db4tHLN,DcsqLLP,DcxwLSAC3Hz,DdqxaLP,DdwKWSTCMB0,DepTRLT,DeuOzSP,DficcSP,DfnWdLT,DfszmSP,Dggc8SP,Dgl2ILT,Dhe75SAEWLJ,DhkBXLP,DidI0STBkAl,DiiTJLN,DjWaYLP,DjbZZSAC4LH,DjguaLN,DkUV2LN,DkZzeSTC7FR,DlTCSLT,DlX7rSP,DmQ9PLT,DmWY4SP,DnKPqSTE1Fb,DnPjQLT,DoIbeSP,DoNpHLT,DpG71STDIKS,DpMADLN,DqE6jSACfG0,DqKVOLN,Dq+GMLN,DrDk9SABvEq,Dr8lNLP,DsBgSSTD+C5,Ds6vKLT,DtAHjSP,Dtz41SP,Dt5EGLT,Dt+LqSP,DuyGFSP,Du3a4LT,DvwlLSTCRCO,Dv1iLLP,DwumeSAC2I1,Dw0E+LN,DxnwtLN,DxtMwSADxIH,DxyFuLN,DymMnLN,DyrNtSTBjDg,DzkcnLT,DzptiSAFWDi,D0io/LP,D0n5FSTAaEL,D1bw5SP,D1hJbLT,D2aM0SP,D2fHzLT,D3YVBSTChJk,D3dyzLN,D4WwXSADLDC,D4bteLP,D5P5xLN,D5U/JSTDnCY,D6OEELP,D6TOFSACICD,D7MWjLT,D7RrnSP,D8KvkLT,D8Pr+SP,D9D9cSAAzIV,D9I32LT,D+B6qSTE2E2,D+HV9LP,D/AeASAB1EH,D/FfxLN,D/5bDLN,D/+m/STDnGq,EAD1yLN,EA309LP,EA86MSAC6EB,EB16MLP,EB7TvSTCVJl,EC0d0LT,EC5ZISP,EDtlVSP,EDyfqLT,ED38oSP,EErnnSP,EExASLT,EFqEkSAElII,EFvK5LP,EGoTaSTBdH2,EGtdELN,EHhkHLN,EHmiTSADGH3,EHr4ALN,EIffxLN,EIk9ySTCzBV,EJeLxLT,EJjFFSABNFa,EKcHWLT,EKhitSP,ELVZ5STFDAx,ELashLT,EMTkhSP,EMYzPLT,ENSGJSTDUGU,ENXJaLN,EOQDySACQDX,EOVfGLP,EPJQhLN,EPOvJSAB6Ay,EQHuHLP,EQMpzSTDuKk,ERF50LT,ERLRdSP,ER/CXSP,ESEMrLT,ESJVUSP,ES9QMSP,ETCloLT,ET7ufSTCCJ+,EUAq4LP,EU5w6SAC4E1,EU/PlLN,EVy6ELN,EV4VsSADnE8,EV9O2LN,EWxWoLN,EW2YbSTBjKw,EXvmNLP,EX02HSAFSCc,EYty3LP,EYzD2STASLB,EZm5+SP,EZsTBLT,EalW8SP,EaqR3LT,EbjenSTChGA,Ebo8KLP,Ech5/SADIKu,Ecm3yLP,EdbDFLN,EdgJISTDqJ7,EeZOELP,EeeXXSACEJ8,EfXgHLT,Efc1wSP,EgV5OLT,Ega1USP,EhPHnSAA4E1,EhUB5LT,EiNEMSTE1B3,EiSfHLT,EjLn7SAB7Ac,EjQqOLN,EkJwlSTDoDL,EkO+hLN,ElC/tLP,ElIEJSAC+AR,EmBDBLP,EmGdMSTCbGG,Em/oVLT,EnEjcSP,En4uLSP,En9o6LT,EoDFrSP,Eo2yVSP,Eo8KcLT,Ep1NJSAEzFR,Ep6UZLP,EqzeGSTBYD3,Eq4nCLN,ErsttLN,ErxrGSADTEs,Er3BhLN,Esqp2LN,EswIMSTCsIm,EtpVGLT,EtuOZSTBkBx,EunRoLT,EusspSP,EvgkBSP,Evl1nLT,EwettSP,Ewj9eLT,ExdQWSTDhCb,ExiSoLN,EybNKSACBLG,EygpELP,EzUawLN,EzZ5LSACGIO,E0S3ELN,E0XzcSTDfG7,E1REaLT,E1WbQSP,E2KL6SP,E2PVVLT,E2UfESP,E3IaQSP,E3NwVLT,E4G30STBxGc,E4LzsLP,E5E7XSAC8A1,E5KaILN,E5+DZLN,E6DekSADbBx,E6IYBLN,E68grLN,E7BjKSTBmGu,E76vxLP,E7/+qSAFDAI,E8480LP,E8+OpSTAKGT,E9yC+SP,E93ciLT,E98cSSP,E+whJSP,E+1cCLT,E/uoISTCfCf,E/0FaLP,FAtDsSADFHG,FAyCMLP,FBmMPLN,FBrTASTDsGS,FCkYMLN,FCpgySACAGg,FCutSLN,FDipgLT,FDn/vSTE1He,FEhDALT,FEl+2SAA4D7,FFaRoSP,FFfL0LT,FGYN0SP,FGdoYLT,FHWxtSACCIE,FHb0kLP,FIU6QSTDnK5,FIaHXLN,FJOKbLP,FJTOCSADCHz,FKML3LP,FKRmoSTCeCo,FLKy1LT,FLPtuSP,FMD28SP,FMIyLLT,FMOOsSP,FNB9GSP,FNHUnLT,FOAVsSAFACn,FOFd4LP,FO+o2STBVLI,FPDxELN,FP33OLN,FP8z4SADeBk,FQCK/LN,FQ10CLN,FQ7SqSTCoEn,FR0eULP,FR5XqSTB2Je,FSycBLT,FS32qSP,FTruBSP,FTw+kLT,FT2BvSP,FUp3CSP,FUvH1LT,FVoaaSTDuJ2,FVtbvLN,FWmWrSAByHh,FWrzJLP,FXfk5LN,FXlDDSACTEe,FYeAHLN,FYi9OSTDQDP,FZcO5LT,FZhk4SP,FaaeDLT,Fafo5STFAI0,FbTkSSP,FbY67LT,FcSBJSTBeC1,FcW8kLT,FdQFySADBIG,FdVkmLN,FeJMvLN,FeOncSADOJz,FeThSLN,FfHqxLN,FfMt6STBqCs,FgF5RLP,FgLHLSAEyIm,FhEG1LP,FhJZdSTAGAN,Fh9L5SP,FiCl9LT,FiHk4SP,Fi7rcSP,FjAmULT,Fj5xkSTCaKR,Fj/OhLP,Fk4NhSADEDa,Fk9MtLP,FlxVRLN,Fl2cySTDsCt,FmviaLN,Fm0qVSAB8DB,Fm531LN,Fnty0LP,FnzJoSTE4EL,FosM4LT,FoxIhSAA1An,FplbiSP,FpqVpLT,FqjXjSP,FqoxuLT,Frh7ZSACHEf,Frm+zLP,FsgEBSTDlHT,FslQVLN,FtZVDLP,FteX0SADHEK,FuXU0LN,FucwKSTCfKY,FvV9QLT,Fva38SP,FwO/sSP,FwT7fLT,FwZXwSP,FxNH4SP,FxSeuLT,FyLeMSAFKAW,FyQnYLP,FzJznSTBVHH,FzO7GLN,F0DAnLN,F0H8mSADoJv,F0NUaLN,F1A+XLN,F1GdLSAClAm,F1/nZLP,F2Eg4STCGGB,F29mhLP,F3DAwSP,F3236SP,F38HYLT,F4BLUSP,F41AgSP,F46STLT,F5zkVSTD8GG,F54kuLP,F6xgVSABlD4,F629ULP,F7qu7LN,F7wMySACgAy,F8pJQLN,F8uHISTDDKu,F9nZRLT,F9suXSP,F+lm5LT,F+qy2STEtEX,F/euQSP,F/kFbLT,GAdKgSTBFKV,GAiFjLT,GBbQLSADIEH,GBgu+LN,GCUWHLN,GCZwUSAC/Gl,GCeqnLN,GDS01LN,GDX4nSTBwJ5,GERCxLP,GEWPtSAEhFr,GFPQ5LP,GFUkQSTAKFV,GGIUzSP,GGNvXLT,GGSthSP,GHG1zSP,GHLwpLT,GIE68STCTGy,GIKXlLP,GJDXcSADCK8,GJIXULP,GJ8eJLN,GKBmeSTDrKb,GKG5ALN,GK6svLN,GK/0BSAB4Kv,GLFCfLN,GL47/LP,GL+TXSTE7A9,GM3W4LT,GM8SWSAAwIV,GNwlPSP,GN1fVLT,GOuhcSP,GOz7NLT,GO43ZSP,GPtE7SACMA+,GPyI7LP,GQrN2STDjDq,GQwZZLN,GRkfmLN,GRphhSADMAj,GSid1LN,GSn5uSTCfG2";
+const ECL_NAME={LN:"Penumbral lunar eclipse",LP:"Partial lunar eclipse",LT:"Total lunar eclipse",SP:"Partial solar eclipse",SA:"Annular solar eclipse",ST:"Total solar eclipse",SH:"Hybrid solar eclipse"};
+let _ecl=null;
+function eclipseList(){if(_ecl)return _ecl;const B="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",v=s=>{let n=0;for(const c of s)n=n*64+B.indexOf(c);return n;},T0=Date.UTC(1900,0,1);
+  _ecl=ECLIPSES_RAW.split(",").map(r=>{const e={t:T0+v(r.slice(0,5))*60000,k:r.slice(5,7)};if(r.length>7){e.lat=v(r.slice(7,9))/2-90;e.lon=v(r.slice(9,11))/2-180;}return e;});return _ecl;}
+function nearestCity(lat,lon,maxKm){let best=null,bd=1e9;const R=Math.PI/180;cityList().forEach(c=>{const d=6371*Math.acos(Math.min(1,Math.sin(lat*R)*Math.sin(c.lat*R)+Math.cos(lat*R)*Math.cos(c.lat*R)*Math.cos((lon-c.lon)*R)));if(d<bd){bd=d;best=c;}});return bd<=maxKm?{c:best,km:bd}:null;}
+function eclipseWhere(e){if(e.lat==null)return e.k[0]==="L"?"Visible wherever the Moon is up":"Seen as a partial eclipse near the poles";
+  const nc=nearestCity(e.lat,e.lon,700),ll=Math.abs(e.lat).toFixed(0)+"°"+(e.lat>=0?"N":"S")+" "+Math.abs(e.lon).toFixed(0)+"°"+(e.lon>=0?"E":"W");
+  return nc?"Greatest eclipse near "+cityLabel(nc.c):"Greatest eclipse at "+ll+", far from any large city";}
+/* the Moon's distance, km (Meeus ch. 47, main terms) */
+function moonDistance(jd){const R=Math.PI/180,T=(jd-2451545)/36525;
+  const D=(297.8501921+445267.1114034*T)*R,M=(357.5291092+35999.0502909*T)*R,Mp=(134.9633964+477198.8675055*T)*R,F=(93.2720950+483202.0175233*T)*R,E=1-0.002516*T,c=Math.cos;
+  return 385000.56+(-20905355*c(Mp)-3699111*c(2*D-Mp)-2955968*c(2*D)-569925*c(2*Mp)+48888*E*c(M)-3149*c(2*F)+246158*c(2*D-2*Mp)-152138*E*c(2*D-M-Mp)-170733*c(2*D+Mp)
+    -204586*E*c(2*D-M)-129620*E*c(M-Mp)+108743*c(D)+104755*E*c(M+Mp)+10321*c(2*D-2*F)+79661*c(Mp-2*F)-34782*c(4*D-Mp)-23210*c(3*Mp)-21636*c(4*D-2*Mp)+24208*E*c(2*D+M-Mp)
+    +30824*E*c(2*D+M)-8379*c(D-Mp)-16675*E*c(D+M)-12831*E*c(2*D-M+Mp)-10445*c(2*D+2*Mp)-11650*c(4*D)+14403*c(2*D-3*Mp)-7003*E*c(M-2*Mp)+10056*E*c(2*D-M-2*Mp)+6322*c(D+Mp)-9884*E*E*c(2*D-2*M))/1000;}
+const FULL_MOON_NAME=["Wolf","Snow","Worm","Pink","Flower","Strawberry","Buck","Sturgeon","Corn","Hunter's","Beaver","Cold"];
+const jdToMs=jd=>(jd-2440587.5)*864e5;
+/* find crossings of f(jd) (a longitude, degrees) through multiples of step, refined to ~1 minute */
+function crossings(f,j0,j1,step,dt){const out=[];let pj=j0,pv=f(j0);
+  for(let j=j0+dt;j<=j1+1e-9;j+=dt){const v=f(j),d=((v-pv+540)%360)-180,u0=pv,u1=pv+d,fw=d>0,ks=[];
+    if(fw)for(let k=Math.floor(u0/step)+1;k*step<=u1;k++)ks.push(k*step);else for(let k=Math.floor(u0/step);k*step>u1;k--)if(k*step<u0)ks.push(k*step);
+    ks.forEach(b=>{let lo=pj,hi=j;const sd=x=>((f(x)-b)%360+540)%360-180;for(let k=0;k<34;k++){const m=(lo+hi)/2;if((sd(m)<0)===fw)lo=m;else hi=m;}
+      out.push({jd:(lo+hi)/2,fw,at:((b%360)+360)%360});});
+    pj=j;pv=v;}return out;}
+const WX_PLANETS=["Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"];
+function retroPeriods(name,j0,j1){const sp=j=>((PLANETS.lonOf(name,j+0.5)-PLANETS.lonOf(name,j-0.5)+540)%360)-180;const st=[];let prev=sp(j0);
+  for(let j=j0+1;j<=j1;j++){const s=sp(j);if((prev<0)!==(s<0)){let a=j-1,b=j;for(let k=0;k<30;k++){const m=(a+b)/2;if((sp(m)<0)===(prev<0))a=m;else b=m;}st.push({jd:(a+b)/2,to:s<0?"R":"D"});}prev=s;}
+  const per=[];let open=sp(j0)<0?{start:null}:null;st.forEach(s=>{if(s.to==="R")open={start:s.jd};else{per.push({start:open?open.start:null,end:s.jd});open=null;}});if(open)per.push({start:open.start,end:null});
+  return {stations:st,periods:per};}
+function cosmicEvents(j0,j1){
+  const ev=[];const sunF=j=>SKY.sunLon(j),elong=j=>((SKY.moonLon(j)-SKY.sunLon(j))%360+360)%360;
+  /* seasons, equinoxes and solstices */
+  crossings(sunF,j0,j1,30,1).forEach(c=>{const sg=SKY.signOf(c.at+0.01),cardinal={0:"March equinox",90:"June solstice",180:"September equinox",270:"December solstice"}[c.at];
+    ev.push({jd:c.jd,type:"season",icon:signSym(sg),title:sg+" season begins",sub:"The Sun enters "+sg+(cardinal?" · the "+cardinal:""),sign:sg});});
+  /* new and full moons */
+  const phases=crossings(elong,j0-35,j1,180,0.5).filter(c=>c.fw);const fulls=[];
+  phases.forEach(c=>{const full=c.at===180,ml=SKY.moonLon(c.jd),dist=moonDistance(c.jd),super_=dist<362000;
+    const o={jd:c.jd,type:"moon",full,icon:full?"\u{1F315}":"\u{1F311}",sign:SKY.signOf(ml),dist,super:super_,title:(full?"Full Moon":"New Moon")+" in "+SKY.signOf(ml),sub:""};
+    if(full)fulls.push(o);ev.push(o);});
+  /* full moon names: by month, with the Harvest Moon nearest the September equinox and the Hunter's Moon after it; a second full moon in a month is a Blue Moon */
+  const eqx=ev.filter(e=>e.type==="season"&&e.sign==="Libra");
+  fulls.forEach((f,i)=>{const d=new Date(jdToMs(f.jd));let nm=FULL_MOON_NAME[d.getMonth()];
+    eqx.forEach(q=>{const near=fulls.reduce((b,x)=>Math.abs(x.jd-q.jd)<Math.abs(b.jd-q.jd)?x:b,fulls[0]);if(near===f)nm="Harvest";else if(fulls[fulls.indexOf(near)+1]===f)nm="Hunter's";});
+    const prev=fulls[i-1];if(prev){const pd=new Date(jdToMs(prev.jd));if(pd.getMonth()===d.getMonth()&&pd.getFullYear()===d.getFullYear())nm="Blue";}
+    f.name=nm;f.title="Full "+nm+" Moon in "+f.sign;});
+  ev.filter(e=>e.type==="moon").forEach(e=>{e.sub=(e.super?"A supermoon · ":"")+Math.round(e.dist).toLocaleString()+" km away"+(e.full?"":" · a fresh start");});
+  /* retrograde stations and planets changing sign */
+  WX_PLANETS.forEach(n=>{retroPeriods(n,j0-2,j1).stations.forEach(s=>{if(s.jd<j0)return;
+      ev.push({jd:s.jd,type:"retro",planet:n,to:s.to,icon:BODY_GLYPH[n],title:n+(s.to==="R"?" turns retrograde":" turns direct"),sub:(s.to==="R"?"Stations retrograde":"Stations direct")+" at "+fmtLon(PLANETS.lonOf(n,s.jd))+" "+SKY.signOf(PLANETS.lonOf(n,s.jd))});});
+    if(["Mercury","Venus","Mars","Jupiter","Saturn"].includes(n))crossings(j=>PLANETS.lonOf(n,j),j0,j1,30,0.5).forEach(c=>{const to=c.fw?SKY.signOf(c.at+0.01):SKY.signOf(c.at-0.01);
+      ev.push({jd:c.jd,type:"ingress",planet:n,icon:BODY_GLYPH[n],title:n+" enters "+to,sub:c.fw?"":"Moving backwards (retrograde) into "+to,sign:to});});});
+  /* eclipses */
+  const ms0=jdToMs(j0),ms1=jdToMs(j1);eclipseList().forEach(e=>{if(e.t<ms0||e.t>ms1)return;const jd=e.t/864e5+2440587.5;
+    ev.push({jd,type:"eclipse",kind:e.k,icon:e.k[0]==="S"?"\u{1F311}":"\u{1F318}",title:ECL_NAME[e.k]+" in "+SKY.signOf(e.k[0]==="S"?SKY.sunLon(jd):SKY.moonLon(jd)),sub:eclipseWhere(e)});});
+  return ev.filter(e=>e.jd>=j0&&e.jd<=j1).sort((a,b)=>a.jd-b.jd);}
+/* ---------- calendar files (.ics) ---------- */
+function icsText(events){const esc=s=>String(s||"").replace(/[\\;,]/g,m=>"\\"+m).replace(/\n/g,"\\n");const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+  const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//The Birthday Almanac//EN","CALSCALE:GREGORIAN"];
+  events.forEach((e,i)=>{L.push("BEGIN:VEVENT","UID:"+(e.uid||("ba-"+stamp+"-"+i))+"@birthday-almanac","DTSTAMP:"+stamp);
+    if(e.allDay){const d=e.date;const f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,"0")+String(x.getDate()).padStart(2,"0");const n=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+      L.push("DTSTART;VALUE=DATE:"+f(d),"DTEND;VALUE=DATE:"+f(n));}
+    else{const f=ms=>new Date(ms).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");L.push("DTSTART:"+f(e.ms),"DTEND:"+f(e.ms+(e.durMin||60)*60000));}
+    if(e.rrule)L.push("RRULE:"+e.rrule);L.push("SUMMARY:"+esc(e.title));if(e.desc)L.push("DESCRIPTION:"+esc(e.desc));if(e.url)L.push("URL:"+e.url);
+    if(e.alarm)L.push("BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc(e.title),"TRIGGER:"+e.alarm,"END:VALARM");L.push("END:VEVENT");});
+  L.push("END:VCALENDAR");
+  /* fold long lines at 75 octets as RFC 5545 asks */
+  return L.map(l=>{if(l.length<=74)return l;const parts=[];let s=l;parts.push(s.slice(0,74));s=s.slice(74);while(s.length){parts.push(" "+s.slice(0,73));s=s.slice(73);}return parts.join("\r\n");}).join("\r\n")+"\r\n";}
+function downloadICS(name,events,msg){const b=new Blob([icsText(events)],{type:"text/calendar;charset=utf-8"}),u=URL.createObjectURL(b),a=document.createElement("a");
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast(msg||"Calendar file saved ✦");}
+/* ---------- the page ---------- */
+const fmtWhen=jd=>{const d=new Date(jdToMs(jd));return d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})+" · "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});};
+const inDays=jd=>{const n=Date.now(),ms=jdToMs(jd),d=Math.round((new Date(new Date(ms).toDateString())-new Date(new Date(n).toDateString()))/864e5);return d===0?"today":d===1?"tomorrow":d===-1?"yesterday":d>0?"in "+d+" days":Math.abs(d)+" days ago";};
+function renderWeather(view){
+  view.innerHTML="";
+  const now=SKY.jdOfDate(new Date()),j0=now-1,j1=now+400;
+  const ev=cosmicEvents(j0,j1),future=ev.filter(e=>e.jd>=now);
+  const head=el("div",{class:"viewhead cosmic"});head.appendChild(starLayer("star-layer",30));
+  head.appendChild(el("p",{class:"eyebrow",text:"Cosmic weather · live"}));
+  head.appendChild(el("h1",{text:"What the sky is doing"}));
+  head.appendChild(el("div",{class:"lede",text:"Retrogrades, moon phases, eclipses and the planets changing sign, computed from real astronomy for your time zone. Add any of it to your calendar."}));
+  view.appendChild(head);
+  /* ---- right now ---- */
+  const nowSec=el("section",{class:"section"});nowSec.appendChild(secHead("Right now",new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})));
+  const g=el("div",{class:"wx-now"});
+  const merc=retroPeriods("Mercury",now-120,now+400),mNow=merc.periods.find(p=>(p.start==null||p.start<=now)&&(p.end==null||p.end>now)),mNext=merc.periods.find(p=>p.start&&p.start>now);
+  g.appendChild(wxCard("Mercury",BODY_GLYPH.Mercury,mNow?"Retrograde":"Direct",mNow?"Until "+new Date(jdToMs(mNow.end)).toLocaleDateString(undefined,{month:"long",day:"numeric"})+" ("+inDays(mNow.end)+")":mNext?"Next retrograde "+new Date(jdToMs(mNext.start)).toLocaleDateString(undefined,{month:"short",day:"numeric"})+" ("+inDays(mNext.start)+")":"",mNow?"hot":""));
+  const mo=SKY.moonAt(now),nm=future.find(e=>e.type==="moon");
+  const mc=wxCard("The Moon","",mo.name+" in "+SKY.signOf(SKY.moonLon(now)),nm?nm.title.replace(" in "," in ")+" "+inDays(nm.jd):"");const cv=el("canvas",{class:"moon-cv wx-moon","aria-hidden":"true"});cv.dataset.size="44";mc.querySelector(".wx-g").appendChild(cv);requestAnimationFrame(()=>drawMoon(cv,mo.phase));g.appendChild(mc);
+  const sun=SKY.signOf(SKY.sunLon(now)),ns=future.find(e=>e.type==="season");
+  g.appendChild(wxCard("The Sun",signSym(sun),sun+" season",ns?ns.title.replace(" begins","")+" begins "+inDays(ns.jd):""));
+  const retroNow=WX_PLANETS.filter(n=>{const sp=((PLANETS.lonOf(n,now+0.5)-PLANETS.lonOf(n,now-0.5)+540)%360)-180;return sp<0;});
+  g.appendChild(wxCard("Retrograde now","℞",retroNow.length?retroNow.join(", "):"Nothing: every planet is direct",retroNow.length?retroNow.length+" of 8 planets moving backwards":"",retroNow.includes("Mercury")?"hot":""));
+  const ne=eclipseList().find(e=>e.t>Date.now());
+  if(ne)g.appendChild(wxCard("Next eclipse",ne.k[0]==="S"?"\u{1F311}":"\u{1F318}",ECL_NAME[ne.k],new Date(ne.t).toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+" ("+inDays(ne.t/864e5+2440587.5)+")"));
+  nowSec.appendChild(g);view.appendChild(nowSec);
+  /* ---- retrograde timeline ---- */
+  const tl=el("section",{class:"section"});tl.appendChild(secHead("Retrograde tracker","The next twelve months; tap a bar for exact dates"));
+  const span0=now-15,span1=now+365,pct=j=>((Math.max(span0,Math.min(span1,j))-span0)/(span1-span0)*100);
+  const box=el("div",{class:"wx-tl"});const months=el("div",{class:"wx-months"});
+  for(let k=0;k<13;k++){const d=new Date(jdToMs(span0));d.setDate(1);d.setMonth(d.getMonth()+k);const j=SKY.jdOfDate(d);if(j<span0||j>span1)continue;months.appendChild(el("span",{text:d.toLocaleDateString(undefined,{month:"short"}),style:"left:"+pct(j)+"%"}));}
+  box.appendChild(months);const tip=el("p",{class:"wx-tip",text:"Tap a bar to see when it starts and ends."});
+  WX_PLANETS.forEach(n=>{const rp=retroPeriods(n,span0-200,span1+5).periods.filter(p=>(p.end==null||p.end>span0)&&(p.start==null||p.start<span1));
+    const row=el("div",{class:"wx-row"},[el("span",{class:"wx-pn"},[el("i",{text:BODY_GLYPH[n]}),document.createTextNode(n)])]);const track=el("div",{class:"wx-track"});
+    rp.forEach(p=>{const a=p.start==null?span0:p.start,b=p.end==null?span1:p.end;const bar=el("button",{class:"wx-bar"+(n==="Mercury"?" merc":""),style:"left:"+pct(a)+"%;width:"+Math.max(0.8,pct(b)-pct(a))+"%",
+      "aria-label":n+" retrograde "+(p.start?new Date(jdToMs(p.start)).toDateString():"")+" to "+(p.end?new Date(jdToMs(p.end)).toDateString():""),
+      onClick:()=>{tip.textContent=n+" is retrograde "+(p.start?"from "+new Date(jdToMs(p.start)).toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"}):"already")+" "+(p.end?"until "+new Date(jdToMs(p.end)).toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"}):"beyond this window")+
+        (p.start&&p.end?" · "+Math.round(p.end-p.start)+" days":"")+".";}});track.appendChild(bar);});
+    row.appendChild(track);box.appendChild(row);});
+  box.appendChild(el("i",{class:"wx-today",style:"--p:"+(pct(now)/100).toFixed(4)}));
+  tl.append(box,tip);view.appendChild(tl);
+  /* ---- coming up ---- */
+  const up=el("section",{class:"section"});up.appendChild(secHead("Coming up","The next four months, in your local time"));
+  const chips=el("div",{class:"wx-chips",role:"group","aria-label":"Filter events"});const list=el("div",{class:"wx-list"});
+  const kinds=[["all","Everything"],["moon","Moon"],["retro","Retrogrades"],["ingress","Planets change sign"],["season","Seasons"],["eclipse","Eclipses"]];let cur=STORE.get("wxf","all");
+  const paint=()=>{list.innerHTML="";chips.querySelectorAll("button").forEach(b=>{const on=b.dataset.k===cur;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on?"true":"false");});
+    const items=future.filter(e=>e.jd<=now+122&&(cur==="all"||e.type===cur));
+    if(!items.length)list.appendChild(el("p",{class:"wx-empty",text:"Nothing of this kind in the next four months."}));
+    items.forEach(e=>{const d=new Date(jdToMs(e.jd));
+      list.appendChild(el("div",{class:"wx-ev "+e.type+(e.super?" super":"")+(e.to==="R"?" retro-r":"")},[
+        el("div",{class:"wx-date"},[el("b",{text:String(d.getDate())}),el("span",{text:d.toLocaleDateString(undefined,{month:"short"})})]),
+        el("span",{class:"wx-ic",text:e.icon}),
+        el("div",{class:"wx-body"},[el("b",{text:e.title}),el("span",{text:(e.sub?e.sub+" · ":"")+fmtWhen(e.jd)})]),
+        el("span",{class:"wx-in",text:inDays(e.jd)}),
+        el("button",{class:"wx-add","aria-label":"Add "+e.title+" to your calendar",title:"Add to calendar",onClick:()=>downloadICS("cosmic-"+d.toISOString().slice(0,10)+".ics",[{ms:jdToMs(e.jd),durMin:60,title:e.title,desc:(e.sub?e.sub+". ":"")+"From The Birthday Almanac's cosmic weather.",url:location.origin+location.pathname+"#/weather"}],"Added: open the file to put it in your calendar ✦")},[document.createTextNode("+ \u{1F4C5}")])]));});};
+  kinds.forEach(([k,l])=>chips.appendChild(el("button",{class:"wx-chip","data-k":k,onClick:()=>{cur=k;STORE.set("wxf",k);paint();}},[document.createTextNode(l)])));
+  up.append(chips,list);
+  up.appendChild(el("button",{class:"btn btn-line wx-all",onClick:()=>downloadICS("cosmic-weather-"+new Date().getFullYear()+".ics",future.filter(e=>e.jd<=now+366).map((e,i)=>({ms:jdToMs(e.jd),durMin:60,title:e.icon+" "+e.title,desc:e.sub||"",uid:"wx-"+Math.round(e.jd*1440)+"-"+i})),"A year of cosmic weather saved: open it to add to your calendar ✦")},[document.createTextNode("\u{1F4C5}  Add the next 12 months to my calendar")]));
+  paint();view.appendChild(up);
+  /* ---- eclipses ---- */
+  const es=el("section",{class:"section"});es.appendChild(secHead("The next eclipses","Where the Moon's shadow falls"));const eg=el("div",{class:"wx-ecl"});
+  eclipseList().filter(e=>e.t>Date.now()).slice(0,8).forEach(e=>{const d=new Date(e.t);eg.appendChild(el("div",{class:"wx-ec "+e.k},[el("div",{class:"wx-ek",text:e.k[0]==="S"?"Solar":"Lunar"}),
+    el("b",{text:ECL_NAME[e.k]}),el("div",{class:"wx-ed",text:d.toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+" · "+inDays(e.t/864e5+2440587.5)}),el("p",{text:eclipseWhere(e)})]));});
+  es.appendChild(eg);view.appendChild(es);
+  /* ---- personal ---- */
+  const bd=STORE.get("bday",null);
+  if(bd&&bd.m){const ps=el("section",{class:"section"});const t=new Date();let nb=new Date(t.getFullYear(),bd.m-1,bd.d);if(nb<new Date(t.toDateString()))nb=new Date(t.getFullYear()+1,bd.m-1,bd.d);
+    const jb=SKY.jdOfDate(new Date(nb.getFullYear(),nb.getMonth(),nb.getDate(),12)),mr=((PLANETS.lonOf("Mercury",jb+0.5)-PLANETS.lonOf("Mercury",jb-0.5)+540)%360)-180<0,moonB=SKY.moonAt(jb);
+    const nearE=eclipseList().find(e=>Math.abs(e.t-nb.getTime())<16*864e5);
+    ps.appendChild(secHead("Your next birthday",nb.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"})+" · "+inDays(jb)));
+    const pg=el("div",{class:"wx-now"});
+    pg.appendChild(wxCard("Mercury that day",BODY_GLYPH.Mercury,mr?"Retrograde":"Direct",mr?"Double-check the party invitations":"Clear skies for plans and messages",mr?"hot":""));
+    const pc=wxCard("The Moon that day","",moonB.name,"In "+SKY.signOf(SKY.moonLon(jb))+" · "+Math.round(moonB.illum*100)+"% lit");const cv2=el("canvas",{class:"moon-cv wx-moon","aria-hidden":"true"});cv2.dataset.size="44";pc.querySelector(".wx-g").appendChild(cv2);requestAnimationFrame(()=>drawMoon(cv2,moonB.phase));pg.appendChild(pc);
+    pg.appendChild(wxCard("Eclipse season","\u{1F318}",nearE?ECL_NAME[nearE.k]:"No eclipse nearby",nearE?new Date(nearE.t).toLocaleDateString(undefined,{month:"long",day:"numeric"})+", within two weeks of your birthday":"No eclipse within two weeks of your birthday"));
+    if(bd.y){const jy=SKY.jdn(bd.y,bd.m,bd.d);const born=((PLANETS.lonOf("Mercury",jy+0.5)-PLANETS.lonOf("Mercury",jy-0.5)+540)%360)-180<0;
+      pg.appendChild(wxCard("The day you were born",BODY_GLYPH.Mercury,born?"Mercury was retrograde":"Mercury was direct",born?"About one person in five is born under a Mercury retrograde":"Like about four people in five"));}
+    ps.appendChild(pg);view.appendChild(ps);}
+  view.appendChild(el("p",{class:"ch-foot",text:"Retrograde stations fall within hours of a VSOP87 reference ephemeris; moon phases to within minutes; eclipses precomputed with the astronomy-engine library. Supermoons here are full or new moons closer than 362,000 km."}));
+}
+function wxCard(k,g,v,s,cls){return el("div",{class:"wx-card"+(cls?" "+cls:"")},[el("div",{class:"wx-g",text:g}),el("div",{class:"wx-k",text:k}),el("div",{class:"wx-v",text:v}),s?el("div",{class:"wx-s",text:s}):null]);}
+/* one-line summary for other pages */
+function weatherTeaser(){try{const now=SKY.jdOfDate(new Date());
+  const mr=((PLANETS.lonOf("Mercury",now+0.5)-PLANETS.lonOf("Mercury",now-0.5)+540)%360)-180<0,mo=SKY.moonAt(now);
+  const nx=cosmicEvents(now,now+45).filter(e=>e.type!=="ingress"||["Mercury","Venus","Mars"].includes(e.planet))[0];
+  return el("button",{class:"wx-teaser",onClick:()=>setView("weather")},[el("div",{class:"ch2-k",text:"Cosmic weather today"}),
+    el("span",{html:"Mercury <b>"+(mr?"retrograde":"direct")+"</b>"}),el("span",{html:"Moon <b>"+esc(mo.name.toLowerCase())+"</b> in "+SKY.signOf(SKY.moonLon(now))}),
+    nx?el("span",{html:"Next: <b>"+esc(nx.title)+"</b> "+inDays(nx.jd)}):null,el("em",{text:"Forecast →"})]);}catch(e){return null;}}
 function openChartFor(p){state.chartPerson=p?p.id:null;state.view="chart";closeModal();window.scrollTo({top:0});render();}
 function moonName(p){return SKY.phaseName(p);}
 
@@ -8134,7 +8344,7 @@ function renderToday(view){
     [el("div",{class:"tr-c"},[el("b",{text:Math.round(pct*100)+"%"}),el("span",{text:"of "+y})])]));
   const mc=el("canvas",{class:"moon-cv td-moon","aria-hidden":"true"});mc.dataset.size="112";vis.appendChild(mc);requestAnimationFrame(()=>drawMoon(mc,sky.moon.phase));
   hero.appendChild(vis);view.appendChild(hero);
-  if(!off){const rt=riddleTeaser();if(rt){rt.classList.add("td-rd");view.appendChild(rt);}}
+  if(!off){const rt=riddleTeaser();if(rt){rt.classList.add("td-rd");view.appendChild(rt);}const wt=weatherTeaser();if(wt)view.appendChild(wt);}
 
   /* ---------- celebrating ---------- */
   const living=born.filter(p=>p.alive&&p.birthYear!=null);
@@ -8733,6 +8943,7 @@ function renderHoroscope(view){
   head.appendChild(el("div",{class:"lede",text:"Twelve signs, refreshed each midnight — readings for love, work, energy and luck, written in the almanac's voice. For reflection and delight, not prophecy."}));
   view.appendChild(head);
   view.appendChild(realSkyStrip(null));
+  {const wt=weatherTeaser();if(wt)view.appendChild(wt);}
   /* ---- personal: your reading, or find your sign ---- */
   const me=el("section",{class:"h-me"});
   if(saved){const h=horoscopeFor(saved,"today"),st=streakNow();
@@ -11411,6 +11622,7 @@ function render(){
   else if(state.view==="portal")renderPortal(view);
   else if(state.view==="chart")renderChart(view);
   else if(state.view==="riddle")renderRiddle(view);
+  else if(state.view==="weather")renderWeather(view);
   else if(state.view==="horoscope")renderHoroscope(view);
   else if(state.view==="today")renderToday(view);
   else if(state.view==="compare")renderCompare(view);
