@@ -393,7 +393,7 @@ html[data-theme="dark"] .ah-cta .btn-ghost{color:#f3ead4;background:rgba(255,255
 .ah-bead{fill:#fbe7ad;stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 10px rgba(251,231,173,.9))}
 .ah-beadhalo{fill:rgba(251,231,173,.16)}
 @keyframes ahHalo{50%{transform:scale(1.35);opacity:.4}}
-.ah-ring{position:absolute;inset:0;border-radius:50%;cursor:grab;touch-action:none;outline:none;-webkit-tap-highlight-color:transparent}
+.ah-ring{position:absolute;inset:0;border-radius:50%;cursor:grab;touch-action:pan-y pinch-zoom;outline:none;-webkit-tap-highlight-color:transparent}
 .ah-ring:focus-visible{box-shadow:0 0 0 3px var(--gold-soft),0 0 0 7px color-mix(in srgb,var(--gold-soft) 25%,transparent)}
 .ah-dial.turning .ah-ring{cursor:grabbing}
 .ah-dial.turning .ah-hand{stroke:#fff}
@@ -7339,7 +7339,7 @@ function astroHero(){
   const cDay=el("div",{class:"ah-cday"},[cSign,cDate,cCount]),cWho=el("div",{class:"ah-cwho"});
   centre.append(cDay,cWho);core.appendChild(centre);core.appendChild(faces);
   dial.appendChild(core);
-  dial.appendChild(el("p",{class:"ah-hint","aria-hidden":"true"},[el("span",{class:"ah-hk",text:"Drag the ring to turn the year  ·  or use ← →"}),el("span",{class:"ah-ht",text:"Drag the ring to turn the year"})]));
+  dial.appendChild(el("p",{class:"ah-hint","aria-hidden":"true"},[el("span",{class:"ah-hk",text:"Drag the ring to turn the year  ·  or use ← →"}),el("span",{class:"ah-ht",text:"Swipe sideways to turn the year · tap a date"})]));
 
   const wrap=el("div",{class:"ah-in"});wrap.append(copy,dial);hero.appendChild(wrap);
 
@@ -7447,9 +7447,23 @@ function astroHero(){
   let drag=false;
   const angAt=e=>{const r=dial.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
     return Math.floor((((Math.atan2(y,x)+Math.PI/2)/(2*Math.PI)+1)%1)*366);};
-  ring.addEventListener("pointerdown",e=>{drag=true;ring.setPointerCapture(e.pointerId);dial.classList.add("turning");choose(angAt(e),{instant:true,keepFaces:true});e.preventDefault();});
-  ring.addEventListener("pointermove",e=>{if(!drag)return;const i=angAt(e);if(i!==sel)choose(i,{instant:true,keepFaces:true});});
-  const end=()=>{if(!drag)return;drag=false;dial.classList.remove("turning");clearTimeout(faceTimer);placeFaces();words();};
+  /* mouse: grab the ring and turn it. touch: the page keeps vertical swipes
+     (so the dial never traps a scroll); a sideways swipe turns the year a day
+     per step, and a tap on the ring jumps straight to that date */
+  let tch=null;
+  ring.addEventListener("pointerdown",e=>{
+    if(e.pointerType==="mouse"){drag=true;ring.setPointerCapture(e.pointerId);dial.classList.add("turning");choose(angAt(e),{instant:true,keepFaces:true});e.preventDefault();return;}
+    tch={x:e.clientX,y:e.clientY,from:sel,moved:false};});
+  ring.addEventListener("pointermove",e=>{
+    if(drag){const i=angAt(e);if(i!==sel)choose(i,{instant:true,keepFaces:true});return;}
+    if(!tch)return;const dx=e.clientX-tch.x;if(!tch.moved&&Math.abs(dx)<8)return;
+    if(!tch.moved){tch.moved=true;tch.x=e.clientX;dial.classList.add("turning");return;}
+    const i=tch.from-Math.round((e.clientX-tch.x)/9);if(((i%366)+366)%366!==sel)choose(i,{instant:true,keepFaces:true});});
+  const end=e=>{
+    if(tch){const t=tch;tch=null;dial.classList.remove("turning");
+      if(e&&e.type==="pointerup"&&!t.moved&&Math.hypot(e.clientX-t.x,e.clientY-t.y)<10){choose(angAt(e));return;}
+      if(t.moved){clearTimeout(faceTimer);placeFaces();words();}return;}
+    if(!drag)return;drag=false;dial.classList.remove("turning");clearTimeout(faceTimer);placeFaces();words();};
   ring.addEventListener("pointerup",end);ring.addEventListener("pointercancel",end);
   ring.addEventListener("keydown",e=>{const {m}=ahMD(sel);let i=null;
     if(e.key==="ArrowRight"||e.key==="ArrowUp")i=sel+1;else if(e.key==="ArrowLeft"||e.key==="ArrowDown")i=sel-1;
