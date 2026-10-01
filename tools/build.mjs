@@ -35,7 +35,7 @@ if(!app||app[1].length<100000)fail("could not find the application script");
 const appJs=app[1];
 
 const swTpl=readFileSync(join(root,"tools","sw.template.js"),"utf8");
-const hData=hash(dataJs),hApp=hash(appJs),build=hash(hData+hApp+src.length+swTpl);
+const hData=hash(dataJs),hApp=hash(appJs),build=hash(hData+hApp+src+swTpl);
 const dataPath="data/people."+hData+".js",appPath="app."+hApp+".js";
 
 // 3. the page: same markup and CSS. Both files start downloading at once (preload);
