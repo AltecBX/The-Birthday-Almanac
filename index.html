@@ -2968,7 +2968,10 @@ html[data-theme="dark"] .rmd-ch.on{background:var(--card-3);color:var(--ink);bor
 }
 </style>
 <script>/* decide before paint: theme (saved pref or system), and first-visit intro */
-try{var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.dataset.theme=_t;}catch(e){}
+/* phones open in dark mode unless the visitor has picked a theme themselves */
+try{var _mm=window.matchMedia,_ph=!!(_mm&&_mm("(pointer:coarse)").matches&&Math.min(screen.width,screen.height)<600);window.__phone=_ph;
+var _t=localStorage.getItem("ba_theme");if(_t!=="light"&&_t!=="dark"){_t=(_ph||(_mm&&_mm("(prefers-color-scheme:dark)").matches))?"dark":"light";}document.documentElement.dataset.theme=_t;
+if(_t==="dark"){var _m=document.querySelector('meta[name="theme-color"]');if(_m)_m.setAttribute("content","#0b1322");}}catch(e){}
 try{if(!localStorage.getItem("ba_seen_intro")&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){document.documentElement.classList.add("intro-play");}}catch(e){}</script>
 </head>
 <body>
@@ -12675,15 +12678,15 @@ document.getElementById("brandBtn").onclick=()=>setView("discover");
 (function(){const tb=document.getElementById("themeBtn");if(!tb)return;
   const meta=document.querySelector('meta[name="theme-color"]');
   function syncMeta(t){if(meta)meta.setAttribute("content",t==="dark"?"#0b1322":"#16273B");}
-  function apply(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("ba_theme",t);}catch(e){}
+  function apply(t,save){document.documentElement.dataset.theme=t;if(save!==false){try{localStorage.setItem("ba_theme",t);}catch(e){}}
     syncMeta(t);tb.setAttribute("aria-pressed",t==="dark"?"true":"false");
     if(typeof positionNavPill==="function")positionNavPill();}
   syncMeta(document.documentElement.dataset.theme);
   tb.setAttribute("aria-pressed",document.documentElement.dataset.theme==="dark"?"true":"false");
   tb.addEventListener("click",()=>apply(document.documentElement.dataset.theme==="dark"?"light":"dark"));
-  // follow system changes only while the user hasn't chosen manually
-  if(window.matchMedia){try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",e=>{
-    if(!localStorage.getItem("ba_theme"))apply(e.matches?"dark":"light");});}catch(e){}}
+  // follow system changes only while the user hasn't chosen manually (phones stay dark)
+  if(window.matchMedia&&!window.__phone){try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",e=>{
+    if(!localStorage.getItem("ba_theme"))apply(e.matches?"dark":"light",false);});}catch(e){}}
 })();
 /* My Birthday Portal entry point — glyph reflects the saved sign */
 (function(){const pb=document.getElementById("portalBtn");if(!pb)return;
