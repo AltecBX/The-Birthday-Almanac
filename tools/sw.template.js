@@ -3,12 +3,12 @@
    App and data files are content-hashed, so they are cached forever.
    Fonts and portraits are cached as you meet them. */
 const BUILD="__BUILD__";
-const CORE="almanac-core-"+BUILD,RUNTIME="almanac-runtime",IMAGES="almanac-images";
+const CORE="almanac-core-"+BUILD,RUNTIME="almanac-runtime",IMAGES="almanac-images-2";
 const PRECACHE=__PRECACHE__;
-const IMAGE_LIMIT=400;
+const IMAGE_LIMIT=600;
 
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CORE).then(c=>c.addAll(PRECACHE)).then(()=>self.skipWaiting()));});
-self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith("almanac-core-")&&k!==CORE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>(k.startsWith("almanac-core-")&&k!==CORE)||k==="almanac-images").map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 
 async function trim(name,max){const c=await caches.open(name),k=await c.keys();for(let i=0;i<k.length-max;i++)await c.delete(k[i]);}
 function timeout(ms){return new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms));}
@@ -29,9 +29,18 @@ self.addEventListener("fetch",e=>{
   /* fonts: cache first */
   if(url.hostname==="fonts.googleapis.com"||url.hostname==="fonts.gstatic.com"){
     e.respondWith(caches.open(RUNTIME).then(async c=>{const hit=await c.match(req);if(hit)return hit;const r=await fetch(req);if(r.ok||r.type==="opaque")c.put(req,r.clone());return r;}));return;}
-  /* portraits and Wikipedia summaries: show the saved copy, refresh it in the background */
-  if(/(^|\.)wikimedia\.org$|(^|\.)wikipedia\.org$/.test(url.hostname)){
+  /* portraits: a picture at a given address never changes, so a saved copy is
+     used as is. They are fetched with CORS (Wikimedia allows it) so a refusal
+     such as "too many requests" can be seen and is never saved in place of
+     the picture; anything that can't be read that way is passed straight
+     through, uncached. */
+  if(url.hostname==="upload.wikimedia.org"||url.hostname==="thumb.wikimedia.org"){
+    e.respondWith(caches.open(IMAGES).then(async c=>{const hit=await c.match(req);if(hit)return hit;
+      let r;try{r=await fetch(req.url,{mode:"cors",credentials:"omit",referrerPolicy:"no-referrer"});}catch(err){return fetch(req);}
+      if(r.ok){c.put(req,r.clone());trim(IMAGES,IMAGE_LIMIT);}return r;}));return;}
+  /* Wikipedia summaries: the saved copy at once, refreshed in the background */
+  if(/(^|\.)wikipedia\.org$/.test(url.hostname)){
     e.respondWith(caches.open(IMAGES).then(async c=>{const hit=await c.match(req);
-      const net=fetch(req).then(r=>{if(r.ok||r.type==="opaque"){c.put(req,r.clone());trim(IMAGES,IMAGE_LIMIT);}return r;}).catch(()=>hit);
-      return hit||net;}));return;}
+      const net=fetch(req).then(r=>{if(r.ok){c.put(req,r.clone());trim(IMAGES,IMAGE_LIMIT);}return r;});
+      if(hit){e.waitUntil(net.catch(()=>{}));return hit;}return net;}));return;}
 });
