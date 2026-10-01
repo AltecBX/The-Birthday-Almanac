@@ -11306,14 +11306,15 @@ function faceURL(p,w){
   if(/\.tiff?$/i.test(p.img))return WM_UP+"thumb/"+d+f+"/lossy-page1-"+w+"px-"+f+".jpg";
   return WM_UP+"thumb/"+d+f+"/"+w+"px-"+f+(/\.svg$/i.test(p.img)?".png":"");
 }
-/* load a portrait; if Wikimedia turns it away (busy), try once more by the
-   longer route a moment later before falling back to the monogram */
+/* load a portrait. Wikimedia turns a request away while it makes a size it
+   hasn't made before, then serves it moments later, so try again twice
+   (by the longer route, then directly) before falling back to the monogram */
 function faceLoad(im,src,p){
   let tries=0;
   im.onerror=()=>{
-    if(tries++||!p.img||src.indexOf(WM_UP)!==0){im.remove();return;}
-    const w=(src.match(/\/(?:lossy-page1-)?(\d+)px-/)||[0,330])[1];
-    setTimeout(()=>{if(im.isConnected||!im.parentNode)im.src=commonsThumb(p.img,w);else im.remove();},700+Math.random()*1800);
+    if(tries>=2||!p.img||src.indexOf(WM_UP)!==0){im.remove();return;}
+    const w=(src.match(/\/(?:lossy-page1-)?(\d+)px-/)||[0,330])[1],next=tries++?src+"?retry":commonsThumb(p.img,w);
+    setTimeout(()=>{if(im.isConnected||!im.parentNode)im.src=next;else im.remove();},tries*(1500+Math.random()*2500));
   };
   im.src=src;
 }
