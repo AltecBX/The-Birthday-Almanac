@@ -218,7 +218,7 @@ body.search-spot .primary,body.search-spot .brand{opacity:.4;transition:opacity 
 .count-label{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.4px}
 
 /* ===== MAIN ===== */
-main{display:block;min-height:60vh}
+main{display:block;min-height:60vh;overflow-x:clip}
 #view{padding:26px 0 90px}
 .section{margin:0 0 38px}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px}
@@ -283,6 +283,147 @@ main{display:block;min-height:60vh}
 .dhero-overlay .dhero-sub{max-width:560px;margin:16px auto 0;color:#D4CDBC;font-size:15.5px;line-height:1.55;text-shadow:0 1px 18px rgba(6,10,20,.7)}
 .dhero-overlay .dhero-cta{justify-content:center;margin-top:26px;pointer-events:auto}
 .dhero-hint{margin-top:20px;font-family:var(--mono);font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(232,224,206,.5)}
+/* ===== THE BIRTHDAY ASTROLABE (Discover hero) ===== */
+@property --ahsw{syntax:"<angle>";inherits:false;initial-value:360deg}
+.ahero{position:relative;margin:0 0 26px;padding:clamp(18px,3.2vw,44px) 0 clamp(26px,3vw,40px)}
+.ah-glow{position:absolute;right:-8%;top:50%;width:min(78vw,980px);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;
+  background:radial-gradient(circle,rgba(201,162,79,.22),rgba(201,162,79,.06) 38%,transparent 64%)}
+html[data-theme="dark"] .ah-glow{background:radial-gradient(circle,rgba(150,180,255,.12),rgba(230,201,122,.06) 40%,transparent 64%)}
+.ah-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:center;gap:clamp(24px,4.4vw,72px);min-height:min(calc(100vh - 170px),720px)}
+/* words */
+.ah-copy{min-width:0;position:relative;isolation:isolate}
+.ah-copy::before{content:"";position:absolute;inset:-70px -60px -50px -90px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 60% 58% at 42% 50%,rgba(244,239,228,.92),rgba(244,239,228,.7) 55%,transparent 78%)}
+html[data-theme="dark"] .ah-copy::before{content:"";position:absolute;inset:-70px -60px -50px -90px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 60% 58% at 42% 50%,rgba(6,10,22,.82),rgba(6,10,22,.55) 55%,transparent 78%)}
+.ah-eye{display:flex;align-items:center;gap:10px;text-wrap:balance;font-family:var(--mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep);margin:0 0 20px;line-height:1.5}
+html[data-theme="dark"] .ah-eye{color:var(--gold-soft)}
+.ah-live{flex:none;width:8px;height:8px;border-radius:50%;background:#3fbf8f;box-shadow:0 0 0 0 rgba(63,191,143,.6);animation:ahLive 2.4s infinite}
+@keyframes ahLive{0%{box-shadow:0 0 0 0 rgba(63,191,143,.55)}70%{box-shadow:0 0 0 9px rgba(63,191,143,0)}100%{box-shadow:0 0 0 0 rgba(63,191,143,0)}}
+.ah-h{font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.3vw,80px);line-height:1.02;letter-spacing:-.5px;color:var(--ink);margin:0;text-wrap:balance}
+.ah-h-a{display:inline}
+.ah-date{white-space:nowrap}
+.ah-sel{appearance:none;-webkit-appearance:none;font:inherit;font-style:italic;font-weight:500;color:var(--gold-deep);background:transparent;border:0;border-radius:0;
+  border-bottom:3px dotted color-mix(in srgb,currentColor 55%,transparent);padding:0 .04em;margin:0;cursor:pointer;line-height:1.08;transition:color .2s,border-color .2s}
+.ah-sel+.ah-sel{margin-left:.22em}
+.ah-sel:hover{border-bottom-style:solid}
+.ah-sel:focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px;border-radius:6px}
+.ah-sel option{font-style:normal;font-size:16px;color:#1c2333;background:#fff}
+html[data-theme="dark"] .ah-sel{color:var(--gold-soft)}
+.ah-h-q{color:var(--ink)}
+.ah-lede{font-size:clamp(16px,1.35vw,18.5px);line-height:1.6;color:var(--ink-2);max-width:34em;margin:22px 0 0;min-height:3.2em}
+.ah-name{font:inherit;font-weight:650;color:var(--ink);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--gold-deep) 55%,transparent);
+  text-decoration-thickness:1.5px;text-underline-offset:4px;transition:text-decoration-color .2s,color .2s}
+.ah-name:hover{text-decoration-color:var(--gold-deep);color:var(--gold-deep)}
+html[data-theme="dark"] .ah-name:hover{color:var(--gold-soft);text-decoration-color:var(--gold-soft)}
+.ah-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.ah-cta .btn{min-height:46px}
+.ah-cta .btn-ghost{color:var(--ink);background:var(--card);border:1px solid var(--hairline);box-shadow:var(--shadow-sm)}
+.ah-cta .btn-ghost:hover{border-color:var(--gold-soft);color:var(--ink)}
+html[data-theme="dark"] .ah-cta .btn-ghost{color:#f3ead4;background:rgba(255,255,255,.06);border-color:rgba(243,234,212,.28);box-shadow:none}
+.ah-quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:30px}
+.ah-chip{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--card);border:1px solid var(--hairline);border-radius:999px;padding:6px 12px;cursor:pointer;transition:.2s}
+.ah-chip:hover{border-color:var(--gold-soft);color:var(--ink)}
+.ah-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:30px 0 0;padding-top:20px;border-top:1px solid var(--hairline);max-width:560px}
+.ah-stats div{display:flex;flex-direction:column-reverse;gap:2px}
+.ah-stats dt{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint)}
+.ah-stats dd{margin:0;font-family:var(--serif);font-size:clamp(20px,2vw,28px);font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+/* the instrument */
+.ah-dial{position:relative;width:min(100%,700px);aspect-ratio:1;justify-self:center;user-select:none;-webkit-user-select:none}
+.ah-dial>svg,.ah-ticks,.ah-ticks svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ah-base{filter:drop-shadow(0 30px 60px rgba(10,16,32,.35))}
+.ah-plate{fill:#0a1327}
+.ah-rim{fill:none;stroke:url(#ahBrass);stroke-width:5}
+.ah-rim2{fill:none;stroke:rgba(230,206,142,.32);stroke-width:1.4}
+.ah-disk{fill:url(#ahFace)}
+.ah-zseg{fill:rgba(230,206,142,.045);stroke:rgba(230,206,142,.16);stroke-width:1;transition:fill .35s}
+.ah-zseg.alt{fill:rgba(230,206,142,.085)}
+.ah-zseg.on{fill:rgba(240,214,140,.24)}
+.ah-zg{font-size:29px;fill:rgba(243,230,196,.5);text-anchor:middle;dominant-baseline:central;transition:fill .35s}
+.ah-zg.on{fill:#fbe7ad;filter:drop-shadow(0 0 8px rgba(251,231,173,.7))}
+.ah-mrule{stroke:rgba(230,206,142,.2);stroke-width:1.2}
+.ah-mname{font-family:var(--mono);font-size:14.5px;font-weight:600;letter-spacing:4px;fill:rgba(243,230,196,.7);text-anchor:middle;dominant-baseline:central}
+.ah-today{fill:#0a1327;stroke:#7fe0bf;stroke-width:3;animation:ahToday 2.6s ease-in-out infinite}
+@keyframes ahToday{50%{stroke-opacity:.35}}
+.ah-tk line{stroke:#e9cd83;stroke-width:2.3;stroke-linecap:round}
+.ah-ticks.sweep{-webkit-mask:conic-gradient(#000 var(--ahsw),transparent 0);mask:conic-gradient(#000 var(--ahsw),transparent 0);animation:ahSweep 1.7s .1s cubic-bezier(.55,.05,.25,1) both}
+@keyframes ahSweep{from{--ahsw:0deg}to{--ahsw:360deg}}
+.ah-fig polyline{fill:none;stroke:rgba(178,200,255,.5);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:0;animation:ahDraw 1.6s cubic-bezier(.4,0,.2,1) both}
+.ah-fig circle{fill:#f4f7ff;filter:drop-shadow(0 0 5px rgba(190,210,255,.95));animation:ahTwinkle 3.4s var(--tw,0s) ease-in-out infinite}
+@keyframes ahDraw{from{stroke-dashoffset:var(--len)}}
+@keyframes ahTwinkle{50%{opacity:.45}}
+.ah-hand{stroke:rgba(251,231,173,.75);stroke-width:2.4;stroke-linecap:round}
+.ah-hi{stroke:#fff;stroke-width:4.2;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,240,200,.9))}
+.ah-wedge{fill:rgba(251,231,173,.08)}
+.ah-bead{fill:#fbe7ad;stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 10px rgba(251,231,173,.9))}
+.ah-beadhalo{fill:rgba(251,231,173,.16);animation:ahHalo 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ahHalo{50%{transform:scale(1.35);opacity:.4}}
+.ah-ring{position:absolute;inset:0;border-radius:50%;cursor:grab;touch-action:none;outline:none;-webkit-tap-highlight-color:transparent}
+.ah-ring:focus-visible{box-shadow:0 0 0 3px var(--gold-soft),0 0 0 7px color-mix(in srgb,var(--gold-soft) 25%,transparent)}
+.ah-dial.turning .ah-ring{cursor:grabbing}
+.ah-dial.turning .ah-hand{stroke:#fff}
+.ah-core{position:absolute;inset:0;pointer-events:none;isolation:isolate}
+.ah-hole{position:absolute;left:18.8%;top:18.8%;width:62.4%;height:62.4%;border-radius:50%;pointer-events:auto;touch-action:pan-y pinch-zoom}
+.ah-links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ah-chain{fill:none;stroke:rgba(251,231,173,.42);stroke-width:1.6;stroke-dasharray:3 7;stroke-linecap:round;animation:ahFade .9s .25s both}
+@keyframes ahFade{from{opacity:0}}
+.ah-faces{position:absolute;inset:0;pointer-events:none}
+.ah-face{position:absolute;width:clamp(46px,11.2%,80px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;padding:0;margin:0;cursor:pointer;pointer-events:auto;overflow:hidden;
+  border:2px solid rgba(251,231,173,.8);background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--cat) 70%,#fff 10%),color-mix(in srgb,var(--cat) 45%,#0b1428));
+  box-shadow:0 0 0 5px rgba(9,15,30,.55),0 14px 30px -10px rgba(0,0,0,.75);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s,opacity .25s;animation:ahPop .7s calc(var(--i)*75ms + 120ms) both cubic-bezier(.2,.9,.3,1.25)}
+.ah-face.lead{width:clamp(56px,13.6%,98px);border-color:#fbe7ad;box-shadow:0 0 0 5px rgba(9,15,30,.55),0 0 26px rgba(251,231,173,.35),0 14px 30px -10px rgba(0,0,0,.75)}
+.ah-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;opacity:0;transition:opacity .45s}
+.ah-face.has img{opacity:1}
+.ah-fmono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:clamp(15px,1.6vw,22px);color:rgba(255,255,255,.9)}
+.ah-face:hover,.ah-face:focus-visible{transform:translate(-50%,-50%) scale(1.14);border-color:#fff;outline:none;z-index:3;box-shadow:0 0 0 5px rgba(9,15,30,.55),0 0 30px rgba(251,231,173,.55),0 18px 34px -10px rgba(0,0,0,.8)}
+@keyframes ahPop{from{opacity:0;transform:translate(-50%,-50%) scale(.3)}}
+.ah-faces.out .ah-face{opacity:0;transform:translate(-50%,-50%) scale(.55);animation:none}
+.ah-centre{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;width:33%;min-height:20%}
+.ah-centre::before{content:"";position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(10,17,36,.88) 0,rgba(10,17,36,.6) 42%,transparent 70%)}
+.ah-csign{font-family:var(--mono);font-size:clamp(9px,1vw,11.5px);letter-spacing:2.6px;text-transform:uppercase;color:#e9cd83}
+.ah-cdate{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.7vw,50px);line-height:1.05;color:#f8f1df;margin:4px 0 3px;letter-spacing:-.3px;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.ah-ccount{font-family:var(--mono);font-size:clamp(9px,.95vw,11px);letter-spacing:1.6px;text-transform:uppercase;color:rgba(232,226,210,.62)}
+.ah-cday,.ah-cwho{transition:opacity .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.ah-cwho{position:absolute;left:50%;top:50%;width:100%;transform:translate(-50%,-50%) scale(.96);opacity:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ah-centre.who .ah-cday{opacity:0;transform:scale(.94)}
+.ah-centre.who .ah-cwho{opacity:1;transform:translate(-50%,-50%)}
+.ah-cwho b{font-family:var(--serif);font-size:clamp(17px,2vw,25px);font-weight:600;line-height:1.1;color:#f8f1df;text-wrap:balance}
+.ah-tyr{font-family:var(--mono);font-size:clamp(9.5px,.9vw,11px);letter-spacing:1.2px;color:#e9cd83}
+.ah-tds{font-size:clamp(11px,1vw,13px);line-height:1.38;color:rgba(243,234,212,.78);text-wrap:balance;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ah-ht{display:none}
+@media(hover:none){.ah-hk{display:none}.ah-ht{display:inline}}
+.ah-hint{position:absolute;left:0;right:0;bottom:-30px;margin:0;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint)}
+/* arrival */
+.ahero.arrive .ah-copy>*{animation:ahRise .9s cubic-bezier(.2,.8,.2,1) both}
+.ahero.arrive .ah-copy>:nth-child(2){animation-delay:.08s}.ahero.arrive .ah-copy>:nth-child(3){animation-delay:.2s}
+.ahero.arrive .ah-copy>:nth-child(4){animation-delay:.3s}.ahero.arrive .ah-copy>:nth-child(5){animation-delay:.38s}.ahero.arrive .ah-copy>:nth-child(6){animation-delay:.46s}
+.ahero.arrive .ah-dial{animation:ahDialIn 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ahRise{from{opacity:0;transform:translateY(18px)}}
+@keyframes ahDialIn{from{opacity:0;transform:scale(.92) rotate(-8deg)}}
+@media(prefers-reduced-motion:reduce){.ahero *{animation:none!important}}
+/* phones and tablets: headline, then the instrument, then the words */
+@media(max-width:960px){
+  .ah-in{display:flex;flex-direction:column;align-items:stretch;gap:0;min-height:0;text-align:center}
+  .ah-copy{display:contents}
+  .ah-eye{order:1;display:block;text-align:center;margin-bottom:14px;font-size:10px;letter-spacing:1.2px}
+  .ah-live{display:inline-block;vertical-align:1px;margin-right:8px}
+  .ah-h{order:2;font-size:clamp(34px,8.6vw,56px)}
+  .ah-dial{order:3;width:min(100%,560px);margin:26px auto 40px}
+  .ah-lede{order:4;margin:0 auto;min-height:0}
+  .ah-cta{order:5;justify-content:center}
+  .ah-quick{order:6;justify-content:center;min-height:0}
+  .ah-stats{order:7;margin:26px auto 0;width:100%}
+  .ah-glow{right:50%;top:46%;transform:translate(50%,-50%);width:130vw}
+  .ahero.arrive .ah-copy>*{animation:none}
+}
+@media(max-width:520px){
+  .ah-stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
+  .ah-cta .btn{flex:1 1 auto}
+  .ah-mname{font-size:19px;letter-spacing:3px}
+  .ah-zg{font-size:34px}
+}
 @media(prefers-reduced-motion:reduce){.dhero-hint{display:none}}
 @media(max-width:600px){.dhero-cosmic{min-height:clamp(420px,74vh,560px);min-height:clamp(420px,74dvh,560px)}.dhero-overlay{padding:40px 20px}
   .dhero-overlay .dhero-cta{flex-direction:column;align-items:stretch;gap:9px;width:100%;max-width:300px;margin-left:auto;margin-right:auto}
@@ -6780,146 +6921,6 @@ function scrollToFindSign(){const t=document.getElementById("find-sign");if(!t)r
   t.scrollIntoView({behavior:REDUCE?"auto":"smooth",block:"center"});
   t.classList.remove("flash");void t.offsetWidth;t.classList.add("flash");
   const sel=t.querySelector(".bt-sel");setTimeout(()=>{if(sel)try{sel.focus({preventScroll:true});}catch(e){}},REDUCE?0:520);}
-/* ---- cinematic homepage hero: a slowly forming zodiac universe ---- */
-let _heroRAF=0;
-function startHeroSky(canvas,host){
-  if(_heroRAF){cancelAnimationFrame(_heroRAF);_heroRAF=0;}
-  const ctx=canvas.getContext("2d");
-  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  const fine=window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches;
-  const dpr=Math.min(window.devicePixelRatio||1,2);
-  let W=0,H=0,bg=[],nodes=[],t0=null,hmeteors=[];
-  let spin=Math.PI/2,vel=0,dragging=false,lastX=0;
-  let mx=0.5,my=0.42,tmx=0.5,tmy=0.42;     // mouse glow (normalised)
-  // real stellar color temperatures — hot blue-white through sun-gold to cool orange-red
-  const STAR_HUES=[["#AFC3FF",.10],["#CAD8FF",.18],["#E8EEFF",.30],["#FFF4E8",.24],["#FFE9C4",.12],["#FFD9A0",.06]];
-  function starHue(){let r=Math.random(),acc=0;for(const[c,w]of STAR_HUES){acc+=w;if(r<=acc)return c;}return "#FFC98B";}
-  let nebula=null;
-  function buildNebula(){
-    // pre-rendered once: a faint Milky Way band of layered cloud blobs on a diagonal
-    nebula=document.createElement("canvas");nebula.width=Math.max(2,Math.round(W/2));nebula.height=Math.max(2,Math.round(H/2));
-    const nc=nebula.getContext("2d");const w=nebula.width,h=nebula.height;
-    nc.clearRect(0,0,w,h);
-    const bandA=-0.42;                       // band angle (radians-ish slope)
-    for(let i=0;i<46;i++){
-      const t=i/46,cx=w*(0.05+t*0.9),cy=h*0.62+ (cx-w*0.5)*bandA + (Math.random()-0.5)*h*0.22;
-      const rr=(0.05+Math.random()*0.12)*w;
-      const warm=Math.random()<0.3;
-      const g=nc.createRadialGradient(cx,cy,0,cx,cy,rr);
-      const al=0.028+Math.random()*0.05;
-      g.addColorStop(0,warm?("rgba(216,190,150,"+al+")"):("rgba(140,165,225,"+al+")"));
-      g.addColorStop(1,"rgba(120,145,210,0)");
-      nc.fillStyle=g;nc.beginPath();nc.arc(cx,cy,rr,0,6.2832);nc.fill();
-    }
-    // faint dense star-dust along the band core
-    for(let i=0;i<Math.round(w*h/900);i++){
-      const x=Math.random()*w,yc=h*0.62+(x-w*0.5)*bandA,y=yc+(Math.random()-0.5)*h*0.16;
-      if(y<0||y>h)continue;
-      nc.globalAlpha=Math.random()*0.22;nc.fillStyle="#dce6ff";nc.fillRect(x,y,0.7,0.7);
-    }
-    nc.globalAlpha=1;
-    // whisper of airglow along the horizon — the atmosphere's own light
-    const ag=nc.createLinearGradient(0,h*0.8,0,h);
-    ag.addColorStop(0,"rgba(96,180,160,0)");ag.addColorStop(0.75,"rgba(96,180,160,.045)");ag.addColorStop(1,"rgba(120,190,150,.07)");
-    nc.fillStyle=ag;nc.fillRect(0,h*0.8,w,h*0.2);
-  }
-  function build(){
-    const r=host.getBoundingClientRect();if(!r.width)return;
-    W=r.width;H=r.height;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    bg=[];const n=Math.round(W*H/2400);
-    for(let i=0;i<n;i++)bg.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,a:Math.random()*0.5+0.12,p:Math.random()*6.28,c:starHue(),z:0.25+Math.random()*0.75});
-    buildNebula();
-    // every star in every constellation gets a random "from" position to drift in from
-    nodes=[];
-    for(let i=0;i<12;i++){const data=CONSTELLATIONS[ZODIAC_ORDER[i]];
-      data.stars.forEach((s,k)=>nodes.push({ci:i,k:k,mag:s[2],fx:Math.random()*W,fy:Math.random()*H}));}
-  }
-  function layout(){
-    const narrow=W<620;
-    const cx=W*0.5,cy=H*0.52,a=W*(narrow?0.42:0.40),b=H*(narrow?0.40:0.42),span=Math.min(W,H)*(narrow?0.085:0.10);
-    const arr=[];
-    for(let i=0;i<12;i++){const th=spin+i*(Math.PI/6);const depth=(Math.sin(th)+1)/2;
-      arr.push({i:i,sign:ZODIAC_ORDER[i],ex:cx+a*Math.cos(th),ey:cy+b*Math.sin(th),scale:span*(0.5+0.6*depth),depth:depth});}
-    return arr;
-  }
-  function frame(t){
-    if(!document.body.contains(canvas)){_heroRAF=0;return;}
-    if(t0==null)t0=t;const age=(t-t0)/1000;
-    const form=reduce?1:Math.min(1,age/1.6);const ease=1-Math.pow(1-form,3);   // stars-forming intro
-    if(!dragging&&!reduce){spin+=0.00035+vel;vel*=0.93;if(Math.abs(vel)<0.00001)vel=0;}
-    mx+=(tmx-mx)*0.06;my+=(tmy-my)*0.06;
-    const items=layout();const byi={};items.forEach(c=>byi[c.i]=c);
-    ctx.clearRect(0,0,W,H);
-    // the Milky Way — pre-rendered nebula band, drifting almost imperceptibly
-    if(nebula){ctx.globalAlpha=0.9*ease;
-      const drift=reduce?0:Math.sin(age*0.03)*8;
-      ctx.drawImage(nebula,drift,0,W,H);ctx.globalAlpha=1;}
-    // drifting background stars — real color temperatures + pointer parallax by depth
-    const pxo=fine&&!reduce?(mx-0.5)*18:0,pyo=fine&&!reduce?(my-0.5)*12:0;
-    for(const s of bg){const tw=0.6+0.4*Math.sin((reduce?0:t*0.001)+s.p);ctx.globalAlpha=s.a*tw*(0.4+0.6*ease);ctx.fillStyle=s.c;
-      ctx.beginPath();ctx.arc(s.x-pxo*s.z,s.y-pyo*s.z,s.r,0,6.2832);ctx.fill();}
-    ctx.globalAlpha=1;
-    // mouse-reactive soft glow (desktop)
-    if(fine&&!reduce){const gx=mx*W,gy=my*H,gr=Math.min(W,H)*0.5;const gg=ctx.createRadialGradient(gx,gy,0,gx,gy,gr);
-      gg.addColorStop(0,"rgba(230,206,142,0.10)");gg.addColorStop(1,"rgba(230,206,142,0)");ctx.fillStyle=gg;ctx.fillRect(0,0,W,H);}
-    // constellation belt (dim, atmospheric)
-    const sorted=items.slice().sort((p,q)=>p.depth-q.depth);
-    for(const c of sorted){const data=CONSTELLATIONS[c.sign];const base=(0.16+0.5*c.depth)*ease;
-      const pts=data.stars.map(s=>[c.ex+s[0]*c.scale,c.ey+s[1]*c.scale,s[2]]);
-      ctx.lineWidth=1;ctx.strokeStyle="rgba(225,205,150,"+(0.16*base).toFixed(3)+")";
-      ctx.beginPath();for(const ln of data.lines){const A=pts[ln[0]],B=pts[ln[1]];ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);}ctx.stroke();
-    }
-    // stars (drift in from random positions during the forming intro)
-    for(const nd of nodes){const c=byi[nd.ci];const data=CONSTELLATIONS[c.sign];const s=data.stars[nd.k];
-      const tx=c.ex+s[0]*c.scale,ty=c.ey+s[1]*c.scale;
-      const x=nd.fx+(tx-nd.fx)*ease,y=nd.fy+(ty-nd.fy)*ease;
-      const tw=0.8+0.2*Math.sin((reduce?2:t*0.0016)+nd.k*1.6+nd.ci);
-      const rad=(1+nd.mag*1.3)*(0.6+0.5*c.depth);const al=Math.min(1,(0.34+0.55*c.depth)*tw*ease);
-      const g=ctx.createRadialGradient(x,y,0,x,y,rad*3.2);
-      g.addColorStop(0,"rgba(255,250,236,"+al+")");g.addColorStop(0.4,"rgba(255,238,196,"+(al*0.55)+")");g.addColorStop(1,"rgba(255,226,150,0)");
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,rad*3.2,0,6.2832);ctx.fill();
-      ctx.fillStyle="rgba(255,253,246,"+al+")";ctx.beginPath();ctx.arc(x,y,rad*0.55,0,6.2832);ctx.fill();
-      // diffraction spikes on the brightest, nearest stars — the astrophotography signature
-      if(nd.mag>0.85&&c.depth>0.6){const sl=rad*(3.6+1.4*tw)*ease,sa=al*0.5;
-        const sg2=ctx.createLinearGradient(x-sl,y,x+sl,y);
-        sg2.addColorStop(0,"rgba(255,250,238,0)");sg2.addColorStop(0.5,"rgba(255,250,238,"+sa+")");sg2.addColorStop(1,"rgba(255,250,238,0)");
-        ctx.strokeStyle=sg2;ctx.lineWidth=0.8;
-        ctx.beginPath();ctx.moveTo(x-sl,y);ctx.lineTo(x+sl,y);ctx.stroke();
-        const vg=ctx.createLinearGradient(x,y-sl,x,y+sl);
-        vg.addColorStop(0,"rgba(255,250,238,0)");vg.addColorStop(0.5,"rgba(255,250,238,"+sa+")");vg.addColorStop(1,"rgba(255,250,238,0)");
-        ctx.strokeStyle=vg;ctx.beginPath();ctx.moveTo(x,y-sl);ctx.lineTo(x,y+sl);ctx.stroke();}}
-    // soft gold sweep orbiting the belt
-    if(!reduce){const sweepA=spin*0.6+age*0.4;const cx=W*0.5,cy=H*0.52,rr=Math.min(W,H)*0.5;
-      const sx=cx+Math.cos(sweepA)*rr*0.7,sy=cy+Math.sin(sweepA)*rr*0.55;
-      const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,rr*0.6);
-      sg.addColorStop(0,"rgba(255,244,206,"+(0.10*ease)+")");sg.addColorStop(1,"rgba(255,244,206,0)");
-      ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);}
-    // occasional shooting stars — subtle, gliding behind the wordmark
-    if(!reduce){
-      if(Math.random()<0.0065&&hmeteors.length<2){const sp=W*0.008+Math.random()*W*0.004,a=(0.12+Math.random()*0.16);
-        hmeteors.push({x:-(60+Math.random()*40),y:Math.random()*H*0.5+8,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:55+Math.random()*75});}
-      for(let i=hmeteors.length-1;i>=0;i--){const mt=hmeteors[i];mt.x+=mt.vx;mt.y+=mt.vy;
-        if(mt.x>W+mt.len+40||mt.y>H+mt.len){hmeteors.splice(i,1);continue;}
-        const sp=Math.hypot(mt.vx,mt.vy),tx=mt.x-mt.vx/sp*mt.len,ty=mt.y-mt.vy/sp*mt.len;
-        // fade with POSITION, not time — bright across the sky, dim only at the very edges
-        const fin=Math.min(1,(mt.x+mt.len)/ (W*0.08)),fout=Math.min(1,(W+mt.len-mt.x)/(W*0.10));
-        const al=Math.max(0,Math.min(fin,fout))*0.5*ease;
-        const mg=ctx.createLinearGradient(mt.x,mt.y,tx,ty);
-        mg.addColorStop(0,"rgba(255,248,226,"+al+")");mg.addColorStop(1,"rgba(255,248,226,0)");
-        ctx.strokeStyle=mg;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(mt.x,mt.y);ctx.lineTo(tx,ty);ctx.stroke();
-        ctx.fillStyle="rgba(255,252,242,"+al+")";ctx.beginPath();ctx.arc(mt.x,mt.y,1.4,0,6.2832);ctx.fill();}
-    }
-    _heroRAF=requestAnimationFrame(frame);
-  }
-  function pos(e){const r=canvas.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};}
-  canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;vel=0;try{canvas.setPointerCapture(e.pointerId);}catch(_){}});
-  canvas.addEventListener("pointermove",e=>{const p=pos(e);tmx=p.x;tmy=p.y;if(dragging){const dx=e.clientX-lastX;lastX=e.clientX;spin+=dx*0.005;vel=dx*0.005;}});
-  canvas.addEventListener("pointerup",()=>{dragging=false;});
-  canvas.addEventListener("pointercancel",()=>{dragging=false;});
-  if(window.ResizeObserver){const ro=new ResizeObserver(()=>build());ro.observe(host);}
-  requestAnimationFrame(()=>{build();_heroRAF=requestAnimationFrame(frame);});
-}
 /* globe data: where each country sits (modern equivalents for historical states), and a 2-degree land mask.
    Built from Natural Earth via world-atlas (public domain). */
 const GEO_PLACES={"United States":[39.5,-98.4],"Nigeria":[9.54,7.99],"Germany":[51.08,10.27],"Greece":[39.32,22.55],"Netherlands":[52.29,5.5],"France":[46.6,2.4],"Brazil":[-10.66,-53.17],"Spain":[40.32,-3.62],"Croatia":[45.01,16.57],"United Kingdom":[53.77,-2.57],"Portugal":[39.61,-8.06],"Hungary":[47.2,19.34],"Argentina":[-34.57,-64.74],"Italy":[43.43,12.37],"Sweden":[62.42,16.11],"Poland":[52.13,19.34],"Philippines":[15.74,121.55],"Panama":[8.53,-80.11],"Mexico":[23.91,-102.22],"Ukraine":[49.19,31.29],"Australia":[-25.62,134.23],"Czechia":[49.78,15.34],"Russia":[57.5,45],"Puerto Rico":[18.24,-66.48],"Dominican Republic":[18.89,-70.46],"Japan":[36.01,136.71],"Romania":[45.85,24.95],"Finland":[64.26,26.14],"Ethiopia":[8.65,39.56],"India":[22.82,79.54],"China":[36.75,103.42],"Hong Kong":[22.32,114.17],"Ireland":[53.17,-8.02],"Canada":[52,-100],"New Zealand":[-43.96,170.6],"South Africa":[-28.92,25.16],"Israel":[31.48,35],"Austria":[47.62,14.06],"Egypt":[26.47,29.86],"Belgium":[50.65,4.59],"Vietnam":[16.56,106.33],"Switzerland":[46.79,8.12],"Norway":[61,9],"Pakistan":[29.91,69.23],"Turkey":[39.06,35.37],"Jamaica":[18.14,-77.32],"Denmark":[56,9.5],"Tibet":[29.65,91.1],"Nepal":[28.25,84.04],"Iran":[32.47,54.45],"Kenya":[0.6,37.79],"Chile":[-33.5,-70.6],"Algeria":[28.09,2.61],"North Korea":[40.13,127.13],"Guatemala":[15.7,-90.37],"Taiwan":[23.74,120.97],"Antigua and Barbuda":[17.12,-61.85],"Belarus":[53.5,27.96],"South Korea":[36.42,127.82],"Palestine":[31.94,35.27],"Lebanon":[33.91,35.87],"Ghana":[7.92,-1.24],"Libya":[26.99,18.03],"Myanmar":[20.94,96.51],"Latvia":[56.82,24.84],"Colombia":[3.92,-73.07],"Venezuela":[7.16,-66.15],"Iraq":[33.01,43.79],"Malaysia":[3.5,102],"Barbados":[13.19,-59.54],"Zimbabwe":[-18.9,29.79],"Peru":[-9.15,-74.43],"Liberia":[6.43,-9.41],"Lithuania":[55.28,23.89],"Bangladesh":[23.83,90.28],"Uruguay":[-32.77,-56.01],"Trinidad and Tobago":[10.43,-61.33],"DR Congo":[-2.84,23.58],"Mongolia":[46.95,103.02],"Iceland":[65.08,-18.77],"Azerbaijan":[40.28,47.69],"Cuba":[21.65,-78.93],"Slovenia":[46.13,14.93],"Burkina Faso":[12.31,-1.78],"Rwanda":[-2.01,29.92],"Ivory Coast":[7.55,-5.61],"Cameroon":[5.65,12.61],"Senegal":[14.35,-14.51],"Cambodia":[12.68,104.87],"Tunisia":[34.14,9.54],"Slovakia":[48.73,19.5],"Bosnia and Herzegovina":[44.18,17.82],"Uzbekistan":[41.77,63.37],"Thailand":[14.98,101],"Indonesia":[-6.5,110],"Bolivia":[-16.7,-64.65],"Jordan":[31.24,36.77],"Kyrgyzstan":[41.52,74.59],"Saint Lucia":[13.91,-60.98],"Saudi Arabia":[24.09,44.64],"Yemen":[15.92,47.52],"Sri Lanka":[7.7,80.67],"Tanzania":[-6.25,34.74],"Afghanistan":[33.84,66],"Armenia":[40.21,45.01],"Bulgaria":[42.76,25.19],"Nicaragua":[12.85,-85.02],"Costa Rica":[9.97,-84.17],"Zambia":[-13.39,27.76],"Cape Verde":[15.1,-23.6],"United Arab Emirates":[23.87,54.2],"Serbia":[44.22,20.84],"Angola":[-12.27,17.5],"Mozambique":[-17.15,35.54],"Benin":[9.64,2.34],"Kazakhstan":[48.41,67.24],"El Salvador":[13.73,-88.87],"Mali":[17.24,-3.59],"Morocco":[29.82,-8.69],"Gambia":[13.48,-15.43],"Roman Judea":[31.78,35.22],"Singapore":[1.35,103.82],"Monaco":[43.74,7.42],"Bahamas":[24.51,-77.91]};
@@ -7140,26 +7141,275 @@ function whoFirstSection(){
   return sec;
 }
 
+/* ============================================================
+   THE BIRTHDAY ASTROLABE — the Discover hero.
+   An instrument you can turn: the outer ring is every day of the
+   year, each tick as tall as the number of lives that began on it;
+   the band inside is the zodiac at its true dates; the face shows
+   the real constellation behind the Sun on the chosen day, and the
+   people born that day orbit it. Drag the ring, use the arrow keys,
+   or pick the date in the headline.
+   ============================================================ */
+const AH_CUM=[0,31,60,91,121,152,182,213,244,274,305,335,366];
+const ahDoy=(m,d)=>AH_CUM[m-1]+d-1;                         // 0..365 on a 366-day ring
+function ahMD(i){i=((i%366)+366)%366;let m=0;while(i>=AH_CUM[m+1])m++;return {m:m+1,d:i-AH_CUM[m]+1};}
+const ahAng=i=>((i+0.5)/366)*Math.PI*2-Math.PI/2;              // radians, Jan 1 at the top
+const ahPt=(r,a)=>[500+r*Math.cos(a),500+r*Math.sin(a)];
+const AH_NS="http://www.w3.org/2000/svg";
+function ahS(tag,attrs,kids){const n=document.createElementNS(AH_NS,tag);if(attrs)for(const k in attrs)if(attrs[k]!=null)n.setAttribute(k,attrs[k]);(kids||[]).forEach(c=>c&&n.appendChild(c));return n;}
+function ahArc(r0,r1,a0,a1){const L=a1-a0>Math.PI?1:0,p=(r,a)=>ahPt(r,a).map(v=>v.toFixed(2)).join(" ");
+  return "M"+p(r1,a0)+"A"+r1+" "+r1+" 0 "+L+" 1 "+p(r1,a1)+"L"+p(r0,a1)+"A"+r0+" "+r0+" 0 "+L+" 0 "+p(r0,a0)+"Z";}
+let AH_DATA=null;const ahWarm=new Set();let AH_LAST=null,AH_ARRIVED=false;
+function ahData(){
+  if(AH_DATA&&AH_DATA.n===HISTORICAL.length)return AH_DATA;
+  const by=Array.from({length:366},()=>[]);
+  HISTORICAL.forEach(p=>{if(p.month&&p.day&&!p.isPersonal)by[ahDoy(p.month,p.day)].push(p);});
+  by.forEach(a=>a.sort((x,y)=>rankScore(y)-rankScore(x)));
+  /* the zodiac as runs of days */
+  const runs=[];let cur=null;
+  for(let i=0;i<366;i++){const {m,d}=ahMD(i),z=zodiac(m,d);if(!cur||cur.sign!==z.sign){cur={sign:z.sign,sym:z.sym,a:i,b:i};runs.push(cur);}else cur.b=i;}
+  AH_DATA={n:HISTORICAL.length,lives:HISTORICAL.filter(p=>!p.isPersonal).length,by,max:Math.max(...by.map(a=>a.length)),runs};
+  return AH_DATA;
+}
+/* the real stick figure of a zodiac constellation, in a gnomonic view around its centre */
+function ahFigure(sign,R){
+  const id=Object.keys(SKYBG_NAMES).find(k=>SKYBG_NAMES[k]===sign);if(!id)return null;
+  const c=SKYBG_FIG.c[id],D=Math.PI/180,ra0=c[0]*D,de0=c[1]*D;
+  const proj=([ra,de])=>{ra*=D;de*=D;const cc=Math.sin(de0)*Math.sin(de)+Math.cos(de0)*Math.cos(de)*Math.cos(ra-ra0);
+    return [-Math.cos(de)*Math.sin(ra-ra0)/cc,(Math.cos(de0)*Math.sin(de)-Math.sin(de0)*Math.cos(de)*Math.cos(ra-ra0))/cc];};
+  const lines=SKYBG_FIG.l[id].map(l=>l.map(proj));
+  let mx=0;lines.flat().forEach(([x,y])=>mx=Math.max(mx,Math.abs(x),Math.abs(y)));
+  const k=R/mx;const g=ahS("g",{class:"ah-fig"});
+  const seen=new Set();let len=0;
+  lines.forEach(l=>{const pts=l.map(([x,y])=>[500+x*k,500-y*k]);
+    for(let i=1;i<pts.length;i++)len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);
+    g.appendChild(ahS("polyline",{points:pts.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ")}));
+    pts.forEach(p=>{const key=p.map(v=>Math.round(v)).join(",");if(seen.has(key))return;seen.add(key);
+      g.appendChild(ahS("circle",{cx:p[0].toFixed(1),cy:p[1].toFixed(1),r:3.2,style:"--tw:"+(seen.size%7)*0.37+"s"}));});});
+  g.style.setProperty("--len",Math.ceil(len));
+  return g;
+}
+function astroHero(){
+  const D=ahData(),Y=new Date().getFullYear();
+  const todayI=ahDoy(TODAY_M,TODAY_D);
+  const saved=STORE.get("bday",null);
+  let sel=todayI,shown=-1,ang=ahAng(todayI),animRaf=0,faceTimer=0;
+
+  const hero=el("section",{class:"ahero","aria-label":"Birthday astrolabe"});
+  hero.appendChild(el("div",{class:"ah-glow","aria-hidden":"true"}));
+
+  /* ---------- the words ---------- */
+  const copy=el("div",{class:"ah-copy"});
+  const now=SKY.at(new Date());
+  copy.appendChild(el("p",{class:"ah-eye"},[el("span",{class:"ah-live","aria-hidden":"true"}),
+    document.createTextNode("Tonight · Sun in "+now.sun.sign+" · "+now.moon.name+" Moon in "+now.moonSign)]));
+  const h1=el("h1",{class:"ah-h"});
+  const mSel=el("select",{class:"ah-sel ah-m","aria-label":"Month"});
+  MONTHS.forEach((mn,i)=>mSel.appendChild(el("option",{value:String(i+1),text:mn})));
+  const dSel=el("select",{class:"ah-sel ah-d","aria-label":"Day"});
+  for(let d=1;d<=31;d++)dSel.appendChild(el("option",{value:String(d),text:String(d)}));
+  h1.append(el("span",{class:"ah-h-a",text:"Who was born on "}),el("span",{class:"ah-date"},[mSel,dSel]),el("span",{class:"ah-h-q",text:"?"}));
+  copy.appendChild(h1);
+  const lede=el("p",{class:"ah-lede","aria-live":"polite"});copy.appendChild(lede);
+  const cta=el("div",{class:"ah-cta"});copy.appendChild(cta);
+  const quick=el("div",{class:"ah-quick"});copy.appendChild(quick);
+  const stats=el("dl",{class:"ah-stats"});
+  [[D.lives,"lives"],[new Set(HISTORICAL.map(placeOf).filter(Boolean)).size,"countries"],
+   [366,"birthdays"],[5044,"real stars"]].forEach(([v,l])=>stats.appendChild(el("div",{},[el("dt",{text:l}),el("dd",{"data-v":v,text:v.toLocaleString()})])));
+  copy.appendChild(stats);
+
+  /* ---------- the instrument ---------- */
+  const dial=el("div",{class:"ah-dial"});
+  /* base plate: face, zodiac band, month rules and names */
+  const base=ahS("svg",{class:"ah-base",viewBox:"0 0 1000 1000","aria-hidden":"true"});
+  const defs=ahS("defs",{},[
+    ahS("radialGradient",{id:"ahFace",cx:"50%",cy:"42%",r:"62%"},[ahS("stop",{offset:"0","stop-color":"#1b2b4d"}),ahS("stop",{offset:".62","stop-color":"#0d1730"}),ahS("stop",{offset:"1","stop-color":"#070d1c"})]),
+    ahS("linearGradient",{id:"ahBrass",x1:"0",y1:"0",x2:"1",y2:"1"},[ahS("stop",{offset:"0","stop-color":"#f3dc9a"}),ahS("stop",{offset:".45","stop-color":"#c9a24f"}),ahS("stop",{offset:"1","stop-color":"#8a6a2a"})])]);
+  base.appendChild(defs);
+  base.appendChild(ahS("circle",{class:"ah-plate",cx:500,cy:500,r:497}));
+  base.appendChild(ahS("circle",{class:"ah-rim",cx:500,cy:500,r:497}));
+  base.appendChild(ahS("circle",{class:"ah-rim2",cx:500,cy:500,r:462}));
+  base.appendChild(ahS("circle",{class:"ah-rim2",cx:500,cy:500,r:376}));
+  base.appendChild(ahS("circle",{class:"ah-disk",cx:500,cy:500,r:312}));
+  base.appendChild(ahS("circle",{class:"ah-rim2",cx:500,cy:500,r:312}));
+  /* zodiac band */
+  const zg=ahS("g",{class:"ah-zod"});
+  D.runs.forEach((r,k)=>{zg.appendChild(ahS("path",{class:"ah-zseg"+(k%2?" alt":""),"data-sign":r.sign,d:ahArc(318,370,ahAng(r.a)-Math.PI/366,ahAng(r.b)+Math.PI/366)}));});
+  const glyphRun={};D.runs.forEach(r=>{if(!glyphRun[r.sign]||r.b-r.a>glyphRun[r.sign].b-glyphRun[r.sign].a)glyphRun[r.sign]=r;});
+  Object.values(glyphRun).forEach(r=>{const [x,y]=ahPt(344,ahAng((r.a+r.b)/2));
+    zg.appendChild(ahS("text",{class:"ah-zg","data-sign":r.sign,x:x.toFixed(1),y:y.toFixed(1)},[document.createTextNode(r.sym+"︎")]));});
+  base.appendChild(zg);
+  /* month rules and names */
+  for(let m=0;m<12;m++){const a=ahAng(AH_CUM[m])-Math.PI/366;const [x0,y0]=ahPt(312,a),[x1,y1]=ahPt(497,a);
+    base.appendChild(ahS("line",{class:"ah-mrule",x1:x0,y1:y0,x2:x1,y2:y1}));
+    const am=ahAng((AH_CUM[m]+AH_CUM[m+1])/2),[lx,ly]=ahPt(480,am);let deg=am*180/Math.PI+90;if(deg>90&&deg<270)deg+=180;
+    base.appendChild(ahS("text",{class:"ah-mname",x:lx.toFixed(1),y:ly.toFixed(1),transform:"rotate("+deg.toFixed(1)+" "+lx.toFixed(1)+" "+ly.toFixed(1)+")"},[document.createTextNode(MONTHS[m].slice(0,3).toUpperCase())]));}
+  /* today mark on the rim */
+  {const [tx,ty]=ahPt(462,ahAng(todayI));base.appendChild(ahS("circle",{class:"ah-today",cx:tx.toFixed(1),cy:ty.toFixed(1),r:6.5}));}
+  const figHost=ahS("g",{class:"ah-fighost"});base.appendChild(figHost);
+  dial.appendChild(base);
+  /* the year's birthdays, one tick per day, swept in on arrival */
+  const tw=el("div",{class:"ah-ticks"+(REDUCE?"":" sweep"),"aria-hidden":"true"});
+  const ticks=ahS("svg",{viewBox:"0 0 1000 1000"});
+  const tickLen=n=>n?10+76*Math.sqrt(n/D.max):3;
+  const tg=ahS("g",{class:"ah-tk"});
+  for(let i=0;i<366;i++){const n=D.by[i].length,a=ahAng(i),[x0,y0]=ahPt(380,a),[x1,y1]=ahPt(380+tickLen(n),a);
+    tg.appendChild(ahS("line",{x1:x0.toFixed(1),y1:y0.toFixed(1),x2:x1.toFixed(1),y2:y1.toFixed(1),style:"opacity:"+(n?(0.35+0.65*Math.sqrt(n/D.max)).toFixed(2):0.18)}));}
+  ticks.appendChild(tg);tw.appendChild(ticks);dial.appendChild(tw);
+  /* the hand */
+  const handSvg=ahS("svg",{class:"ah-handsvg",viewBox:"0 0 1000 1000","aria-hidden":"true"});
+  const wedge=ahS("path",{class:"ah-wedge"});
+  const hi=ahS("line",{class:"ah-hi"});
+  const hand=ahS("line",{class:"ah-hand"});
+  const bead=ahS("circle",{class:"ah-bead",r:11});
+  const beadHalo=ahS("circle",{class:"ah-beadhalo",r:22});
+  handSvg.append(wedge,hand,hi,beadHalo,bead);dial.appendChild(handSvg);
+  /* the turning ring (drag here) and the face (people live here) */
+  const ring=el("div",{class:"ah-ring",tabindex:"0",role:"slider","aria-label":"Turn the year to choose a birthday","aria-valuemin":"1","aria-valuemax":"366"});
+  dial.appendChild(ring);
+  const core=el("div",{class:"ah-core"});
+  const links=ahS("svg",{class:"ah-links",viewBox:"0 0 1000 1000","aria-hidden":"true"});core.appendChild(links);
+  core.appendChild(el("div",{class:"ah-hole","aria-hidden":"true"}));
+  const faces=el("div",{class:"ah-faces"});
+  const centre=el("div",{class:"ah-centre","aria-hidden":"true"});
+  const cDate=el("div",{class:"ah-cdate"}),cSign=el("div",{class:"ah-csign"}),cCount=el("div",{class:"ah-ccount"});
+  const cDay=el("div",{class:"ah-cday"},[cSign,cDate,cCount]),cWho=el("div",{class:"ah-cwho"});
+  centre.append(cDay,cWho);core.appendChild(centre);core.appendChild(faces);
+  dial.appendChild(core);
+  dial.appendChild(el("p",{class:"ah-hint","aria-hidden":"true"},[el("span",{class:"ah-hk",text:"Drag the ring to turn the year  ·  or use ← →"}),el("span",{class:"ah-ht",text:"Drag the ring to turn the year"})]));
+
+  const wrap=el("div",{class:"ah-in"});wrap.append(copy,dial);hero.appendChild(wrap);
+
+  /* ---------- behaviour ---------- */
+  function fitSel(s){const t=s.options[s.selectedIndex].text,cs=getComputedStyle(s),cv=fitSel.c||(fitSel.c=document.createElement("canvas").getContext("2d"));
+    cv.font=cs.fontStyle+" "+cs.fontWeight+" "+cs.fontSize+" "+cs.fontFamily;s.style.width=Math.ceil(cv.measureText(t).width+parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight)+2)+"px";}
+  function setHand(a){
+    const i=sel,n=D.by[i].length;
+    const [hx0,hy0]=ahPt(160,a),[hx1,hy1]=ahPt(462,a),[bx,by]=ahPt(462,a);
+    hand.setAttribute("x1",hx0);hand.setAttribute("y1",hy0);hand.setAttribute("x2",hx1);hand.setAttribute("y2",hy1);
+    bead.setAttribute("cx",bx);bead.setAttribute("cy",by);beadHalo.setAttribute("cx",bx);beadHalo.setAttribute("cy",by);
+    const ai=ahAng(i),[t0x,t0y]=ahPt(380,ai),[t1x,t1y]=ahPt(380+tickLen(n),ai);
+    hi.setAttribute("x1",t0x);hi.setAttribute("y1",t0y);hi.setAttribute("x2",t1x);hi.setAttribute("y2",t1y);
+    wedge.setAttribute("d",ahArc(312,462,a-Math.PI/366*1.6,a+Math.PI/366*1.6));
+  }
+  function readout(){
+    const {m,d}=ahMD(sel),z=zodiac(m,d),list=D.by[sel];
+    cDate.textContent=MONTHS[m-1].slice(0,3)+" "+d;
+    cSign.textContent=z.sym+"︎ "+z.sign;
+    cCount.textContent=list.length?list.length+(list.length===1?" life":" lives"):"no one yet";
+    ring.setAttribute("aria-valuenow",String(sel+1));
+    ring.setAttribute("aria-valuetext",MONTHS[m-1]+" "+d+", "+list.length+" people");
+    if(+mSel.value!==m){mSel.value=String(m);fitSel(mSel);}
+    for(let k=0;k<dSel.options.length;k++)dSel.options[k].disabled=k+1>DIM[m-1];
+    if(+dSel.value!==d){dSel.value=String(d);}fitSel(dSel);
+    zg.querySelectorAll("[data-sign]").forEach(e=>e.classList.toggle("on",e.dataset.sign===z.sign));
+  }
+  function nameBtn(p){return el("button",{class:"ah-name",onClick:()=>openPerson(p)},[document.createTextNode(p.name)]);}
+  function words(){
+    const {m,d}=ahMD(sel),list=D.by[sel],date=MONTHS[m-1]+" "+d;
+    lede.innerHTML="";cta.innerHTML="";
+    if(list.length){
+      const top=list.slice(0,3);
+      top.forEach((p,k)=>{lede.appendChild(nameBtn(p));if(k<top.length-1)lede.appendChild(document.createTextNode(k===top.length-2&&list.length<=3?" and ":", "));});
+      lede.appendChild(document.createTextNode(list.length>3?" and "+(list.length-3)+" more of the almanac's "+D.lives.toLocaleString()+" lives began on "+date+".":(list.length===1?" is the one life in the almanac that began on ":" all began on ")+(list.length===1?date+".":date+".")));
+      cta.appendChild(el("button",{class:"btn btn-gold ah-go",onClick:()=>openDay(m,d,list)},[document.createTextNode(list.length===1?"Meet "+list[0].name.split(" ")[0]+" →":"Meet all "+list.length+" →")]));
+      const sky=list.find(p=>p.era!=="BC"&&p.birthYear>=1000&&p.birthYear<=2100);
+      if(sky)cta.appendChild(el("button",{class:"btn btn-ghost ah-sky",onClick:()=>openBirthSky({y:sky.birthYear,m,d,cal:sky.cal,who:sky.name,kicker:"The sky on the night "+sky.name+" was born"})},
+        [document.createTextNode("✦ The sky the night "+sky.name.replace(/^(Sir|Saint|Pope|King|Queen)\s+/,"").split(" ").slice(-1)[0]+" was born")]));
+    }else{
+      let k=1;while(k<183&&!D.by[(sel+k)%366].length&&!D.by[(sel-k+366)%366].length)k++;
+      const near=D.by[(sel+k)%366].length?(sel+k)%366:(sel-k+366)%366,nm=ahMD(near);
+      lede.append(document.createTextNode("No one in the almanac was born on "+date+" yet. The nearest birthdays fall on "+MONTHS[nm.m-1]+" "+nm.d+", with "),nameBtn(D.by[near][0]),document.createTextNode("."));
+      cta.appendChild(el("button",{class:"btn btn-gold ah-go",onClick:()=>go(near)},[document.createTextNode("Turn to "+MONTHS[nm.m-1].slice(0,3)+" "+nm.d+" →")]));
+    }
+    quick.innerHTML="";
+    quick.appendChild(el("button",{class:"ah-chip",onClick:spin},[document.createTextNode("\u{1F3B2} Spin the year")]));
+    if(sel!==todayI)quick.appendChild(el("button",{class:"ah-chip",onClick:()=>go(todayI)},[document.createTextNode("↺ Today")]));
+    if(saved&&saved.m){const si=ahDoy(saved.m,saved.d);if(si!==sel)quick.appendChild(el("button",{class:"ah-chip",onClick:()=>go(si)},[document.createTextNode("★ My birthday · "+MONTHS[saved.m-1].slice(0,3)+" "+saved.d)]));}
+  }
+  function placeFaces(){
+    if(shown===sel)return;shown=sel;
+    const list=D.by[sel].slice(0,8),n=list.length;
+    faces.innerHTML="";links.innerHTML="";centre.classList.remove("who");
+    if(!n){centre.classList.add("empty");}else centre.classList.remove("empty");
+    const R=n<=3?190:212,pos=[];
+    list.forEach((p,k)=>{const a=-Math.PI/2+(k+(n%2?0:0.5))*2*Math.PI/Math.max(n,1)+(n===1?0:0);
+      const [x,y]=ahPt(R,a);pos.push([x,y]);
+      const f=el("button",{class:"ah-face"+(k===0?" lead":""),"aria-label":p.name+", born "+(fmtYear(p)||"")+". Open profile",style:"left:"+(x/10)+"%;top:"+(y/10)+"%;--i:"+k});
+      f.style.setProperty("--cat",catColor(p.category));
+      const nm=p.name.replace(/^(Sir|Saint|St\.|Dr\.|Pope|King|Queen)\s+/,"").split(/\s+/).filter(w=>/^\p{Lu}/u.test(w));
+      f.appendChild(el("span",{class:"ah-fmono",text:nm.length>1?nm[0][0]+nm[nm.length-1][0]:p.name[0]}));
+      const src=faceURL(p,330);
+      if(src){const im=el("img",{alt:"",decoding:"async",referrerpolicy:"no-referrer"});im.onload=()=>f.classList.add("has");faceLoad(im,src,p);f.appendChild(im);}
+      f.addEventListener("click",()=>openPerson(p));
+      const show=()=>{cWho.innerHTML="";
+        cWho.append(el("b",{text:p.name}),el("span",{class:"ah-tyr",text:(fmtYear(p)||"")+(p.deathYear!=null?" – "+fmtYearNum(p.deathYear):p.alive?" · living":"")}),el("span",{class:"ah-tds",text:p.shortDescription||p.bio||""}));
+        centre.classList.add("who");};
+      const hide=()=>centre.classList.remove("who");
+      f.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")show();});f.addEventListener("focus",show);
+      f.addEventListener("pointerleave",hide);f.addEventListener("blur",hide);
+      faces.appendChild(f);});
+    if(n>2){const pts=pos.concat([pos[0]]).map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ");
+      links.appendChild(ahS("polyline",{class:"ah-chain",points:pts}));}
+    clearTimeout(placeFaces.warm);placeFaces.warm=setTimeout(()=>{for(const k of [1,-1,2,-2,3]){D.by[(sel+k+366)%366].slice(0,8).forEach(q=>{const u=faceURL(q,330);if(u&&!ahWarm.has(u)){ahWarm.add(u);const im=new Image();im.referrerPolicy="no-referrer";im.decoding="async";im.src=u;}});}},600);
+    /* the sign's own constellation, drawn from real star positions */
+    const {m,d}=ahMD(sel),z=zodiac(m,d);
+    if(figHost.dataset.sign!==z.sign){figHost.dataset.sign=z.sign;figHost.innerHTML="";const g=ahFigure(z.sign,n?250:200);if(g)figHost.appendChild(g);}
+  }
+  function choose(i,{instant,keepFaces}={}){
+    i=((Math.round(i)%366)+366)%366;sel=i;AH_LAST=i;readout();
+    const target=ahAng(i);
+    if(instant||REDUCE){cancelAnimationFrame(animRaf);ang=target;setHand(ang);}
+    else{let from=ang,delta=target-from;delta=Math.atan2(Math.sin(delta),Math.cos(delta));
+      const t0=performance.now(),dur=Math.min(1100,260+Math.abs(delta)*260);cancelAnimationFrame(animRaf);
+      const step=t=>{const k=Math.min(1,(t-t0)/dur),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;ang=from+delta*e;setHand(ang);if(k<1)animRaf=requestAnimationFrame(step);else ang=target;};
+      animRaf=requestAnimationFrame(step);}
+    clearTimeout(faceTimer);
+    if(keepFaces)faceTimer=setTimeout(()=>{placeFaces();words();},140);else{placeFaces();words();}
+  }
+  const go=i=>choose(i);
+  function spin(){let i;do{i=Math.floor(Math.random()*366);}while(D.by[i].length<3);
+    /* a proper spin: at least one full turn forward */
+    if(REDUCE)return choose(i);
+    const target=ahAng(i),from=ang;let delta=((target-from)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)+2*Math.PI;
+    sel=i;AH_LAST=i;readout();clearTimeout(faceTimer);faces.classList.add("out");
+    const t0=performance.now(),dur=1700;cancelAnimationFrame(animRaf);
+    const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,4);ang=from+delta*e;
+      const live=((Math.floor(((ang+Math.PI/2)/(2*Math.PI))*366)%366)+366)%366;if(k<1){const {m,d}=ahMD(live);cDate.textContent=MONTHS[m-1].slice(0,3)+" "+d;}
+      setHand(ang);if(k<1)animRaf=requestAnimationFrame(step);else{ang=target;faces.classList.remove("out");readout();placeFaces();words();}};
+    animRaf=requestAnimationFrame(step);}
+  mSel.addEventListener("change",()=>{const m=+mSel.value;const d=Math.min(+dSel.value,DIM[m-1]);choose(ahDoy(m,d));});
+  dSel.addEventListener("change",()=>choose(ahDoy(+mSel.value,+dSel.value)));
+  /* drag the ring */
+  let drag=false;
+  const angAt=e=>{const r=dial.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+    return Math.floor((((Math.atan2(y,x)+Math.PI/2)/(2*Math.PI)+1)%1)*366);};
+  ring.addEventListener("pointerdown",e=>{drag=true;ring.setPointerCapture(e.pointerId);dial.classList.add("turning");choose(angAt(e),{instant:true,keepFaces:true});e.preventDefault();});
+  ring.addEventListener("pointermove",e=>{if(!drag)return;const i=angAt(e);if(i!==sel)choose(i,{instant:true,keepFaces:true});});
+  const end=()=>{if(!drag)return;drag=false;dial.classList.remove("turning");clearTimeout(faceTimer);placeFaces();words();};
+  ring.addEventListener("pointerup",end);ring.addEventListener("pointercancel",end);
+  ring.addEventListener("keydown",e=>{const {m}=ahMD(sel);let i=null;
+    if(e.key==="ArrowRight"||e.key==="ArrowUp")i=sel+1;else if(e.key==="ArrowLeft"||e.key==="ArrowDown")i=sel-1;
+    else if(e.key==="PageUp")i=AH_CUM[m%12];else if(e.key==="PageDown")i=AH_CUM[(m+10)%12];else if(e.key==="Home")i=0;else if(e.key==="End")i=365;
+    if(i!=null){e.preventDefault();choose(i,{keepFaces:true});}});
+  /* arrival: the hand sweeps from New Year's Day to today */
+  requestAnimationFrame(()=>{fitSel(mSel);fitSel(dSel);});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(hero.isConnected){fitSel(mSel);fitSel(dSel);}});
+  /* the first visit gets the full arrival; coming back finds the dial where you left it */
+  const startI=AH_LAST!=null?AH_LAST:todayI;
+  sel=startI;readout();placeFaces();words();
+  if(REDUCE||AH_ARRIVED){ang=ahAng(startI);setHand(ang);tw.classList.remove("sweep");}
+  else{AH_ARRIVED=true;ang=ahAng(0)-0.0001;setHand(ang);hero.classList.add("arrive");setTimeout(()=>{if(hero.isConnected)choose(startI);},380);}
+  /* count the stats up as they come into view */
+  if(hero.classList.contains("arrive"))stats.querySelectorAll("dd").forEach((dd,k)=>{const v=+dd.dataset.v,t0=performance.now()+300+k*120;dd.textContent="0";
+    const step=t=>{const q=Math.max(0,Math.min(1,(t-t0)/1300)),e=1-Math.pow(1-q,3);dd.textContent=Math.round(v*e).toLocaleString();if(q<1&&dd.isConnected)requestAnimationFrame(step);};requestAnimationFrame(step);});
+  return hero;
+}
+
 function renderDiscover(view){
   view.innerHTML="";
-  /* ---- CINEMATIC HERO: the zodiac universe forms behind the wordmark ---- */
-  const hero=el("section",{class:"dhero-cosmic"});
-  const sky=el("canvas",{class:"hero-sky","aria-hidden":"true"});
-  hero.appendChild(sky);
-  hero.appendChild(el("div",{class:"hero-veil","aria-hidden":"true"}));
-  const ov=el("div",{class:"dhero-overlay"});
-  ov.appendChild(el("p",{class:"eyebrow",text:"A celestial map of influence"}));
-  ov.appendChild(el("h1",{class:"dhero-mark",html:"The Birthday <em>Almanac</em>"}));
-  ov.appendChild(el("p",{class:"dhero-sub",text:"Explore "+HISTORICAL.length+" influential lives across history — famous birthdays, zodiac patterns, and the constellations that connect the people who shaped the world."}));
-  const cta=el("div",{class:"dhero-cta"});
-  cta.appendChild(el("button",{class:"btn btn-gold btn-magnetic",onClick:()=>{const tp=HISTORICAL.filter(p=>p.month===TODAY_M&&p.day===TODAY_D);if(tp.length)openDay(TODAY_M,TODAY_D,tp);else{state.calMonth=TODAY_M-1;setView("calendar");}}},[document.createTextNode("\u{1F382}  Today's Birthdays")]));
-  cta.appendChild(el("button",{class:"btn btn-ghost",onClick:()=>setView("zodiac")},[document.createTextNode("♒︎  Explore Zodiac")]));
-  cta.appendChild(el("button",{class:"btn btn-ghost",text:"\u{1F3B2}  Surprise Me",onClick:surprise}));
-  ov.appendChild(cta);
-  ov.appendChild(el("div",{class:"dhero-hint",text:"✦  Drag the sky to turn the heavens"}));
-  hero.appendChild(ov);
-  view.appendChild(hero);
-  startHeroSky(sky,hero);
+  /* ---- THE BIRTHDAY ASTROLABE: turn the year, meet who was born ---- */
+  view.appendChild(astroHero());
 
   /* kinetic celestial marquee — the heavens, ticking past */
   view.appendChild(buildZodiacMarquee());
