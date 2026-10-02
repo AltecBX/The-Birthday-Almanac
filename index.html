@@ -1287,6 +1287,7 @@ html[data-theme="dark"] .summary b{color:#FBEFCB}
 .btr-sc-badge{position:absolute;top:12px;right:14px;font-size:18px;color:var(--gold-soft);opacity:.65;z-index:1}
 .mini-constel{position:relative;z-index:1}
 .btr-sc-name{position:relative;z-index:1;font-family:var(--serif);font-size:24px;color:#FBF4E6;font-weight:600;margin-top:2px}
+.btr-sc-cusp{position:relative;z-index:1;font-size:12px;color:#E6C97A;margin:6px auto 0;max-width:260px;line-height:1.35}
 .btr-sc-range{position:relative;z-index:1;font-family:var(--mono);font-size:11px;color:#AEB9E8;letter-spacing:1px;margin-top:3px}
 .btr-sc-el{position:relative;z-index:1;font-size:12px;color:#CFC7B5;margin-top:8px}.btr-sc-el b{color:#F3ECDD}
 .btr-traits{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:13px}
@@ -6650,11 +6651,80 @@ const COLLECTION_DEFS=[
 function inCat(p,cat){return p.category===cat||(p.secondaryCategories&&p.secondaryCategories.includes(cat));}
 const COLLECTION_BY_ID={};COLLECTION_DEFS.forEach(c=>COLLECTION_BY_ID[c.id]=c);
 
+/* ============================================================
+   SKY ENGINE — real astronomy for any date (Meeus, "Astronomical Algorithms")
+   Calendar-aware: dates flagged cal:"J" are read in the Julian calendar.
+   Accuracy: Sun ~0.01°, Moon ~0.3°, illumination ~1% — ample for day-level facts.
+   ============================================================ */
+const SKY=(function(){
+  const RAD=Math.PI/180,norm=a=>((a%360)+360)%360,sin=a=>Math.sin(a*RAD),cos=a=>Math.cos(a*RAD);
+  function jdn(y,m,d,cal){const a=Math.floor((14-m)/12),Y=y+4800-a,M=m+12*a-3;
+    return d+Math.floor((153*M+2)/5)+365*Y+Math.floor(Y/4)+(cal==="J"?-32083:-Math.floor(Y/100)+Math.floor(Y/400)-32045);}
+  function gregOf(J){const a=J+32044,b=Math.floor((4*a+3)/146097),c=a-Math.floor(146097*b/4),
+    d=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d/4),m=Math.floor((5*e+2)/153);
+    return {y:100*b+d-4800+Math.floor(m/10),m:m+3-12*Math.floor(m/10),d:e-Math.floor((153*m+2)/5)+1};}
+  const jdOfDate=dt=>dt.getTime()/86400000+2440587.5;
+  function sunLon(jd){const T=(jd-2451545)/36525,L0=280.46646+36000.76983*T+0.0003032*T*T,
+    M=357.52911+35999.05029*T-0.0001537*T*T,
+    C=(1.914602-0.004817*T-0.000014*T*T)*sin(M)+(0.019993-0.000101*T)*sin(2*M)+0.000289*sin(3*M),
+    Om=125.04-1934.136*T;return norm(L0+C-0.00569-0.00478*sin(Om));}
+  const MT=[[0,0,1,0,6288774],[2,0,-1,0,1274027],[2,0,0,0,658314],[0,0,2,0,213618],[0,1,0,0,-185116],[0,0,0,2,-114332],
+    [2,0,-2,0,58793],[2,-1,-1,0,57066],[2,0,1,0,53322],[2,-1,0,0,45758],[0,1,-1,0,-40923],[1,0,0,0,-34720],[0,1,1,0,-30383],
+    [2,0,0,-2,15327],[0,0,1,2,-12528],[0,0,1,-2,10980],[4,0,-1,0,10675],[0,0,3,0,10034],[4,0,-2,0,8548],[2,1,-1,0,-7888],
+    [2,1,0,0,-6766],[1,0,-1,0,-5163],[1,1,0,0,4987],[2,-1,1,0,4036],[2,0,3,0,3994],[4,0,0,0,3861],[2,0,-3,0,3665],
+    [0,1,-2,0,-2689],[2,0,-1,2,-2602],[2,-1,-2,0,2390],[1,0,1,0,-2348],[2,-2,0,0,2236],[0,1,2,0,-2120],[0,2,0,0,-2069]];
+  function moonLon(jd){const T=(jd-2451545)/36525,
+    Lp=218.3164477+481267.88123421*T-0.0015786*T*T+T*T*T/538841,
+    D=297.8501921+445267.1114034*T-0.0018819*T*T+T*T*T/545868,
+    M=357.5291092+35999.0502909*T-0.0001536*T*T,
+    Mp=134.9633964+477198.8675055*T+0.0087414*T*T+T*T*T/69699,
+    F=93.272095+483202.0175233*T-0.0036539*T*T,E=1-0.002516*T-0.0000074*T*T;
+    let s=0;for(const [d,m,mp,f,c] of MT){const e=Math.abs(m)===1?E:Math.abs(m)===2?E*E:1;s+=c*e*sin(d*D+m*M+mp*Mp+f*F);}
+    const A1=119.75+131.849*T,A2=53.09+479264.29*T;
+    s+=3958*sin(A1)+1962*sin(Lp-F)+318*sin(A2);
+    return norm(Lp+s/1e6);}
+  const SIGNS=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+  const signOf=l=>SIGNS[Math.floor(norm(l)/30)];
+  const degIn=l=>{const x=norm(l)%30;const d=Math.floor(x);return {d,m:Math.floor((x-d)*60)};};
+  const PHASES=[[0.0339,"New Moon"],[0.216,"Waxing Crescent"],[0.284,"First Quarter"],[0.466,"Waxing Gibbous"],
+    [0.534,"Full Moon"],[0.716,"Waning Gibbous"],[0.784,"Last Quarter"],[0.966,"Waning Crescent"],[1.01,"New Moon"]];
+  const phaseName=p=>PHASES.find(x=>p<x[0])[1];
+  function moonAt(jd){const e=norm(moonLon(jd)-sunLon(jd)),p=e/360;
+    return {phase:p,illum:(1-cos(e))/2,name:phaseName(p),lon:moonLon(jd)};}
+  function crossing(fn,jd0,jd1,b){let a=jd0,c=jd1;const base=fn(jd0),un=x=>{const v=fn(x);return v<base-180?v+360:v;};
+    for(let i=0;i<40;i++){const mid=(a+c)/2;if(un(mid)<b)a=mid;else c=mid;}return (a+c)/2;}
+  const hhmm=jd=>{const f=((jd+0.5)%1+1)%1;const mins=Math.round(f*1440)%1440;return String(Math.floor(mins/60)).padStart(2,"0")+":"+String(mins%60).padStart(2,"0");};
+  function day(y,m,d,cal){
+    const J=jdn(y,m,d,cal),jd0=J-0.5,jd1=J+0.5;
+    const s0=sunLon(jd0),s1=sunLon(jd1),m0=moonLon(jd0),m1=moonLon(jd1);
+    const out={weekday:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][(J+1)%7],
+      greg:cal==="J"?gregOf(J):null,moon:moonAt(J),sunNoon:{sign:signOf(sunLon(J)),...degIn(sunLon(J))}};
+    if(signOf(s0)!==signOf(s1))out.sunIngress={from:signOf(s0),to:signOf(s1),utc:hhmm(crossing(sunLon,jd0,jd1,Math.ceil(s0/30)*30))};
+    out.sunSign=signOf(s0)===signOf(s1)?signOf(s0):null;
+    if(signOf(m0)!==signOf(m1))out.moonIngress={from:signOf(m0),to:signOf(m1),utc:hhmm(crossing(moonLon,jd0,jd1,Math.ceil(m0/30)*30))};
+    out.moonSign=signOf(m0)===signOf(m1)?signOf(m0):null;
+    return out;}
+  function at(dt){const jd=jdOfDate(dt||new Date()),s=sunLon(jd),mn=moonLon(jd);
+    return {sun:{sign:signOf(s),...degIn(s)},moonSign:signOf(mn),moonDeg:degIn(mn),moon:moonAt(jd)};}
+  return {jdn,gregOf,sunLon,moonLon,moonAt,day,at,signOf,degIn,jdOfDate,phaseName};
+})();
+/* the Sun's real sign on a dated birthday. Where the year is known, the sign comes
+   from the Sun itself: cusp dates shift by a day from year to year, and Old Style
+   (Julian) dates run 10+ days behind the modern calendar. On a day the Sun changed
+   sign, the sign it held at midday UT is used. Without a year, the usual table. */
+function sunSignOn(y,m,d,cal){const t=zodiac(m,d);if(!t||y==null||y<1000)return t;
+  const s=SKY.day(y,m,d,cal),sign=s.sunSign||s.sunNoon.sign;return ZODIAC.find(z=>z.sign===sign)||t;}
+/* a line for birthdays where the year moves the usual sign boundary */
+function cuspNote(y,m,d){if(!y||y<1000||!m||!d)return null;const s=SKY.day(y,m,d),t=(zodiac(m,d)||{}).sign;
+  if(s.sunIngress)return "Cusp birthday: the Sun entered "+s.sunIngress.to+" at "+s.sunIngress.utc+" UT that day";
+  if(t&&s.sunSign!==t)return "In "+y+" the Sun was in "+s.sunSign+" on "+MONTHS[m-1]+" "+d;
+  return null;}
+function personSign(p){return p.dateStatus==="exact"&&p.era!=="BC"?sunSignOn(p.birthYear,p.month,p.day,p.cal):zodiac(p.month,p.day);}
 /* ---------- enrich ---------- */
 const now=new Date();
 const TODAY_M=now.getMonth()+1, TODAY_D=now.getDate();
 PEOPLE.forEach(p=>{
-  const z=zodiac(p.month,p.day);
+  const z=personSign(p);
   p.zsign=z?z.sign:null; p.zsym=z?z.sym:null;
   p.zElement=p.zsign?ZMETA[p.zsign].element:null;
   p.primaryCategory=p.category;
@@ -7645,7 +7715,7 @@ function renderDiscover(view){
   requestAnimationFrame(()=>setTimeout(step,0));
 }
 function todaySignCard(){
-  const z=zodiac(TODAY_M,TODAY_D);
+  const z=ZODIAC.find(x=>x.sign===SKY.at().sun.sign)||zodiac(TODAY_M,TODAY_D);
   const card=el("div",{class:"spot-card click"});
   if(z){const m=ZMETA[z.sign];
     card.appendChild(el("div",{class:"lab",text:"The sky today · "+m.element}));
@@ -7722,7 +7792,10 @@ function birthdayTriviaSection(){
 function isLeap(y){return (y%4===0&&y%100!==0)||y%400===0;}
 const _DOY=[0,31,59,90,120,151,181,212,243,273,304,334];
 function dayOfYear(m,d,y){let n=_DOY[m-1]+d;if(y&&isLeap(y)&&m>2)n++;return n;}
-function seasonOf(m,d){const k=m*100+d;
+/* astronomical seasons (Northern Hemisphere): with a year, from the Sun's real position
+   at the equinoxes and solstices, which drift by a day or so; without one, typical dates */
+function seasonOf(m,d,y){if(y&&y>=1000){const l=SKY.sunLon(SKY.jdn(y,m,d));return ["Spring","Summer","Autumn","Winter"][Math.floor(l/90)%4];}
+  const k=m*100+d;
   if(k>=320&&k<=620)return "Spring";if(k>=621&&k<=922)return "Summer";if(k>=923&&k<=1220)return "Autumn";return "Winter";}
 function seasonIcon(s){return s==="Spring"?"\u{1F33F}":s==="Summer"?"☀️":s==="Autumn"?"\u{1F342}":"❄️";}
 const _CZ=["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
@@ -7883,10 +7956,10 @@ function buildBirthdayTool(){
   function reveal(m,d,y){
     STORE.set("bday",{m,d,y:y||null});
     if(window._syncPortalGlyph)window._syncPortalGlyph();
-    const z=zodiac(m,d);if(!z){result.innerHTML="";return;}
+    const z=sunSignOn(y,m,d);if(!z){result.innerHTML="";return;}
     const meta=ZMETA[z.sign];const ppl=signPeople(z.sign);const bm=BIRTH_MONTH[m];
     const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
-    const season=seasonOf(m,d);
+    const season=seasonOf(m,d,y);
     result.innerHTML="";
     const grid=el("div",{class:"btr-grid"});
     /* LEFT — sign card with animated constellation */
@@ -7895,6 +7968,7 @@ function buildBirthdayTool(){
     sc.appendChild(miniConstellation(z.sign,200));
     sc.appendChild(el("h3",{class:"btr-sc-name",text:z.sign}));
     sc.appendChild(el("div",{class:"btr-sc-range",text:meta.range}));
+    const cn=cuspNote(y,m,d);if(cn)sc.appendChild(el("div",{class:"btr-sc-cusp",text:cn}));
     sc.appendChild(el("div",{class:"btr-sc-el",html:"<b>"+meta.element+"</b> · "+meta.modality+" · ruled by "+meta.planet}));
     const traits=el("div",{class:"btr-traits"});meta.traits.split(" · ").forEach(t=>traits.appendChild(el("span",{class:"btr-trait",text:t})));
     sc.appendChild(traits);
@@ -7905,7 +7979,7 @@ function buildBirthdayTool(){
     facts.appendChild(fact("Birthstone",bm.stone,"\u{1F48E}",()=>openInfoModal({icon:"\u{1F48E}",kicker:MONTHS[m-1]+" birthstone",title:bm.stone,body:STONE_INFO[bm.stone]||"The traditional birthstone for "+MONTHS[m-1]+"."})));
     facts.appendChild(fact("Birth flower",bm.flower,"\u{1F33C}",()=>openInfoModal({icon:"\u{1F33C}",kicker:MONTHS[m-1]+" birth flower",title:bm.flower,body:FLOWER_INFO[bm.flower]||"The traditional birth flower for "+MONTHS[m-1]+"."})));
     facts.appendChild(fact("Day of year",doy+" / "+total,"\u{1F4C5}",()=>openInfoModal({icon:"\u{1F4C5}",kicker:"Day of the year",title:"Day "+doy+" of "+total,body:MONTHS[m-1]+" "+d+" is the "+ordinal(doy)+" day of the year"+(y?" "+y:"")+". "+twins.length+" influential "+(twins.length===1?"person was":"people were")+" born on this day in the almanac.",actions:[{label:"See who's born on "+MONTHS[m-1]+" "+d+" →",primary:true,onClick:()=>{closeModal();const tw=HISTORICAL.filter(p=>p.month===m&&p.day===d);openDay(m,d,tw);}}]})));
-    facts.appendChild(fact("Season",season,seasonIcon(season),()=>openInfoModal({icon:seasonIcon(season),kicker:"Your season",title:season,body:SEASON_INFO[season]||"",actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
+    facts.appendChild(fact("Season",season,seasonIcon(season),()=>openInfoModal({icon:seasonIcon(season),kicker:"Your season · Northern Hemisphere",title:season,body:SEASON_INFO[season]||"",actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
     facts.appendChild(fact("Famous twins",twins.length+" found","⭐",()=>{if(twins.length)openDay(m,d,twins);else openInfoModal({icon:"⭐",kicker:"Birthday twins",title:"No exact twin yet",body:"No one in the almanac currently shares "+MONTHS[m-1]+" "+d+" — but you can still meet famous "+signPlural(z.sign)+".",actions:[{label:"Meet famous "+signPlural(z.sign)+" →",primary:true,onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]});}));
     if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y,m,d),chineseZodiacIcon(y,m,d),()=>openInfoModal({icon:chineseZodiacIcon(y,m,d),kicker:"Chinese zodiac · "+MONTHS[m-1]+" "+d+", "+y,title:"Year of the "+chineseZodiac(y,m,d),body:chineseZodiacNote(y,m,d)})));
     else facts.appendChild(fact("Ruling planet",meta.planet,"\u{1FA90}",()=>openInfoModal({icon:"\u{1FA90}",kicker:z.sign+"'s ruler",title:meta.planet,body:PLANET_INFO[meta.planet]||(meta.planet+" rules "+z.sign+"."),actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
@@ -7928,7 +8002,7 @@ function buildBirthdayTool(){
     result.appendChild(acts);
   }
   btn.addEventListener("click",()=>{
-    const m=+mSel.value,d=+dSel.value,y=+ySel.value||null;const z=zodiac(m,d);
+    const m=+mSel.value,d=+dSel.value,y=+ySel.value||null;const z=sunSignOn(y,m,d);
     const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
     if(reduce||!z){reveal(m,d,y);return;}
     btn.classList.add("orbing");setTimeout(()=>btn.classList.remove("orbing"),650);
@@ -8034,7 +8108,7 @@ function renderPortal(view){
     view.appendChild(buildBirthdayTool());
     return;
   }
-  const m=saved.m,d=saved.d,y=saved.y||null,z=zodiac(m,d);
+  const m=saved.m,d=saved.d,y=saved.y||null,z=sunSignOn(y,m,d);
   if(!z){view.appendChild(head);view.appendChild(buildBirthdayTool());return;}
   const meta=ZMETA[z.sign],ppl=signPeople(z.sign),bm=BIRTH_MONTH[m];
   const twins=HISTORICAL.filter(p=>p.month===m&&p.day===d).sort((a,b)=>rankScore(b)-rankScore(a));
@@ -8067,7 +8141,7 @@ function renderPortal(view){
   const tile=(ic,lab,val)=>el("div",{class:"ptile"},[el("div",{class:"pt-ic",text:ic}),el("div",{class:"pt-lab",text:lab}),el("div",{class:"pt-val",text:val})]);
   dg.appendChild(tile("\u{1F48E}","Birthstone",bm.stone));
   dg.appendChild(tile("\u{1F33C}","Birth flower",bm.flower));
-  dg.appendChild(tile(seasonIcon(seasonOf(m,d)),"Season",seasonOf(m,d)));
+  dg.appendChild(tile(seasonIcon(seasonOf(m,d,y)),"Season",seasonOf(m,d,y)));
   dg.appendChild(tile("\u{1FA90}","Ruling planet",meta.planet));
   if(y)dg.appendChild(tile(chineseZodiacIcon(y,m,d),"Chinese zodiac",chineseZodiac(y,m,d)));
   dt.appendChild(dg);view.appendChild(dt);
@@ -8112,63 +8186,6 @@ function renderPortal(view){
    DAILY BRIEFING — a dedicated, stable "today" view
    ============================================================ */
 function triviaOfDay(){const i=(dayOfYear(TODAY_M,TODAY_D)||1)%TRIVIA.length;return TRIVIA[i];}
-/* ============================================================
-   SKY ENGINE — real astronomy for any date (Meeus, "Astronomical Algorithms")
-   Calendar-aware: dates flagged cal:"J" are read in the Julian calendar.
-   Accuracy: Sun ~0.01°, Moon ~0.3°, illumination ~1% — ample for day-level facts.
-   ============================================================ */
-const SKY=(function(){
-  const RAD=Math.PI/180,norm=a=>((a%360)+360)%360,sin=a=>Math.sin(a*RAD),cos=a=>Math.cos(a*RAD);
-  function jdn(y,m,d,cal){const a=Math.floor((14-m)/12),Y=y+4800-a,M=m+12*a-3;
-    return d+Math.floor((153*M+2)/5)+365*Y+Math.floor(Y/4)+(cal==="J"?-32083:-Math.floor(Y/100)+Math.floor(Y/400)-32045);}
-  function gregOf(J){const a=J+32044,b=Math.floor((4*a+3)/146097),c=a-Math.floor(146097*b/4),
-    d=Math.floor((4*c+3)/1461),e=c-Math.floor(1461*d/4),m=Math.floor((5*e+2)/153);
-    return {y:100*b+d-4800+Math.floor(m/10),m:m+3-12*Math.floor(m/10),d:e-Math.floor((153*m+2)/5)+1};}
-  const jdOfDate=dt=>dt.getTime()/86400000+2440587.5;
-  function sunLon(jd){const T=(jd-2451545)/36525,L0=280.46646+36000.76983*T+0.0003032*T*T,
-    M=357.52911+35999.05029*T-0.0001537*T*T,
-    C=(1.914602-0.004817*T-0.000014*T*T)*sin(M)+(0.019993-0.000101*T)*sin(2*M)+0.000289*sin(3*M),
-    Om=125.04-1934.136*T;return norm(L0+C-0.00569-0.00478*sin(Om));}
-  const MT=[[0,0,1,0,6288774],[2,0,-1,0,1274027],[2,0,0,0,658314],[0,0,2,0,213618],[0,1,0,0,-185116],[0,0,0,2,-114332],
-    [2,0,-2,0,58793],[2,-1,-1,0,57066],[2,0,1,0,53322],[2,-1,0,0,45758],[0,1,-1,0,-40923],[1,0,0,0,-34720],[0,1,1,0,-30383],
-    [2,0,0,-2,15327],[0,0,1,2,-12528],[0,0,1,-2,10980],[4,0,-1,0,10675],[0,0,3,0,10034],[4,0,-2,0,8548],[2,1,-1,0,-7888],
-    [2,1,0,0,-6766],[1,0,-1,0,-5163],[1,1,0,0,4987],[2,-1,1,0,4036],[2,0,3,0,3994],[4,0,0,0,3861],[2,0,-3,0,3665],
-    [0,1,-2,0,-2689],[2,0,-1,2,-2602],[2,-1,-2,0,2390],[1,0,1,0,-2348],[2,-2,0,0,2236],[0,1,2,0,-2120],[0,2,0,0,-2069]];
-  function moonLon(jd){const T=(jd-2451545)/36525,
-    Lp=218.3164477+481267.88123421*T-0.0015786*T*T+T*T*T/538841,
-    D=297.8501921+445267.1114034*T-0.0018819*T*T+T*T*T/545868,
-    M=357.5291092+35999.0502909*T-0.0001536*T*T,
-    Mp=134.9633964+477198.8675055*T+0.0087414*T*T+T*T*T/69699,
-    F=93.272095+483202.0175233*T-0.0036539*T*T,E=1-0.002516*T-0.0000074*T*T;
-    let s=0;for(const [d,m,mp,f,c] of MT){const e=Math.abs(m)===1?E:Math.abs(m)===2?E*E:1;s+=c*e*sin(d*D+m*M+mp*Mp+f*F);}
-    const A1=119.75+131.849*T,A2=53.09+479264.29*T;
-    s+=3958*sin(A1)+1962*sin(Lp-F)+318*sin(A2);
-    return norm(Lp+s/1e6);}
-  const SIGNS=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
-  const signOf=l=>SIGNS[Math.floor(norm(l)/30)];
-  const degIn=l=>{const x=norm(l)%30;const d=Math.floor(x);return {d,m:Math.floor((x-d)*60)};};
-  const PHASES=[[0.0339,"New Moon"],[0.216,"Waxing Crescent"],[0.284,"First Quarter"],[0.466,"Waxing Gibbous"],
-    [0.534,"Full Moon"],[0.716,"Waning Gibbous"],[0.784,"Last Quarter"],[0.966,"Waning Crescent"],[1.01,"New Moon"]];
-  const phaseName=p=>PHASES.find(x=>p<x[0])[1];
-  function moonAt(jd){const e=norm(moonLon(jd)-sunLon(jd)),p=e/360;
-    return {phase:p,illum:(1-cos(e))/2,name:phaseName(p),lon:moonLon(jd)};}
-  function crossing(fn,jd0,jd1,b){let a=jd0,c=jd1;const base=fn(jd0),un=x=>{const v=fn(x);return v<base-180?v+360:v;};
-    for(let i=0;i<40;i++){const mid=(a+c)/2;if(un(mid)<b)a=mid;else c=mid;}return (a+c)/2;}
-  const hhmm=jd=>{const f=((jd+0.5)%1+1)%1;const mins=Math.round(f*1440)%1440;return String(Math.floor(mins/60)).padStart(2,"0")+":"+String(mins%60).padStart(2,"0");};
-  function day(y,m,d,cal){
-    const J=jdn(y,m,d,cal),jd0=J-0.5,jd1=J+0.5;
-    const s0=sunLon(jd0),s1=sunLon(jd1),m0=moonLon(jd0),m1=moonLon(jd1);
-    const out={weekday:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][(J+1)%7],
-      greg:cal==="J"?gregOf(J):null,moon:moonAt(J),sunNoon:{sign:signOf(sunLon(J)),...degIn(sunLon(J))}};
-    if(signOf(s0)!==signOf(s1))out.sunIngress={from:signOf(s0),to:signOf(s1),utc:hhmm(crossing(sunLon,jd0,jd1,Math.ceil(s0/30)*30))};
-    out.sunSign=signOf(s0)===signOf(s1)?signOf(s0):null;
-    if(signOf(m0)!==signOf(m1))out.moonIngress={from:signOf(m0),to:signOf(m1),utc:hhmm(crossing(moonLon,jd0,jd1,Math.ceil(m0/30)*30))};
-    out.moonSign=signOf(m0)===signOf(m1)?signOf(m0):null;
-    return out;}
-  function at(dt){const jd=jdOfDate(dt||new Date()),s=sunLon(jd),mn=moonLon(jd);
-    return {sun:{sign:signOf(s),...degIn(s)},moonSign:signOf(mn),moonDeg:degIn(mn),moon:moonAt(jd)};}
-  return {jdn,gregOf,sunLon,moonLon,moonAt,day,at,signOf,degIn,jdOfDate,phaseName};
-})();
 /* tonight's moon — the Moon's true elongation from the Sun, drawn with a real terminator */
 function moonPhase(date){return SKY.moonAt(SKY.jdOfDate(date)).phase;}   // 0=new, .5=full
 /* ============================================================
@@ -8873,8 +8890,9 @@ function skyPanel(y,m,d,cal,tableSign,title,opt){
   box.appendChild(g);
   const notes=[];
   if(s.greg)notes.push("This date is recorded in the Julian (Old Style) calendar. On today's Gregorian calendar, that day was "+MONTHS[s.greg.m-1]+" "+s.greg.d+", "+s.greg.y+".");
-  if(s.sunIngress)notes.push("A cusp birthday: the Sun moved from "+s.sunIngress.from+" into "+s.sunIngress.to+" at "+s.sunIngress.utc+" UT that day, so which sign it really was depends on the hour of birth.");
-  else if(tableSign&&s.sunSign&&tableSign!==s.sunSign)notes.push("Horoscope tables list this date under "+tableSign+", but on this day in "+y+" the Sun was actually in "+s.sunSign+".");
+  const tbl=(zodiac(m,d)||{}).sign;
+  if(s.sunIngress)notes.push("A cusp birthday: the Sun moved from "+s.sunIngress.from+" into "+s.sunIngress.to+" at "+s.sunIngress.utc+" UT that day, so which sign it really was depends on the hour of birth. The almanac goes by the Sun at midday UT: "+s.sunNoon.sign+".");
+  else if(tbl&&s.sunSign&&tbl!==s.sunSign)notes.push("Horoscope tables list "+MONTHS[m-1]+" "+d+" under "+tbl+", but "+(s.greg?"this Old Style date fell on "+MONTHS[s.greg.m-1]+" "+s.greg.d+" in today's calendar, and the Sun":"on this day in "+y+" the Sun")+" was in "+s.sunSign+", so "+s.sunSign+" is the sign shown here.");
   if(!s.moonSign)notes.push("The Moon changes sign about every two and a half days. It moved into "+s.moonIngress.to+" during this day, so the Moon sign also depends on the hour of birth.");
   notes.forEach(n=>box.appendChild(el("p",{class:"sky-note",text:n})));
   box.appendChild(el("button",{class:"btn btn-gold sky-see",onClick:()=>openBirthSky({y,m,d,cal,...(opt||{})})},[document.createTextNode("✦  See the sky that night")]));
@@ -9105,7 +9123,7 @@ function renderToday(view){
   view.innerHTML="";if(_clock){clearInterval(_clock);_clock=0;}
   const off=state.tOff||0,dt=briefDate(off),m=dt.getMonth()+1,d=dt.getDate(),y=dt.getFullYear(),isToday=off===0;
   const wd=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dt.getDay()];
-  const born=bornOn(m,d),died=diedOn(m,d),sky=SKY.day(y,m,d),z=zodiac(m,d);
+  const born=bornOn(m,d),died=diedOn(m,d),sky=SKY.day(y,m,d),z=sunSignOn(y,m,d);
   /* ---------- hero ---------- */
   const hero=el("section",{class:"td-hero"});hero.appendChild(starLayer("star-layer",28));
   const ht=el("div",{class:"td-t"});
@@ -9602,7 +9620,7 @@ function compatBlurb(a,b){
 /* saved sign: explicit choice first, else derived from the saved birthday */
 function savedHSign(){
   const s=STORE.get("hsign",null);if(s&&ZMETA[s])return s;
-  const b=STORE.get("bday",null);if(b&&b.m){const z=zodiac(b.m,b.d);if(z)return z.sign;}
+  const b=STORE.get("bday",null);if(b&&b.m){const z=sunSignOn(b.y||null,b.m,b.d);if(z)return z.sign;}
   return null;
 }
 
@@ -12360,7 +12378,7 @@ function validate(list){
     if(p.month&&p.day&&p.day>DIM[p.month-1])groups["Date validity"].push(["er","Day "+p.day+" out of range for "+MONTHS[p.month-1]+": "+id]);
     if(!["exact","estimated","unknown"].includes(p.dateStatus))groups["Date validity"].push(["er","Invalid dateStatus: "+id]);
     if(!["high","medium","low",null,undefined].includes(p.confidence))groups["Date validity"].push(["wn","Unusual confidence ("+p.confidence+"): "+id]);
-    if(p.dateStatus!=="unknown"&&p.month&&p.day){const z=zodiac(p.month,p.day);
+    if(p.dateStatus!=="unknown"&&p.month&&p.day){const z=personSign(p);
       if(p.zodiac&&z&&z.sign!==p.zodiac)groups["Zodiac accuracy"].push(["wn","Zodiac mismatch ("+p.zodiac+" vs "+z.sign+"): "+id]);}
     if(!p.bio&&!p.isPersonal&&p.dateStatus==="exact")groups.Completeness.push(["wn","Missing bio: "+id]);
     if(!p.shortDescription)groups.Completeness.push(["wn","Missing short description: "+id]);
@@ -12702,7 +12720,7 @@ document.getElementById("brandBtn").onclick=()=>setView("discover");
 /* My Birthday Portal entry point — glyph reflects the saved sign */
 (function(){const pb=document.getElementById("portalBtn");if(!pb)return;
   function sync(){try{const s=STORE.get("bday",null);const g=document.getElementById("portalGlyph");
-    if(s&&s.m){const z=zodiac(s.m,s.d);if(z&&g){g.textContent=z.sym;pb.setAttribute("title","My Birthday Portal · "+z.sign);}}}catch(e){}}
+    if(s&&s.m){const z=sunSignOn(s.y||null,s.m,s.d);if(z&&g){g.textContent=z.sym;pb.setAttribute("title","My Birthday Portal · "+z.sign);}}}catch(e){}}
   pb.addEventListener("click",()=>setView("portal"));
   window._syncPortalGlyph=sync;sync();
 })();
