@@ -7727,8 +7727,19 @@ function seasonOf(m,d){const k=m*100+d;
 function seasonIcon(s){return s==="Spring"?"\u{1F33F}":s==="Summer"?"☀️":s==="Autumn"?"\u{1F342}":"❄️";}
 const _CZ=["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
 const _CZE=["\u{1F400}","\u{1F402}","\u{1F405}","\u{1F407}","\u{1F409}","\u{1F40D}","\u{1F40E}","\u{1F410}","\u{1F412}","\u{1F413}","\u{1F415}","\u{1F416}"];
-function chineseZodiac(y){return _CZ[((y-4)%12+12)%12];}
-function chineseZodiacIcon(y){return _CZE[((y-4)%12+12)%12];}
+/* Lunar New Year dates 1900–2099, one character per year: days after January 21 ("0" = Jan 21) */
+const _CNY=":MB8J>4G<1D9L@5H=2E;NB7J?3G<2D9K@5H>3E:MB6I?4G<1D8K@6H=3F:LB7I?4G<0C9K@6I=2E:LA7J?4G<NC8K@6I>2D:MA7J?3F;1C8LA5H=2D:MB7J?4F;1D8K@5G=2E:MB7I>3F;1D9K@5H<2E;MB7I>3F<0C8K?5H=2E:MA6I?3F<1C8K@5H=3D9LA6I?4F;0";
+function lunarNewYear(y){const i=y-1900;if(i<0||i>=_CNY.length)return null;const o=_CNY.charCodeAt(i)-48;return o>10?[2,o-10]:[1,21+o];}
+/* the animal year changes at Lunar New Year, not on January 1 */
+function chineseYear(y,m,d){const n=lunarNewYear(y);return (n&&m&&d&&(m<n[0]||(m===n[0]&&d<n[1])))?y-1:y;}
+function chineseZodiac(y,m,d){return _CZ[((chineseYear(y,m,d)-4)%12+12)%12];}
+function chineseZodiacIcon(y,m,d){return _CZE[((chineseYear(y,m,d)-4)%12+12)%12];}
+function chineseZodiacNote(y,m,d){const n=lunarNewYear(y),a=chineseZodiac(y,m,d);
+  if(!n)return "In the Chinese zodiac, "+y+" is mostly a Year of the "+a+". The animal changes at Lunar New Year, in late January or February.";
+  const ny=MONTHS[n[0]-1]+" "+n[1]+", "+y,born=MONTHS[m-1]+" "+d+", "+y;
+  if(chineseYear(y,m,d)<y){const p=lunarNewYear(y-1);
+    return "Lunar New Year "+y+" fell on "+ny+". Born on "+born+", before it, you belong to the Year of the "+a+", the lunar year that began on "+(p?MONTHS[p[0]-1]+" "+p[1]+", "+(y-1):"Lunar New Year "+(y-1))+". The Year of the "+chineseZodiac(y,12,31)+" started on "+ny+".";}
+  return "Lunar New Year "+y+" fell on "+ny+". Born on "+born+(m===n[0]&&d===n[1]?", the very first day of the new year":", after it")+", you belong to the Year of the "+a+".";}
 function hexToRgb(h){h=h.replace('#','');const n=parseInt(h,16);return (n>>16&255)+","+(n>>8&255)+","+(n&255);}
 const ELEMENT_GLOW={Fire:"#E0865A",Earth:"#9FB060",Air:"#7FB5E0",Water:"#7E9CE0"};
 /* lore for the six birthday facts — opened from the reveal tiles */
@@ -7896,7 +7907,7 @@ function buildBirthdayTool(){
     facts.appendChild(fact("Day of year",doy+" / "+total,"\u{1F4C5}",()=>openInfoModal({icon:"\u{1F4C5}",kicker:"Day of the year",title:"Day "+doy+" of "+total,body:MONTHS[m-1]+" "+d+" is the "+ordinal(doy)+" day of the year"+(y?" "+y:"")+". "+twins.length+" influential "+(twins.length===1?"person was":"people were")+" born on this day in the almanac.",actions:[{label:"See who's born on "+MONTHS[m-1]+" "+d+" →",primary:true,onClick:()=>{closeModal();const tw=HISTORICAL.filter(p=>p.month===m&&p.day===d);openDay(m,d,tw);}}]})));
     facts.appendChild(fact("Season",season,seasonIcon(season),()=>openInfoModal({icon:seasonIcon(season),kicker:"Your season",title:season,body:SEASON_INFO[season]||"",actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
     facts.appendChild(fact("Famous twins",twins.length+" found","⭐",()=>{if(twins.length)openDay(m,d,twins);else openInfoModal({icon:"⭐",kicker:"Birthday twins",title:"No exact twin yet",body:"No one in the almanac currently shares "+MONTHS[m-1]+" "+d+" — but you can still meet famous "+signPlural(z.sign)+".",actions:[{label:"Meet famous "+signPlural(z.sign)+" →",primary:true,onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]});}));
-    if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y),chineseZodiacIcon(y),()=>openInfoModal({icon:chineseZodiacIcon(y),kicker:"Chinese zodiac · "+y,title:"Year of the "+chineseZodiac(y),body:"In the Chinese zodiac, "+y+" is a Year of the "+chineseZodiac(y)+". The twelve animals cycle every twelve years; this is an approximation by Gregorian year (the lunar new year falls in late January or February)."})));
+    if(y)facts.appendChild(fact("Chinese zodiac",chineseZodiac(y,m,d),chineseZodiacIcon(y,m,d),()=>openInfoModal({icon:chineseZodiacIcon(y,m,d),kicker:"Chinese zodiac · "+MONTHS[m-1]+" "+d+", "+y,title:"Year of the "+chineseZodiac(y,m,d),body:chineseZodiacNote(y,m,d)})));
     else facts.appendChild(fact("Ruling planet",meta.planet,"\u{1FA90}",()=>openInfoModal({icon:"\u{1FA90}",kicker:z.sign+"'s ruler",title:meta.planet,body:PLANET_INFO[meta.planet]||(meta.planet+" rules "+z.sign+"."),actions:[{label:"Explore "+signPlural(z.sign)+" →",onClick:()=>{closeModal();state.zSign=z.sign;setView("zodiac");}}]})));
     grid.appendChild(facts);
     result.appendChild(grid);
@@ -8058,7 +8069,7 @@ function renderPortal(view){
   dg.appendChild(tile("\u{1F33C}","Birth flower",bm.flower));
   dg.appendChild(tile(seasonIcon(seasonOf(m,d)),"Season",seasonOf(m,d)));
   dg.appendChild(tile("\u{1FA90}","Ruling planet",meta.planet));
-  if(y)dg.appendChild(tile(chineseZodiacIcon(y),"Chinese zodiac",chineseZodiac(y)));
+  if(y)dg.appendChild(tile(chineseZodiacIcon(y,m,d),"Chinese zodiac",chineseZodiac(y,m,d)));
   dt.appendChild(dg);view.appendChild(dt);
 
   /* the real sky on the day you were born, and the world you were born into */
